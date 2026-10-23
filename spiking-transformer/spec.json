@@ -1,0 +1,238 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "Spiking Transformer・大規模化",
+  "date": "2026-10-23",
+  "summary": "SNN を Transformer/LLM 規模へ拡張する系譜。深い残差 SNN（SEW-ResNet）を足場に Spikformer がスパイク自己注意を導入し、Spike-driven Transformer v1→v3 が加算のみの計算と大規模化を追求。\n言語側は SpikeGPT（RWKV）・SpikingSSM から、SpikeLLM、SpikingBrain 1.0/2.0（線形・疎注意＋整数→スパイク符号化）へ。2026 年にはスケーリング則の検証も始まった。",
+  "papers": [
+    {
+      "title": "Deep Residual Learning in Spiking Neural Networks",
+      "short": "SEW-ResNet (Fang+ 2021)",
+      "authors": "Wei Fang, Zhaofei Yu, Yanqi Chen ほか（北京大学）｜ NeurIPS 2021",
+      "year": 2021,
+      "venue": "NeurIPS 2021",
+      "link": "https://arxiv.org/abs/2102.04159",
+      "lineage": "原典",
+      "s1": "Spiking ResNet の残差ブロックを、スパイク同士を要素ごとの関数 g（ADD/AND/IAND）で結ぶ SEW ブロックに置き換え、直接学習で 100 層超（SEW-ResNet-152）の SNN を初めて実現。深くするほど精度が上がることを示した。",
+      "s2": "従来の Spiking ResNet（tdBN など）は ReLU を SN に置き換えただけで、LIF 等では恒等写像が作れず勾配消失/爆発が起き、深くすると劣化（152 層で ImageNet 10.03%）。SEW は任意のニューロンモデルで恒等写像を実現する。",
+      "s3": "残差を SN の後で合流：O[t]=g(SN(F(S[t])), S[t])。最後の BN を 0 初期化すれば A≡0 となり ADD/IAND は恒等写像に、ブロック間の勾配は定数 1 に保たれる（Eq. 11）。ただし ADD では出力が整数スパイクになる。",
+      "s4": "ImageNet（T=4, IF）で SEW-ResNet-18/34/50/101/152 = 63.18/67.04/67.78/68.76/69.26%、同構造の Spiking ResNet は 152 層で 10.03%（Table 2）。DVS Gesture 97.92%（0.13M, T=16, Table 5）、CIFAR10-DVS 74.4%（Table 6）。",
+      "s5": "著者：AND は深層で発火が消える silence 問題があり IAND で緩和、精度は ADD が最良（Table 4）。ANN2SNN に精度で劣るが T は 64〜87 倍少ない。\n所感：ADD の整数出力は“スパイク駆動”を崩し、後に SDT が膜電位ショートカットで批判する論点となった。",
+      "s6": "・Spikformer (2022)（本資料）\n・MS-ResNet: Advancing SNNs towards Deep Residual Learning (2021)（未調査）\n・Spike-driven Transformer (2023)（本資料）",
+      "figure": {
+        "file": "figures/01_sew_resnet.png",
+        "caption": "出典：SEW-ResNet Fig. 1（ResNet・Spiking ResNet・SEW の残差ブロック比較）"
+      },
+      "notes": "arXiv v6（NeurIPS 2021 版）を本文・付録の主要部まで通読。Table 2〜6、Fig. 3〜9 を確認。"
+    },
+    {
+      "title": "Spikformer: When Spiking Neural Network Meets Transformer",
+      "short": "Spikformer (Zhou+ 2022)",
+      "authors": "Zhaokun Zhou, Yuesheng Zhu, Chao He ほか（北京大学・鵬城実験室）｜ ICLR 2023",
+      "year": 2022,
+      "venue": "ICLR 2023",
+      "link": "https://arxiv.org/abs/2209.15425",
+      "lineage": "原典",
+      "parent": "SEW-ResNet",
+      "s1": "Q・K・V をスパイク（0/1）化し softmax を除いた Spiking Self Attention（SSA）を提案し、初の直接学習 Spiking Transformer「Spikformer」を構築。ImageNet で 74.81%（66.3M, T=4）と当時の直接学習 SNN 最高を達成した。",
+      "s2": "SNN は ResNet 型（SEW-ResNet-152: 69.26%）止まりで、既存の“Spiking Transformer”は ANN の自己注意をそのまま使い、浮動小数の積と softmax が SNN の加算主体の計算規則に反していた。SSA は乗算を避けて注意を実現。",
+      "s3": "Q,K,V=SN(BN(XW)) で 2 値化し SSA=SN(QKᵀV·s)。注意マップが非負なので softmax 不要で、積は AND と加算に退化する。softmax がないため KᵀV を先に計算すれば O(Nd²) にできる。パッチ化は畳み込み SPS、LN の代わりに BN。",
+      "s4": "ImageNet：Spikformer-8-384 が 16.81M で 70.24%（SEW-ResNet-152 60.19M の 69.26% を上回る）、8-768 で 74.81%（Table 2）。CIFAR10/100 95.51/78.21%、DVS128 98.3%、CIFAR10-DVS 80.9%（Table 3, 4）。SSA は演算量を大幅削減（Table 1）。",
+      "s5": "著者：同構造の ANN-ViT とは 7.42% 差だが推定エネルギーは 1/3.31。I/ReLU 型注意は値が大きく収束しない（Table 5）。\n所感：残差は SEW 型の整数加算、スケール s は乗算で、完全なスパイク駆動ではない。エネルギーも理論推定のみ。",
+      "s6": "・Spike-driven Transformer (2023)（本資料）\n・Spikformer V2 (2024)（未調査）\n・SpikeBERT (2023)（未調査）\n・QKFormer (2024)（未調査）",
+      "figure": {
+        "file": "figures/02_spikformer.png",
+        "caption": "出典：Spikformer Fig. 2（SPS・エンコーダブロック・SSA の全体構成）"
+      },
+      "notes": "arXiv v2 を通読（付録の SOP 計算は概略のみ）。採録先は ICLR 2023（ICLR 公式ページで確認）。"
+    },
+    {
+      "title": "SpikeGPT: Generative Pre-trained Language Model with Spiking Neural Networks",
+      "short": "SpikeGPT (Zhu+ 2023)",
+      "authors": "Rui-Jie Zhu, Qihang Zhao, Guoqi Li, Jason K. Eshraghian（UC Santa Cruz ほか）｜ TMLR 2024",
+      "year": 2023,
+      "venue": "TMLR 2024",
+      "link": "https://arxiv.org/abs/2302.13939",
+      "lineage": "原典",
+      "parent": "SEW-ResNet",
+      "s1": "RWKV を土台に、2 値スパイク活性で言語生成を行う初の SNN 言語モデル SpikeGPT（46M/216M）を構築。系列次元を SNN の時間次元に重ね、線形計算量で自己回帰学習し、GPT-2 級に迫る生成性能を示した。",
+      "s2": "Spikformer など既存のスパイキング Transformer は画像分類のみで、追加の時間次元が計算量を増やし、系列全体を並列に見る自己注意は再帰的な SNN と相性が悪かった。言語生成に成功した SNN は存在しなかった。",
+      "s3": "自己注意を Spiking RWKV に置換：減衰ベクトル W_d, W_f と状態 A[t], B[t] により要素積だけでトークンを混合し、出力を LIF でスパイク化。FFN は GLU 変種の SRFFN、入力は Binary Embedding、残差は SEW 型。",
+      "s4": "Enwik8：46M（T=3072）で test BPC 1.262（Linear Transformer 1.207、Transformer 1.137、Table 2）。WikiText-2 PPL 18.01（GPT-2 medium 22.76）、WikiText-103 39.75（GPT-2 small 29.41、Table 3）。演算は推定 32.2 倍削減（Table 1）。",
+      "s5": "著者：WikiText-103 では GPT-2 に劣り過学習傾向。216M→430M→1.2B で損失が下がりスケールの兆候（Fig. 3）。\n所感：要素積や ReLU² は非 2 値で、ハード前提は楽観的。スケール検証も 0.9B トークンの学習損失のみ。",
+      "s6": "・SpikingSSMs (2024)（本資料）\n・Compute-Optimal Scaling Laws for Spiking LMs (2026)（本資料）\n・SpikingBERT (2023)（未調査）",
+      "figure": {
+        "file": "figures/03_spikegpt.png",
+        "caption": "出典：SpikeGPT Fig. 1（ブロック構成と Spiking RWKV / Spiking RFFN）"
+      },
+      "notes": "arXiv v5（TMLR 06/2024 版）を通読。付録の RWKV 詳細は概略のみ。"
+    },
+    {
+      "title": "Spike-driven Transformer",
+      "short": "Spike-driven Transformer (Yao+ 2023)",
+      "authors": "Man Yao, Jiakui Hu, Zhaokun Zhou ほか（中国科学院自動化研究所）｜ NeurIPS 2023",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "link": "https://arxiv.org/abs/2307.01694",
+      "lineage": "発展",
+      "parent": "Spikformer",
+      "s1": "自己注意を含む全演算を「マスクと疎な加算」だけで行う Spike-driven Transformer を提案。Spike-Driven Self-Attention（SDSA）と膜電位ショートカットにより、ImageNet 77.1%（66M, 288px 推論）を達成した。",
+      "s2": "Spikformer 等は SN を挿入した“ハイブリッド計算”で、QKᵀV が大きな整数を生みスケール乗算が要り、SEW 残差も整数スパイクを出すためチップ上で加算だけにならない。SDT は全層で 2 値スパイク通信を保証する。",
+      "s3": "SDSA=SN(SUM_c(Q_S⊗K_S))⊗V_S：アダマール積（=マスク）と列和、SN で注意を作る。トークン・チャネルの両方に線形な線形注意の一種で、加算は約 0.02ND 回。残差は SN 前の膜電位同士で結ぶ（MS ショートカット）。",
+      "s4": "ImageNet：8-384 で 72.28%（Spikformer 70.24%）、8-768 で 76.32%、288px 推論で 77.07%、推定 6.09mJ（Spikformer 21.47mJ）（Table 3）。SDSA は VSA 比で最大 87.2 倍低エネルギー（Table 4）。DVS128 99.3%（Table 5）。",
+      "s5": "著者：SDSA 単独では CIFAR で微減（-0.03/-0.34%）し、MS ショートカットが精度を押し上げる（Table 6）。ANN-ViT 比 9.3 倍省エネ。\n所感：2 値の“ハード注意”でチャネルを捨てるため表現力の天井が懸念。エネルギーは理論値。",
+      "s6": "・Spike-driven Transformer V2 (2024)（本資料）\n・MS-ResNet (2021)（未調査）\n・QKFormer (2024)（未調査）",
+      "figure": {
+        "file": "figures/04_sdt.png",
+        "caption": "出典：Spike-driven Transformer Fig. 2（SPS・膜電位ショートカット・SDSA）"
+      },
+      "notes": "arXiv v1 を通読。採録先 NeurIPS 2023 は proceedings.neurips.cc の掲載で確認。"
+    },
+    {
+      "title": "Spike-driven Transformer V2: Meta Spiking Neural Network Architecture Inspiring the Design of Next-generation Neuromorphic Chips",
+      "short": "Meta-SpikeFormer / SDT V2 (Yao+ 2024)",
+      "authors": "Man Yao, Jiakui Hu, Tianxiang Hu ほか（中国科学院自動化研究所）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2404.03663",
+      "lineage": "発展",
+      "parent": "Spike-driven Transformer",
+      "s1": "MetaFormer の考え方を SNN に移し、Conv 型と Transformer 型の SNN ブロックを組み合わせた汎用骨格 Meta-SpikeFormer を提案。直接学習 SNN で初めて ImageNet 80.0%（55M）に到達し、検出・セグメンテーションも 1 つの骨格で扱った。",
+      "s2": "SDT は加算のみを実現したが Conv 型 SNN（MS-ResNet 75.3%）に対する明確な優位がなく、Transformer 型 SNN 向けのチップも存在しない。既存の SNN 骨格は分類以外のタスクへの汎用性を示せていなかった。",
+      "s3": "前 2 段を SepConv＋ChannelConv の Conv 型ブロック、後 2 段をピラミッド構造の Transformer 型ブロックに。SDSA-3=SN_s((Q_S K_Sᵀ)V_S) はスケール s を閾値に吸収して乗算を排除。Q,K,V は RepConv で生成、残差は MS。",
+      "s4": "ImageNet：55.4M で 79.7%（蒸留で T=4 80.0%、T=1 79.1%、Table 1）。COCO mAP@0.5 51.2%（Table 3）、ADE20K mIoU 35.3%（Table 4）、HAR-DVS 47.5%。全 Conv 化 -2.9%、全 Transformer 化 -3.7%、SEW 残差 -1.9%（Table 5）。",
+      "s5": "著者：Conv＋ViT 構成、SDSA、メタ構造が次世代ニューロモルフィックチップ設計の指針になると主張。\n所感：精度の代償に推定電力が 52.4mJ と SDT（6.1mJ）より大幅増。RepConv が電力の約 6 割を占めると後に V3 が指摘。",
+      "s6": "・Scaling Spike-driven Transformer (E-SpikeFormer, 2024)（本資料）\n・MetaFormer / CAFormer (2022)（未調査）\n・QKFormer (2024)（未調査）",
+      "figure": {
+        "file": "figures/05_sdt_v2.png",
+        "caption": "出典：Spike-driven Transformer V2 Fig. 2（Meta-SpikeFormer の 4 段構成とブロック詳細）"
+      },
+      "notes": "arXiv v1（ICLR 2024 版）を本文通読、付録 A（SDSA 演算子）は概略。"
+    },
+    {
+      "title": "SpikeLLM: Scaling up Spiking Neural Network to Large Language Models via Saliency-based Spiking",
+      "short": "SpikeLLM (Xing+ 2024)",
+      "authors": "Xingrun Xing, Boyan Gao, Zheng Liu ほか（中国科学院自動化研究所・BAAI）｜ ICLR 2025",
+      "year": 2024,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2407.04752",
+      "lineage": "発展",
+      "parent": "SpikeGPT",
+      "s1": "7〜70B の LLaMA にスパイク機構を導入した初の“スパイキング LLM”。複数ステップを低ビット量子化にまとめる GIF ニューロンと、重要チャネルにだけ多ステップ発火を割り当てる OBSpiking で、同等演算量の量子化 LLM を上回った。",
+      "s2": "SNN 言語モデルは SpikeGPT・SpikeLM 等 1B 未満に留まり、発火率符号化は T 段階の表現に T ステップを要し非効率、BPTT や ANN-SNN 変換も LLM 規模では非現実的。量子化 LLM は外れ値・重要チャネルで誤差が大きい。",
+      "s3": "GIF は L ステップを 1 ステップ log₂L ビットに統合し、符号長を T から (T/L)·log₂L に圧縮。OBSpiking は活性に 1 次（X∘WᵀWX）、重みに 2 次（Hessian）の saliency を用い、上位チャネルだけ T′ ステップで符号化する。",
+      "s4": "OmniQuant 系 W4A4：LLaMA-1-7B で常識推論平均 49.93→52.48%、WikiText2 PPL 11.01% 減（Table 1, 3）。LLaMA-2-70B W2A16 で 53.31→60.38%。QuaRot 併用でも +1.0〜1.2%（Table 4）。三値 GIF の全加算版は PB-LLM 超え（Table 6）。",
+      "s5": "著者：ANN LLM との性能差が主な限界で、校正は 128 サンプルのみ（7B で 3.5 GPU 時間）。継続事前学習で改善し得る。\n所感：実体は“量子化の一般化”で時間ダイナミクスはほぼ使わない。1 ビット展開すると演算は GEMM 版より増える（Table 5）。",
+      "s6": "・SpikingBrain (2025)（本資料）\n・SpikeLM (2024)（未調査）\n・Spike-driven Large Language Model (SDLLM, 2026)（未調査）",
+      "figure": {
+        "file": "figures/06_spikellm.png",
+        "caption": "出典：SpikeLLM Fig. 1（スパイク符号化・量子化・混合精度・spike-driven 量子化の比較）"
+      },
+      "notes": "arXiv v3（ICLR 2025 版）本文を通読。付録 A.2〜A.5 の学習設定は概略。"
+    },
+    {
+      "title": "SpikingSSMs: Learning Long Sequences with Sparse and Parallel Spiking State Space Models",
+      "short": "SpikingSSMs (Shen+ 2024)",
+      "authors": "Shuaijie Shen, Chao Wang, Renzhuo Huang ほか（南方科技大学・Huawei ACS Lab）｜ AAAI 2025",
+      "year": 2024,
+      "venue": "AAAI 2025",
+      "link": "https://arxiv.org/abs/2408.14909",
+      "lineage": "発展",
+      "parent": "SpikeGPT",
+      "s1": "S4D 型の状態空間モデルの出力に LIF ニューロンを載せた SpikingSSM を提案。リセットを含む LIF の発火を小さな代理ネットワーク（SDN）で並列予測し、長系列で最大 100 倍の学習高速化と約 90% のスパース性を両立した。",
+      "s2": "SNN は時間ダイナミクスを持つのに長系列タスクではほぼ使われず、リセット付き LIF は逐次計算で並列学習できない。PSN はリセット除去で発火が増え、Binary S4D や S6 系 SNN はダイナミクス軽視や精度低下が課題だった。",
+      "s3": "y_t=Ch_t を LIF の入力電流とし u′_t=τu_{t−1}+y_t を閾値処理（樹状突起 h・細胞体 y の 2 階層）。SDN（1D-CNN, 200 パラメータ未満）が入力からスパイク列を予測し、膜電位を並列計算。閾値は入力スケールとして学習。",
+      "s4": "学習速度：L=8K で BPTT 比 101.2 倍（Table 1）。LRA 平均 84.33%（S4D-Lin 85.52%）、Path-X 94.82%、発火率約 0.1（Table 3）。WikiText-103 で PPL 33.94（75M）と SpikeGPT 39.75（213M）を上回る（Table 4）。",
+      "s5": "著者：事前学習した SDN の帰納バイアスが有効（同時学習の SDN-S は 81.52% と劣る、Table 5）。\n所感：SSM 内部の状態更新は浮動小数のままで、スパイク化は層出力のみ。言語モデルは Transformer（PPL 20.51）とまだ差が大きい。",
+      "s6": "・P-SpikeSSM (2024)（未調査）\n・SpikingBrain (2025)（本資料）\n・NeuronSpark (2026)（未調査）",
+      "figure": {
+        "file": "figures/07_spikingssm.png",
+        "caption": "出典：SpikingSSMs Fig. 1（(a) 1 層の計算グラフ、(b) SSM と Spiking SSM の比較）"
+      },
+      "notes": "arXiv v2（AAAI 2025 版）本文を通読。付録（SDN 構造の詳細）は概略。"
+    },
+    {
+      "title": "Scaling Spike-driven Transformer with Efficient Spike Firing Approximation Training",
+      "short": "E-SpikeFormer / SDT V3 (Yao+ 2024)",
+      "authors": "Man Yao, Xuerui Qiu, Tianxiang Hu ほか（中国科学院自動化研究所）｜ IEEE TPAMI 2025",
+      "year": 2024,
+      "venue": "IEEE TPAMI 2025",
+      "link": "https://arxiv.org/abs/2411.16061",
+      "lineage": "最新",
+      "parent": "Meta-SpikeFormer / SDT V2",
+      "s1": "2 値発火そのものを性能・スケーリングの欠陥と捉え、学習は整数活性・推論はスパイク列に展開する Spike Firing Approximation（SFA）を提案。効率化した E-SpikeFormer と MIM 事前学習で 173M・ImageNet 86.2% まで SNN を拡大した。",
+      "s2": "Meta-SpikeFormer は 55M・80.0% で推定 52.4mJ と重く、多時刻ステップ直接学習はメモリ O(L×T) で大規模化を阻む。さらに単純に大型化すると性能が劣化した。ANN2SNN は推論ステップが長い。",
+      "s3": "学習：S_D=round(clip(U,0,D)) の整数活性を 1 ステップで学習。推論：IF・ソフトリセット（V_th=1）で D ステップのスパイク列に等価展開（Prop. 1）。RepConv を Linear＋SpikeSepConv に替え、MIM 用に Spike Sparse Conv を導入。",
+      "s4": "ImageNet：10M で 78.5%（3.0mJ）、19M で 79.8%（5.9mJ, DeiT-S 並）、83M で 84.0%、173M で 86.2%（384px）（Table 1）。10M ベースライン比 +7.2%、学習 5.3 倍速、推論 3.7 倍省エネ（Table 5）。COCO 58.8%、ADE20K 41.4%。",
+      "s5": "著者：2 値発火のままでは MIM を使っても大型化で劣化し有効ランクも低下（Fig. 10）。SFA は非同期チップ向きだが D が大きいと帯域超過の恐れ。\n所感：“整数で学びスパイクで推論”は SpikingBrain に引き継がれる転換点。",
+      "s6": "・SpikingBrain (2025)（本資料）\n・Spikformer V2 (2024)（未調査）\n・Speck: 非同期センシング・計算ニューロモルフィックチップ (2024)（未調査）",
+      "figure": {
+        "file": "figures/08_sdt_v3.png",
+        "caption": "出典：E-SpikeFormer Fig. 1（ImageNet 精度・推定電力・モデルサイズの比較）"
+      },
+      "notes": "arXiv v1（投稿版）を通読。採録先 IEEE TPAMI 47(4), 2025 は SpikingBrain 論文の引用文献で確認。補足資料は未読。"
+    },
+    {
+      "title": "SpikingBrain: Spiking Brain-inspired Large Models",
+      "short": "SpikingBrain (Pan+ 2025)",
+      "authors": "Yuqi Pan, Yupeng Feng, Jinghao Zhuang ほか（中国科学院自動化研究所・MetaX）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2509.05276",
+      "lineage": "最新",
+      "parent": "E-SpikeFormer / SpikeLLM",
+      "s1": "Qwen2.5-7B から変換した線形 SpikingBrain-7B と、ハイブリッド線形 MoE の 76B（A12B）を約 150B トークンの継続学習で構築。適応閾値スパイク符号化で活性スパース率 69.15%、4M トークンで TTFT 100 倍超の高速化を報告。",
+      "s2": "Transformer LLM は学習が系列長の 2 乗、推論メモリが線形に増える。SpikeLLM 等は既存 LLM の量子化的スパイク化で構造は非効率のまま、ゼロからの学習は 10T トークン級で非現実的。非 NVIDIA（MetaX）での大規模学習も未検証。",
+      "s3": "注意を線形注意（GLA）＋SWA（7B は層間交互、76B は層内並列＋一部 FA）に変換し、FFN は upcycling で MoE 化。活性は V_th=mean|x|/k の適応閾値で整数カウントにし、推論時に 2 値・3 値・ビット単位のスパイク列へ展開。",
+      "s4": "7B：MMLU 65.84（Qwen2.5-7B 74.21、Llama3.1-8B 65.74）、76B：MMLU 73.58、CMMLU 78.83（Table 1, 2）。W8＋スパイクで平均約 2% 低下（Table 3）。1M トークンで TTFT 26.5 倍、MetaX で MFU 23.4%、推定 MAC エネルギー FP16 比 97.7% 減。",
+      "s5": "著者：線形注意は想起に弱く、短文連結での長文学習は効果が限定的。エネルギーは理想的な非同期 HW を仮定した推定（App. C.2）。\n所感：“スパイク”は推論時に展開する整数量子化に近く、効率の大半は線形注意由来。SNN の定義が拡張されている。",
+      "s6": "・SpikingBrain2.0 (2026)（本資料）\n・Gated Linear Attention (2024)（未調査）\n・SpikeLLM (2024)（本資料）",
+      "figure": {
+        "file": "figures/09_spikingbrain.png",
+        "caption": "出典：SpikingBrain Fig. 3（7B 層間ハイブリッド・スパイク符号化・76B 層内ハイブリッド MoE）"
+      },
+      "notes": "arXiv v4（2026-05）本文と付録 A.4・C.2 を確認。PolyU のリポジトリに査読付き論文として登録があるが掲載誌は確認できず、arXiv プレプリントと記載。"
+    },
+    {
+      "title": "SpikingBrain2.0: Brain-Inspired Foundation Models for Efficient Long-Context and Cross-Platform Inference",
+      "short": "SpikingBrain2.0 (Pan+ 2026)",
+      "authors": "Yuqi Pan, Jinghao Zhuang, Yupeng Feng ほか（中国科学院自動化研究所）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.22575",
+      "lineage": "最新",
+      "parent": "SpikingBrain",
+      "s1": "Qwen3-4B から変換した 5B のハイブリッドスパイキング基盤モデル（言語・視覚言語）。疎なソフトマックス注意 MoBA と疎な線形注意 SSE を 1:3 で混ぜる DSSA を導入し、7k A100 時間未満で元モデル性能の 95% 超を回復した。",
+      "s2": "SpikingBrain1.0 は 7B（線形）の長文能力が不足し、76B は FA 層が多く効率が伸びず、継続学習 150B トークンも重かった。DSSA と蒸留中心の Transformer→Hybrid 変換で、性能・効率・学習コストの両立を狙う。",
+      "s3": "36 層中、感度分析で選んだ 9 層を MoBA、26 層を SSE-GDN＋小窓 SWA（dropout 0.5）、最終層だけ FA。変換は層出力 MSE＋logit 蒸留（3B トークン）→512k 長文化（11B）→SFT。活性は INT8-Spiking か FP8 で符号化。",
+      "s4": "事前学習版の平均 66.31（Qwen3-4B 69.58、Table 5）。4M トークンで TTFT 10.13 倍（Table 9）、vLLM で 10M トークン提供（Qwen3 は 4M 超で OOM、Table 11）。INT8-Spiking は -0.69%・スパース率 64.31%、28nm 合成で面積 70.6%・電力 46.5% 減（Table 14）。",
+      "s5": "著者：CPT ウォームアップが必須、蒸留は SFT より CPT で有効、変換後の長文学習が必要。AIME や VLM で基盤モデルとの差が残る。\n所感：SNN 要素は活性符号化に限られ、ほぼ“効率的ハイブリッド LLM”。電力が回路合成ベースになった点は前進。",
+      "s6": "・MoBA: Mixture of Block Attention (2025)（未調査）\n・Sparse State Expansion (SSE, 2025)（未調査）\n・SpikingBrain (2025)（本資料）",
+      "figure": {
+        "file": "figures/10_spikingbrain2.png",
+        "caption": "出典：SpikingBrain2.0 Fig. 1（二経路活性符号化・DSSA・全体構成）"
+      },
+      "notes": "arXiv v1 本文を通読、付録は Table 20〜22 のみ確認。"
+    },
+    {
+      "title": "Compute-Optimal Scaling Laws for Spiking Language Models",
+      "short": "Spiking LM Scaling Laws (Saunders+ 2026)",
+      "authors": "Dan Saunders, Benjamin Ren, Catherine He（Luma AI・X School）｜ NeurIPS 2026 Workshop (AXIOM)",
+      "year": 2026,
+      "venue": "NeurIPS 2026 WS（AXIOM）",
+      "link": "https://arxiv.org/abs/2610.15146",
+      "lineage": "最新",
+      "parent": "SpikeGPT",
+      "s1": "SpikeGPT 系（RWKV 骨格）のスパイキング言語モデルで初めて Chinchilla 型 IsoFLOP スケーリング則を測定。計算最適なパラメータ数は N_opt∝C^0.56 と密な Transformer（0.50）に近く、スパイク化の損失コストは計算量とともに縮むと示した。",
+      "s2": "SpikeGPT は計算最適域よりはるかに小さい学習量で評価され、SpikeLLM 等は既存 LLM の事後スパイク化。スパイキング LM をゼロから学習する際の N と D の配分、スパース化による精度コストは未解明だった。",
+      "s3": "幅 384〜1536 のモデルを 3×10¹⁷〜10¹⁹ FLOPs の 4 段で FineWeb-EDU 学習し、各段の放物線頂点から (N_opt, D_opt) を推定。同条件で非スパイク RWKV と Transformer も学習し、損失差を“骨格コスト”と“スパイクコスト”に分解した。",
+      "s4": "総パラメータ基準で α=0.556（Approach 3 で 0.595）、非埋め込み基準では 0.748（Table 1）。10²⁰ FLOPs（2.44B）への外挿予測 2.74 に対し実測 2.76。骨格コストは約 0.16 nats で一定、スパイクコストは 0.338→0.225 nats に減少（Table 2, Fig. 2）。",
+      "s5": "著者：規模は 10¹⁹ FLOPs まで（Chinchilla の 10²¹〜10²⁴ より小）、データは 1 種、ベースラインは 1 シード。発火率は規模でなく学習進度で決まり約 0.36 に飽和。\n所感：4 ページの WS 論文だが“スパイク化の税は規模で薄まる”定量的根拠は貴重。",
+      "s6": "・SpikeGPT (2023)（本資料）\n・Training Compute-Optimal LLMs (Chinchilla, 2022)（未調査）\n・Scaling Laws for Linear Complexity LMs (2024)（未調査）",
+      "figure": {
+        "file": "figures/11_scaling.png",
+        "caption": "出典：Spiking LM Scaling Laws Fig. 2（計算最適損失と、骨格コスト・スパイクコストの推移）"
+      },
+      "notes": "arXiv v2（2026-10-20, スパイクコストの数値を訂正した版）を付録まで通読。"
+    }
+  ]
+}
