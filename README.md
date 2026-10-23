@@ -9,9 +9,9 @@
 
 | 分野 | ブランチ | テーマ | スライド化 / 一覧掲載 | 最終更新 |
 | --- | --- | --- | --- | --- |
-| 世界モデル | [`world-model`](../../tree/world-model) | 内発的報酬、階層化 | 20 / 69 本 | 2026-10-23 |
-| 群知能 | [`swarm-intelligence`](../../tree/swarm-intelligence) | 全体像（原著論文まわり）、DeepLearning・NN との融合、GA との融合 | 31 / 97 本 | 2026-10-23 |
-| SNN | [`snn`](../../tree/snn) | 学習手法、Spiking Transformer・大規模化、ニューロモルフィックハードウェアと応用 | 35 / 105 本 | 2026-10-23 |
+| 世界モデル | [`world-model`](https://github.com/create-alt/researches/tree/world-model) | 内発的報酬、階層化 | 20 / 69 本 | 2026-10-23 |
+| 群知能 | [`swarm-intelligence`](https://github.com/create-alt/researches/tree/swarm-intelligence) | 全体像（原著論文まわり）、DeepLearning・NN との融合、GA との融合 | 31 / 97 本 | 2026-10-23 |
+| SNN | [`snn`](https://github.com/create-alt/researches/tree/snn) | 学習手法、Spiking Transformer・大規模化、ニューロモルフィックハードウェアと応用 | 35 / 105 本 | 2026-10-23 |
 
 > 分野ブランチを作成・更新したら、この表にも追記します。
 
