@@ -1,0 +1,215 @@
+{
+  "field": "群知能",
+  "theme": "DeepLearning・NN との融合",
+  "date": "2026-10-23",
+  "summary": "群知能×DL/NNの融合を3方向で追う。①群知能でNN（構造・重み・LLM群）を最適化：IPPSO→Model Swarms→Heterogeneous Swarms。\n②NN/DRLで群知能を学習・強化：DeepACO→GFACS→DyNACO、GLEET。③LLMを群知能の演算子に：LMPSO→SwarmAgentic。\n深層MARLによる群制御（Hüttenrauch+）も起点として収録。",
+  "papers": [
+    {
+      "title": "Evolving Deep Convolutional Neural Networks by Variable-length Particle Swarm Optimization for Image Classification",
+      "short": "IPPSO (Wang+ 2018)",
+      "authors": "Bin Wang, Yanan Sun, Bing Xue, Mengjie Zhang（Victoria University of Wellington）｜ IEEE CEC 2018",
+      "year": 2018,
+      "venue": "IEEE CEC 2018",
+      "link": "https://arxiv.org/abs/1803.06492",
+      "lineage": "原典",
+      "s1": "PSOでCNNのアーキテクチャ（層の種類・数・設定）を自動探索するIPPSOを提案。著者らは「PSOでCNN構造を進化させる初の研究」と位置づけ、群知能によるNASの起点の一つ。MNIST変種MDRBIで既存12手法より低い誤差を達成。",
+      "s2": "LEIC（Real+ 2017）やEvoCNN（Sun+ 2017）などGA系のCNN構造探索は計算が重く、PSOは未使用だった。PSOは固定長の連続ベクトルしか扱えず可変長のCNN構造を表せない点が障壁で、本論文はこれを符号化の工夫で突破した。",
+      "s3": "各層をIPアドレス風の2バイトで符号化し、サブネット（値域）で層種別Conv/Pool/FC/Disabledを区別。Disabled層で層を「隠す」ことで固定長粒子のまま可変長構造を表す。バイトごとの係数c1[i], c2[i]でPSO更新し、部分データで10エポック学習して適応度を評価。",
+      "s4": "MB・MDRBI・CS（28×28画像）で12手法と比較（Table V）。平均誤差はMB 1.21%（2位、LDANet-2が1.05%）、MDRBI 33%（1位、次点TIRBM 35.50%）、CS 12.06%（5位）。粒子30・各30試行、1試行約2.5時間（GTX1080×2）。",
+      "s5": "著者：PSOの近傍トポロジーの影響やRNNへの適用が今後の課題。\n所感：Table VでMDRBIの平均33%が最良値34.50%より良いという不整合がある。データも小規模で、CIFAR/ImageNet上の現代的NASとの比較はない。",
+      "s6": "・psoCNN (Fernandes Junior & Yen 2019)（本文未確認）\n・DeepSwarm (Byla & Pang 2019)（参照のみ）\n・Model Swarms (Feng+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/ippso_fig2_3.png",
+        "caption": "出典：IPPSO (Wang+ 2018) Fig. 2–3（5層CNNのIPアドレス列と、それを並べた10次元の粒子ベクトル。35.255はDisabled層）"
+      },
+      "notes": "全文（8ページ）を読了。Table V の MDRBI 平均/最良の逆転は原文のまま。"
+    },
+    {
+      "title": "Deep Reinforcement Learning for Swarm Systems",
+      "short": "Mean-Embedding DRL (Hüttenrauch+ 2019)",
+      "authors": "Maximilian Hüttenrauch, Adrian Šošić, Gerhard Neumann（University of Lincoln）｜ JMLR 2019",
+      "year": 2019,
+      "venue": "JMLR 2019",
+      "link": "https://arxiv.org/abs/1807.06613",
+      "lineage": "原典",
+      "s1": "群ロボットの分散方策を深層強化学習で学ぶため、近傍エージェントの観測集合を平均埋め込み（mean embedding）で表す状態表現を提案。NN特徴の平均埋め込みで、ランデブー・追跡回避において既存表現より速く高品質な群行動を獲得した。",
+      "s2": "MADDPG（Lowe+ 2017）流の観測連結は入力次元が個体数に比例し、置換不変性もない。画像・ヒストグラム表現は特徴次元に対し指数的に膨らむ。平均埋め込みは個体数可変・順序不変で、学習後に異なる個体数へそのまま転用できる。",
+      "s3": "近傍jの観測o^{i,j}を分布からのサンプルとみなし、μ = (1/|O|) Σ_j φ(o^{i,j}) を方策入力にする。φはヒストグラム・RBF・NN（64ユニット、end-to-end学習）を比較。パラメータ共有TRPOで集中学習・分散実行する。",
+      "s4": "一輪車モデルのランデブー（20体）と追跡回避（10体、2倍速の逃避者）を大域/局所観測で評価。NN+は平均報酬でNN/RBF比約10%改善、定常平均距離は約半分（Fig. 3a, 5a）。20体で学習し100体で実行しても最良（Fig. 5b）。50対5の追跡では連結表現は学習不能（Fig. 10a）。",
+      "s5": "著者：学習時メモリはO(N(N−1))、20体で4〜6時間の学習。推論は約1msで実時間実行できる。\n所感：古典的な群ルールをDRL方策で置き換える流れの起点。実機検証はなく、評価はシミュレーション内に留まる。",
+      "s6": "・Mean Field MARL (Yang+ 2018)（未調査）\n・GNNによる群ロボット分散制御 (Tolstaya+ 2019)（未調査）\n・LLM駆動の群シミュレーション (Jimenez-Romero+ 2025)（参照のみ）",
+      "figure": {
+        "file": "figures/huttenrauch_fig1a.png",
+        "caption": "出典：Mean-Embedding DRL (Hüttenrauch+ 2019) Fig. 1(a)（NN平均埋め込み方策。緑の層は重み共有、⊕は特徴の平均）"
+      },
+      "notes": "本文（1〜6章）を読了。付録の報酬関数・観測定義は概観のみ。"
+    },
+    {
+      "title": "DeepACO: Neural-enhanced Ant Systems for Combinatorial Optimization",
+      "short": "DeepACO (Ye+ 2023)",
+      "authors": "Haoran Ye, Jiarui Wang, Zhiguang Cao, Helan Liang, Yong Li（Soochow University）｜ NeurIPS 2023",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "link": "https://arxiv.org/abs/2309.14032",
+      "lineage": "原典",
+      "s1": "ACOのヒューリスティック行列ηをGNNで生成し、深層強化学習で学習するDeepACOを提案。単一のアーキテクチャとハイパラで8種の組合せ最適化問題すべてで従来ACOを上回り、TSP等では問題特化のNCO手法と同等以上。",
+      "s2": "ACOのηは問題ごとに専門家が手設計しており、知識の乏しい問題では作れない。ML-ACO（Sun+）は教師あり学習で特徴も手設計のため汎用性が低い。DeepACOはDRLでηを自動設計し、ACOの蓄積（変種・局所探索）とそのまま組み合わせられる。",
+      "s3": "GNN（異方的メッセージパッシング+edge gating）が事例ρからη_θ(ρ)を出力し、蟻はτ^α·η^βに比例して解を構築。損失 E[f(s) + W·f(NLS(s))] をREINFORCEで最小化する。学習ηで摂動しつつ2-optを挟むNeural-guided LS（NLS）も提案。",
+      "s4": "TSP/CVRP/OP/PCTSP/SOP/SMTWTP/RCPSP/MKPで、AS・Elitist・MMASのいずれも改善（Fig. 2）。TSP500でgap 1.84%（ACO 6.16%）、TSP1000で3.16%（同7.87%）（Table 1）。TSPLIBでも一貫して優位（Fig. 5）で、ハイパラ頑健性も向上（Fig. 4）。",
+      "s5": "著者：学習した知識をn×n行列1枚に圧縮するため表現力が限られ、LSなしでは最適近くに届かない。3次元・動的なηが今後の課題。\n所感：「NNで群知能を強化」系譜の転換点。ηが静的である点を後続のGFACS・DyNACOが突いていく。",
+      "s6": "・GFACS (Kim+ 2024)（本資料）\n・DyNACO (Tran+ 2026)（本資料）\n・ReEvo (Ye+ 2024)（参照のみ）",
+      "figure": {
+        "file": "figures/deepaco_fig1.png",
+        "caption": "出典：DeepACO (Ye+ 2023) Fig. 1（従来ACOとDeepACOの比較。事例集合で学習したGNNがηを生成）"
+      },
+      "notes": "本文9ページを読了。付録（各問題の設定、追加実験）は一部のみ参照。"
+    },
+    {
+      "title": "Ant Colony Sampling with GFlowNets for Combinatorial Optimization",
+      "short": "GFACS (Kim+ 2024)",
+      "authors": "Minsu Kim, Sanghyeok Choi, Hyeonah Kim, Jiwoo Son ほか（Mila / KAIST）｜ AISTATS 2025",
+      "year": 2024,
+      "venue": "AISTATS 2025",
+      "link": "https://arxiv.org/abs/2403.07041",
+      "lineage": "発展",
+      "parent": "DeepACO (Ye+ 2023)",
+      "s1": "DeepACOのηをREINFORCEではなくGFlowNetで学習し、報酬に比例する多峰的な事前分布を得るGFACSを提案。ACOのフェロモン更新を「事後更新」と捉え、7種の組合せ最適化でDeepACO・ACOを一貫して上回った。",
+      "s2": "DeepACO（Ye+ 2023）はREINFORCEで期待報酬を最大化するため分布がモード崩壊し、後段のフェロモン探索の伸びしろを潰す。GFACSは多様な高報酬解を覆う事前分布を学習し、ACOの反復探索と相乗させる点が差分。",
+      "s3": "GNNが出すη(G)で構築方策P_Fを定義し、Trajectory Balance損失で p(x)∝exp(−βE(x)) を学習。局所探索解を使うoff-policy経験収集、LS後のエネルギーで評価し直すenergy reshaping、事例内平均で正規化するshared energy normを導入。",
+      "s4": "同一GNN・同一LSでDeepACOと比べ全7問題で改善（Fig. 4）。TSP500でgap 1.56%（DeepACO 1.77%）、CVRP500で1.95%（同2.43%）（Table 2）。TSPLib 700〜1499ノードで3.88%（ACO 7.01%）（Table 1）。学習は3時間未満。",
+      "s5": "著者：経験的には改善するが、RLより最適性が良くなる理論保証はない。\n所感：差の多くは1ポイント未満で、改善は学習法の工夫による。小規模CVRPLibでは素のACOに劣り、事前分布が静的な点も残る。",
+      "s6": "・DeepACO (Ye+ 2023)（本資料）\n・DyNACO (Tran+ 2026)（本資料）\n・GFlowNet Foundations (Bengio+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/gfacs_fig1.png",
+        "caption": "出典：GFACS (Kim+ 2024) Fig. 1（RL由来の単峰事前分布とGFlowNet由来の多峰事前分布、事後更新後の解分布の違い）"
+      },
+      "notes": "本文（1〜6章）を読了。付録の問題設定・追加比較は概観のみ。"
+    },
+    {
+      "title": "Auto-configuring Exploration-Exploitation Tradeoff in Evolutionary Computation via Deep Reinforcement Learning",
+      "short": "GLEET (Ma+ 2024)",
+      "authors": "Zeyuan Ma, Jiacheng Chen, Hongshu Guo, Yining Ma, Yue-Jiao Gong（South China University of Technology）｜ GECCO 2024",
+      "year": 2024,
+      "venue": "GECCO 2024",
+      "link": "https://arxiv.org/abs/2404.08239",
+      "lineage": "発展",
+      "parent": "L2O (Chen+ 2017)",
+      "s1": "PSO等の探索・活用バランス（EET）を、Transformer方策が粒子ごとに動的制御するGLEETを提案。問題クラス単位で一度学習すれば未知問題に転用できる。DMSPSOに適用したGLEET-DMSPSOがCEC2021拡張ベンチで8手法中平均順位1.09。",
+      "s2": "DRL-PSO・RLEPSO・DE-DQN等の先行DRL制御は問題ごとに再学習が必要で過学習しやすく、MLPと単純な状態で表現力も乏しい。GLEETは問題集合で学習する汎化可能なMDPと、個体間の関係を扱う注意機構を導入した。",
+      "s3": "状態は各粒子の進捗・停滞・gBest/pBestとの差や距離など9次元の特徴。自己注意エンコーダで個体埋め込みを「fully informed」にし、EET埋め込みをQueryとするデコーダが粒子ごとにc1の正規分布を出す（c2=4−c1）。報酬はgBest改善量、PPOで学習。",
+      "s4": "CEC2021の10関数を拡張した問題集合で、静的・適応・DRL系の7手法と比較（Table 1）。GLEET-DMSPSOは10D・10問題中9で1位。未学習クラスへのゼロショットでも劣化は数%以内（Table 2）、Protein-Docking（12D）でも最良（Table 3）。",
+      "s5": "著者：手設計の景観特徴は高次元で脆い可能性があり、個体数を動的に変えられない。\n所感：「学習する群知能」の代表例で、MetaBBO潮流の中核。制御対象がc1のみで十分かは疑問で、LLM・GNN系の後続との比較が見たい。",
+      "s6": "・MetaBox (Ma+ 2023)（参照のみ）\n・Learning to Learn w/o GD by GD (Chen+ 2017)（未調査）\n・Symbol (Chen+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/gleet_fig2.png",
+        "caption": "出典：GLEET (Ma+ 2024) Fig. 2（特徴埋め込み・Fully Informed Encoder・探索活用デコーダからなる方策ネットワーク）"
+      },
+      "notes": "本文（1〜6章）を読了。GLEET-DE と 30D の結果は付録のため未精読。"
+    },
+    {
+      "title": "Model Swarms: Collaborative Search to Adapt LLM Experts via Swarm Intelligence",
+      "short": "Model Swarms (Feng+ 2024)",
+      "authors": "Shangbin Feng, Zifeng Wang, Yike Wang, Sayna Ebrahimi ほか（University of Washington / Google Cloud AI Research）｜ ICML 2025",
+      "year": 2024,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2410.11163",
+      "lineage": "発展",
+      "parent": "IPPSO (Wang+ 2018)",
+      "s1": "LoRAで作った複数のLLMエキスパートを粒子とみなし、PSO風に重み空間を協調移動させて効用関数を最適化するModel Swarmsを提案。約200事例・勾配学習なしで、12のモデル合成手法を9タスク平均13.3%上回った（Gemma-7B）。",
+      "s2": "learn-to-fuse系は大量の教師データを要し、Task Arithmetic等のモデル算術は「どの専門家をどう合成するか」に強い仮定を置く。Model Swarmsは任意の「モデル→スカラー」効用だけで探索でき、EvolMerge（Akiba+）のGAより手設計の規則が少ない。",
+      "s3": "速度 v ← (1/C)[r_v φ_v v + r_p φ_p(p−x) + r_g φ_g(g−x) − r_w φ_w(g_w−x)]、x ← x + λv。大域最悪g_wからの斥力、線形補間による初期粒子の水増し、改善しない粒子の個人最良への再起動、ステップ長の減衰を導入。",
+      "s4": "単一タスク9種で全て最良（GSM8k test .652、次点.622）（Table 1）。多タスク4分野で平均5.7%、報酬モデル適合で6.7%改善し、PPO/DPOも上回る（Table 4）。人手評価の勝率70.8%。初期全員不正解の問題の36〜54%が解けるようになった（Fig. 2）。",
+      "s5": "著者：局所解に留まる可能性、全専門家を毎反復更新する計算コスト、悪意ある効用関数による悪用リスク。\n所感：PSOでNN重みを探す発想自体は古典的だが、LLM規模・LoRA空間で実用化した点が新しい。ベースラインの調整の公平性は要確認。",
+      "s6": "・Heterogeneous Swarms (Feng+ 2025)（本資料）\n・Evolutionary Model Merge (Akiba+ 2024)（未調査）\n・IPPSO (Wang+ 2018)（本資料）",
+      "figure": {
+        "file": "figures/modelswarms_fig1.png",
+        "caption": "出典：Model Swarms (Feng+ 2024) Fig. 1（LLM専門家が重み空間で速度更新・重み更新を繰り返し、大域最良gを出力）"
+      },
+      "notes": "本文（1〜7章、Impact Statement）を読了。付録の計算量・ハイパラは概観のみ。"
+    },
+    {
+      "title": "Heterogeneous Swarms: Jointly Optimizing Model Roles and Weights for Multi-LLM Systems",
+      "short": "Heterogeneous Swarms (Feng+ 2025)",
+      "authors": "Shangbin Feng, Zifeng Wang, Palash Goyal, Yike Wang ほか（University of Washington / Google Cloud AI Research）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2502.04510",
+      "lineage": "最新",
+      "parent": "Model Swarms (Feng+ 2024)",
+      "s1": "複数LLMの協調系をDAGで表し、役割（グラフ構造）と重みの両方をPSOで交互に最適化するHeterogeneous Swarmsを提案。12タスクで役割系・重み系の17ベースラインを平均18.5%上回り、11タスクで最良。",
+      "s2": "GPTSwarmやAgentVerse等の役割最適化は重みが固定、Model Swarms（Feng+ 2024）等の重み最適化は役割（入出力関係）が固定だった。本手法は両者を同時に適応させ、タスクにより役割と重みの重要度が異なることも示した。",
+      "s3": "role-step：連続隣接行列の群をG-Decodeで離散DAGに復号し、トポロジカル順にLLMを呼んで効用fを評価、行列をPSOで更新。weight-step：最良DAGへLLMをランダムに割り当て、貢献度JFK-score（出現頻度で重み付けた効用平均）で重みをPSO更新。",
+      "s4": "Gemma-7B由来の10専門家で、知識・推論・エージェント等12データセットを評価（Table 1）。GSM8k 0.481（Model Swarms 0.459）、GAIA-text 0.250（最良ベースライン0.143）。協調利得C-Gainは平均0.213で、全員不正解の問題の18.1%を解いた（Fig. 3）。",
+      "s5": "著者：重み更新は同一アーキテクチャのLLM群が前提で、最適化・推論ともLLM呼び出しが多くコストが高い。\n所感：PSOが離散グラフ探索の外側ループとして機能する点が面白い。JFK-scoreは割当てのノイズが大きそうで、試行数Mへの感度が気になる。",
+      "s6": "・Model Swarms (Feng+ 2024)（本資料）\n・GPTSwarm (Zhuge+ 2024)（未調査）\n・SwarmAgentic (Zhang+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/hswarms_fig2.png",
+        "caption": "出典：Heterogeneous Swarms (Feng+ 2025) Fig. 2（グラフの群とモデルの群を、role-stepとweight-stepで交互にPSO最適化）"
+      },
+      "notes": "本文（1〜8章）と Limitations を読了。"
+    },
+    {
+      "title": "Large Language Models as Particle Swarm Optimizers",
+      "short": "LMPSO (Shinohara+ 2025)",
+      "authors": "Yamato Shinohara, Jinglue Xu, Tianshui Li, Hitoshi Iba（東京大学）｜ IEEE CEC 2025",
+      "year": 2025,
+      "venue": "IEEE CEC 2025",
+      "link": "https://arxiv.org/abs/2504.09247",
+      "lineage": "最新",
+      "parent": "OPRO / LMEA (2024)",
+      "s1": "PSOの「速度」をプロンプトで表し、LLMに次の解を生成させるLMPSOを提案。TSP、TSPヒューリスティックの改良、記号回帰で評価し、数式やプログラムのような構造化された系列を解とする問題で特に有効なことを示した。",
+      "s2": "OPROやLMEA（Liu+ 2024）などのLLM最適化はGA的な枠組みが中心で、群知能は未活用だった。またTSP等へのPSO適用には交換操作など問題固有の速度定義が必要だったが、LMPSOはプロンプトの差し替えだけで多様な解表現に適用できる。",
+      "s3": "メタプロンプトに問題記述、慣性項（現在位置を生んだ前回の指示v_i^t）、現在位置x_i^t、pbest/gbestを含む新方向v_i^{t+1}を入れ、LLMが次位置を生成する。制約違反時は再試行・再初期化。Llama-3.1-8B-Instruct、温度0.9。",
+      "s4": "TSP（10/20/30都市）ではTSP用PSOを全規模で上回るが、20都市以上ではNN・FI等の構築法に劣る（Table II）。100都市でのヒューリスティック改良はFIの0.07に対し0.06で最良（Table III）。記号回帰はPMLBの多くでgplearnのGPより高いR²（Table IV）。",
+      "s5": "著者：大規模な解表現の直接最適化は難しく、ヒューリスティック改良への変換が有効。LLM性能への依存の定量化が課題。\n所感：30都市TSP 1回に約56分と高コスト。GA系LLM最適化（ReEvo等）との直接比較がなく、PSO構造の寄与は未検証。",
+      "s6": "・OPRO (Yang+ 2024)（未調査）\n・ReEvo (Ye+ 2024)（参照のみ）\n・SwarmAgentic (Zhang+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/lmpso_fig1.png",
+        "caption": "出典：LMPSO (Shinohara+ 2025) Fig. 1（TSP用メタプロンプト。速度v_iを指示文、位置x_iを解としてLLMが次位置を生成）"
+      },
+      "notes": "全文（6ページ）を読了。採録先は Crossref（DOI 10.1109/CEC65147.2025.11043021）で確認。"
+    },
+    {
+      "title": "SwarmAgentic: Towards Fully Automated Agentic System Generation via Swarm Intelligence",
+      "short": "SwarmAgentic (Zhang+ 2025)",
+      "authors": "Yao Zhang, Chenyang Lin, Shijie Tang, Haokun Chen ほか（LMU Munich）｜ EMNLP 2025",
+      "year": 2025,
+      "venue": "EMNLP 2025",
+      "link": "https://arxiv.org/abs/2506.15672",
+      "lineage": "最新",
+      "parent": "LMPSO / ADAS",
+      "s1": "エージェント集合と協調構造を言語で記述したシステムを粒子とし、LLMが速度・位置更新を担う言語版PSOでエージェント系をゼロから自動生成するSwarmAgenticを提案。TravelPlannerでADAS比+261.8%、6タスク全てで最良。",
+      "s2": "ADAS（Hu+ 2024）・AFlow・EvoAgent等は種エージェントやテンプレートに依存し、機能と協調を別々に最適化する。SwarmAgenticはゼロからの生成・機能の自己最適化・協調の自己最適化の3条件を満たす唯一の枠組みと主張（Table 1）。",
+      "s3": "v^{t+1} = LLM_vel(c_f r_f F(v^t), c_p r_p(p*−x), c_g r_g(g−x))。LLMが失敗例から欠陥（担当不在・冗長手順など）を診断し、失敗した過去の更新・個人最良・大域最良との比較からテキストの修正方針を作り、追加・削除・修正・並べ替えで位置を更新。",
+      "s4": "TravelPlanner、Natural Plan 3種、Creative Writing、MGSMで評価（最適化はGPT-4o-mini）。TravelPlanner最終合格率はGPT-4o実行で32.2%（ADAS 8.9%）（Table 2）。発見した系をClaude-3.5等へ移しても最良（Table 4）。失敗駆動調整を除くと8.8→8.4（Table 5）。",
+      "s5": "著者：事前知識を使わないため構造化環境では収束が遅い可能性、幻覚の伝播、テキスト環境限定で身体性がない。\n所感：粒子5・反復10と小規模で、PSOは数理より比喩に近い。探索コスト（API呼び出し数）の報告が乏しい。",
+      "s6": "・ADAS (Hu+ 2024)（未調査）\n・LMPSO (Shinohara+ 2025)（本資料）\n・AgentPSO (Hwang+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/swarmagentic_fig1.png",
+        "caption": "出典：SwarmAgentic (Zhang+ 2025) Fig. 1（失敗駆動調整・個人最良・大域最良から言語で最適化方向を作り、エージェント系を更新）"
+      },
+      "notes": "本文（1〜7章）と Limitations を読了。採録先は Crossref（DOI 10.18653/v1/2025.emnlp-main.93）で確認。"
+    },
+    {
+      "title": "Beyond Static Priors: Dynamic Neural Guidance for Large-Scale Ant Colony Optimization",
+      "short": "DyNACO (Tran+ 2026)",
+      "authors": "Dat Thanh Tran, Van Khu Vu, Yining Ma（VinUniversity / MIT）｜ KDD 2026",
+      "year": 2026,
+      "venue": "KDD 2026",
+      "link": "https://arxiv.org/abs/2606.04039",
+      "lineage": "最新",
+      "parent": "GFACS (Kim+ 2024)",
+      "s1": "神経誘導ACOが「静的ヒートマップで学習し、反復探索に投入する」という学習・推論の不整合を指摘し、フェロモンと現行解を周期的に観測して誘導を更新するDyNACOを提案。TSPで10万ノードまで拡張し、全規模で神経系手法を上回る。",
+      "s2": "DeepACO・GFACS・GTG-ACOは事例の形状から一度だけ事前分布を出し、学習中にフェロモン動態を一度も見ない。また全ノード構築型のため1万ノード程度で頭打ち。DyNACOは誘導の動的化と、摂動型ACO+局所修復による大規模化を両立した。",
+      "s3": "log p(j|i) = α log τ_ij + β log η_ij + γ z_ij(S_h)：手設計ηを残し、GNNの残差ロジットzを加算。semi-MDPとしてS反復ごとに状態（フェロモン・現行解）を観測し、全軌跡の平均コストをPPOで最小化。摂動周辺のみ2-optするSRRで信用割当てを保つ。",
+      "s4": "TSP-100KでI=10000時にgap 1.90%・2.86分（SIL 2.45%・2.6時間、誘導なしACO 3.12%）（Table 1）。TSPでは誘導なしより23〜33%高速。1Kで学習したモデルをTSPLIB 33事例（最大86K）にゼロショット適用し、誘導なしACO比31%改善・29/33勝。",
+      "s5": "著者：時間粒度(H,S)とK近傍グラフは問題ごとに設定が必要で、学習は固定規模。\n所感：学習した誘導が飽和したフェロモン辺を抑えて停滞を防ぐ（Fig. 3）という分析は、群の多様性維持をNNが学ぶ好例。LKH3との差はまだ大きい。",
+      "s6": "・DeepACO (Ye+ 2023)（本資料）\n・GFACS (Kim+ 2024)（本資料）\n・MAX-MIN Ant System (Stützle & Hoos 2000)（未調査）",
+      "figure": {
+        "file": "figures/dynaco_fig1.png",
+        "caption": "出典：DyNACO (Tran+ 2026) Fig. 1（(a) DeepACOの静的事前分布と (b) DyNACOの状態依存・軌跡全体での学習の比較）"
+      },
+      "notes": "本文（1〜5章）を読了。付録の CVRP バックエンド・メモリ評価は概観のみ。"
+    }
+  ]
+}
