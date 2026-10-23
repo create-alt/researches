@@ -1,0 +1,11 @@
+{
+  "name": "ochiai-slides",
+  "private": true,
+  "description": "落合陽一フォーマット（1論文1スライド）の pptx 生成",
+  "scripts": {
+    "template": "node template.js"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1"
+  }
+}
