@@ -52,26 +52,28 @@ function cardPos(i) {
 const LEAD = 1.35;
 const lineSpacingFor = (size) => Math.round(size * LEAD * 2) / 2;
 
-function textUnits(s) {
+// latin: 半角文字1字の幅（全角=1.0 に対する比）。太字の英文タイトルは広めに見積もる
+function textUnits(s, latin = 0.6) {
   let u = 0;
-  for (const ch of s) u += ch.charCodeAt(0) < 0x2000 ? 0.6 : 1.0;
+  for (const ch of s) u += ch.charCodeAt(0) < 0x2000 ? latin : 1.0;
   return u;
 }
 
-function linesNeeded(paragraphs, w, size) {
+function linesNeeded(paragraphs, w, size, latin) {
   const perLine = Math.max(1, Math.floor(((w * 72) / size) * 0.96));
-  return paragraphs.reduce((n, p) => n + Math.max(1, Math.ceil(textUnits(p) / perLine)), 0);
+  return paragraphs.reduce((n, p) => n + Math.max(1, Math.ceil(textUnits(p, latin) / perLine)), 0);
 }
 
 // sizes の大きい順に試し、収まる最大サイズを返す（収まらなければ最小サイズ）
-function fitSize(paragraphs, w, h, sizes) {
+function fitSize(paragraphs, w, h, sizes, latin) {
   for (const size of sizes) {
     const cap = Math.floor((h * 72) / lineSpacingFor(size));
-    if (linesNeeded(paragraphs, w, size) <= cap) return { size, overflow: false };
+    if (linesNeeded(paragraphs, w, size, latin) <= cap) return { size, overflow: false };
   }
   return { size: sizes[sizes.length - 1], overflow: true };
 }
 
+const TITLE_H = 0.62;
 const BODY_SIZES = [12, 11.5, 11, 10.5, 10, 9.5, 9];
 
 // 改行区切りの文字列を段落ごとのランに変換
@@ -136,8 +138,8 @@ function defineLayouts(pres) {
     objects.push(ph(s.key, x + BODY.dx, y + BODY.dy, BODY.w, BODY.h, { fontSize: 12 }));
   });
   objects.push(ph("tag", G.mx, 0.3, 12.333, 0.28, { fontSize: 11, bold: true, color: COLORS.teal, valign: "middle" }));
-  objects.push(ph("title", G.mx, 0.6, 12.333, 0.56, { fontSize: 24, bold: true, valign: "middle" }));
-  objects.push(ph("meta", G.mx, 1.18, 12.333, 0.32, { fontSize: 12, color: COLORS.muted, valign: "middle" }));
+  objects.push(ph("title", G.mx, 0.58, 12.333, TITLE_H, { fontSize: 24, bold: true, valign: "middle" }));
+  objects.push(ph("meta", G.mx, 1.22, 12.333, 0.3, { fontSize: 12, color: COLORS.muted, valign: "middle" }));
   objects.push(ph("info", INFO.x, INFO.y, INFO.w, INFO.h, { fontSize: 10.5 }));
   objects.push(ph("footer", G.mx, 7.05, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }));
   pres.defineSlideMaster({ title: "OCHIAI_PAPER", background: { color: COLORS.white }, objects, slideNumber });
@@ -194,12 +196,14 @@ function addPaperSlide(pres, paper) {
   const slide = pres.addSlide({ masterName: "OCHIAI_PAPER" });
   const overflow = [];
   slide.addText(paper.tag, { placeholder: "tag" });
-  const titleFit = fitSize([paper.title], 12.333, 0.56, [24, 22, 20, 18, 16]);
+  // 長い原題は 16pt まで縮小して 2 行に折り返す（省略はしない）。
+  // プレースホルダー側の書式が優先されるため、サイズはランに指定する
+  const titleFit = fitSize([paper.title], 12.333, TITLE_H, [24, 22, 20, 18, 17, 16], 0.62);
   if (titleFit.overflow) overflow.push("title");
-  slide.addText(paper.title, { placeholder: "title", fontSize: titleFit.size });
-  const metaFit = fitSize([paper.authors], 12.333, 0.32, [12, 11, 10]);
+  slide.addText([{ text: paper.title, options: { bold: true, fontSize: titleFit.size, lineSpacing: lineSpacingFor(titleFit.size) } }], { placeholder: "title" });
+  const metaFit = fitSize([paper.authors], 12.333, 0.3, [12, 11, 10], 0.64);
   if (metaFit.overflow) overflow.push("authors");
-  slide.addText(paper.authors, { placeholder: "meta", fontSize: metaFit.size });
+  slide.addText([{ text: paper.authors, options: { fontSize: metaFit.size } }], { placeholder: "meta" });
   SECTIONS.forEach((s) => {
     const text = String(paper[s.key] || "");
     const { size, overflow: of } = fitSize(text.split("\n"), BODY.w, BODY.h, BODY_SIZES);
