@@ -1,0 +1,210 @@
+{
+ "field": "世界モデル",
+ "theme": "内発的報酬",
+ "date": "2026-10-23",
+ "summary": "世界モデルの予測誤差・不確実性・学習進捗を内発的報酬とし、探索や報酬なし事前学習を行う研究群。\nSchmidhuber の圧縮進捗 → ICM（予測誤差）→ Disagreement → Plan2Explore（潜在世界モデル内で想像探索）と発展し、\n最新は VLM による意味的好奇心・学習進捗の再定式化・ICL や動画世界モデルへの応用へ広がる。",
+ "papers": [
+  {
+   "title": "Driven by Compression Progress: A Simple Principle Explains Essential Aspects of Subjective Beauty, Novelty, Surprise, Interestingness, Attention, Curiosity, Creativity, Art, Science, Music, Jokes",
+   "short": "Compression Progress (Schmidhuber 2008)",
+   "authors": "Jürgen Schmidhuber（TU Munich / IDSIA）｜ arXiv 2008（短縮版は Journal of SICE 2009）",
+   "year": 2008,
+   "venue": "arXiv プレプリント 2008",
+   "link": "https://arxiv.org/abs/0812.4360",
+   "lineage": "原典",
+   "s1": "1990〜91年以来の自身の人工好奇心研究を総括し、「内発的報酬＝世界モデル（予測器・圧縮器）の圧縮進捗＝学習進捗」という一般原理を提示。予測誤差そのものでなく“改善量”を報酬にすべきと定式化した理論論文。",
+   "s2": "Shannon 的な驚き（予測不能さ）を報酬にするとホワイトノイズ画面に張り付く。1990年の予測誤差報酬の欠点を自ら指摘し、1991年の“予測器の改善”報酬、1995年の事前・事後 KL（Bayesian surprise）へと系譜を整理した。",
+   "s3": "①全履歴を保存 ②適応的圧縮器（RNN 等の世界モデル）で履歴を圧縮 ③改善量 r_int = C(p_old, h) − C(p_new, h) を内発的報酬に ④RL で累積報酬を最大化。既に圧縮可能なもの・圧縮不能なノイズはどちらも“退屈”。",
+   "s4": "定量実験は無い。過去実装（1990 RNN 予測誤差報酬、1991 予測器の変化を予測するモデル、1995 KL 報酬、1997 ゼロサム実験ゲーム）の整理（Sec. 3）と、少数ビットで描ける顔・蝶の作図（Fig. 1–3）による例示に留まる。",
+   "s5": "著者：学習進捗を全履歴上で正確かつ効率的に計算する方法は未解決と明言。\n所感：ICM・Disagreement・Curiosity-Critic・ICL 論文まで「誤差か改善量か」の軸上にあり、本テーマの座標系として必読。",
+   "s6": "・A possibility for implementing curiosity and boredom… (1991)（本文未確認）\n・ICM (2017)（本資料）\n・Curiosity-Critic (2026)（本資料）",
+   "figure": {
+    "file": "figures/schmidhuber2008.png",
+    "caption": "出典：Compression Progress (Schmidhuber 2008) Fig. 1（少数ビットで記述できる顔の作図＝“圧縮可能性”の例）"
+   },
+   "notes": "1991年の原典（SAB'91, IJCNN'91）は本文到達不可のため、著者自身による総括である本論文を原典枠として採用。読んだ範囲：本文全体と付録 A.1–A.10。",
+   "scope": "全文（理論・過去実装の総括・付録の定式化）"
+  },
+  {
+   "title": "Curiosity-driven Exploration by Self-supervised Prediction",
+   "short": "ICM (Pathak+ 2017)",
+   "authors": "Deepak Pathak, Pulkit Agrawal, Alexei A. Efros ほか（UC Berkeley）｜ ICML 2017",
+   "year": 2017,
+   "venue": "ICML 2017",
+   "link": "https://arxiv.org/abs/1705.05363",
+   "lineage": "原典",
+   "parent": "Compression Progress",
+   "s1": "逆動力学で学習した特徴空間上の順モデル予測誤差を好奇心報酬とする Intrinsic Curiosity Module (ICM) を提案。外部報酬ゼロでも VizDoom の迷路を部屋から部屋へ探索し、Mario の Level-1 を30%以上進む。",
+   "s2": "画素空間の予測誤差（Schmidhuber 2010, Stadie+ 2015）は木の葉の揺れのような制御不能な変動に好奇心が囚われる。ICM は行動に関係する特徴だけを予測対象にし、VIME 等の情報利得系より高次元画像にスケールする。",
+   "s3": "逆モデル g(φ(s_t), φ(s_t+1)) → â_t で特徴 φ を自己教師学習し、順モデル誤差 r^i = η/2‖φ̂(s_t+1) − φ(s_t+1)‖² を報酬に。行動に影響しない要因は φ に入らないのでノイズに頑健。",
+   "s4": "VizDoom “sparse” で ICM+A3C の成功率100%（VIME+TRPO 46.1%、TRPO 26.0%、A3C 0%）（Sec. 4.1 表）。“very sparse” では A3C・画素版が全滅、ICM は66%の試行で完全解（Fig. 5）。視野40%の白色ノイズ下でも成功（Fig. 6）。",
+   "s5": "著者：Mario の38%地点の落とし穴で探索が止まる。相互作用の機会自体が稀な環境は未対応。\n所感：エージェント自身がノイズ源となる“リモコン付き TV”には弱く、後の Disagreement が指摘する。",
+   "s6": "・Large-Scale Study of Curiosity-Driven Learning (2018)（未調査）\n・RND (2018)（未調査）\n・Disagreement (2019)（本資料）",
+   "figure": {
+    "file": "figures/icm.png",
+    "caption": "出典：ICM (Pathak+ 2017) Fig. 2（ICM の構成：逆モデルで学んだ特徴空間での順モデル誤差を報酬に）"
+   }
+  },
+  {
+   "title": "Self-Supervised Exploration via Disagreement",
+   "short": "Disagreement (Pathak+ 2019)",
+   "authors": "Deepak Pathak, Dhiraj Gandhi, Abhinav Gupta（UC Berkeley / CMU）｜ ICML 2019",
+   "year": 2019,
+   "venue": "ICML 2019",
+   "link": "https://arxiv.org/abs/1906.04161",
+   "lineage": "発展",
+   "parent": "ICM",
+   "s1": "複数の順動力学モデル（アンサンブル）の予測分散を内発的報酬とする探索法。確率的環境でも好奇心が飽和し、報酬が次状態に依存しないため方策を微分で直接最適化でき、実ロボットが物体操作を自己学習した。",
+   "s2": "ICM 等の予測誤差報酬は確率的遷移（sticky action、リモコン付き TV）で誤差が下がらず永遠に惹きつけられ、報酬が環境応答に依存するため REINFORCE 頼みで非効率。能動学習の Query-by-Committee の発想で両方を解く。",
+   "s3": "ブートストラップ学習した K=5 個の順モデルの出力分散 r^i = E_θ‖f(x_t, a_t; θ) − E_θ[f]‖² を報酬にする。次状態 x_t+1 を使わないため、短期ホライズンでは r^i を損失として方策を勾配で更新できる。",
+   "s4": "Noisy MNIST で予測誤差は確率的遷移に高報酬を与え続けるが分散は0へ収束（Fig. 3）。TV 付き Unity 迷路・sticky Atari で優位（Fig. 4, 5）。実機 Sawyer で未知物体との接触率67%（ランダム17%、REINFORCE 版 ICM 1%）。",
+   "s5": "著者：微分可能な方策最適化は長期の多段予測が難しく短期ホライズンに限定。\n所感：アンサンブル分散は以後の Plan2Explore・CEE-US・SENSEI が継承する“認識論的不確実性”の標準近似になった。",
+   "s6": "・MAX: Model-Based Active Exploration (2019)（未調査）\n・Plan2Explore (2020)（本資料）\n・CEE-US (2022)（本資料）",
+   "figure": {
+    "file": "figures/disagreement.png",
+    "caption": "出典：Disagreement (Pathak+ 2019) Fig. 1（順モデル・アンサンブルの予測分散を内発的報酬に）"
+   }
+  },
+  {
+   "title": "Planning to Explore via Self-Supervised World Models",
+   "short": "Plan2Explore (Sekar+ 2020)",
+   "authors": "Ramanan Sekar, Oleh Rybkin, Kostas Daniilidis ほか（University of Pennsylvania）｜ ICML 2020",
+   "year": 2020,
+   "venue": "ICML 2020",
+   "link": "https://arxiv.org/abs/2005.05960",
+   "lineage": "発展",
+   "parent": "Disagreement",
+   "s1": "Dreamer の潜在世界モデル内で、アンサンブル不一致（latent disagreement）を想像上で最大化する探索方策を学習。報酬なしで集めたデータの世界モデルから下流タスクをゼロショット／少数ショットで解く。",
+   "s2": "ICM 等は到達後に新規性を計算する“回顧的”報酬で、既に新規でない状態を追う。MAX は低次元状態のみ。本手法は画像入力で、将来の期待新規性を想像上で先取りし、情報利得との理論的対応も示した。",
+   "s3": "RSSM 潜在状態 s_t と行動から次の画像埋め込み h_t+1 を予測する1段モデル K=5 個の平均の分散 D(s_t, a_t) = Var{μ(w_k, s_t, a_t)} を報酬に、Dreamer の actor-critic で想像軌道上の期待新規性を最大化。",
+   "s4": "DMC 20タスク（画像入力）のゼロショット平均 563.6（Curiosity 489.3、Random 342.1、報酬ありの Dreamer 694.8）（Table 1）。1M 探索＋150K 適応で平均 643.7 と Dreamer 700.3 に迫る（Table 2）。",
+   "s5": "著者：情報利得 ≒ アンサンブル分散を導出し、教師なし事前学習の可能性を主張。\n所感：一般原理ゆえ“何でも新しければ良い”。物体操作など疎な相互作用に弱く、CEE-US（構造）・SENSEI（意味）が補う。",
+   "s6": "・LEXA: Discovering and Achieving Goals via World Models (2021)（未調査）\n・CEE-US (2022)（本資料）\n・SENSEI (2025)（本資料）",
+   "figure": {
+    "file": "figures/plan2explore.png",
+    "caption": "出典：Plan2Explore (Sekar+ 2020) Fig. 2（潜在空間での想像上の計画と latent disagreement）"
+   }
+  },
+  {
+   "title": "Curious Exploration via Structured World Models Yields Zero-Shot Object Manipulation",
+   "short": "CEE-US (Sancaktar+ 2022)",
+   "authors": "Cansu Sancaktar, Sebastian Blaes, Georg Martius（MPI for Intelligent Systems）｜ NeurIPS 2022",
+   "year": 2022,
+   "venue": "NeurIPS 2022",
+   "link": "https://arxiv.org/abs/2206.11403",
+   "lineage": "発展",
+   "parent": "Plan2Explore",
+   "s1": "GNN アンサンブルを構造化世界モデルとし、その不一致を iCEM 計画で最大化する自由遊び探索 CEE-US を提案。約6.5時間相当の遊びで得たモデルで、積み上げ・投擲・反転をゼロショット計画で解く。",
+   "s2": "Disagreement・RND・ICM・Plan2Explore は物体操作で壁や自由空間ばかり探索し、疎な物体間相互作用を学べない。物体単位の関係帰納バイアス（GNN）を入れ、MPC で将来の不確実性を計画する点が差分。",
+   "s3": "物体をノード、ロボット状態と行動を大域コンテキストとする GNN で Δs を予測。M 個の予測共分散のトレース R_I = tr Cov({ŝ^m_t+1}) を内発的報酬とし、iCEM で想像軌道上の累積値を最大化。",
+   "s4": "Playground の物体集約タスクで100反復時の成功率0.70（MLP 版0.08）（Table 2）。探索データを CQL で学習すると Construction の Pick&Place 0.43（Disagreement 0.07、RND 0.20、ICM 0.07）（Table 3）。",
+   "s5": "著者：計画ホライズンが発見できる行動の複雑さの上限。状態は固有受容（非画像）。\n所感：“何を新しいとみなすか”は世界モデルの帰納バイアスで決まるという示唆で、SENSEI の意味的事前知識へ繋がる。",
+   "s6": "・Plan2Explore (2020)（本資料）\n・Regularity as Intrinsic Reward for Free Play (2023)（未調査）\n・SENSEI (2025)（本資料）",
+   "figure": {
+    "file": "figures/ceeus.png",
+    "caption": "出典：CEE-US (Sancaktar+ 2022) Fig. 1（GNN アンサンブル不一致による自由遊びとゼロショット計画）"
+   }
+  },
+  {
+   "title": "SENSEI: Semantic Exploration Guided by Foundation Models to Learn Versatile World Models",
+   "short": "SENSEI (Sancaktar+ 2025)",
+   "authors": "Cansu Sancaktar, Christian Gumbsch, Andrii Zadaianchuk ほか（University of Tübingen / MPI-IS）｜ ICML 2025",
+   "year": 2025,
+   "venue": "ICML 2025",
+   "link": "https://arxiv.org/abs/2503.01584",
+   "lineage": "最新",
+   "parent": "CEE-US / Plan2Explore",
+   "s1": "VLM（GPT-4）に画像対の“面白さ”を比較させ、その選好を報酬モデルに蒸留。DreamerV3 世界モデルに意味的報酬を予測させ、不確実性と組み合わせて探索する。Pokémon Red で唯一最初のジムに到達。",
+   "s2": "情報利得型（Plan2Explore 等）は低レベルな相互作用しか見つけない。基盤モデルで探索を導く既存研究（MOTIF, ELLM, OMNI）は言語化された環境や高レベル行動を仮定。SENSEI は画像と低レベル行動のみで動く。",
+   "s3": "VLM-MOTIF で r^sem を蒸留し世界モデルの出力ヘッドで予測。r^expl = r̂^sem + β·r^dis とし、r̂^sem が分位点 Q_k 以上なら β を大きくする Go-Explore 型切替で“面白い所へ行き、そこで不確実性を探る”。",
+   "s4": "MiniHack・Robodesk・Pokémon Red で Plan2Explore・RND と比較。Robodesk で物体との接触が増加（Fig. 6）。KeyRoom は PPO より約2桁少ない試行で解き（Fig. 7）、Pokémon では P2X の約2倍のレベルアップ（Fig. 8）。",
+   "s5": "著者：遮蔽・部分観測で VLM 注釈が劣化。探索が進むと注釈分布外に出るため再注釈が要る。\n所感：“面白さ”を人間的事前知識に委ねつつ世界モデルに内部化する設計が要点。VLM の偏りの影響は未検証。",
+   "s6": "・Motif (2023)（未調査）\n・CEE-US (2022)（本資料）\n・Remember to be Curious (2026)（未調査）",
+   "figure": {
+    "file": "figures/sensei.png",
+    "caption": "出典：SENSEI (Sancaktar+ 2025) Fig. 1（VLM 選好の蒸留と世界モデルによる意味的報酬の予測）"
+   }
+  },
+  {
+   "title": "Enter the Void: Exploring with High Entropy Plans",
+   "short": "Enter the Void (Sundar+ 2025)",
+   "authors": "Ashish Sundar, Chunbo Luo, Xiaoyang Wang（University of Exeter）｜ arXiv 2025（査読中）",
+   "year": 2025,
+   "venue": "arXiv プレプリント 2025",
+   "link": "https://arxiv.org/abs/2505.16787",
+   "lineage": "最新",
+   "parent": "Plan2Explore",
+   "s1": "DreamerV3 の世界モデルを推論時のプランナとして再利用し、潜在事前分布のエントロピーと予測報酬が高い想像軌道を選んで実行する探索法。Crafter で Dreamer の約半分の試行で同水準に達し平均約20%高い。",
+   "s2": "好奇心ボーナスは価値関数経由で伝わる“回顧的”信号で古い不確実性を追う。MPC 系は毎ステップ再計画して一貫性を欠く。本手法はアンサンブル不要の単一世界モデルのエントロピーで先取り探索し、再計画を学習で制御。",
+   "s3": "KL 項を情報利得と見なし、将来観測なしで計算できる事前分布のエントロピー H[p(z_t | h_t)] を代理目的に。N=256 本の想像軌道から Σ(λ_r r̂ + λ_H H) 最大を選び、PPO メタ方策が計画の継続／再計画を決める。",
+   "s4": "MiniWorld 迷路・Crafter・DMC-Vision 6タスクで Dreamer・Plan2Explore と比較。最難迷路で Dreamer より約20%短いエピソード（Fig. 1）、DMC は6中3タスクで改善（Fig. 2）、Crafter は Fig. 3。",
+   "s5": "著者：多峰的遷移でエントロピーを過大評価、稀な遷移は過小評価する失敗モードを分析。行動分布のずれも残る。\n所感：P2X が全面的に劣る比較は設定依存の可能性があり、査読前として慎重に読むべき。",
+   "s6": "・Plan2Explore (2020)（本資料）\n・DreamerV3 (2023)（未調査）\n・Optimistic World Models (2026)（未調査）",
+   "figure": {
+    "file": "figures/enterthevoid.png",
+    "caption": "出典：Enter the Void (Sundar+ 2025) Fig. 3（Crafter の学習曲線：エントロピー計画 vs Dreamer vs Plan2Explore）"
+   },
+   "notes": "arXiv の登録題名は 'Enter the Void - Planning to Seek Entropy When Reward is Scarce'。v3 PDF の題名を採用。"
+  },
+  {
+   "title": "Curiosity-Critic: Cumulative Prediction Error Improvement as a Tractable Intrinsic Reward for World Model Training",
+   "short": "Curiosity-Critic (Bhaskara+ 2026)",
+   "authors": "Vin Bhaskara, Haicheng Wang（University of Toronto）｜ EIML@ICML 2026（ワークショップ）",
+   "year": 2026,
+   "venue": "ICML 2026 Workshop (EIML)",
+   "link": "https://arxiv.org/abs/2604.18701",
+   "lineage": "最新",
+   "parent": "Compression Progress",
+   "s1": "世界モデルの“全履歴上の累積予測誤差の改善”を内発的報酬とし、それが「現在誤差 − 漸近誤差（ノイズ床）」という1ステップ代理に帰着することを示した。ノイズ床は世界モデルと並行学習する critic で推定する。",
+   "s2": "Schmidhuber 1991a（予測誤差）は noisy TV に囚われ、1991b（1ステップ改善）は単一サンプルで高分散。両者や ICM はノイズ床の近似（0 または更新後誤差）の特殊例として統一される。単一モデルで動き Disagreement より安価。",
+   "s3": "γ→1 で累積改善の履歴項が消え r_eff ≈ e(s,a|θ_t) − E[e(s,a|θ_∞)] となる。critic φ が更新後誤差 e(s,a|θ_t+1) を回帰し、r_t = e(s,a|θ_t) − φ_t+1(s,a) を報酬に。確率的遷移では r→0。",
+   "s4": "半分が決定的・半分が乱数の30×30格子（noisy TV）で、35k ステップ後の決定的セル誤差1.858（RND(State) 2.220、Random 2.348、V1 7.114、神託 1.736）（Table 1）。終盤の決定的領域滞在70.9%（Fig. 3）。",
+   "s5": "著者：実験は制御された格子世界のみで高次元環境は未検証。\n所感：学習進捗型の実装を明快に示すが、Dreamer 等の深層世界モデルや部分観測下での critic の安定性が今後の焦点。",
+   "s6": "・Compression Progress (2008)（本資料）\n・Can ICL Support Intrinsic Curiosity? (2026)（本資料）\n・RND (2018)（未調査）",
+   "figure": {
+    "file": "figures/curiositycritic.png",
+    "caption": "出典：Curiosity-Critic (Bhaskara+ 2026) Fig. 2（決定的セルでの世界モデル誤差の推移と各手法の最終値）"
+   }
+  },
+  {
+   "title": "Can In-Context Learning Support Intrinsic Curiosity?",
+   "short": "ICL Curiosity (Elmoznino+ 2026)",
+   "authors": "Eric Elmoznino, Sangnie Bhardwaj, Johannes von Oswald ほか（Google Paradigms of Intelligence / Mila）｜ arXiv 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2606.19476",
+   "lineage": "最新",
+   "parent": "Compression Progress",
+   "s1": "事前学習した系列モデルの文脈内学習（ICL）を“重み更新不要の世界モデル”とし、その予測誤差と文脈操作だけで学習進捗型の好奇心報酬を計算できるかを理論と実験で検証。新報酬 r^sum を提案。",
+   "s2": "Schmidhuber 型の学習進捗は軌道ごとに勾配更新が要り大規模化が困難、ベイズ情報利得（BIG）は推論が非可解。ICL を暗黙のベイズ予測器と見なし、予測型報酬と BIG の関係を初めて定式化した。",
+   "s3": "r^sum_t = Σ_{t'>t}[log ρ(s_t'|h_t') − log ρ(s_t'|h_t'∖t)]：s_t をマスクした文脈と比べた将来予測の改善量。一般 MDP では有限長で BIG を不偏推定できない（定理1）が、BED 設定では T→∞ で BIG に収束（系3.1）。",
+   "s4": "ガウス過程（市松模様ノイズ）・Mastermind・Alchemy で方策を学習。ノイズあり版では驚き r^sur がランダム方策以下、r^sum と r^dl は r^task 並み（Fig. 2, 4）。学習済み PFN でもベイズ神託と同傾向。",
+   "s5": "著者：時系列構造をもつ一般 BAMDP、オンライン RL、方策と予測器の分布シフトは未解決。\n所感：LLM・動画モデルを好奇心の“世界モデル”に使う際の理論的限界を示した点が重要。実環境での検証は今後。",
+   "s6": "・NDIGO (Azar+ 2019)（未調査）\n・Curiosity-Critic (2026)（本資料）\n・WorldLLM (2025)（未調査）",
+   "figure": {
+    "file": "figures/iclcuriosity.png",
+    "caption": "出典：ICL Curiosity (Elmoznino+ 2026) Fig. 1（事前学習 ICL 予測器の文脈操作で r^sum を計算）"
+   }
+  },
+  {
+   "title": "Training Controllable World Models via Action Influence Maximization",
+   "short": "AIM (Bateman+ 2026)",
+   "authors": "Samuel M. Bateman, Tenny Yin, Chongyi Zheng ほか（Princeton University）｜ CoRL 2026",
+   "year": 2026,
+   "venue": "CoRL 2026",
+   "link": "https://arxiv.org/abs/2610.27387",
+   "lineage": "最新",
+   "parent": "Disagreement / Empowerment",
+   "s1": "行動条件付き動画世界モデルが専門家デモで学ぶと指令行動を無視する問題を、データの行動影響不足に帰着。1ステップ・エンパワーメント相当の報酬でデータを能動収集する AIM を提案し、85倍のデータ効率を示した。",
+   "s2": "既存の制御性改善は時間一貫性の強化や遊び・失敗データの追加。予測誤差・不一致型の内発的報酬はモデル依存。AIM はデータ自体の相互情報量 I(A;S'|S) を最大化し、ICM・DIAYN・METRA 等の探索法と比較する。",
+   "s3": "定理1：世界モデルの制御性はデータの I(A;S'|S) で上界される。報酬 r_AIM = log q(a|s,s') − log β(a|s) + log ρ_eval(s) − log d(s)（逆動力学＋状態被覆）をフローマッチング密度で推定し、オフライン RL で最適化。",
+   "s4": "Push-T（DreamerV4 型潜在拡散）で 3k デモ＋AIM 500 が 300k デモと EE 制御性で同等（Fig. 5）。BC 評価の Joint recall 0.344（PPO-3K 0.203、+ICM 0.186）、人手 Elo 732→1190（Table 1）。",
+   "s5": "著者：複数の密度報酬モデルの再学習が重く、逐次 RL 近似に改善保証がない。シミュレーションのみ。\n所感：内発的報酬を“エージェントの探索”から“世界モデルの訓練データ設計”へ転用する新しい流れ。",
+   "s6": "・Empowerment (Klyubin+ 2005)（本文未確認）\n・PlayWorld (2026)（未調査）\n・Hallucination in World Models is Predictable and Preventable (2026)（未調査）",
+   "figure": {
+    "file": "figures/aim.png",
+    "caption": "出典：AIM (Bateman+ 2026) Fig. 1（専門家データで学んだ世界モデルは行動を無視、AIM データで行動に忠実に）"
+   }
+  }
+ ]
+}
