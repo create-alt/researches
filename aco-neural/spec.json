@@ -1,0 +1,216 @@
+{
+ "field": "群知能",
+ "theme": "ACO の系譜と Neural ACO による大規模組合せ最適化",
+ "date": "2026-10-23",
+ "summary": "ACO（Ant System→ACS→MMAS）を、①ランタイム・収束の理論、②神経組合せ最適化（AM・POMO）との接続、③学習・LLMによるη設計の3方向から追う。\nIRIDIAの原理（AntNet）→MMAS理論（Kötzing+→Kergaßner+→Manthey+）、ML-ACO→（DeepACO）→ReEvo→TIDE、そしてNCOのヒートマップを復号するHeatACOへ。",
+ "papers": [
+  {
+   "title": "AntNet: Distributed Stigmergetic Control for Communications Networks",
+   "short": "AntNet (Di Caro & Dorigo 1998)",
+   "authors": "Gianni Di Caro, Marco Dorigo（IRIDIA, Université Libre de Bruxelles）｜ JAIR 1998",
+   "year": 1998,
+   "venue": "JAIR 9 (1998)",
+   "link": "https://arxiv.org/abs/1105.5449",
+   "lineage": "原典",
+   "s1": "Ant System（Dorigo+ 1991/96）のスティグマジー原理を、パケット網の適応ルーティングに移したAntNetを提案。前向き蟻が経路を試し、後ろ向き蟻が確率的ルーティング表を強化する。現実的なシミュレータで6手法と比べ、遅延で最良。",
+   "s2": "OSPF・SPF・Bellman-Fordは推定値を他ノードへ伝播させ、局所的な誤差が全体に広がる。Q-Routing（Boyan & Littman 1994）はTD(0)型で経路を決定的に選ぶ。AntNetは推定を伝播させず、蟻のモンテカルロ試行の結果だけで確率表を更新する。",
+   "s3": "各ノードが確率表P_ndと旅行時間の統計モデルを持つ。前向き蟻はP_ndにキュー長の補正を加えて次ノードを選ぶ。後ろ向き蟻は逆走しながら強化量r∈(0,1]で P_fd ← P_fd + r(1−P_fd) と更新し、他の辺は正規化で減衰させる。",
+   "s4": "SimpleNet（8ノード）・NSFNET（14）・NTTnet（57）で、OSPF/SPF/BF/Q-R/PQ-R/理想解Daemonと比較した。SimpleNetではAntNetだけがDaemon並みのスループット（Fig. 8）。NTTnetでは90%遅延が他手法より1桁小さい（Fig. 13–15）。",
+   "s5": "著者：ルーティングを分散・非定常の強化学習問題と捉え、Actor-Criticやfirst-visit MCとの対応を論じた。\n所感：Neural ACOがACOをRLや事前分布の学習として扱う視点の起点。組合せ最適化側の原典（AS・ACS）は本文未確認のため、本論文で原理を確かめた。",
+   "s6": "・Ant System (Dorigo+ 1996)（未調査：本文未確認）\n・Ant Colony System (Dorigo & Gambardella 1997)（未調査：本文未確認）\n・DeepACO (Ye+ 2023)（既存：deep-learning-fusion）",
+   "figure": {
+    "file": "figures/antnet_fig1.png",
+    "caption": "出典：AntNet (Di Caro & Dorigo 1998) Fig. 1（各ノードが持つ確率的ルーティング表と局所交通統計）"
+   },
+   "notes": "本文1〜10章（アルゴリズム、実験設定、SimpleNet/NSFNET/NTTnetの結果、RLとの関係、関連研究）を読了。付録Aは概観のみ。"
+  },
+  {
+   "title": "Simple Max-Min Ant Systems and the Optimization of Linear Pseudo-Boolean Functions",
+   "short": "MMAS on linear functions (Kötzing+ 2011)",
+   "authors": "Timo Kötzing, Frank Neumann, Dirk Sudholt, Markus Wagner（Max Planck Institute for Informatics）｜ FOGA 2011",
+   "year": 2011,
+   "venue": "FOGA 2011",
+   "link": "https://arxiv.org/abs/1007.4707",
+   "lineage": "発展",
+   "parent": "MAX-MIN Ant System (Stützle & Hoos 2000)",
+   "s1": "MAX-MIN Ant System（MMAS）を簡略化したMMAS/MMAS*について、線形擬似ブール関数での期待最適化時間を厳密に解析した。全線形関数にO(n³log n/ρ)、OneMaxにO(n log n + n/ρ)の上界を与え、両者の上界の差n²を解消。",
+   "s2": "従来の解析（Neumann, Sudholt & Witt; Gutjahr & Sebastiani）は、フェロモンが上下限に張り付く「凍結」を前提とし、上界が関数値の種類数に比例した。BinValでは2ⁿ通りあるため指数的な界だった。本論文は凍結を仮定しない解析法を導入した。",
+   "s3": "1ビットごとに0/1の2辺を持つ構築グラフで、フェロモン=選択確率とし[1/n, 1−1/n]に制限する。最良解を毎回強化し τ' = min{(1−ρ)τ+ρ, 1−1/n}。適応度レベル法をフェロモン側に拡張し、重み付きフェロモン和の上昇で進捗を測る。",
+   "s4": "定理：全線形関数O(n³log n/ρ)（Thm. 2）、OneMax O(n log n + n/ρ)（Thm. 8）、BinVal O(n² + n/ρ)ほか（Thm. 12）。実験はn=200〜1000、ρ∈{1, 0.5, 0.1, 0.05}で1000回平均（Fig. 2）。MMASはρ=0.1でρ=1より約30%速い。",
+   "s5": "著者：一般の上界はまだ緩く、全線形関数でO(n log n + n/ρ)が成り立つかは未解決。\n所感：蟻1匹・最良解のみ強化という極端な簡略版で、TSPなど実用ACOとの距離は大きい。ただ、ρとτの上下限の役割を定量化し、後の理論の土台になった。",
+   "s6": "・BACO Markov analysis (Kergaßner+ 2024)（本資料）\n・Runtime analysis of a simple ACO algorithm (Neumann & Witt 2009)（未調査：本文未確認）\n・MAX-MIN Ant System (Stützle & Hoos 2000)（未調査：本文未確認）",
+   "figure": {
+    "file": "figures/kotzing_fig2.png",
+    "caption": "出典：MMAS on linear functions (Kötzing+ 2011) Fig. 2 上段（OneMaxでのMMAS*（左）とMMAS（右）の平均反復回数。ρ=1.0/0.5/0.1/0.05）"
+   },
+   "notes": "本文（1〜6章、定理と証明の骨子、実験）を読了。BinValの詳細な証明は概観のみ。"
+  },
+  {
+   "title": "Attention, Learn to Solve Routing Problems!",
+   "short": "Attention Model (Kool+ 2019)",
+   "authors": "Wouter Kool, Herke van Hoof, Max Welling（University of Amsterdam）｜ ICLR 2019",
+   "year": 2019,
+   "venue": "ICLR 2019",
+   "link": "https://arxiv.org/abs/1803.08475",
+   "lineage": "原典",
+   "s1": "Transformer型のエンコーダ・デコーダで巡回路を1ノードずつ構築するAttention Model（AM）と、貪欲ロールアウトをベースラインにしたREINFORCEを提案。同じハイパラでTSP・CVRP・OP・PCTSPを学習し、TSP100でgap 2.26%。",
+   "s2": "Pointer Network（Vinyals+ 2015; Bello+ 2016）はLSTMのため入力順に依存し、Actor-Critic学習も不安定。S2V-DQN（Dai+ 2017）は貪欲な挿入に偏る。AMは注意機構で順序不変と並列化を得て、学習則も簡素にした。構築型NCOの標準形となった。",
+   "s3": "3層の多頭注意（8ヘッド、d=128）でノード埋込みを作り、デコーダが文脈（グラフ埋込み・始点・直前ノード）から訪問済みをマスクして次を選ぶ。勾配は ∇L = E[(L(π)−b(s))∇log p_θ(π|s)]、b(s)は最良モデルの貪欲解。",
+   "s4": "各問題1万事例で評価（Table 1）。TSP20/50/100で貪欲0.34/1.76/4.53%、1280サンプルで0.08/0.52/2.26%。Bello+（貪欲6.90%）やOR Tools（2.90%）を上回る。CVRP100はLKH3比3.72%。AMとロールアウト基線の両方が効く（Fig. 3）。",
+   "s5": "著者：大規模化（グラフの疎化）と、マスクで表せない制約（バックトラック）が課題。\n所感：学習方策p_θ(π|s)は、ACOの構築規則τ^α·η^βを1回の推論で置き換えたものと読める。反復探索を持たない弱点を、フェロモン更新で補うのがDeepACOの発想。",
+   "s6": "・POMO (Kwon+ 2020)（本資料）\n・DeepACO (Ye+ 2023)（既存：deep-learning-fusion）\n・Pointer Networks (Vinyals+ 2015)（未調査）",
+   "figure": {
+    "file": "figures/am_fig1.png",
+    "caption": "出典：Attention Model (Kool+ 2019) Fig. 1（多頭注意によるエンコーダ。グラフ埋込みはノード埋込みの平均）"
+   },
+   "notes": "本文（1〜6章）を読了。付録は汎化実験（Fig. 5）と問題設定のみ参照。"
+  },
+  {
+   "title": "POMO: Policy Optimization with Multiple Optima for Reinforcement Learning",
+   "short": "POMO (Kwon+ 2020)",
+   "authors": "Yeong-Dae Kwon, Jinho Choo, Byoungjip Kim, Iljoo Yoon ほか（Samsung SDS）｜ NeurIPS 2020",
+   "year": 2020,
+   "venue": "NeurIPS 2020",
+   "link": "https://arxiv.org/abs/2010.16011",
+   "lineage": "発展",
+   "parent": "Attention Model (Kool+ 2019)",
+   "s1": "解の系列表現の対称性（TSPでは始点が任意）を使い、N個の始点から軌跡を並列に生成して共有ベースラインで学習するPOMOを提案。AMと同じネットワークで、TSP100のgapを0.14%（約1分）まで下げた。",
+   "s2": "AM（Kool+ 2019）の貪欲ロールアウト基線では、サンプル解のアドバンテージがほぼ常に負になる。STARTトークンは特定の初手に偏る。POMOは最適解の複数の表現を同時に探索し、低分散で局所解に陥りにくい学習と、多始点・座標変換による推論を導入した。",
+   "s3": "各ノードを始点とするN本の軌跡を並列にサンプルし、∇J ≈ (1/N)Σ(R(τⁱ)−b(s))∇log p_θ(τⁱ|s)。b(s)はN本の報酬の平均（共有基線）。推論では多始点の貪欲解と、単位正方形の反転・回転8通りの事例拡張から最良を選ぶ。",
+   "s4": "TSP100（Table 2）：AM貪欲3.51% → POMO単一軌跡1.07% → ×8拡張0.14%（1分）。CVRP100はLKH3比0.32%（2分）で、AMサンプリング（3.09%、30分）を大きく上回る。0-1ナップサックKP100でもgap 0.006（Table 4）。",
+   "s5": "著者：CVRPではすべてのノードが良い始点ではなく、始点を選ぶ別ネットワークは今後の課題。\n所感：同一事例で多数の解を作り平均と比べる学習は、蟻の集団比較に近い。ただし学習は100ノード規模で、ReEvo論文ではTSP1000のgapが52%（ReEvo Table 3）。",
+   "s6": "・Attention Model (Kool+ 2019)（本資料）\n・ReEvo (Ye+ 2024)（本資料）\n・LEHD (Luo+ 2023)（未調査）",
+   "figure": {
+    "file": "figures/pomo_fig2.png",
+    "caption": "出典：POMO (Kwon+ 2020) Fig. 2（(a) STARTトークンによる単一軌跡 (b) 始点を変えたN本の軌跡の並列生成）"
+   },
+   "notes": "本文（1〜6章）を読了。付録の事例拡張の詳細は概観のみ。"
+  },
+  {
+   "title": "Boosting Ant Colony Optimization via Solution Prediction and Machine Learning",
+   "short": "ML-ACO (Sun+ 2020)",
+   "authors": "Yuan Sun, Sheng Wang, Yunzhuang Shen, Xiaodong Li ほか（Monash University）｜ Computers & Operations Research 2022",
+   "year": 2020,
+   "venue": "Computers & OR 2022",
+   "link": "https://arxiv.org/abs/2008.04213",
+   "lineage": "発展",
+   "parent": "MAX-MIN Ant System (Stützle & Hoos 2000)",
+   "s1": "小規模事例の最適解から「辺が最適解に含まれる確率」を分類器で学習し、ACOのヒューリスティック行列ηやフェロモン初期値に入れるML-ACOを提案。オリエンテーリング問題でAS・MMASを一貫して改善し、500ノードではMMAS比10%超。",
+   "s2": "ACOのηは問題知識から手設計し（OPではη=s_j/c_ij）、フェロモンは一様に初期化するのが通例だった。本論文は解予測（Sun+ 2021）をACOに組み込む最初の試み。後にDeepACO（Ye+ 2023）が「教師あり・特徴量手設計」と指摘する代表例でもある。",
+   "s3": "CPLEXで解いた50ノードのOP事例90件を使い、各辺を正例/負例として5特徴（コスト比、得点率2種、ランダム解での順位・相関統計）でSVM・LR・GCNを学習。予測確率pを η = p·s_j/c_ij（最良）またはτの初期値に使う。",
+   "s4": "100ノードでは初回反復の解が平均50%超良く、SVM-MMASは予算4%で通常MMASの最終解を超える（Fig. 4–5）。500ノードへ汎化し、MMAS 4612 → 5168（Table 1）。観光の実データでMMAS比+1.24%。2-opt併用でOP標準問題の平均gap 0.58%（Table 4）。",
+   "s5": "著者：辺単位の2値分類で、訪問順の予測は扱えていない。線形SVMが20層GCNよりやや良かった（GCNは未調整）。\n所感：深層学習が必須でないこと、事前分布の質が序盤の収束を決めることを示した。厳密解のラベルが要る点が、RLで学ぶDeepACOとの決定的な違い。",
+   "s6": "・DeepACO (Ye+ 2023)（既存：deep-learning-fusion）\n・HeatACO (Lin+ 2026)（本資料）\n・Ant colony optimization theory: a survey (Dorigo & Blum 2005)（未調査：本文未確認）",
+   "figure": {
+    "file": "figures/mlaco_fig1.png",
+    "caption": "出典：ML-ACO (Sun+ 2020) Fig. 1（最適解つき事例の辺を特徴空間に写し、最適解に含まれる辺を分類する学習手順）"
+   },
+   "notes": "本文（1〜5章）を読了。付録B（最大重みクリーク問題への適用）は概観のみ。"
+  },
+  {
+   "title": "Markov Chain-based Optimization Time Analysis of Bivalent Ant Colony Optimization for Sorting and LeadingOnes",
+   "short": "BACO Markov analysis (Kergaßner+ 2024)",
+   "authors": "Matthias Kergaßner, Oliver Keszocze, Rolf Wanka（Friedrich-Alexander-Universität Erlangen-Nürnberg）｜ GECCO 2024",
+   "year": 2024,
+   "venue": "GECCO 2024",
+   "link": "https://arxiv.org/abs/2405.03353",
+   "lineage": "最新",
+   "parent": "MMAS on linear functions (Kötzing+ 2011)",
+   "s1": "フェロモンがτ_minとτ_maxの2値しか取らない簡略ACO「BACO」を導入し、マルコフ連鎖で期待最適化時間の厳密な式を導いた。SortingでΘ(n³)の初のタイトな界を示し、LeadingOnesでは未解決だった下界を補ってΘ(n²)を確定。",
+   "s2": "ACOのランタイム解析は少なく、Neumann & Witt や Kötzing+ 2011 などは主に上界だけだった。LeadingOnesの下界は未解決で、Sortingは解析されていなかった。本論文は改善確率を遷移行列に落とし、上界と下界を同時に得る汎用の道具を示した。",
+   "s3": "状態=最良解の目的関数値とし、遷移行列Mは上三角。期待時間は T(n,t) = p(1−M)⁻¹(1−M)⁻¹M(0,…,0,1)ᵀ（Thm. 3.1）。比M(i,j)/M(i+1,j)が行だけに依存すれば逆行列が閉形式になる。鍵はフェロモン比 t=τ_min/τ_max。",
+   "s4": "LeadingOnes：t=c/nˢ（s≥1）でΘ(nˢ⁺¹)、s<1で超多項式に相転移し、最適はt=c/nのΘ(n²)（Table 1）。Sorting（FPP目的）：t=c/n²でΘ(n³)、t=1ではΘ(n!)（Table 2）。C++実装（n≤200、20回）が理論曲線と一致（Fig. 1–2）。",
+   "s5": "著者：SortingではBACOが(1+1)EAやOnePSOよりn/log n倍遅い。s=2での相転移の有無は未解決。\n所感：τ_min/τ_maxの比が性能を支配し、適切な範囲を外すと指数的に悪化するという結論は、MMASの上下限やHeatACOのκ上限設計の理論的な裏付けと読める。",
+   "s6": "・MMAS on linear functions (Kötzing+ 2011)（本資料）\n・Time-dependent ACO (Manthey+ 2025)（本資料）\n・Running time analysis of ACO for shortest path problems (Sudholt & Thyssen 2012)（未調査）",
+   "figure": {
+    "file": "figures/kergassner_fig1.png",
+    "caption": "出典：BACO Markov analysis (Kergaßner+ 2024) Fig. 1（LeadingOnesの実測最適化時間（点）と理論式T(n,1/n)（赤線））"
+   },
+   "notes": "本文（1〜5章、定理と証明の骨子、実験）を読了。付録Aは概観のみ。"
+  },
+  {
+   "title": "ReEvo: Large Language Models as Hyper-Heuristics with Reflective Evolution",
+   "short": "ReEvo (Ye+ 2024)",
+   "authors": "Haoran Ye, Jiarui Wang, Zhiguang Cao, Federico Berto ほか（Peking University）｜ NeurIPS 2024",
+   "year": 2024,
+   "venue": "NeurIPS 2024",
+   "link": "https://arxiv.org/abs/2402.01145",
+   "lineage": "発展",
+   "parent": "DeepACO (Ye+ 2023)",
+   "s1": "LLMでヒューリスティックのコードを生成・進化させる「言語ハイパーヒューリスティクス（LHH）」を定式化し、反省付き進化のReEvoを提案。ACOのη関数を5問題で生成し、手設計のηやDeepACOを上回った。",
+   "s2": "従来のハイパーヒューリスティクスは人が定義した探索空間に縛られ、FunSearch・EoHは多くの試行を要した。同じ著者のDeepACOが学習するηは、学習規模の外で劣化する。ReEvoは解釈可能なコードを約100回の評価で得て、問題規模を越えて使える。",
+   "s3": "LLMに生成器と反省器の2役を与える。親2個の相対性能を比べる短期反省→交叉、反省を蓄積する長期反省→エリート変異、の5段で進化する。反省は「言語的な勾配」として働き、適応度地形を滑らかにする（相関長0.28→1.28、Table 4）。",
+   "s4": "ACO（Fig. 2）：TSP/CVRP/OP/MKP/BPPの各5規模で手設計ηを一貫して改善。TSP50・OP50・MKP100では、その規模で学習したDeepACOにも勝つ。規模が離れるほど差が広がる。POMOのTSP1000 gapも52%→29%に改善（Table 3）。",
+   "s5": "著者：評価は100回に限定しており、評価数が多いと反省の効果が薄れる可能性。性能の高いLLMほど反省が効く。\n所感：Neural ACOの「ηを学習する」枠組みを、NNの重みからコード探索に置き換えた転換点。GPU不要で軽い一方、事例ごとの適応はしない。",
+   "s6": "・TIDE (Chen+ 2026)（本資料）\n・EoH (Liu+ 2024)（既存：ga-hybrid）\n・DeepACO (Ye+ 2023)（既存：deep-learning-fusion）",
+   "figure": {
+    "file": "figures/reevo_fig2.png",
+    "caption": "出典：ReEvo (Ye+ 2024) Fig. 2 左上（TSP・CVRPで手設計ηに対する改善率の規模依存。青：DeepACO、橙：ReEvo。両者とも最小規模で学習）"
+   },
+   "notes": "本文（1〜7章）を読了。付録のプロンプトと生成ヒューリスティクスは一部のみ参照。"
+  },
+  {
+   "title": "Convergence and Running Time of Time-dependent Ant Colony Algorithms",
+   "short": "Time-dependent ACO (Manthey+ 2025)",
+   "authors": "Bodo Manthey, Jesse van Rhijn, Ashkan Safari, Tjark Vredeveld（University of Twente）｜ ANTS 2026（LNCS Swarm Intelligence）",
+   "year": 2025,
+   "venue": "ANTS 2026 (LNCS)",
+   "link": "https://arxiv.org/abs/2501.10810",
+   "lineage": "最新",
+   "parent": "Graph-based Ant System (Gutjahr 2000)",
+   "s1": "Gutjahrの時間依存型ACO（蒸発率ρや下限τ_minを時間とともに下げ、確率1で最適解へ収束）の実行時間を初めて解析した。GBAS/tdevの有限時間界を与え、最短路問題ではtdevが超多項式、tdlbが多項式時間になると示す。",
+   "s2": "GutjahrのGBASは定数ρでは最適解を一定確率でしか見つけられない。時間依存版で収束は保証されたが、実行時間は未解決だった。MMASのランタイム解析（Attiratanasunthron & Fakcharoenphol、Sudholt & Thyssen）は時間依存性を扱っていない。",
+   "s3": "GBAS/tdevは ρ(k)=α/k（α<1/(2L)）で、最適な歩道を一度も通らない確率をε以下に抑える（Thm. 1）。各ノードに蟻を置くn-ANTに、ρ(m)=α_n/m^β のtdevと、τ_min(m)=c_n/ln(m+1) のtdlbを組み合わせて比べる。",
+   "s4": "定理：直列インスタンス（Fig. 1）でn-ANT/tdevは2^Ω(√n)サイクルを要する（Thm. 2）。n-ANT/tdlbは期待O(n⁴ln n + (n/ρ)ln n)サイクル（Thm. 3）で、最短路以外の辺のフェロモンは確率1で0に収束（Cor. 4）。実験はなく純理論。",
+   "s5": "著者：汎用の界は個別問題には緩い。対象のSDSPは多項式時間で解ける問題で、TSPへの拡張は未解決。\n所感：「収束保証のためのスケジュールが実行時間を壊しうる」ことを形式化した点が重要。下限を緩めるtdlbの方が安全という結論は、MMASの実務感覚と合う。",
+   "s6": "・A Graph-based Ant System and its convergence (Gutjahr 2000)（未調査：本文未確認）\n・BACO Markov analysis (Kergaßner+ 2024)（本資料）\n・Running time analysis of ACO for shortest path problems (Sudholt & Thyssen 2012)（未調査）",
+   "figure": {
+    "file": "figures/manthey_fig1.png",
+    "caption": "出典：Time-dependent ACO (Manthey+ 2025) Fig. 1（n=4の直列インスタンス。誤った辺は重みM−1の誘引ノードへ向かう）"
+   },
+   "notes": "本文（1〜4章、定理の主張と証明の骨子）を読了。補題の細部（5章）は概観のみ。"
+  },
+  {
+   "title": "HeatACO: A Heatmap-Guided Max–Min Ant System for Large-Scale Travelling Salesman Problems",
+   "short": "HeatACO (Lin+ 2026)",
+   "authors": "Bo-Cheng Lin, Yi Mei, Mengjie Zhang（Victoria University of Wellington）｜ arXiv プレプリント 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2601.19041",
+   "lineage": "最新",
+   "parent": "ML-ACO (Sun+ 2020)",
+   "s1": "非自己回帰型NCO（AttGCN・DIMES・UTSP・DIFUSCO）が出す辺の確信度ヒートマップを、MMASで実行可能な巡回路に復号するHeatACOを提案。再学習も予測器ごとの調整もなしに、TSP500〜10KでMCTS復号より高品質かつ高速。",
+   "s2": "ヒートマップは巡回路そのものではない。貪欲マージは誤った高確信辺を直せず（TSP1Kでgap 13〜102%）、MCTS k-optは高コストで予測器ごとの調整が要る。DeepACO・GFACSと違い、HeatACOは学習をせず外部のヒートマップを受け取るだけ。",
+   "s3": "遷移確率 ∝ τ^α·η^β·e^κ。証拠e_ijは、各ノードで3番目に高い確信度（次数2の枠を超える水準）を基準とし、それを上回る辺だけを強める。κは上位10%の証拠でもフェロモンの動的範囲の半分に収まるよう自動設定し、後でフェロモンが誤りを正せるようにする。",
+   "s4": "Table 1：TSP1KでDIFUSCO+HeatACO+2-optが0.20%・8.4秒（MCTS 0.53%・100秒、MMAS+2-opt 0.42%）。局所探索なしでは全予測器・全規模で対応MMASに全勝（Table 2）。一方TSP10Kでは2-opt後にMMASへ全敗。ATSPやTSPLIBにも転移（Table IV–V）。",
+   "s5": "著者：分布シフトでヒートマップが密になると逆効果（DIMESのpr2392でgap 4.08%）。強い局所探索があると寄与は消える。\n所感：距離だけのSoftDistでもTSP10Kで0.54%（Table VII）と、学習ヒートマップの付加価値は限定的。ACOを「NCOの出力を検証・修正する層」に再定義した点が新しい。",
+   "s6": "・Position: Rethinking Post-Hoc Search-Based Neural Approaches (Xia+ 2024)（未調査：概要のみ）\n・DIFUSCO (Sun & Yang 2023)（未調査）\n・DyNACO (Tran+ 2026)（既存：deep-learning-fusion）",
+   "figure": {
+    "file": "figures/heataco_fig1.png",
+    "caption": "出典：HeatACO (Lin+ 2026) Fig. 1（上：NCOによるヒートマップ予測、下：ヒートマップを証拠バイアスとして使うMMAS復号）"
+   },
+   "notes": "本文（I〜VII章、Table I〜IX）を読了。arXiv v2（2026-07）。IEEE Transactions形式だが採録先は未確認。"
+  },
+  {
+   "title": "TIDE: Tuning-Integrated Dynamic Evolution for LLM-Based Automated Heuristic Design",
+   "short": "TIDE (Chen+ 2026)",
+   "authors": "Chentong Chen, Mengyuan Zhong, Ye Fan, Jialong Shi, Jianyong Sun（Xi'an Jiaotong University）｜ arXiv プレプリント 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2601.21239",
+   "lineage": "最新",
+   "parent": "ReEvo (Ye+ 2024)",
+   "s1": "LLMによる自動ヒューリスティック設計（AHD）で、アルゴリズムの構造（コードの論理）と連続パラメータを分けて共進化させるTIDEを提案。ACO枠組みでのη設計を含む9問題・5枠組みで、EoH・ReEvo・HSEvo・MCTS-AHDを概ね上回る。",
+   "s2": "ReEvoやEoHはコード生成を一括のテキスト生成として扱い、LLMが苦手な定数の値（numerical blindness）のせいで有望な構造を捨ててしまう。反省型は単一の論理に早く収束し、CodeBLEU等の多様性指標は言い換えと構造の変化を区別できない。",
+   "s3": "外側は6島の島モデルで、AST木編集距離（TSED）により構造の近い島にはコードを、遠い島には言語化した知見を移す。内側ではUCBで5種のプロンプト戦略を選んで論理を生成し、有望な個体だけ差分進化（rand/1）で定数を調整する（LLMトークン不要）。",
+   "s4": "ACO枠組み（Table 2）：TSP50/100で5.80/8.15（DeepACO 5.84/8.28、ReEvo 5.84/8.32）、OP・MKPも最良。一方CVRP50/100は9.01/15.37でDeepACO（8.89/14.93）に届かず、BPPも僅差で負ける。",
+   "s5": "著者：今後は多目的最適化と、学んだ構造的知見の問題間転移を扱う。\n所感：LLM-AHDはTSP系ではNN由来のηを超えたが、容量制約のあるCVRPでは今もDeepACOが強い。ACOは「LLMが設計した部品の評価器」として定番ベンチ化しており、ACO本体は改良されていない点に注意。",
+   "s6": "・ReEvo (Ye+ 2024)（本資料）\n・MCTS-AHD (Zheng+ 2025)（未調査）\n・HSEvo (Dat+ 2025)（未調査）",
+   "figure": {
+    "file": "figures/tide_fig2.png",
+    "caption": "出典：TIDE (Chen+ 2026) Fig. 2（左：TSEDで制御する島モデル、右：LLMによる論理生成と差分進化による定数調整）"
+   },
+   "notes": "本文（1〜5章、Table 1〜3）を読了。付録B（問題・枠組み設定）とD（コスト）は一部のみ参照。LLMはQwen3-Max。"
+  }
+ ]
+}
