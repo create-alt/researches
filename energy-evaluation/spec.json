@@ -1,0 +1,217 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "エネルギー評価の方法論（理論推定と実機計測の差）",
+  "date": "2026-10-23",
+  "summary": "SNNの省エネ主張は Horowitz (2014) の45nm単価で MAC と AC の回数を数える推定に支えられてきた。2021年以降、メモリ・データ移動を含む解析（Davidson & Furber → Lemaire → Yan）とHWシミュレータ（SATA → Bhattacharjee）で優位は条件付きと判明。\n比較相手も32bit ANN → 量子化ANN（Shen, Yan）、計測も同一HW・実チップ（Xu, Gamage）へと公平化が進む。",
+  "papers": [
+    {
+      "title": "Comparison of Artificial and Spiking Neural Networks on Digital Hardware",
+      "short": "Davidson & Furber 2021",
+      "authors": "Simon Davidson, Steve B. Furber（University of Manchester）｜ Frontiers in Neuroscience 2021",
+      "year": 2021,
+      "venue": "Frontiers in Neuroscience 2021",
+      "link": "https://doi.org/10.3389/fnins.2021.651141",
+      "lineage": "原典",
+      "s1": "レート符号化SNNとANNを同一デジタル回路（SpiNNaker2の22FDX設計値）上の処理パイプラインに分解し、SNNが省エネになる条件を導いた Perspective。結論は「1活性値を平均1.72スパイク未満で表せない限りSNNは勝てない」。",
+      "s2": "従来の「SNNは乗算不要だから省エネ」という主張は演算単価だけを比べ、重み・膜電位メモリの読み書きを無視していた。変換SNN（Rueckauer+ 2017）を念頭に、メモリアクセスを含む同一シリコン上の比較を初めて簡潔に定式化。",
+      "s3": "1入力あたりの費用を E_ANN = E_w + N_t(E_get+E_mul+E_add+E_wr)、E_SNN = N_spk·E_w + N_spk·N_t(E_get+E_add+E_wr) と分解。加算 E≈60fJ を単位に乗算5E・SRAM読出5E・書戻しEとし、12E/7E=1.72 を損益分岐とする。",
+      "s4": "実験はなく解析のみ（Sec. 4, Eq. 1–2）。SpiNNaker2 の TSMC 22FDX ポストレイアウト値（32bit SRAM読出 296fJ、32×8bit MAC 293fJ）を使用し、放送費用を SNN 有利側に無視しても N_spk<1.72 が必要と示した。",
+      "s5": "著者：プロセス差で比は多少変わるが結論は不変。勝つには時間符号化など情報量の多い符号が必要。\n所感：数式数本でメモリ支配を示した原典。データ再利用・スパース性・量子化ANNは扱わず、後続（Dampfhoffer, Yan）がこれを拡張していく。",
+      "s6": "・Horowitz ISSCC (2014)（本文未確認）\n・Lemaire+ ICONIP (2022)（本資料）\n・Dampfhoffer+ TETCI (2023)（本文未確認）\n・Yan+ TCAD (2026)（本資料）",
+      "figure": {
+        "file": "figures/davidson_fig2.png",
+        "caption": "出典：Davidson & Furber 2021 Fig. 2（ANN(A)とSNN(B)のニューロン更新パイプライン。どちらも重み・状態メモリを読み書きする）"
+      },
+      "notes": "Frontiers の OA 版 PDF（全7頁）を全文確認。"
+    },
+    {
+      "title": "SATA: Sparsity-Aware Training Accelerator for Spiking Neural Networks",
+      "short": "SATA (Yin+ 2022)",
+      "authors": "Ruokai Yin, Abhishek Moitra, Abhiroop Bhattacharjee ほか（Yale University）｜ IEEE TCAD 2022",
+      "year": 2022,
+      "venue": "IEEE TCAD 2022",
+      "link": "https://arxiv.org/abs/2204.05422",
+      "lineage": "発展",
+      "parent": "Davidson & Furber 2021",
+      "s1": "BPTT学習SNN向けのスパース性考慮シストリック加速器 SATA と、計算と DRAM/GLB/スクラッチパッドのデータ移動を数えるエネルギー推定枠組み（SATA-Sim）を提案。Eyeriss 型 ANN 基準と比べ、SNN 学習は1.27倍のエネルギーと示した。",
+      "s2": "既存のSNNアルゴリズム研究は演算数ベースの解析推定で省エネを主張し、HWのデータ移動を無視していた。H2Learn 等の専用設計はSNNに特化しすぎて公平比較に向かない。SATA は汎用 Eyeriss 型を土台に ANN と同条件で比べる基準を与える。",
+      "s3": "E_total = Σ N_op(sp)·E_op を順伝播・逆伝播・重み更新の各段で計算と各階層メモリアクセスに分解。スパイク S・発火勾配∇f・膜電位勾配∇U の3種のスパース性で N_op を減らし、重みを時間方向に保持するデータフローを採用。",
+      "s4": "VGG5/CIFAR10（T=8）、65nm合成＋CACTI。非スパースでSNNは1.35倍、スパース込みでも1.27倍（計算1.19倍・メモリ1.27倍）（Fig. 8）。メモリ費用の96.3%はGLB/DRAMでスパース性では削れない（Fig. 10）。Tが大きいと急増。",
+      "s5": "著者：制御エネルギー・ゲーティング漏れは無視した理想化比較。∇U のスパース化が鍵。\n所感：対象は学習だが、推論評価にも転用されるSNNエネルギー推定基盤となった。単位が「MAC何回分」の正規化値なので絶対値比較には注意。",
+      "s6": "・SpinalFlow (Narayanan+ 2020)（本文未確認）\n・SpikeSim (Moitra+ 2023)（未調査）\n・Bhattacharjee+ ICASSP (2024)（本資料）",
+      "figure": {
+        "file": "figures/sata_fig8.png",
+        "caption": "出典：SATA Fig. 8（ANN/SNN学習の計算・メモリエネルギー内訳。spa_はスパース性利用時）"
+      },
+      "notes": "arXiv v3（TCAD 採録版）の本文全体（アーキテクチャ・エネルギーモデル・Sec. VII の実験と考察）を確認。"
+    },
+    {
+      "title": "An Analytical Estimation of Spiking Neural Networks Energy Efficiency",
+      "short": "Lemaire+ 2022",
+      "authors": "Edgar Lemaire, Loïc Cordone, Andrea Castagnetti ほか（Université Côte d'Azur, CNRS LEAT）｜ ICONIP 2022",
+      "year": 2022,
+      "venue": "ICONIP 2022",
+      "link": "https://arxiv.org/abs/2210.13107",
+      "lineage": "発展",
+      "parent": "Davidson & Furber 2021",
+      "s1": "SNNと通常のANN（FNN）のエネルギーを、シナプス演算・メモリアクセス・アドレス計算の回数×45nm単価で見積もるハードウェア非依存の解析指標を提案。CIFAR-10・GSC・NCARS の3種のデータで SNN が6〜8倍省エネと推定した。",
+      "s2": "従来指標は ACC/MAC 回数のみで、膜電位の読み書き、リーク・リセット・バイアス、疎な畳み込みのアドレス計算を無視していた。一方 Davidson & Furber のような特定HW前提の結論は一般化しにくいとして、中間の汎用モデルを狙う。",
+      "s3": "E = E_mem + E_ops+addr。入力・重み・膜電位の読出し、出力・膜電位の書込み回数を層ごとに式化し、SNN側は入力スパイク数θに比例させる。単価は加算0.1pJ・乗算3.1pJ、SRAMは8kB 10pJ〜1MB 100pJを容量で補間。",
+      "s4": "VGG-16/CIFAR-10（T=4、精度88.4% vs 95.1%）、4層CNN/GSC（T=2）、Tiny VGG-11/NCARS（T=5）。スパイク率0.08〜0.14。総エネルギーはメモリが支配し、FNN/SNN 比は8.19・6.22・8.17倍（Table II, Fig. 1）。",
+      "s5": "著者：今後は自作HW（SPLEAT）での実測と比べ、量子化の影響も調べる。\n所感：FNNは32bitで全特徴マップをSRAM保持、SNNは1000要素FIFOという SNN 有利な仮定。データ再利用や量子化ANNを無視しており、後の批判の対象になる。",
+      "s6": "・Davidson & Furber (2021)（本資料）\n・Lemaire+ ACM TECS (2022)（本文未確認）\n・Dampfhoffer+ TETCI (2023)（本文未確認）\n・Höfflin & Wassner (2025)（本資料）",
+      "figure": {
+        "file": "figures/lemaire_fig1.png",
+        "caption": "出典：Lemaire+ 2022 Fig. 1（45nm単価による推定エネルギーの内訳。メモリ読み書きが支配的）"
+      },
+      "notes": "arXiv 版（全4頁）を全文確認。"
+    },
+    {
+      "title": "To Spike or Not To Spike: A Digital Hardware Perspective on Deep Learning Acceleration",
+      "short": "Ottati+ 2023",
+      "authors": "Fabrizio Ottati, Chang Gao, Qinyu Chen ほか（Politecnico di Torino / TU Delft ほか）｜ IEEE JETCAS 2023",
+      "year": 2023,
+      "venue": "IEEE JETCAS 2023",
+      "link": "https://arxiv.org/abs/2306.15749",
+      "lineage": "発展",
+      "parent": "Davidson & Furber 2021",
+      "s1": "ANNとSNNのデジタル加速器を、簡易エネルギーモデルと公表チップの実測値（ImageNet・VAD・KWS）で定量比較したレビュー。静的画像では ANN 加速器が SNN 加速器をパレート支配し、SNN の勝機は時系列・イベントセンサとハイブリッドにあると結論。",
+      "s2": "既存のSNN-HWレビューはSNN同士の比較に留まり、最先端ANN加速器との客観比較が欠けていた。SynOP は定義に合意がなく状態更新も含まないため採用せず、精度と並べた「1推論あたりエネルギー」を公平な指標とした。",
+      "s3": "45nm単価（8b加算0.03pJ・乗算0.2pJ・8kB SRAM読出10pJ/64b）で畳み込み1窓を解析。1時刻なら SNN 13.1nJ、ANN 24.1nJ で SNN が1.84倍有利に見えるが、E_SNN=13.1nJ·T·γ と時刻数Tが掛かるため静的入力では逆転する。",
+      "s4": "ImageNet で SNN 最良の SNPU'23（28nm、ResNet18、16時刻）は 1.95mJ/推論・66.8%、同じ 28nm の ANN（Mo'21）は 0.46mJ・76.9%（Table II）。音声 VAD/KWS では SNN チップも ANN 並み（Table III）。",
+      "s5": "著者：時系列ではSNNも競争力があり、オンチップ学習はSNNが先行。ハイブリッドが最適解かもしれない。\n所感：公表値の横断比較は精度・プロセス・課題が揃わず粗い。それでも「エネルギー/推論と精度を同時に見る」評価軸を明確化した意義は大きい。",
+      "s6": "・Davidson & Furber (2021)（本資料）\n・C-DNN (Kim+ 2023)（未調査）\n・NeuroBench (Yik+ 2025)（既存：neuromorphic-hardware）",
+      "figure": {
+        "file": "figures/ottati_fig1.png",
+        "caption": "出典：Ottati+ 2023 Fig. 1（ImageNet 上の公表加速器のエネルギー/推論・性能と分類誤差。SNN の SNPU'23 は ANN にパレート支配される）"
+      },
+      "notes": "arXiv v5（JETCAS 採録版）の本文（Sec. II–VI、Table I–III、Fig. 1）を確認。"
+    },
+    {
+      "title": "Are SNNs Truly Energy-efficient? — A Hardware Perspective",
+      "short": "Bhattacharjee+ 2024",
+      "authors": "Abhiroop Bhattacharjee, Ruokai Yin, Abhishek Moitra, Priyadarshini Panda（Yale University）｜ ICASSP 2024",
+      "year": 2024,
+      "venue": "ICASSP 2024",
+      "link": "https://arxiv.org/abs/2309.03388",
+      "lineage": "発展",
+      "parent": "SATA (Yin+ 2022)",
+      "s1": "近年のSNNアルゴリズム論文の「FLOPs×時刻×(1−スパース率)×E_AC」による推定省エネを、デジタル系統配列 SATA とアナログ IMC の SpikeSim で再評価。推定の10〜83倍が SATA 上では1.3〜6.8倍に縮むことを示した。",
+      "s2": "BNTT・TDBN 等のSNN学習研究は FLOPs やスパイク率という原始的指標で効率を主張し、メモリアクセス・データ通信・LIF回路・クロスバ非理想性を考慮していなかった。SpinalFlow 等の先行HW研究も大規模SNNの実用面を扱いきれていなかった。",
+      "s3": "SATA（28nm、出力/重み定常の系統配列）と SpikeSim（65nm RRAM クロスバ）の2つのHWベンチで同一モデルを評価しボトルネックを特定。緩和策として動的時刻削減 DT-SNN、SNN向けデータフロー、LIF共有、非理想性考慮の重み符号化を検討。",
+      "s4": "CIFAR10 で推定改善10〜83倍に対し、SATA 実効1.3〜6.8倍、SpikeSim 2〜25倍（Table II）。SpikeSim で T=1→4 にすると EDP 10.4倍、DT-SNN で2.54倍削減（Fig. 4）。SNN向けデータフローでデータ移動62.5%減、LIF共有で電力75.1%減。",
+      "s5": "著者：時刻反復のデータ移動・LIF回路・非理想性が主因。HWを意識したSNNアルゴリズム設計が必要。\n所感：5頁の短報だが「推定値と実効値の乖離」を表で示し影響が大きい。ただし実効値もシミュレータ推定で、実チップ計測ではない点に注意。",
+      "s6": "・SATA (Yin+ 2022)（本資料）\n・SpikeSim (Moitra+ 2023)（未調査）\n・DT-SNN (Li+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/bhatt_fig4.png",
+        "caption": "出典：Bhattacharjee+ 2024 Fig. 4(a)（SpikeSim 上の VGG16/TinyImageNet。時刻数とともに EDP が増え、DT-SNN で2.54倍削減）"
+      },
+      "notes": "arXiv 版（全5頁）を全文確認。"
+    },
+    {
+      "title": "Are Conventional SNNs Really Efficient? A Perspective from Network Quantization",
+      "short": "Bit Budget (Shen+ 2024)",
+      "authors": "Guobin Shen, Dongcheng Zhao, Tenglong Li ほか（中国科学院自動化研究所 BrainCog Lab）｜ CVPR 2024",
+      "year": 2024,
+      "venue": "CVPR 2024",
+      "link": "https://arxiv.org/abs/2311.10802",
+      "lineage": "発展",
+      "parent": "Davidson & Furber 2021",
+      "s1": "T時刻のSNNとTビット量子化ANN（QANN）は同等の計算複雑さを持つと示し、SynOps に代えて時刻×重みビット幅×スパイクビット幅の「Bit Budget」と S-ACE/NS-ACE 指標を提案。量子化を前提にした公平な比較と設計指針を与えた。",
+      "s2": "従来のSNN論文は最適化されていない32bit ANNと比較し、SOPs は発火率と時刻しか見ず重みビット幅を無視していた。本論文は量子化・剪定で効率化した ANN を比較相手に据え、SNN の効率は本当に「本質的」かを問い直す。",
+      "s3": "QANN の積和を 2^t·a^(t) のビット分解でT個の二値行列積に書き換え、SNN の時間方向の和と同型と示す。BB = T·b_w·b_s、S-ACE = Σ n_{w,s}·BB、NS-ACE は発火率を掛けたもの。FPGA で BB とシナプスエネルギーの線形関係を確認（Fig. 3）。",
+      "s4": "ImageNet で Spikformer-8-512（重み16bit・1bitスパイク・T=4）は S-ACE 516G・73.4%に対し、重み4bit・8bitスパイク・T=1 で210G・76.8%（Table 1）。静的画像では時刻よりスパイクのビット幅に配分すべきで、DVS では均衡が必要（Table 3）。",
+      "s5": "著者：ANN流儀のSNNは活性量子化ANNと本質的に同じで、スパース性は内在的でなく設計で決まる。\n所感：S-ACE は演算複雑度でメモリ費用を含まず、エネルギーそのものではない。「T=1・多ビットスパイク」はほぼ QANN で、SNN の定義自体を揺さぶる結果。",
+      "s6": "・Yan+ TCAD (2026)（本資料）\n・STEP (Shen+ 2025)（参照のみ）\n・Spikformer (Zhou+ 2022)（既存：spiking-transformer）",
+      "figure": {
+        "file": "figures/shen_fig1.png",
+        "caption": "出典：Bit Budget (Shen+ 2024) Fig. 1（同じ特徴ビット数なら T時刻のSNN と Tビット QANN は表現の複雑さが等しい）"
+      },
+      "notes": "CVF Open Access 版（CVPR 2024、全10頁）を全文確認。arXiv 版（2311.10802）と内容は同一系統。"
+    },
+    {
+      "title": "Event-based Optical Flow on Neuromorphic Processor: ANN vs. SNN Comparison based on Activation Sparsification",
+      "short": "SENECA ANN vs SNN (Xu+ 2025)",
+      "authors": "Yingfu Xu, Guangzhi Tang, Amirreza Yousefzadeh ほか（imec Netherlands / TU Delft ほか）｜ Neural Networks 2025",
+      "year": 2025,
+      "venue": "Neural Networks 2025",
+      "link": "https://arxiv.org/abs/2407.20421",
+      "lineage": "発展",
+      "parent": "Lemaire+ 2022",
+      "s1": "イベントカメラ光学フローの ANN と SNN を、同じ構造・同程度の活性密度（約5%）に揃え、両方を同じ処理系で動かせるニューロモルフィックプロセッサ SENECA 上で比較。SNN は時間62.5%・エネルギー75.2%に収まり、要因が画素単位の密度にあると特定。",
+      "s2": "先行比較には ①画像分類で SNN だけ多時刻が要る、②ANN と SNN で別プロセッサ（Lemaire+）や ANN のみ加速（Dampfhoffer+）、③ANN の活性スパース化を考慮しない、という不公平があった。Horowitz の MAC/AC=5.1倍に頼る推定も批判する。",
+      "s3": "学習可能閾値の FATReLU（ANN）と閾値学習 LIF（SNN）にスパース化損失を課し、1回の学習で活性密度を5%未満に。SENECA は ANN の活性値もイベントとして扱い、同じ画素の4イベントをまとめて膜電位を1回だけ読み書きする。",
+      "s4": "FireNet、56×56入力、GF22nm ゲートレベル電力解析（signoff 比±15%）。SNN 44.9ms/927µJ、ANN 71.8ms/1233µJ（Table 3）。120×120 でも SNN 4174µJ vs ANN 5753µJ。画素密度は ANN 66.5%、SNN 43.5%（Fig. 4）。",
+      "s5": "著者：同じ神経密度でも、活性が画素に集中するほど状態メモリのアクセスが減る。大規模網の写像は今後の課題。\n所感：「ANNもスパース化し同一HWで測る」公平比較の型を示した好例。ただし実チップではなくゲートレベルのシミュレーションで、数フレームのみの評価。",
+      "s6": "・Davidson & Furber (2021)（本資料）\n・SENECA (Tang+ 2023)（未調査）\n・Gamage+ Neurocomputing (2026)（本資料）",
+      "figure": {
+        "file": "figures/xu_fig4.png",
+        "caption": "出典：Xu+ 2025 Fig. 4（層ごとの画素単位密度（左）と画素あたり活性/スパイク数の分布（右））"
+      },
+      "notes": "arXiv v1（全18頁、付録含む）を確認。採録先は Crossref で Neural Networks 2025（DOI 10.1016/j.neunet.2025.107447）と確認。"
+    },
+    {
+      "title": "Hardware-aware vs. Hardware-agnostic Energy Estimation for SNN in Space Applications",
+      "short": "Höfflin & Wassner 2025",
+      "authors": "Matthias Höfflin, Jürgen Wassner（Lucerne University of Applied Sciences and Arts）｜ IAA-SPAICE 2025",
+      "year": 2025,
+      "venue": "IAA-SPAICE 2025",
+      "link": "https://arxiv.org/abs/2508.19654",
+      "lineage": "最新",
+      "parent": "Lemaire+ 2022",
+      "s1": "衛星画像からの3次元位置回帰をSNNで解き、同じSNN/CNNの組にハードウェア非依存の推定（Lunghi+ 2025 の EMAC）とハードウェア考慮の推定（Yan+ の式を LIF へ拡張）を適用。前者は一律50〜60%の省エネ、後者は条件次第と示した。",
+      "s2": "Lunghi+ や Lemaire+ の手法はシナプス演算以上を数えるが、HWの前提が結論をどれほど左右するかは検証されていなかった。本論文は推定法の選択そのものが「SNNは省エネか」の答えを変えることを、同一モデルで定量化した。",
+      "s3": "E_LIF = T·{N_src(1−s_in)(E_RW+E_ADD) + 状態読出・加算・比較・リーク乗算 + (1−s_out)E_SUB + E_W + N_src(1−s_out)·N_hop·E_hop}。古典アーキ（CA）では内部/外部メモリの単価比 MER を1:100〜1:1で振り、NDA は局所メモリのみと仮定。",
+      "s4": "MSE は CNN 55.2e-3、SNN 62.0e-3（Table 1）。非依存法で SNN は CNN の0.45〜0.50倍。HW考慮では CA 上の SNN は CNN の約3〜7倍。NDA 上の SNN は0.039〜0.070で、MER 1:100 の CNN（0.144）には勝つが MER 1:1 の CNN（0.030）には負ける（Table 2）。",
+      "s5": "著者：HW考慮推定は低レベル単価の選択に強く依存。暗い画素が多いほど SNN の消費は減る。\n所感：「SNNは神経形態HWでのみ有利」は NDA 上の SNN と CA 上の CNN という異種比較に基づく。単価の仮定一つで結論が反転する脆さ自体が重要な示唆。",
+      "s6": "・Lunghi+ Astrodynamics (2025)（参照のみ）\n・Yan+ TCAD (2026)（本資料）\n・Lemaire+ ICONIP (2022)（本資料）",
+      "figure": {
+        "file": "figures/hofflin_tab2.png",
+        "caption": "出典：Höfflin & Wassner 2025 Table 2（暗画素率ρ別の相対エネルギー。左：HW非依存、右：MER 別のHW考慮推定と NDA 上の SNN）"
+      },
+      "notes": "arXiv 版（全6頁）を全文確認。"
+    },
+    {
+      "title": "Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives",
+      "short": "QNN-SNN twin (Yan+ 2026)",
+      "authors": "Zhanglu Yan, Zhenyu Bai, Kaiwen Tang, Weng-Fai Wong（National University of Singapore）｜ IEEE TCAD 2026",
+      "year": 2026,
+      "venue": "IEEE TCAD 2026",
+      "link": "https://arxiv.org/abs/2409.08290",
+      "lineage": "最新",
+      "parent": "Davidson & Furber 2021",
+      "s1": "レート符号化SNN（T時刻）を ⌈log2(T+1)⌉ビットの容量一致QNN「双子」と対にし、計算・重み読出し・NoC上のデータ移動・膜電位アクセスを含む第一原理モデルで比較。典型的な神経形態HW条件では T=5 でスパイク率5.7%未満が必要と示した。",
+      "s2": "既存評価は加算と乗算の回数×固定単価（Horowitz 値の流用）に偏り、データ移動を無視。比較相手のANNも32bitで不公平だった。Dampfhoffer+ や Bhattacharjee+ は個別HWの事例に留まり、設計空間全体の損益分岐を与えていなかった。",
+      "s3": "計算部の条件は T·s_r ≲ k(1−γ)（k=E_MAC/E_ACC）。データ移動は疎（イベント 3pJ/bit/hop）と密（0.25pJ/bit/hop）の安い方を選び、ホップ数 k_hop と重み再利用率 R_QNN・R_SNN（SNN は時間方向で最大T倍）を変数に損益分岐を閉形式で導く。",
+      "s4": "22nm 単価。T=4・s_r=0.1 の典型的 SNN は典型HWで QNN の1.22〜1.43倍（Fig. 3）。VGG16 は CIFAR-10 の T=3 で0.987、T=5〜7 で1.41〜2.24倍（Table II）。SST-2 の Transformer は T=15 で3.76倍と T/⌈log2(T+1)⌉ に一致。",
+      "s5": "著者：制御エネルギーとレイテンシは対象外。疎イベント移動の単価を下げる専用HWなら SNN 有利域は広がる。\n所感：容量一致の双子という比較基準と閉形式の分岐条件が実用的。版を重ね数値が更新（v1 は VGG16, T=6 で93%超）されており、引用時は版に注意。",
+      "s6": "・Bit Budget (Shen+ 2024)（本資料）\n・Dampfhoffer+ TETCI (2023)（本文未確認）\n・Kranzlmüller+ (2026)（参照のみ）",
+      "figure": {
+        "file": "figures/yan_fig3.png",
+        "caption": "出典：Yan+ 2026 Fig. 3（SNN 構成（行）×HW 設定（列）ごとのエネルギー比 E_SNN/E_QNN。1 を超えると QNN が有利）"
+      },
+      "notes": "arXiv v6（2026-08、TCAD 採録版）の本文・Discussion（Sec. I–V）を確認。付録の証明は概略のみ。"
+    },
+    {
+      "title": "Real-Time Frame- and Event-based Object Detection with Spiking Neural Networks on Edge Neuromorphic Hardware: Design, Deployment and Benchmark",
+      "short": "Loihi 2 vs Jetson 検出 (Gamage+ 2026)",
+      "authors": "Udayanga G.W.K.N. Gamage, Yan Zeng, Cesar Cadena ほか（Technical University of Denmark / ETH Zürich）｜ Neurocomputing 2026",
+      "year": 2026,
+      "venue": "Neurocomputing 2026",
+      "link": "https://arxiv.org/abs/2605.00146",
+      "lineage": "最新",
+      "parent": "SENECA ANN vs SNN (Xu+ 2025)",
+      "s1": "Loihi 2 向けに3種の軽量SNN物体検出器を設計・展開し、同じ課題の ANN を Jetson Orin Nano・Jetson Nano・Apple M2 で実測比較。Loihi 2 は動的エネルギー/推論が最小だが、速度と EDP は Orin Nano が上回り、静的電力が動的の2〜5倍を占める。",
+      "s2": "SNN 検出の省エネは GPU 上の SOP 推定（SpikeYOLO 等）で語られがちで、実ニューロモルフィックチップでの物体検出の実測は乏しかった。NeuroBench 系の手順に沿い、動的エネルギーと総エネルギー・EDP を分けて報告する。",
+      "s3": "各機器でアイドル電力を測り、推論中の総電力との差から動的エネルギーを算出（Loihi 2 はプロファイラ、Jetson は tegrastats で FP16 TensorRT、M2 は powermetrics）。入力は事前にメモリへ載せ I/O を除外。SOP と動的エネルギーの関係も検証。",
+      "s4": "動的エネルギーで Loihi 2 は Orin Nano の1.61〜3.74倍、Nano B01 の10〜35倍効率的（Fig. 8）。総エネルギーは Model-1/evCIVIL-ev で13.05mJ vs Orin 23.79mJ だが、EDP は122.3 vs 90.5µJs で Orin が良い（Table 5）。精度は ANN 比5〜15%低い。",
+      "s5": "著者：SOP 削減は速度と動的エネルギーを改善するが、過度のスパース化は精度を損なう。\n所感：ANN は FP16 で INT8 化されず、GAP9 上の ANN は Loihi 2 より3.7倍低エネルギーとの記述もある。実測でも比較相手の最適化度と I/O・静的電力の扱いが結論を左右する。",
+      "s6": "・NeuroBench (Yik+ 2025)（既存：neuromorphic-hardware）\n・Xu+ Neural Networks (2025)（本資料）\n・Ottati+ JETCAS (2023)（本資料）",
+      "figure": {
+        "file": "figures/gamage_fig8.png",
+        "caption": "出典：Gamage+ 2026 Fig. 8（イベントデータでの mAP と推論レート（左）・動的エネルギー/サンプル（右）。緑 Loihi 2、紫 Orin Nano、橙 Nano B01）"
+      },
+      "notes": "arXiv v1（Neurocomputing 採録原稿）の本文（Sec. 1–7、Table 3–8、Fig. 7–11）を確認。"
+    }
+  ]
+}

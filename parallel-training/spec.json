@@ -1,0 +1,216 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "時間方向の並列学習とスパイキング状態空間モデル",
+  "date": "2026-10-23",
+  "summary": "リセット付き LIF の逐次 BPTT を崩して、時間方向に並列に学習する研究の系譜。S4/S5 が「学習は並列、推論は再帰」という枠組みを用意した。\nSNN 側では PSN（2023）がリセットを除いて並列化し、確率的スパイク（P-SpikeSSM）、TDR（PMSN）、固定点反復（FPT）、\n動的減衰（DSN）、厳密な結合スキャン（Bullet Trains）へと分かれた。チップ上での逐次推論（Loihi 2）とも整合する。",
+  "papers": [
+    {
+      "title": "Efficiently Modeling Long Sequences with Structured State Spaces",
+      "short": "S4 (Gu+ 2021)",
+      "authors": "Albert Gu, Karan Goel, Christopher Ré（Stanford University）｜ ICLR 2022",
+      "year": 2021,
+      "venue": "ICLR 2022",
+      "link": "https://arxiv.org/abs/2111.00396",
+      "lineage": "原典",
+      "s1": "線形状態空間モデル x'=Ax+Bu を深層系列モデルの層として使う S4 を提案した。HiPPO 行列を「正規＋低ランク」に分解して畳み込みカーネルを高速に計算し、LRA の全6課題で SOTA を達成。長さ16k の Path-X を初めて解いた。",
+      "s2": "先行の LSSL は O(N²L) の計算と O(NL) のメモリを要し、HiPPO 行列の対角化は数値的に不安定だった。S4 は LSSL より最大30倍速く、メモリは400分の1。LRA では効率型 Transformer を20pt以上上回る。",
+      "s3": "線形時不変の SSM は、再帰 x_k=Āx_{k−1}+B̄u_k としても畳み込み y=K̄∗u としても計算できる。A=Λ−PQ* と分解し、Woodbury 恒等式と Cauchy カーネルで K̄ を Õ(N+L) で求める。学習は畳み込み、生成は再帰で行う。",
+      "s4": "LRA 平均 86.09%（Transformer 53.66%）、Path-X 96.35%（Table 4）。生音声 SC10 98.32%（Table 5）、sCIFAR 91.13%（Table 6）。WikiText-103 PPL 20.95 で、生成は Transformer の60倍速い（Table 8）。",
+      "s5": "著者：固有値が右半平面に出る数値不安定があり、後続研究で修正したと付記している。\n所感：「学習は並列、推論は再帰」という二面性が SNN 研究に持ち込まれた起点。並列化は線形性に依存しており、スパイクやリセットはそのままでは入らない。",
+      "s6": "・S5 (Smith+ 2022)（本資料）\n・S4D (Gu+ 2022)（未調査）\n・Mamba (Gu & Dao 2023)（未調査）\n・SpikingSSMs (2024)（既存：spiking-transformer）",
+      "figure": {
+        "file": "figures/s4.png",
+        "caption": "出典：S4 (Gu+ 2021) Fig. 1（連続 SSM・HiPPO による長期依存・再帰／畳み込みの二つの離散表現）"
+      },
+      "notes": "arXiv v3（ICLR 2022 版）の本文 1〜5 章と付録の表を確認した。"
+    },
+    {
+      "title": "Simplified State Space Layers for Sequence Modeling",
+      "short": "S5 (Smith+ 2022)",
+      "authors": "Jimmy T.H. Smith, Andrew Warrington, Scott W. Linderman（Stanford University）｜ ICLR 2023",
+      "year": 2022,
+      "venue": "ICLR 2023",
+      "link": "https://arxiv.org/abs/2208.04933",
+      "lineage": "発展",
+      "parent": "S4",
+      "s1": "S4 の多数の単入力単出力 SSM を、対角化した1つの多入力多出力（MIMO）SSM に置き換えた S5 を提案した。時間方向は畳み込みではなく並列スキャンで並列化し、LRA 平均 87.4%、Path-X 98.5% を達成した。",
+      "s2": "S4 は周波数領域でカーネルを計算するため実装が複雑で、時不変かつ等間隔サンプリングが前提だった。S5 は時間領域の再帰を並列スキャンで直接計算するので、不等間隔の観測や時変 SSM も扱える。",
+      "s3": "対角 Λ なら、再帰 x_k=Λ̄x_{k−1}+B̄u_k は結合的な演算 (a,b)•(c,d)=(ca, cb+d) のスキャンになる。L 個のプロセッサで並列時間 O(P log L)、総計算量 O(PL) で解ける。初期化には HiPPO-N の対角化を使う。",
+      "s4": "LRA 平均 87.46%（S4 86.09%）、Path-X 98.58%（Table 1）。35クラス Speech Commands の生音声で 96.52%、8kHz へのゼロショットで 94.53%（Table 2）。不等間隔の振り子回帰では CRU より86倍速い（Table 3）。",
+      "s5": "著者：HiPPO-LegS は安定に対角化できないため HiPPO-N で近似しており、その正当化は無限次元の極限に限られる。\n所感：この並列スキャンが Loihi 2 への実装や、リセット付き LIF の厳密な並列化（Bullet Trains, FidLIF）の土台になった。",
+      "s6": "・Parallelizing Linear RNNs (Martin & Cundy 2018)（未調査）\n・LRU (Orvieto+ 2023)（未調査）\n・Bullet Trains (Morrill+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/s5.png",
+        "caption": "出典：S5 (Smith+ 2022) Fig. 1（対角化した MIMO SSM を並列スキャンで計算する S5 層）"
+      },
+      "notes": "arXiv v3（ICLR 2023 版）の本文全章を確認した。"
+    },
+    {
+      "title": "Parallel Spiking Neurons with High Efficiency and Ability to Learn Long-term Dependencies",
+      "short": "PSN (Fang+ 2023)",
+      "authors": "Wei Fang, Zhaofei Yu, Zhaokun Zhou ほか（Peking University）｜ NeurIPS 2023",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "link": "https://arxiv.org/abs/2304.12760",
+      "lineage": "原典",
+      "s1": "LIF からリセットを除くと、膜電位が入力の線形結合 H=WX になる点に着目した。時間方向を行列積1回で計算する Parallel Spiking Neuron（PSN）と、その masked 版・sliding 版を提案。スパイキングニューロンの並列化に初めて正面から取り組んだ。",
+      "s2": "PLIF・GLIF などの従来ニューロンは「充電→発火→リセット」の逐次計算に縛られ、遅いうえに長期依存も学習しにくかった。PSN は全時刻の入力を直接結合するため、速く長期依存にも強い。逐次推論には masked 版と sliding 版を使う。",
+      "s3": "リセットのない LIF では、H[t] は過去の入力に減衰係数を掛けて足し合わせた値になる。これを学習可能な T×T の重み W に一般化して S=Θ(WX−B) とする。masked 版は W に帯状のマスクを掛け、sliding 版は時刻間で重みを共有する1次元畳み込みにする。",
+      "s4": "LIF に比べ、多くの設定で数倍〜20倍超速い（Fig. 3）。Seq. CIFAR10/100 で 88.45/62.21%（LIF 81.50/55.45%、リセットなし LIF 79.50/53.33%、Table 1）。ImageNet では SEW-ResNet34 で 70.54%（Table 2）。",
+      "s5": "著者：リセットを除くと発火率は上がるが、発火が止まらなくなる現象は起きなかった（Fig. 4）。\n所感：PSN 本体は未来の入力を使い、パラメータが T² で増える。以後の FPT・DSN・PMSN は、この欠点を補う形で「リセットの機能をどう取り戻すか」を論じている。",
+      "s6": "・PSU (Li+ 2024)（未調査）\n・FPT (Feng+ 2025)（本資料）\n・DSN (Huang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/psn.png",
+        "caption": "出典：PSN (Fang+ 2023) Fig. 1（(a) 逐次の充電・発火・リセット と (b) 全時刻を直接結合する PSN の計算グラフ）"
+      },
+      "notes": "arXiv v4（NeurIPS 2023 版）の本文全章を確認した。"
+    },
+    {
+      "title": "P-SpikeSSM: Harnessing Probabilistic Spiking State Space Models for Long-Range Dependency Tasks",
+      "short": "P-SpikeSSM (Bal+ 2024)",
+      "authors": "Malyaban Bal, Abhronil Sengupta（The Pennsylvania State University）｜ ICLR 2025",
+      "year": 2024,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2406.02923",
+      "lineage": "発展",
+      "parent": "S4 / PSN",
+      "s1": "n 次元の SSM 状態を膜電位とみなし、その出力を発火確率としてベルヌーイ・サンプリングでスパイクを生成する P-SpikeSSM を提案した。LIF の逐次的な発火を確率的サンプリングに置き換え、LRA などの長系列課題を並列に学習できるようにした。",
+      "s2": "BinaryS4D（Stan & Rhodes 2023）など先行のスパイキング SSM は、SSM の出力を LIF に通していた。そのため LIF の逐次性がボトルネックになり、入力も実数値のままだった。本手法は入出力ともスパイクで、畳み込みは累算だけで済む。",
+      "s3": "スパイク列を入力に h[t]=Āh[t−1]+B̄x_s[t]、p_s[t]=clamp(Ch[t]) を求め、これを畳み込み K∗X_s で並列計算する。S_t は p_s[t] を確率とするベルヌーイ分布から引き、逆伝播では期待値 E[S_t]=p_s[t] をサロゲート勾配に使う。",
+      "s4": "LRA（Table 2）：ListOps 58.20、Text 81.20、Retrieval 88.53、Image 82.40、Pathfinder 84.80。psMNIST 98.4%、SC10 95.6%。LIF 版より学習が約4倍速く、ListOps では S4 の36倍省エネと推定している。",
+      "s5": "著者：エネルギーは演算回数からの推定で、メモリ I/O は含まない。Loihi 2 への実装は今後の課題。\n所感：Path-X の結果がなく、GELU と BatchNorm も残っている。リセットがないため、SNN らしさは確率的なスパイクとその疎性に頼っている。",
+      "s6": "・SpikingSSMs (Shen+ 2024)（既存：spiking-transformer）\n・BinaryS4D (Stan & Rhodes 2023)（未調査）\n・SPikE-SSM (Zhong+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/pspikessm.png",
+        "caption": "出典：P-SpikeSSM (Bal+ 2024) Fig. 1（(a) SpikeSampler・SpikeMixer・ClampFuse による構成、(b)(c) 発火の疎性）"
+      },
+      "notes": "arXiv v5（ICLR 2025 版）の本文全章を確認した。"
+    },
+    {
+      "title": "PMSN: A Parallel Multi-compartment Spiking Neuron for Multiscale Temporal Processing",
+      "short": "PMSN (Chen+ 2024)",
+      "authors": "Xinyi Chen, Jibin Wu, Chenxiang Ma ほか（The Hong Kong Polytechnic University）｜ IEEE TNNLS 2026",
+      "year": 2024,
+      "venue": "IEEE TNNLS 2026",
+      "link": "https://arxiv.org/abs/2408.14917",
+      "lineage": "発展",
+      "parent": "PSN / S4",
+      "s1": "複数の区画（コンパートメント）が相互作用するスパイキングニューロン PMSN を提案した。隠れ区画は線形 SSM として畳み込みで並列に計算し、出力区画のリセットは「時間分離リセット（TDR）」で並列化した。LIF の10倍以上速く学習できる。",
+      "s2": "単一区画の LIF は膜電位の1変数しか持たず、複数の時間スケールの情報を保てない。従来の多区画モデルは区画数が固定で、BPTT では学習が遅い。PMSN はリセットを保ったまま、並列学習とオンライン推論を両立する。",
+      "s3": "隠れ区画は固有値分解した T̄ による線形再帰なので、出力区画への入力 I_h=I∗K を FFT で一括計算できる。TDR は閾値の整数倍の電位 ⌊v⌋_θ を放電させる。これにより出力区画の膜電位を入力の累積和から一括で計算でき、逐次計算と等価になる。",
+      "s4": "SHD 95.10%、PS-MNIST 97.78%（Table II）。画素単位の Seq. CIFAR10 で 82.14%（PSN 55.24%、LIF 45.07%）。リセットを外すと全条件で精度が下がる（Table III）。UEA 平均 68.7%（Table IV）。FPGA 実装も示す（Table VII）。",
+      "s5": "著者：区画数を増やすと精度は上がるが、計算量は10倍以上になる（Table VIII）。\n所感：TDR の式では出力区画の減衰が消え、入力を ReLU で非負にする必要がある。標準 LIF のリセットそのものを並列化したわけではない。",
+      "s6": "・TC-LIF (Zhang+ 2024)（未調査）\n・FidLIF (He+ 2026)（既存：training）\n・LinOSS (Rusch & Rus 2025)（未調査）",
+      "figure": {
+        "file": "figures/pmsn.png",
+        "caption": "出典：PMSN (Chen+ 2024) Fig. 2（(a) 逐次計算、(b) 隠れ区画を畳み込み・出力区画を TDR で並列化）"
+      },
+      "notes": "arXiv v2（2026-07、TNNLS 採録版）の本文全章を確認した。"
+    },
+    {
+      "title": "A Diagonal Structured State Space Model on Loihi 2 for Efficient Streaming Sequence Processing",
+      "short": "S4D on Loihi 2 (Meyer+ 2024)",
+      "authors": "Svea Marie Meyer, Philipp Weidel, Philipp Plank ほか（Intel Labs）｜ NeurIPS 2024 Workshop (MLNCP)",
+      "year": 2024,
+      "venue": "NeurIPS 2024 WS",
+      "link": "https://arxiv.org/abs/2409.15022",
+      "lineage": "発展",
+      "parent": "S4",
+      "s1": "対角 SSM の S4D を、Intel のニューロモルフィックチップ Loihi 2 のプログラマブル・ニューロン上に実装した。SSM をニューロモルフィック・ハードウェアで動かした最初の例。1トークンずつ処理する場合、Jetson の再帰実装よりエネルギーは1/1000、遅延は1/75になる。",
+      "s2": "SSM は GPU 上で畳み込みやスキャンにより並列に学習できるが、トークンごとの再帰推論は GPU では効率が悪い。先行のスパイキング SSM は演算数の削減をシミュレーションで示しただけだった。本研究は、計算とメモリが同じ場所にあるチップで実測した。",
+      "s3": "学習は GPU 上の畳み込みモードで行い、推論は Loihi 2 上の再帰モードで行う。対角の Ā・B̄・C̄ は各ニューロンの内部状態として独立に更新する。活性化は ReLU だけにし、8bit 重み・24bit 状態に量子化したあと、量子化を考慮して再学習（QAFT）する。",
+      "s4": "精度：sMNIST 99.20%、psMNIST 96.16%、sCIFAR 84.13%（Table 1）。sCIFAR を1トークンずつ処理すると、Loihi 2 は 0.016 mJ・0.066 ms/token、Jetson の再帰実装は 16.1 mJ・4.98 ms/token（Table 2）。",
+      "s5": "著者：オフラインのバッチ処理では GPU の方が有利。Jetson 側は複素数非対応のため最適化が不十分。\n所感：「学習は並列、推論は逐次」という分担をチップで実証した点が重要。ただし二値スパイクではなく整数値のスパイクを使っている。",
+      "s6": "・Loihi 2 信号処理 (Orchard+ 2021)（既存：neuromorphic-hardware）\n・Linear RNN sparsity on Loihi 2 (Pierro+ 2025)（未調査）\n・MatMul-free LLM on Loihi 2 (Abreu+ 2025)（既存：neuromorphic-hardware）",
+      "figure": {
+        "file": "figures/s4d_loihi2.png",
+        "caption": "出典：S4D on Loihi 2 (Meyer+ 2024) Fig. 2（Loihi 2 に実装した S4D の構成。濃い青がプログラマブル・ニューロン）"
+      },
+      "notes": "arXiv v1 の本文全章を確認した。ワークショップ版の題は \"A Diagonal State Space Model on Loihi 2 ...\"。"
+    },
+    {
+      "title": "Efficient Parallel Training Methods for Spiking Neural Networks with Constant Time Complexity",
+      "short": "FPT (Feng+ 2025)",
+      "authors": "Wanjin Feng, Xingyu Gao, Wenqian Du ほか（Institute of Microelectronics, CAS）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2506.12087",
+      "lineage": "最新",
+      "parent": "PSN",
+      "s1": "リセット付き LIF の全時刻の膜電位を固定点方程式 u=−V_th(Λ−I)s+Λc の解とみなし、K≈3 回の反復で並列に求める Fixed-point Parallel Training（FPT）を提案した。ネットワーク構造を変えずに、逐次計算の O(T) を O(K) に下げた。",
+      "s2": "PSN・PSU はリセットを除くか近似し、T² 個のパラメータを足すため可変長の系列に向かない。OTTT などは勾配を時間方向に打ち切る。FPT はリセットを保ったまま並列化する。PSN は K=1、IPSU は K=2 の特殊ケースとして説明できる。",
+      "s3": "Λ は減衰率 λ の累乗を並べた下三角行列。Heaviside 関数を急峻なシグモイドに置き換えて固定点反復を回し、逆伝播は K 回分を自動微分する。リプシッツ定数に関する条件を満たせば縮小写像になり、収束が保証される。",
+      "s4": "K≥3 で元の LIF の膜電位とスパイクにほぼ一致し、T≥512 では GPU 上で100倍以上速い（Fig. 2）。DVS-CIFAR10 85.50%、ImageNet-100 83.27%（Table 2）。T=128 で BPTT と同じ精度のまま約13倍速い（Table 3）。",
+      "s5": "著者：収束条件は最悪ケースの評価で、実際にはスパイクが疎なため条件はゆるいと述べる。\n所感：順伝播はシグモイドで緩めたダイナミクスで、厳密なハードリセットではない。T×T 行列を使うので演算量は T² で増える。O(K) は並列資源が十分ある前提での表記。",
+      "s6": "・PSU (Li+ 2024)（未調査）\n・FidLIF (He+ 2026)（既存：training）\n・Bullet Trains (Morrill+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/fpt.png",
+        "caption": "出典：FPT (Feng+ 2025) Fig. 1（(b) BPTT の逐次計算と (c) K 回の固定点反復で全時刻を一括更新する FPT）"
+      },
+      "notes": "arXiv v1（ICML 2025 版）の本文全章を確認した。"
+    },
+    {
+      "title": "SiLIF: Structured State Space Model Dynamics and Parametrization for Spiking Neural Networks",
+      "short": "SiLIF (Fabre+ 2025)",
+      "authors": "Maxime Fabre, Lyubov Dudchenko, Younes Bouhadjar, Emre Neftci（Forschungszentrum Jülich）｜ arXiv 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2506.06374",
+      "lineage": "最新",
+      "parent": "S4",
+      "s1": "適応 LIF や Resonate-and-Fire ニューロンの閾値下の動きを線形 SSM とみなし、S4/S4D のパラメータ化（学習可能な Δt、対数再パラメータ化、S4D 初期化）を移植した SiLIF と、複素状態版の C-SiLIF を提案した。リセット付きのニューロンで音声認識の SOTA を更新した。",
+      "s2": "適応 LIF 系の改良は小幅な改善にとどまり、SSM にスパイクを付け足した SpikingSSMs は精度が落ちる。本研究はリセットと逐次 BPTT を残したまま SSM のパラメータ化だけを取り入れ、精度と演算量の兼ね合いで S4D と Mamba を上回った。",
+      "s3": "適応 LIF は閾値下では2状態の線形 SSM と同じ形になる。減衰率を exp(−exp(Δt_log)·exp(λ_log)) と書き、Δt と λ を対数空間で学習するため、クランプせずに 0〜1 に収まる。C-SiLIF は複素固有値で振動を表現する。",
+      "s4": "SSC 82.03%、GSC 95.49%、遅延付きで 95.88%（Table 1）。SHD 95.6%（C-SiLIF、Table 2）。GSC では遅延付き SiLIF が、S4D の半分のシナプス演算で上回る（Fig. 3, 4）。Δt を全ニューロン共通の1値にすると6pt以上下がる（Table 2）。",
+      "s5": "著者：SSM の状態拡張をスパイキングニューロンに取り入れることは今後の課題。\n所感：学習は逐次 BPTT のままで、並列化はしていない。短い音声では、並列化よりも SSM 流のパラメータ化が効くことを示す対照例として位置づけた。",
+      "s6": "・S5-RF (Huber+ 2025)（未調査）\n・AdLIF (Bittar & Garner 2022)（未調査）\n・PRF (Huang+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/silif.png",
+        "caption": "出典：SiLIF (Fabre+ 2025) Fig. 1（S4/S4D の知見を適応 LIF・Resonate-and-Fire に移植し、SSM にない要素としてリセットを持たせる）"
+      },
+      "notes": "arXiv v4（2026-04）の本文全章を確認した。"
+    },
+    {
+      "title": "Parallel Training in Spiking Neural Networks",
+      "short": "DSN (Huang+ 2026)",
+      "authors": "Yanbin Huang, Man Yao, Yuqi Pan ほか（Institute of Automation, CAS）｜ arXiv 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2602.01133",
+      "lineage": "最新",
+      "parent": "PSN",
+      "s1": "リセットの機能を「非線形性の導入」と「膜電位の制御」に分け、並列学習と逐次推論を両立するための3条件を定式化した。これに基づき、リセットを入力依存の動的減衰に置き換えた Dynamic Decay Spiking Neuron（DSN）を提案した。",
+      "s2": "PSN 系はリセットの機能を失い、因果性と逐次推論も手放した。FPT や SpikingSSMs のようにリセットを近似する手法は、元の LIF の性能を超えられない。DSN はリセットを除いたうえでその機能を再現し、長さ16k の系列で PSN より25.6倍速く学習する。",
+      "s3": "H_t=α_t⊙H_{t−1}+(1−α_t)⊙X_t とし、減衰 α_t を過去 k ステップの入力の因果畳み込みとシグモイドで決める。スパイクは 0〜N の整数値。α が入力だけで決まるので線形再帰になり、学習は並列スキャン、推論は逐次で行える。",
+      "s4": "Seq. CIFAR10/100 で 90.10/64.70%（PSN 88.45/62.21%、Table 4）。WikiText-103 で PPL 28.50（SpikingSSMs 32.25、Table 8）。長さ2kで学習したモデルが30kまで外挿できる（masked PSN は2k超で破綻、Fig. 5）。発火率は LIF より低い（Table 9）。",
+      "s5": "著者：動的減衰の畳み込みとシグモイドは浮動小数点演算で、チップ実装にはまだ距離があると認める。\n所感：中身は Mamba 型の選択的な線形再帰に整数スパイクを付けたもの。主な結果は最大4値の発火によるもので、二値では Seq. CIFAR10 が 86.74% に下がる（Table 3）。",
+      "s6": "・Mamba (Gu & Dao 2023)（未調査）\n・SpikingBrain (Pan+ 2025)（既存：spiking-transformer）\n・SPikE-SSM (Zhong+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/dsn.png",
+        "caption": "出典：DSN (Huang+ 2026) Fig. 4（(a) LIF の充電・発火・リセット、(b) リセットを入力依存の動的減衰 α_t に置き換えた DSN）"
+      },
+      "notes": "arXiv v1 の本文全章と付録の一部（実験設定）を確認した。"
+    },
+    {
+      "title": "Bullet Trains: Parallelizing Training of Temporally Precise Spiking Neural Networks",
+      "short": "Bullet Trains (Morrill+ 2026)",
+      "authors": "Todd Morrill, Christian Pehle, Anthony Zador（Columbia University / Cold Spring Harbor Laboratory）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2603.13283",
+      "lineage": "最新",
+      "parent": "S5 / FPT",
+      "s1": "連続時間で動くイベント駆動 SNN で、入力スパイクをチャンク単位で結合スキャンにより並列に取り込む手法を提案した。厳密なハードリセットを保ったまま、逐次シミュレーションより最大44倍速く学習できる。出力スパイクの時刻は Newton 法で機械精度まで求める。",
+      "s2": "PSN はリセットを捨て、PSU と SPikE-SSM はソフトリセット（線形な引き算）に頼り、FPT は順伝播をシグモイドで緩める。いずれも近似である。離散時間の手法は、時間ビン内でのスパイクの順序も失う。本手法は厳密なハードリセットと連続時間のスパイクを両立する。",
+      "s3": "入力スパイク間の閾値下の遷移はアフィン写像で、その合成は結合的なので、チャンク内の K 個を並列スキャンで処理できる。区間ごとに電位の最大値を解析的に調べて最初の発火点を見つけ、それ以降の計算を捨てて再開する（投機的実行）。",
+      "s4": "SHD で逐次実装の最大44.27倍速い（Fig. 8）。精度は MNIST（時刻符号化）98.04%、SHD 94.96%、SSC 77.79%（Table 1）。サブミリ秒の時刻差を使う課題では、2ms 以上に量子化すると正解率がほぼチャンス（33%）まで落ちる（Fig. 9）。",
+      "s5": "著者：再帰結合は入力キューが動的に変わるため、GPU での並列化は今後の課題。SHD・SSC はレート符号で解けるため、時刻精度の利点を測るベンチマークが乏しい。\n所感：並列度は発火の疎さに依存し、チャンク長と発火数の上限を事前に固定する必要がある。",
+      "s6": "・EventProp (Wunderlich & Pehle 2021)（既存：training）\n・FidLIF (He+ 2026)（既存：training）\n・Event-SSM (Schöne+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/bullet.png",
+        "caption": "出典：Bullet Trains (Morrill+ 2026) Fig. 2（A 入力スパイクを並列に消費する状態遷移とハードリセット、B Newton 法による発火時刻の解法）"
+      },
+      "notes": "arXiv v2（ICML 2026 版）の本文全章と付録 A〜D の一部を確認した。"
+    }
+  ]
+}

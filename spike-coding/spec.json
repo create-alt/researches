@@ -1,0 +1,238 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "スパイク符号化と量子化の境界",
+  "date": "2026-10-23",
+  "summary": "スパイクで値をどう表すか（レート・TTFS・位相/バースト・多値）と、低ビット量子化 ANN との等価性を追う系譜。\nレート符号＝一様量子化（Fast-SNN）、TTFS＝ReLU（Stanojevic）の等価写像が整い、整数で学習しスパイクで推論する設計（I-LIF）へ進んだ。\n2026 年は TTFS-LLM と 2 進時間重み符号（Spora）が現れ、等価性が破れる箇所（注意の TIM、TTFS の領域幾何、QNN 比のエネルギー）の解明が進む。",
+  "papers": [
+    {
+      "title": "Supervised learning based on temporal coding in spiking neural networks",
+      "short": "TTFS 直接学習 (Mostafa 2017)",
+      "authors": "Hesham Mostafa（UC San Diego）｜ IEEE TNNLS 2018",
+      "year": 2017,
+      "venue": "IEEE TNNLS 2018",
+      "link": "https://arxiv.org/abs/1606.08165",
+      "lineage": "原典",
+      "s1": "情報をスパイクの発火時刻に載せ、各ニューロンが高々1回だけ発火する時間符号化 SNN を誤差逆伝播で直接学習した。変数変換 z=exp(t) で入出力が区分線形になることを示し、MNIST で誤り率 2.45% を達成した。",
+      "s2": "従来の ANN→SNN 変換はレート符号で多数のスパイクを要する。SpikeProp は遅延素子の組合せに依存し、確率的手法はシミュレーションが重い。本手法は発火時刻の解析式から勾配を得るため、学習中に SNN を時間方向にシミュレーションしなくてよい。",
+      "s3": "非リーク IF＋指数減衰シナプス電流。発火前に届いた入力の集合（因果集合 C）だけが出力時刻を決める：\nz_out = Σ_{i∈C} w_i z_i ／ (Σ_{i∈C} w_i − 1)\n入力に応じて C が切り替わる点が、ReLU の活性パターンの切り替わりに相当する。",
+      "s4": "XOR と置換不変 MNIST で評価。784-800-10 でテスト誤り 2.45%（雑音付き学習）、784-400-400-10 で 2.86%（Table 1）。出力は隠れ層の 3.0%（2 層版では 9.4%）が発火した時点で決まり、1〜3 時定数で判定が出る（Fig. 3）。",
+      "s5": "著者：重み和の制約と勾配正規化がないと、網が沈黙するか勾配が発散する。過学習が強く、dropout は発火を妨げるので使えない。\n所感：精度は当時の MLP に及ばない。それでも「TTFS は区分線形＝ReLU 的」という後の等価性議論の出発点になった。",
+      "s6": "・Göltz+ 2021 first-spike times on BrainScaleS-2（未調査）\n・Stanojevic+ 2024 0.3 spikes/neuron（本資料）\n・Singh+ 2026 TTFS の多面体幾何（本資料）",
+      "figure": {
+        "file": "figures/mostafa2017_fig1.png",
+        "caption": "出典：Mostafa 2017 Fig. 1（因果入力集合が変わると z 領域での線形関係が切り替わる）"
+      },
+      "notes": "arXiv v2（2017）を通読。採録先 IEEE TNNLS 29(7), 2018（DOI 10.1109/TNNLS.2017.2726060）は Crossref で確認。"
+    },
+    {
+      "title": "Fast and Efficient Information Transmission with Burst Spikes in Deep Spiking Neural Networks",
+      "short": "バースト/位相符号 (Park+ 2019)",
+      "authors": "Seongsik Park, Seijoon Kim, Hyeokjun Choe, Sungroh Yoon（ソウル大学）｜ DAC 2019",
+      "year": 2019,
+      "venue": "DAC 2019",
+      "link": "https://arxiv.org/abs/1809.03142",
+      "lineage": "原典",
+      "parent": "位相符号 (Kim+ 2018)",
+      "s1": "変換型の深い SNN で、ニューロン間の情報伝達を速く省エネにする方法を提案した。短い間隔の連発で値を送るバースト符号化と、入力層は位相符号・隠れ層はバースト符号という層別のハイブリッド符号化を組み合わせる。",
+      "s2": "レート符号は k ビットを表すのに 2^k ステップを要し遅い。Kim+ 2018 の位相符号（重み付きスパイク）は速いがスパイク数が多く、送る情報量を適応的に変えられない。本手法は層の役割に応じて両者の欠点を補う。",
+      "s3": "発火直後に閾値へ β を掛けて下げ（g(t)=β·g(t−1)）、連続発火ほど実効重み w·g(t) が大きくなるようにした。位相符号は振動 Π(t)=2^−(1+t mod k) で閾値を変え、k ステップで k ビットを送る。",
+      "s4": "CIFAR-10 の VGG-16（DNN 91.41%）を変換。phase-burst は 91.41% を 1,125 ステップ・6.92M スパイクで達成し、phase-phase（91.21%, 35.2M）や real-rate（91.06%, 1,500 ステップ）を上回った（Table 1, 2）。CIFAR-100 は 68.69%。",
+      "s5": "著者：v_th を下げるほど高精度・低遅延になるが、スパイクは増える（精度とスパイク数のトレードオフ）。\n所感：位相符号は 2 進の位取り、バーストは多値スパイクの原型にあたる。ただし数百〜千ステップ級で、近年の T≤4 とは桁が違う。",
+      "s6": "・Kim+ 2018 Deep neural networks with weighted spikes（本文未確認）\n・Stöckl & Maass 2021 FS ニューロン（本資料）\n・Spora 2026（本資料）",
+      "figure": {
+        "file": "figures/park2019_fig1.png",
+        "caption": "出典：Park+ 2019 Fig. 1（レート・位相・バースト符号のスパイク列、PSP、ISI 分布）"
+      },
+      "notes": "arXiv v2（DAC 2019 採録版）を通読。比較対象の Kim+ 2018（Neurocomputing）は本文にアクセスできず、本論文中の記述から位相符号の式を引用した。"
+    },
+    {
+      "title": "Optimized spiking neurons can classify images with high accuracy through temporal coding with two spikes",
+      "short": "FS ニューロン (Stöckl & Maass 2021)",
+      "authors": "Christoph Stöckl, Wolfgang Maass（グラーツ工科大学）｜ Nature Machine Intelligence 2021",
+      "year": 2021,
+      "venue": "Nature Machine Intelligence 2021",
+      "link": "https://arxiv.org/abs/2002.00860",
+      "lineage": "発展",
+      "parent": "バースト/位相符号 (Park+ 2019)",
+      "s1": "発火の「数」だけでなく「いつ」発火したかにも重み d(t) を持たせた Few-Spikes（FS）ニューロンを最適化し、学習済み CNN を変換した。EfficientNet-B7 を ImageNet 83.57%、平均約 2 スパイク/ニューロンで SNN 化した。",
+      "s2": "Rueckauer+ 2017 型のレート変換は約 550 ステップと多数のスパイクを要し、負値をとる SiLU も扱えない。TTFS 変換（Rueckauer & Liu 2018）は大規模データでの検証がない。FS は時刻を位取りとして使い、両方の問題を解く。",
+      "s3": "K ステップで v(1)=x、z(t)=Θ(v(t)−T(t))、v(t+1)=v(t)−h(t)z(t)、出力 f̂(x)=Σ d(t)z(t)。ReLU では T=h=d=2^{K−t} とすると、出力は x の 2 進表現そのものになる（K ステップで 2^K 値）。SiLU などは BPTT で T, h, d を学習する。",
+      "s4": "ImageNet：EfficientNet-B7 85%→83.57%（K=16）、ResNet50 75.22%→75.10%（K=10）。CIFAR-10：ResNet20 91.58%→91.45%（Table 1）。2K ステップごとに新しい画像を処理でき、スループットはレート変換の約 25〜125 倍と見積もる。",
+      "s5": "著者：レート符号は単項符号、FS は 2 進符号なので log2 N ステップ・スパイクで済む。SE ブロックの乗算は変換せず外部で計算した。\n所感：「K ステップの FS ＝ K ビット量子化」と見なせる。SNN と量子化の境界をはっきり示した論文。",
+      "s6": "・Fast-SNN (2023)（本資料）\n・Spora (2026)（本資料）\n・Rueckauer+ 2017 ANN→SNN 変換（既存：training）",
+      "figure": {
+        "file": "figures/stockl2021_fig2.png",
+        "caption": "出典：FS ニューロン Fig. 2（ANN ニューロンを K ステップの FS ニューロンで模擬する）"
+      },
+      "notes": "arXiv v4（2021-01, Nature MI 採録版相当）を通読。採録先は Crossref（DOI 10.1038/s42256-021-00311-4）で確認。"
+    },
+    {
+      "title": "Fast-SNN: Fast Spiking Neural Network by Converting Quantized ANN",
+      "short": "Fast-SNN (Hu+ 2023)",
+      "authors": "Yangfan Hu, Qian Zheng, Xudong Jiang, Gang Pan（浙江大学）｜ IEEE TPAMI 2023",
+      "year": 2023,
+      "venue": "IEEE TPAMI 2023",
+      "link": "https://arxiv.org/abs/2305.19868",
+      "lineage": "発展",
+      "parent": "ANN→SNN変換 (Rueckauer+ 2017)",
+      "s1": "レート符号 IF ニューロンの発火率が一様量子化と等価であることを示し、低ビット量子化 ANN（QAT 済み）を 3〜15 ステップの SNN に変換した。ImageNet の VGG-16 で T=3 のとき 71.31%。物体検出と領域分割にも適用した。",
+      "s2": "従来の変換（正規化・較正・PTL）は統計的に決めたクリップ範囲を使うため量子化誤差が残り、数百〜数千ステップを要した。本手法はクリップ範囲も分布も QAT で最適化し、残る誤差を「順序誤差」だけに切り分けた。",
+      "s3": "b ビット量子化 Q=s/(2^b−1)·clip(round(·)) と、初期膜電位 θ/2 の IF の発火率 N/T が T=2^b−1 で一致する（Eq. 10）。全入力を待てば遅延 T×L で無損失。待たない場合の誤発火は、負スパイク付き IF と層別微調整で打ち消す。",
+      "s4": "CIFAR-10：VGG-11 2bit・T=3 で 92.99%（ANN 93.06%）。ImageNet：VGG-16 で T=7 は 72.95%、T=3 は 71.31%（ANN 71.91%）（Table 5）。VOC07 検出 mAP 73.43%（T=7）、VOC12 分割 mIoU 69.7%（T=15）。",
+      "s5": "著者：T=3 なら演算数は ANN の約 1/10。待機しない方式は T×L より L 倍速いが、休止中の電力は残る。\n所感：ビット幅 b に対しステップ数が 2^b−1 と指数的に増える。これがレート符号の本質的な限界を示している。",
+      "s6": "・QCFS (Bu+ 2022)（既存：training）\n・SpikeYOLO / I-LIF (2024)（本資料）\n・QNN-SNN 双子のエネルギー比較 (Yan+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/fastsnn2023_fig2.png",
+        "caption": "出典：Fast-SNN Fig. 2（2bit 量子化値と T=3 の IF 発火率の対応）"
+      },
+      "notes": "arXiv v1（TPAMI 採録版）を通読。検出・分割の詳細表は主要値のみ確認。"
+    },
+    {
+      "title": "High-performance deep spiking neural networks with 0.3 spikes per neuron",
+      "short": "TTFS≡ReLU (Stanojevic+ 2024)",
+      "authors": "Ana Stanojevic, Stanisław Woźniak, Guillaume Bellec ほか（IBM Research Zurich / EPFL）｜ Nature Communications 2024",
+      "year": 2024,
+      "venue": "Nature Communications 2024",
+      "link": "https://arxiv.org/abs/2306.08744",
+      "lineage": "発展",
+      "parent": "TTFS 直接学習 (Mostafa 2017)",
+      "s1": "TTFS（1 ニューロン高々 1 スパイク）の深層 SNN を、ReLU ネットと全く同じ精度で学習できることを示した。閾値交差時の膜電位の傾きを 1 に固定する「恒等写像（B1 モデル）」により、学習の軌道まで ReLU と一致する。0.3 スパイク/ニューロン未満で動く。",
+      "s2": "ReLU→TTFS の厳密写像は Rueckauer & Liu 2018、Stanojevic+ 2023 で知られていたが、厳密勾配での学習は 6 層程度が限界だった。その原因を TTFS 特有の勾配消失/爆発と特定し、写像の選び方で解決した。",
+      "s3": "時刻 t_min 以降、膜電位は傾き B で上昇する。逆写像 w=W/B、x=(t_max−t)/τ_c で等価な ReLU ネットが一意に定まる。ヤコビアンは M·W/B なので、B=1 なら W=w となり、SNN の勾配更新が ReLU の更新と一致する（α1 モデルは非線形でずれる）。",
+      "s4": "MNIST/Fashion-MNIST で ReLU と同精度（VGG16 99.57%）。VGG16 の変換＋微調整で CIFAR10 93.69%、CIFAR100 72.24%、PLACES365 53.86%。L1 正則化で 0.20〜0.27 スパイク/ニューロン（Table 2）。4bit 重みや 16 ステップでも 90% 超（Fig. 5）。",
+      "s5": "著者：各層が前層の時間窓の終了を待つ同期性が必要。ResNet の残差接続と動画は今後の課題。\n所感：TTFS は ReLU 活性を連続時刻に符号化したものとも言え、結局は時間分解能（ステップ数）とのトレードオフに帰着する。",
+      "s6": "・An Exact Mapping From ReLU Networks to SNNs (2023)（未調査）\n・TTFS-LLM (Zhao+ 2026)（本資料）\n・TTFS 多面体幾何 (Singh+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/stanojevic2024_fig1.png",
+        "caption": "出典：Stanojevic+ 2024 Fig. 1（TTFS ネットワークと膜電位の 2 つの区間）"
+      },
+      "notes": "arXiv v2（2023-11）を通読（Supplementary は未読）。採録先 Nature Communications 15:6793（2024）は Crossref で確認。"
+    },
+    {
+      "title": "Integer-Valued Training and Spike-Driven Inference Spiking Neural Network for High-performance and Energy-efficient Object Detection",
+      "short": "SpikeYOLO / I-LIF (Luo+ 2024)",
+      "authors": "Xinhao Luo, Man Yao, Yuhong Chou ほか（中国科学院自動化研究所）｜ ECCV 2024",
+      "year": 2024,
+      "venue": "ECCV 2024",
+      "link": "https://arxiv.org/abs/2407.20708",
+      "lineage": "発展",
+      "parent": "Fast-SNN (Hu+ 2023)",
+      "s1": "学習時は 0〜D の整数を出力し、推論時はそれを D 個の仮想ステップの 2 値スパイクに展開する I-LIF ニューロンを提案した（整数で学習しスパイクで推論）。SpikeYOLO で COCO mAP@50 66.2% と、SNN の検出性能を大きく伸ばした。",
+      "s2": "2 値スパイクは膜電位の量子化誤差が大きく、検出のような回帰タスクで特に効く。注意機構や情報最大化など直接学習の工夫は誤差を減らすだけで、ANN2SNN は長いステップを要する。Fast-SNN に触発され、整数で直接学習した。",
+      "s3": "S[t]=clip(round(U[t]),0,D) とし、勾配は [0,D] の矩形窓で通す。推論時は Σ_d S[t,d]=S[t] となるように展開し、行列積の線形性 W·ΣS=Σ(W·S) によって MAC を疎な AC に置き換える（Eq. 12–15）。",
+      "s4": "COCO（23.1M）：T×D=1×1 は 52.7%、1×4 は 62.3%（+9.6）、4×1 は 55.7%（Table 1）。電力増は 1×4 が +88%、4×1 が +267%。Gen1：4×2 で mAP@50 67.2%、同じ構造の ANN より +2.5% で 5.7 倍省エネ（Table 3, 4）。",
+      "s5": "著者：量子化誤差の影響は T より大きく、D を増やす方が費用対効果が高い。Gen1 では D を増やすと電力がむしろ減った。\n所感：D は事実上の活性ビット数（量子化 ANN）にあたる。推論時の等価性は、後段が線形層の場合にしか保証されない。",
+      "s6": "・E-SpikeFormer / SFA (2024)（既存：spiking-transformer）\n・PT-SSA (2026)（本資料）\n・SpikingBrain (2025)（既存：spiking-transformer）",
+      "figure": {
+        "file": "figures/spikeyolo2024_fig2.png",
+        "caption": "出典：SpikeYOLO Fig. 2（LIF と I-LIF の比較：整数学習とスパイク推論）"
+      },
+      "notes": "arXiv v4（ECCV 2024 採録版）を通読。補足資料（網構造）は未読。"
+    },
+    {
+      "title": "Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives",
+      "short": "QNN-SNN 双子のエネルギー (Yan+ 2024)",
+      "authors": "Zhanglu Yan, Zhenyu Bai, Kaiwen Tang, Weng-Fai Wong（シンガポール国立大学）｜ IEEE TCAD 2026",
+      "year": 2024,
+      "venue": "IEEE TCAD 2026",
+      "link": "https://arxiv.org/abs/2409.08290",
+      "lineage": "発展",
+      "parent": "Fast-SNN (Hu+ 2023)",
+      "s1": "T ステップのレート符号 SNN と ⌈log2(T+1)⌉ ビット活性の量子化 ANN（QNN）を、表現力の等しい「双子」として対応付けた。データ移動まで含む解析的エネルギーモデルで比べ、SNN が有利なのは T≤5・スパイク率 5.7% 未満程度に限られると示した。",
+      "s2": "従来の省エネ主張の多くは MAC と AC の演算数比較で、重み・膜電位・スパイクのメモリアクセスや NoC 転送を無視していた。比較相手も全精度 ANN が多い。本研究は表現容量をそろえた QNN を、同じハード写像で比べる。",
+      "s3": "Theorem 1：非リーク・減算リセット IF の T ステップ出力は、⌈log2(T+1)⌉ ビットの QNN で厳密に表せる。SNN は 1 ビットを T·s_r 回動かし、QNN は多ビットを 1 回動かす。E=E_compute+E_data を T、s_r、疎性、重みビット、移動コストで掃引した。",
+      "s4": "典型的なニューロモルフィック設定では、T=5 の損益分岐が s_r≈5.7%（Fig. 3, 5）。VGG16 CIFAR10 は T=3 で 0.987 倍だが T=7 で 2.24 倍、ImageNet RepVGG（T=10）は 2.23 倍（Table II, III）。SST-2 は T=15 で 3.76 倍。",
+      "s5": "著者：制御コストを含めないので SNN 寄りの評価になる。ニューロン単位の集約は一次近似。\n所感：「スパイクは 1 ビットだから省エネ」という前提を崩した重要な基準。時間符号（TTFS）でスパイク数を減らす動機にもなる。",
+      "s6": "・Dampfhoffer+ 2022 Are SNNs really more energy-efficient?（未調査）\n・Latency and accuracy tradeoffs in SNNs (2026)（参照のみ）\n・Floorline (2025)（既存：neuromorphic-hardware）",
+      "figure": {
+        "file": "figures/yan2024_fig3.png",
+        "caption": "出典：Yan+ Fig. 3（SNN/QNN エネルギー比：SNN の設定 × ハードウェアの設定）"
+      },
+      "notes": "arXiv v6（2026-08, TCAD 採録と記載）を通読。初版は 2024-09。証明の付録は主要部のみ確認。"
+    },
+    {
+      "title": "Large Language Models with At Most One Spike per Neuron",
+      "short": "TTFS-LLM (Zhao+ 2026)",
+      "authors": "Zhuoya Zhao, Parsa Omidi, Aref Jafari, Richard Naud（オタワ大学 / Huawei）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.05151",
+      "lineage": "最新",
+      "parent": "TTFS≡ReLU (Stanojevic+ 2024)",
+      "s1": "各ニューロンが最大 1 スパイクの TTFS 符号で、埋め込み・LayerNorm・注意・dropout まで含む LLM を構成し、事前学習から end-to-end で学習した。TTFS で初めて 1.5B（GPT-2 XL）まで拡大し、GLUE ではベースラインに迫った。",
+      "s2": "既存の TTFS 写像（Stanojevic+ 2024）は非負出力の ReLU-MLP に限られ、LayerNorm や行列積を表せない。変換型の TTFSFormer や STA には近似誤差や対数演算が残る。スパイキング LLM の多くはレート符号で複数のスパイクを使う。",
+      "s3": "時間窓の中点を参照時刻 t_ref とし、t_ref−t で符号付きの値を表す R-TTFS（線形域で shift-ReLU と厳密に等価）。平均・差・二乗・分散は固定重みの TTFS 層、1/√x は 2 層の TTFS で近似。QK は Q を膜電位、K を時刻として積分で計算する。",
+      "s4": "GLUE 平均：TTFS-BERT-base 80.5（SpikeLM 81.3、BERT 84.0）、Large 82.3（BERT 85.3）（Table 1）。GPT-2 XL：常識推論の平均 49.5（GPT-2 51.6）。一方 WikiText ppl は 20.4→26.6、LAMBADA ppl は 10.6→23.8（Table 2）。約 0.80 スパイク/ニューロン。",
+      "s5": "著者：言語モデリングの劣化が主要課題（時刻の量子化誤差が長い文脈で蓄積する）。エネルギーはスパイク数による代理指標で、実機では未測定。\n所感：Q を膜電位で保持し softmax を直接計算する部分は、純粋なスパイク通信とは言いにくい。",
+      "s6": "・TTFSFormer (Zhao+ ICML 2025)（未調査）\n・SpikedAttention (NeurIPS 2024)（未調査）\n・SpikeLLM (2024)（既存：spiking-transformer）",
+      "figure": {
+        "file": "figures/ttfsllm2026_fig2.png",
+        "caption": "出典：TTFS-LLM Fig. 2（参照時刻つき R-TTFS ニューロンと shift-ReLU）"
+      },
+      "notes": "arXiv v1（2026-09）を付録まで通読。既存デッキ spiking-transformer では題目のみ参照していた論文を、本テーマで全文確認してスライド化した。"
+    },
+    {
+      "title": "Polyhedral Geometry of Time-to-First-Spike Neural Networks",
+      "short": "TTFS 多面体幾何 (Singh+ 2026)",
+      "authors": "Manjot Singh, Guido Montúfar, Gitta Kutyniok（LMU ミュンヘン / UCLA）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.11227",
+      "lineage": "最新",
+      "parent": "TTFS 直接学習 (Mostafa 2017)",
+      "s1": "重みが正の TTFS ネットが連続区分線形写像になる設定で、その線形領域（因果領域）の幾何を解析した。1 ニューロンの発火時刻は指数個（最大 2^d−1）のアフィン片をもつ maxout 型で、ReLU より細かく入力空間を分割できることを示した。",
+      "s2": "ReLU や maxout には線形領域数の成熟した理論がある。一方 SNN は Maass の普遍性や近似率の結果にとどまり、ReLU との違いを示す領域数の上下界がなかった。ANN-SNN 変換の等価性だけでは、SNN 固有の計算能力は説明できない。",
+      "s3": "因果集合（発火前に届いた前シナプス集合）ごとに出力時刻はアフィンで、全体はその最小値になる。これを持ち上げた TTFS 多面体と正則細分で表す。浅い網の領域数は幅の多項式。深い網は 2 層ブロックの折り畳みで Π(m_ℓ−1) の下界（Thm 7.2）、重み共有時は上界（Thm 7.3）。",
+      "s4": "MNIST・CIFAR-10 で初期化直後のネットを使い、入力間を結ぶ直線上の領域数を推定した。領域数は幅とともに急増し、同じ幅・深さの ReLU ネットより一貫して多い（Fig. 9, 11）。2 次元断面の厳密列挙でも SNN の分割の方が細かい（Fig. 12）。",
+      "s5": "著者：負の重み（不連続写像）、遅延の役割、学習後の典型的な領域数は未解決。\n所感：TTFS＝ReLU の等価性（Stanojevic）とは対照的に、写像の族としては ReLU を超えうる。ただし精度への効き方は未検証。",
+      "s6": "・Expressivity of Spiking Neural Networks (Singh+ 2023)（未調査）\n・TTFS≡ReLU (Stanojevic+ 2024)（本資料）\n・TTFS 直接学習 (Mostafa 2017)（本資料）",
+      "figure": {
+        "file": "figures/polyhedral2026_fig1.png",
+        "caption": "出典：TTFS 多面体幾何 Fig. 1（入力 3 次元の断面における因果領域の分割）"
+      },
+      "notes": "arXiv v1（2026-09）の本文（定理の主張・解釈・実験・結論）を通読。証明の付録は主要部のみ確認。"
+    },
+    {
+      "title": "Parallel Time-Aligned Spiking Self-Attention for Consistent Integer-Valued Training and Spike-Driven Inference",
+      "short": "PT-SSA (Xue+ 2026)",
+      "authors": "Peng Xue, Wei Fang, Kaiwei Che ほか（中国科学院深圳先進技術研究院 / 鵬城実験室 / 北京大学）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.03291",
+      "lineage": "最新",
+      "parent": "SpikeYOLO / I-LIF (Luo+ 2024)",
+      "s1": "I-LIF や SFA（整数で学習しスパイクで推論）を自己注意に使うと、学習時の整数どうしの積に、推論時には存在しない「異なる時刻間の積」が混ざって等価性が崩れる（TIM）と指摘した。時刻をそろえて並列計算する PT-SSA で解消した。",
+      "s2": "SFA（E-SpikeFormer）の等価性の証明は後段が線形の場合に限られ、QKᵀV のような 3 重積は未検証だった。ImageNet では整数推論 75.41% に対し、スパイク推論は 47.62% と 27.78pt 落ちる。推論側で交差項を再現すると計算と記憶が増える。",
+      "s3": "整数（カウント）を仮想ステップのスパイク X_d=1[C>d] に展開し、同じ d どうしの Q_d K_dᵀ V_d だけを並列に計算して和をとる（時刻がそろわない交差項は除外）。SFA では出力スケールの低下を補うため、学習可能な閾値（Adaptive）を加える。",
+      "s4": "D=4 で、I-LIF の CIFAR-100 の差は 1.85→0.29pt、SFA は 26.99→0.07pt（Table 1）。ImageNet の差は 27.78→0.06pt、スパイク推論 74.53%。D を増やすと SSA の差は広がる（D=8 で 4.34pt）（Table 3）。Triton 実装は LIF SSA の 2.91 倍速。",
+      "s5": "著者：整数推論の精度は SSA よりわずかに下がることがあり、両方の経路を評価すべき。\n所感：量子化 ANN で学びスパイクで推論する設計は、乗算などの非線形演算で等価性が崩れうる。その重要な警告になっている。",
+      "s6": "・E-SpikeFormer / SFA (2024)（既存：spiking-transformer）\n・SpikeYOLO / I-LIF (2024)（本資料）\n・QSD-Transformer (2025)（未調査）",
+      "figure": {
+        "file": "figures/ptssa2026_fig1.png",
+        "caption": "出典：PT-SSA Fig. 1（整数学習とスパイク推論で QKᵀ が食い違う例）"
+      },
+      "notes": "arXiv v1（2026-10）を通読。"
+    },
+    {
+      "title": "Rethinking the Tradeoff Between Temporal Encoding and Nonlinear Computation in Spiking Language Models",
+      "short": "Spora (Liu+ 2026)",
+      "authors": "Hanfei Liu, Shuchang Feng, Yanxia Chen ほか（東北大学（中国））｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.10933",
+      "lineage": "最新",
+      "parent": "FS ニューロン (Stöckl & Maass 2021)",
+      "s1": "スパイキング言語モデル向けに、時刻ごとに 2 進の重み（8, 4, 2, 1）をもつスパイク符号 UBS/BBS と、加算とシフトだけで計算する注意を同時に設計した。4 ステップで GLUE 平均 76.6（SpikeLM +1.2）、CoLA MCC 44.1 を達成した。",
+      "s2": "レート（カウント）読み出しは T ステップで log2(T+1) ビットしか表せない。SpikeLM や SpikeLLM は浮動小数の softmax を残し、Sorbet は 16 ステップを要する。表現精度と非線形演算のコストの両立が課題だった。",
+      "s3": "UBS：上位ビットから閾値と比較し、発火したら残差に減衰 α を掛ける（条件付き減衰で入力の区切りを調整、出力は Σ2^{U−t}S(t)）。BBS：符号と大きさを分け、学習可能なスケール s を持つ。softmax の e^x は 2^{UBS(x)} のシフトで近似する。",
+      "s4": "GLUE（T=4）平均 76.6、T=6 で 78.2（Table 1）。同じ 15 状態の静的 4bit QAT と比べ、CoLA MCC 47.40 対 40.97（Table 2）。注意の推定エネルギーは 98.53% 減、モデル全体で BERT の約 4.6 倍省エネ（Table 3, 4）。",
+      "s5": "著者：行の正規化とスケールは浮動小数のまま。重み量子化との併用や、実装でのメモリ移動の評価は今後の課題。\n所感：中身は 2 進のビットプレーン符号、すなわち多ビット量子化であり、SNN と QNN の境界が最も曖昧になった例と言える。",
+      "s6": "・FS ニューロン (Stöckl & Maass 2021)（本資料）\n・SpikeLM (2024)（未調査）\n・Sorbet (2025)（未調査）",
+      "figure": {
+        "file": "figures/spora2026_fig1.png",
+        "caption": "出典：Spora Fig. 1（レート・TTFS・順位・Few-Spike・UBS・BBS の各符号）"
+      },
+      "notes": "arXiv v1（2026-10）を通読。"
+    }
+  ]
+}

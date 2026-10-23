@@ -6,36 +6,48 @@
 
 ## テーマ一覧
 
-| テーマ | 範囲 | 資料 | スライド化 | 一覧掲載 | 調査日 |
-| --- | --- | --- | --- | --- | --- |
-| [学習手法](#training) | STDP・ANN-SNN 変換・サロゲート勾配・e-prop・EventProp から並列学習まで | [pptx](training/training.pptx) / [pdf](training/training.pdf) | 12 本 | 37 本 | 2026-10-23 |
-| [Spiking Transformer・大規模化](#spiking-transformer) | 深い残差 SNN から Spiking Transformer、スパイキング LLM とスケーリング則まで | [pptx](spiking-transformer/spiking-transformer.pptx) / [pdf](spiking-transformer/spiking-transformer.pdf) | 11 本 | 37 本 | 2026-10-23 |
-| [ニューロモルフィックハードウェアと応用](#neuromorphic-hardware) | TrueNorth・Loihi 2・Speck・SpiNNaker2 などのチップと、ベンチマーク・エッジ応用 | [pptx](neuromorphic-hardware/neuromorphic-hardware.pptx) / [pdf](neuromorphic-hardware/neuromorphic-hardware.pdf) | 12 本 | 31 本 | 2026-10-23 |
+| 回 | テーマ | 範囲 | 資料 | スライド化 | 一覧掲載 | 調査日 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 第1回 | [学習手法](#training) | STDP・ANN-SNN 変換・サロゲート勾配・e-prop・EventProp から並列学習まで | [pptx](training/training.pptx) / [pdf](training/training.pdf) | 12 本 | 37 本 | 2026-10-23 |
+| 第1回 | [Spiking Transformer・大規模化](#spiking-transformer) | 深い残差 SNN から Spiking Transformer、スパイキング LLM とスケーリング則まで | [pptx](spiking-transformer/spiking-transformer.pptx) / [pdf](spiking-transformer/spiking-transformer.pdf) | 11 本 | 37 本 | 2026-10-23 |
+| 第1回 | [ニューロモルフィックハードウェアと応用](#neuromorphic-hardware) | TrueNorth・Loihi 2・Speck・SpiNNaker2 などのチップと、ベンチマーク・エッジ応用 | [pptx](neuromorphic-hardware/neuromorphic-hardware.pptx) / [pdf](neuromorphic-hardware/neuromorphic-hardware.pdf) | 12 本 | 31 本 | 2026-10-23 |
+| 第2回 | [時間方向の並列学習とスパイキング状態空間モデル](#parallel-training) | S4・S5 から PSN・FPT・P-SpikeSSM・PMSN・Bullet Trains まで、BPTT の逐次性を崩す学習とスパイキング SSM | [pptx](parallel-training/parallel-training.pptx) / [pdf](parallel-training/parallel-training.pdf) | 10 本 | 35 本 | 2026-10-23 |
+| 第2回 | [エネルギー評価の方法論（理論推定と実機計測の差）](#energy-evaluation) | Davidson & Furber・SATA から、データ移動を含む推定、QNN との公平比較、Loihi 2 と Jetson の実測比較まで | [pptx](energy-evaluation/energy-evaluation.pptx) / [pdf](energy-evaluation/energy-evaluation.pdf) | 10 本 | 29 本 | 2026-10-23 |
+| 第2回 | [スパイク符号化と量子化の境界](#spike-coding) | TTFS・バースト／位相符号から、TTFS≡ReLU、整数学習＋スパイク推論、TTFS-LLM・Spora まで | [pptx](spike-coding/spike-coding.pptx) / [pdf](spike-coding/spike-coding.pdf) | 11 本 | 37 本 | 2026-10-23 |
 
-合計：スライド化 35 本、引用論文一覧 105 本（テーマ間の重複を含む）。
+合計：スライド化 66 本、引用論文一覧 206 本（テーマ間の重複を含む）。
 
 ## 調査履歴
 
 | 日付 | 内容 |
 | --- | --- |
-| 2026-10-23 | 初回調査。「学習手法」、「Spiking Transformer・大規模化」、「ニューロモルフィックハードウェアと応用」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
+| 2026-10-23 | 第1回調査。「学習手法」、「Spiking Transformer・大規模化」、「ニューロモルフィックハードウェアと応用」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
+| 2026-10-23 | 第2回調査。第1回の推奨テーマ 「時間方向の並列学習とスパイキング状態空間モデル」、「エネルギー評価の方法論（理論推定と実機計測の差）」、「スパイク符号化と量子化の境界」 を追加調査。既存デッキでスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
 
 ## 追加調査を推奨するテーマ
 
-全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾にはテーマ単位の候補もある。
+第2回までの全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾（next themes）にはテーマ単位の候補もある。
 
-1. **時間方向の並列学習とスパイキング状態空間モデル**  
-   学習手法側の FidLIF・PSN・FPT と、大規模化側の SpikingSSMs・SpikingBrain の線形注意は、どちらも「BPTT の逐次性を崩して長系列を学ぶ」問題に集まっている。LIF への忠実性・逐次推論との両立・表現力のトレードオフを横断して比べる価値が高い。ハードウェア側でも Loihi 2 上の SSM・線形 RNN 実装が進んでいる。
+1. **SNN と量子化 ANN の公平なベンチマーク**  
+   エネルギー評価とスパイク符号化の両テーマが同じ結論に達した。QNN と公平に比べると SNN が省エネになるのは T≤5・スパイク率 5.7% 未満程度に限られ（Yan+ TCAD 2026）、実チップで測った比較はまだ少ない。同一タスク・同一ビット幅・データ移動込みで比べるベンチマーク設計を独立テーマにすべき。
 
-2. **エネルギー評価の方法論（理論推定と実機計測の差）**  
-   3テーマとも、省エネの主張の多くが 45nm の演算単価による理論推定にとどまっている（Spikformer〜SpikingBrain, BSD-Edge）。NeuroBench・floorline・SNABSuite は、synop などの代理指標が実機の性能を説明しきれないことを示した。「どの指標で SNN の効率を主張すべきか」を、実測研究とモデル化研究からまとめて整理すべき。
+2. **SNN 専用加速器のデータフローと、時間符号の時刻分解能**  
+   時刻方向のデータ再利用・疎イベントの移動コスト・静的電力が実機の効率を決めている。TTFS の量子化誤差と遅延、SSM・線形 RNN を「学習は並列、推論は逐次」でニューロモルフィック HW に載せる設計と合わせて、HW 側から調べる。
 
-3. **スパイク符号化と量子化の境界（整数で学習し、スパイクで推論）**  
-   E-SpikeFormer の SFA、SpikeLLM の GIF、SpikingBrain の適応閾値・ビット単位符号化は、どれも「何ステップで何ビットを運ぶか」という同じ問いへの答えで、ANN-SNN 変換（QCFS）とも地続きになっている。低ビット量子化研究との違いと、時間符号化（1ニューロン1スパイク）の可能性を横断して調べるとよい。
+3. **入力依存（選択的）スパイキングニューロンと、多値スパイク×低ビット LLM**  
+   並列学習テーマでは入力依存パラメータが性能の主因に見え、スパイク符号化テーマでは多値・2 進位取りスパイクが低ビット量子化 LLM と合流しつつある。Mamba 型の選択的ダイナミクスを持つスパイキングニューロンと、大規模スパイキング LM の設計を合わせて追う。
+
+<details><summary>第1回の推奨テーマ（第2回で調査済み）</summary>
+
+- 時間方向の並列学習とスパイキング状態空間モデル → [時間方向の並列学習とスパイキング状態空間モデル](#parallel-training)
+- エネルギー評価の方法論（理論推定と実機計測の差） → [エネルギー評価の方法論（理論推定と実機計測の差）](#energy-evaluation)
+- スパイク符号化と量子化の境界（整数で学習し、スパイクで推論） → [スパイク符号化と量子化の境界](#spike-coding)
+
+</details>
 
 ## 凡例
 
-- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
+- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`↪ 既存：<theme> p.N` は同じ分野の既存デッキでスライド化済み、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
 - 「系譜」列：原典（系譜の起点）／発展／最新（主に 2025〜2026 年）。
 
 ---
@@ -245,3 +257,224 @@ KWS on Loihi (Blouw+ 2018: 動的エネルギー/推論)
 | 29 | [The BrainScaleS-2 accelerated neuromorphic system with hybrid plasticity](https://arxiv.org/abs/2201.11063) | 2022 | arXiv プレプリント | 発展 | アナログ加速型 BrainScaleS-2 の概説。デジタル系を中心にしたため参照のみ | — 参照のみ |
 | 30 | [Real-Time Frame- and Event-based Object Detection with Spiking Neural Networks on Edge Neuromorphic Hardware: Design, Deployment and Benchmark](https://arxiv.org/abs/2605.00146) | 2026 | arXiv プレプリント | 最新 | Loihi 2 上の SNN 物体検出を Jetson 等と比較。アブストラクトのみ確認のため参照のみ | — 参照のみ |
 | 31 | [Efficient Onboard Spacecraft Pose Estimation with Event Cameras and Neuromorphic Hardware](https://arxiv.org/abs/2604.04117) | 2026 | CVPR 2026 Workshop (AI4SPACE) | 最新 | イベントカメラ＋BrainChip Akida による宇宙機姿勢推定。アブストラクトのみ確認のため参照のみ | — 参照のみ |
+
+---
+
+<a id="parallel-training"></a>
+
+## 時間方向の並列学習とスパイキング状態空間モデル（parallel-training/）
+
+資料：[parallel-training.pptx](parallel-training/parallel-training.pptx) ／ [parallel-training.pdf](parallel-training/parallel-training.pdf) ／ 生成元 [spec.json](parallel-training/spec.json)
+
+
+### 調査履歴
+- 2026-10-23（第2回調査）: arXiv API で「spiking × parallel / reset / state space / SSM / linear recurrent / associative scan / fixed point」を新しい順に検索し、2025〜2026 年の動向をつかんだ。見つかったのは DSN（Parallel Training in SNNs）、Bullet Trains（ICML 2026）、FPT（ICML 2025）、SiLIF、LongSpike、Phase SSM、PHC など。そこから2つの系譜を原典まで遡った。① SSM 側：S4 → S5（並列スキャン）→ S4D on Loihi 2（逐次推論のハードウェア実装）。② SNN 側：PSN（リセットを除いた並列化）→ P-SpikeSSM / PMSN（スパイキング SSM、TDR）→ FPT（固定点反復）→ DSN（動的減衰）／Bullet Trains（厳密なハードリセットの結合スキャン）。
+- 既存テーマで扱った SpikingSSMs（spiking-transformer）と FidLIF（training）は再掲していない。スライド化した 10 本は、いずれも arXiv 版の本文（手法・実験・結果・考察）を読んだ。採録先は arXiv のコメント欄、PDF のヘッダ、Web 検索で確認した（S4D on Loihi 2 は NeurIPS 2024 Workshop MLNCP、PMSN は IEEE TNNLS 2026）。
+- 並列スキャンの原典である Blelloch (1990) と、ML への適用の原典である Martin & Cundy (2018) は S5 の中で関係が整理されているため、参照のみとした。
+
+### 系譜
+```
+[SSM 側]   HiPPO/LSSL (2020-21) ─→ S4 (2021, 畳み込みで並列学習・再帰で推論)
+                                      ├─→ S4D (2022) ─────────→ S4D on Loihi 2 (2024, チップ上で逐次推論)
+                                      └─→ S5 (2022, 対角 MIMO + 並列スキャン) ←─ Martin & Cundy (2018) ←─ Blelloch (1990)
+                                             ├─→ LRU (2023) / Mamba (2023, 入力依存の減衰)
+                                             └─→ Bullet Trains (2026, アフィン写像の結合スキャン)
+[SNN 側]   LIF + SG-BPTT（逐次）
+              └─→ PSN (2023, リセットを除いて H=WX) ─┬─→ PSU / SPSN (2023-24)
+                                                    ├─→ FPT (2025, 固定点反復で LIF を近似) ─→ FidLIF (2026, Newton+スキャン; 既存: training)
+                                                    └─→ DSN (2026, 動的減衰 = Mamba 型の選択的線形再帰)
+[スパイキング SSM]  S4 + スパイク
+              ├─→ BinaryS4D (2023) / SpikingSSMs (2024; 既存: spiking-transformer) / SPikE-SSM (2024)
+              ├─→ P-SpikeSSM (2024, ベルヌーイ発火で並列化)
+              ├─→ PMSN (2024, 多区画 SSM + TDR リセット)
+              └─→ SiLIF (2025, SSM のパラメータ化を逐次学習の AdLIF/RF へ; 並列化しない対照例)
+                     → LongSpike (2026) / Phase SSM (2026) / PHC (2026)
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Efficiently Modeling Long Sequences with Structured State Spaces](https://arxiv.org/abs/2111.00396) | 2021 | ICLR 2022 | 原典 | HiPPO 行列を正規＋低ランクに分解した S4。畳み込みで並列に学習し、再帰で推論する。LRA 平均 86.09%、Path-X を初めて解いた。 | ✅ p.2 |
+| 2 | [Simplified State Space Layers for Sequence Modeling](https://arxiv.org/abs/2208.04933) | 2022 | ICLR 2023 | 発展 | 対角 MIMO SSM を並列スキャンで計算する S5。LRA 87.46%、Path-X 98.58%。 | ✅ p.3 |
+| 3 | [Parallel Spiking Neurons with High Efficiency and Ability to Learn Long-term Dependencies](https://arxiv.org/abs/2304.12760) | 2023 | NeurIPS 2023 | 原典 | リセットを除いて膜電位を H=WX で一括計算する PSN。masked 版・sliding 版も提案。Seq. CIFAR10 88.45%。 | ✅ p.4 |
+| 4 | [P-SpikeSSM: Harnessing Probabilistic Spiking State Space Models for Long-Range Dependency Tasks](https://arxiv.org/abs/2406.02923) | 2024 | ICLR 2025 | 発展 | SSM 出力を発火確率としてベルヌーイ発火させ、並列に学習するスパイキング SSM。LRA でスパイキングモデルの SOTA（Path-X の報告なし）。 | ✅ p.5 |
+| 5 | [PMSN: A Parallel Multi-compartment Spiking Neuron for Multiscale Temporal Processing](https://arxiv.org/abs/2408.14917) | 2024 | IEEE TNNLS 2026 | 発展 | 多区画ニューロン。隠れ区画を SSM 畳み込みで、出力区画を時間分離リセット（TDR）で並列化した。SHD 95.10%。FPGA 実装あり。 | ✅ p.6 |
+| 6 | [A Diagonal Structured State Space Model on Loihi 2 for Efficient Streaming Sequence Processing](https://arxiv.org/abs/2409.15022) | 2024 | NeurIPS 2024 Workshop (MLNCP) | 発展 | S4D を Loihi 2 に初めて実装した。1トークンずつの処理で Jetson 比エネルギー 1/1000、遅延 1/75。バッチ処理では GPU が有利。 | ✅ p.7 |
+| 7 | [Efficient Parallel Training Methods for Spiking Neural Networks with Constant Time Complexity](https://arxiv.org/abs/2506.12087) | 2025 | ICML 2025 | 最新 | リセット付き LIF を固定点反復（K≈3）で並列に計算する FPT。順伝播はシグモイドで緩めた近似。T=128 で BPTT の約13倍速い。 | ✅ p.8 |
+| 8 | [SiLIF: Structured State Space Model Dynamics and Parametrization for Spiking Neural Networks](https://arxiv.org/abs/2506.06374) | 2025 | arXiv プレプリント | 最新 | S4 流の Δt 学習・対数再パラメータ化・S4D 初期化を AdLIF/RF に移植した。学習は逐次 BPTT のまま。SSC 82.03%、GSC 95.88%。 | ✅ p.9 |
+| 9 | [Parallel Training in Spiking Neural Networks](https://arxiv.org/abs/2602.01133) | 2026 | arXiv プレプリント | 最新 | リセットの機能を分析し、入力依存の動的減衰でリセットを置き換えた DSN。並列学習と逐次推論を両立する。WikiText-103 PPL 28.50、30k への外挿も可能。 | ✅ p.10 |
+| 10 | [Bullet Trains: Parallelizing Training of Temporally Precise Spiking Neural Networks](https://arxiv.org/abs/2603.13283) | 2026 | ICML 2026 | 最新 | 連続時間のイベント駆動 SNN で、厳密なハードリセットを保ったまま結合スキャンでスパイクを並列に処理し、最大44倍速い。発火時刻は Newton 法で求める。 | ✅ p.11 |
+| 11 | [SpikingSSMs: Learning Long Sequences with Sparse and Parallel Spiking State Space Models](https://arxiv.org/abs/2408.14909) | 2024 | AAAI 2025 | 発展 | S4D に LIF を組み込み、代理ネットワーク SDN で並列に学習する。 | ↪ 既存：spiking-transformer p.8 |
+| 12 | [FidLIF: Parallel Training of High-Fidelity Spiking Neurons with Exact BPTT](https://arxiv.org/abs/2610.16924) | 2026 | arXiv | 最新 | Newton 法と結合スキャンでハードリセット LIF を並列に学習し、BPTT と等価な勾配を得る。 | ↪ 既存：training p.13 |
+| 13 | [Event-based backpropagation can compute exact gradients for spiking neural networks](https://arxiv.org/abs/2009.08378) | 2021 | Scientific Reports | 原典 | EventProp。Bullet Trains の厳密勾配の前提。 | ↪ 既存：training p.8 |
+| 14 | [Efficient Neuromorphic Signal Processing with Loihi 2](https://arxiv.org/abs/2111.03746) | 2021 | SiPS 2021 | 発展 | Loihi 2 のプログラマブル・ニューロンによる信号処理。S4D on Loihi 2 の基盤。 | ↪ 既存：neuromorphic-hardware p.4 |
+| 15 | [Neuromorphic Principles for Efficient Large Language Models on Intel Loihi 2](https://arxiv.org/abs/2503.18002) | 2025 | arXiv | 最新 | 線形再帰の MatMul-free LLM を Loihi 2 で動かした例。 | ↪ 既存：neuromorphic-hardware p.9 |
+| 16 | [SpikingBrain: Spiking Brain-inspired Large Models](https://arxiv.org/abs/2509.05276) | 2025 | arXiv | 最新 | 線形注意とスパイク符号化による大規模スパイキング LM。DSN と同じグループ。 | ↪ 既存：spiking-transformer p.10 |
+| 17 | [Parallelizing Linear Recurrent Neural Nets Over Sequence Length](https://arxiv.org/abs/1709.04057) | 2017 | ICLR 2018 | 原典 | 線形 RNN を並列スキャンで系列長方向に並列化した、ML での原典（抄録と S5 の関連研究節で確認）。 | — 参照のみ |
+| 18 | [Prefix Sums and Their Applications](https://www.cs.cmu.edu/~guyb/papers/Ble93.pdf) | 1990 | CMU Tech. Report CMU-CS-90-190 | 原典 | 並列スキャン（prefix sum）アルゴリズムの古典。S5 と Bullet Trains が引用している（計算機科学の文献のため参照のみ）。 | — 参照のみ |
+| 19 | [Combining Recurrent, Convolutional, and Continuous-time Models with Linear State-Space Layers (LSSL)](https://arxiv.org/abs/2110.13985) | 2021 | NeurIPS 2021 | 原典 | S4 の前身。O(N²L) の計算が問題だった（S4 本文の記述に基づく）。 | — 参照のみ |
+| 20 | [On the Parameterization and Initialization of Diagonal State Space Models (S4D)](https://arxiv.org/abs/2206.11893) | 2022 | NeurIPS 2022 | 発展 | 対角 SSM。S4D on Loihi 2、P-SpikeSSM、SiLIF の基盤。 | — 参照のみ |
+| 21 | [Resurrecting Recurrent Neural Networks for Long Sequences (LRU)](https://arxiv.org/abs/2303.06349) | 2023 | ICML 2023 | 発展 | 線形・対角化した RNN で深層 SSM の性能を再現し、SSM と線形 RNN の対応を示した（抄録のみ確認）。 | — 参照のみ |
+| 22 | [Mamba: Linear-Time Sequence Modeling with Selective State Spaces](https://arxiv.org/abs/2312.00752) | 2023 | COLM 2024 | 発展 | 入力依存の選択的 SSM。DSN の動的減衰は同じ構造をとる（参照のみ）。 | — 参照のみ |
+| 23 | [Accelerating SNN Training with Stochastic Parallelizable Spiking Neurons (SPSN)](https://arxiv.org/abs/2306.12666) | 2023 | IJCNN 2023 | 発展 | 線形積分と発火を分離し、確率的発火で並列化した。PSN と同時期の研究（抄録のみ確認）。 | — 参照のみ |
+| 24 | [Parallel Spiking Unit for Efficient Training of Spiking Neural Networks (PSU)](https://arxiv.org/abs/2402.00449) | 2024 | IJCNN 2024 | 発展 | 積分と発火を分離し、リセットを確率的に扱う。FPT は K=2 の特殊ケースとして説明している（抄録と FPT・DSN の記述で確認）。 | — 参照のみ |
+| 25 | [PRF: Parallel Resonate and Fire Neuron for Long Sequence Learning in Spiking Neural Networks](https://arxiv.org/abs/2410.03530) | 2024 | arXiv | 発展 | 分離リセットで O(L log L) の並列学習を行う、共鳴発火型ニューロン（抄録のみ確認）。PMSN・DSN と役割が重なるため参照のみ。 | — 参照のみ |
+| 26 | [SPikE-SSM: A Sparse, Precise, and Efficient Spiking State Space Model for Long Sequences Learning](https://arxiv.org/abs/2410.17268) | 2024 | arXiv | 発展 | 並列の max-min 境界圧縮（PMBC）でリセット付きのスパイクを反復的に求めるスパイキング SSM（抄録と DSN・Bullet Trains の記述で確認）。 | — 参照のみ |
+| 27 | [Learning Long Sequences in Spiking Neural Networks (BinaryS4D)](https://arxiv.org/abs/2401.00955) | 2023 | arXiv | 発展 | S4 の出力を LIF でスパイク化した初期のスパイキング SSM（P-SpikeSSM の比較対象。抄録のみ確認）。 | — 参照のみ |
+| 28 | [Multiplication-Free Parallelizable Spiking Neurons with Efficient Spatio-Temporal Dynamics](https://arxiv.org/abs/2501.14490) | 2025 | NeurIPS 2025 | 発展 | 乗算なしのチャネル単位 PSN（PSN 系の改良。抄録のみ確認）。 | — 参照のみ |
+| 29 | [Accelerating Linear Recurrent Neural Networks for the Edge with Unstructured Sparsity](https://arxiv.org/abs/2502.01330) | 2025 | ICML 2025 | 最新 | 疎な線形 RNN を Loihi 2 で動かし、同じ精度で計算量を半分にした（抄録のみ確認）。ハードウェアとの整合の続編候補。 | — 参照のみ |
+| 30 | [Scaling Up Resonate-and-Fire Networks for Fast Deep Learning (S5-RF)](https://arxiv.org/abs/2504.00719) | 2025 | arXiv | 発展 | S5 の構造と HiPPO 初期化を使う RF ニューロン。SiLIF と PMSN の比較対象（抄録のみ確認）。 | — 参照のみ |
+| 31 | [Revisiting Reset Mechanisms in Spiking Neural Networks for Sequential Modeling](https://arxiv.org/abs/2504.17751) | 2025 | arXiv | 最新 | 系列モデリングにおけるリセットの役割の再検討（arXiv 検索で題名のみ確認）。 | — 参照のみ |
+| 32 | [Modern Neuromorphic AI: From Intra-Token to Inter-Token Processing](https://arxiv.org/abs/2601.00245) | 2026 | arXiv | 最新 | SNN・SSM・Transformer の関係を「トークン内／トークン間処理」で整理した総説（抄録のみ確認）。 | — 参照のみ |
+| 33 | [Parallelized Hierarchical Connectome: A Spatiotemporal Recurrent Framework for Spiking State-Space Models](https://arxiv.org/abs/2604.01295) | 2026 | arXiv（Neural Networks 投稿中） | 最新 | 対角 SSM に層内の空間再帰と生物学的な事前知識を加えた PHCSSM（抄録のみ確認。単著のため参照のみ）。 | — 参照のみ |
+| 34 | [LongSpike: Fractional Order Spiking State Space Models for Efficient Long Sequence Learning](https://arxiv.org/abs/2606.12895) | 2026 | arXiv | 最新 | 分数階 SSM をスパイク化し、LRA・WikiText-103 で評価（抄録のみ確認）。 | — 参照のみ |
+| 35 | [Phase State Space Models: Parallel, Surrogate-Free Training of Spiking Networks](https://arxiv.org/abs/2608.07754) | 2026 | arXiv | 最新 | 共鳴発火ネットワークを位相 SSM として並列に学習する（抄録のみ確認。単著で定量評価が限られるため参照のみ）。 | — 参照のみ |
+
+---
+
+<a id="energy-evaluation"></a>
+
+## エネルギー評価の方法論（理論推定と実機計測の差）（energy-evaluation/）
+
+資料：[energy-evaluation.pptx](energy-evaluation/energy-evaluation.pptx) ／ [energy-evaluation.pdf](energy-evaluation/energy-evaluation.pdf) ／ 生成元 [spec.json](energy-evaluation/spec.json)
+
+
+### 調査履歴
+- 2026-10-23: arXiv API と WebSearch（"spiking energy estimation", "memory access / data movement", "fair comparison ANN", "Loihi 2 vs Jetson measured" など）で 2024〜2026 年の動向を把握した。起点にしたのは Yan+（TCAD 2026, v6）、Höfflin & Wassner（2025）、Gamage+（2026）と、2026 年のプレプリント群（Sparsity Tax、Sparsity Ceiling、表現力で正規化した比較、モダリティ別ベンチマーク）。
+- そこから3本の系譜を原典側へ遡った。(a) 解析モデル：Horowitz の演算単価 → Davidson & Furber 2021（メモリ込みの損益分岐）→ Lemaire 2022 → Yan 2026（容量を揃えた QNN 双子）。(b) HWシミュレータ：SpinalFlow → SATA → Bhattacharjee 2024。(c) 公平な比較と実測：Ottati 2023（公表チップの横断比較）、Shen 2024（量子化ANN）、Xu 2025（同一プロセッサ）、Gamage 2026（Loihi 2 実機）。
+- OA 版を探した結果：Davidson & Furber は Frontiers、Shen は CVF Open Access で全文を読めた。Horowitz 2014、Dampfhoffer+ 2023（HAL は到達不可、S2 では CLOSED）、SpinalFlow、Deng+ 2020 は OA 版に到達できず、本文未確認とした。OpenAlex はレート制限のため使えず、Crossref と Semantic Scholar でメタデータを確認した。
+- 既存テーマとの重複：NeuroBench・floorline・SNABSuite・KWS on Loihi（neuromorphic-hardware）と Spikformer（spiking-transformer）は再掲せず、既存デッキへの参照とした。
+
+### 系譜
+```
+[演算単価の原典] Horowitz ISSCC 2014 (⚠️: 45nm で MAC≈4.6pJ / AC≈0.9pJ、SRAM/DRAM アクセス単価)
+   │  ← 多くの SNN 論文が「MAC/AC 回数×単価」で省エネを主張する根拠
+   ▼
+[解析モデル：メモリ込み]
+Davidson & Furber 2021（N_spk<1.72 の損益分岐）
+  ├→ Lemaire+ 2022（メモリ・アドレス計算込み、HW非依存。SNN 6〜8倍有利と推定）
+  │     └→ Höfflin & Wassner 2025（HW非依存と HW考慮で結論が反転）
+  ├→ Dampfhoffer+ 2023 (⚠️: Eyeriss 型でデータ再利用込み。0.15〜1.38 スパイク/シナプス)
+  ├→ Ottati+ 2023（公表チップの実測を横断比較。静的画像は ANN がパレート優位）
+  └→ Yan+ 2026（容量を揃えた QNN-SNN 双子、NoC・再利用込みの閉形式損益分岐）
+        ↑ 比較相手を量子化 ANN に：Shen+ 2024（Bit Budget：T時刻 SNN ≈ Tビット QANN）
+[HWシミュレータ]
+SpinalFlow 2020 (⚠️) → SATA 2022（スパース性考慮のエネルギー推定基盤）
+                      → Bhattacharjee+ 2024（推定 10〜83倍 → 実効 1.3〜6.8倍）
+[同一HW・実チップでの計測]
+Xu+ 2025（SENECA 上でスパース化 ANN と SNN を同条件比較、ゲートレベル電力）
+  → Gamage+ 2026（Loihi 2 実機 vs Jetson/M2、動的・静的・EDP を分離）
+  （既存：KWS on Loihi 2018 → SNABSuite 2022 → NeuroBench 2025 → floorline 2025）
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Comparison of Artificial and Spiking Neural Networks on Digital Hardware](https://doi.org/10.3389/fnins.2021.651141) | 2021 | Frontiers in Neuroscience | 原典 | 同一デジタル回路上で ANN と レート符号化 SNN の費用を分解し、メモリアクセスを含めると平均 1.72 スパイク/活性値未満でないと SNN は勝てないと示した（Frontiers OA 版で全文確認） | ✅ p.2 |
+| 2 | [SATA: Sparsity-Aware Training Accelerator for Spiking Neural Networks](https://arxiv.org/abs/2204.05422) | 2022 | IEEE TCAD | 発展 | BPTT 学習 SNN 用のスパース性考慮加速器とエネルギー推定枠組み。Eyeriss 型 ANN 比で SNN 学習は 1.27 倍、メモリ（GLB/DRAM）が支配的 | ✅ p.3 |
+| 3 | [An Analytical Estimation of Spiking Neural Networks Energy Efficiency](https://arxiv.org/abs/2210.13107) | 2022 | ICONIP | 発展 | シナプス演算・メモリ・アドレス計算を数える HW非依存の指標。3データセットで SNN 6〜8 倍省エネと推定 | ✅ p.4 |
+| 4 | [To Spike or Not To Spike: A Digital Hardware Perspective on Deep Learning Acceleration](https://arxiv.org/abs/2306.15749) | 2023 | IEEE JETCAS | 発展 | ANN/SNN 加速器を簡易モデルと公表チップの実測で比較。ImageNet では SNPU'23（1.95mJ）が同じ 28nm の ANN（0.46mJ）にパレート支配される | ✅ p.5 |
+| 5 | [Are SNNs Truly Energy-efficient? — A Hardware Perspective](https://arxiv.org/abs/2309.03388) | 2024 | ICASSP | 発展 | FLOPs×T×スパース率による推定省エネを SATA/SpikeSim で再評価し、推定 10〜83 倍が実効 1.3〜6.8 倍に縮むことを示した | ✅ p.6 |
+| 6 | [Are Conventional SNNs Really Efficient? A Perspective from Network Quantization](https://arxiv.org/abs/2311.10802) | 2024 | CVPR | 発展 | T 時刻 SNN と T ビット QANN の等価性を示し、SynOps に代わる Bit Budget / S-ACE を提案（CVF Open Access 版で全文確認） | ✅ p.7 |
+| 7 | [Event-based Optical Flow on Neuromorphic Processor: ANN vs. SNN Comparison based on Activation Sparsification](https://arxiv.org/abs/2407.20421) | 2025 | Neural Networks | 発展 | SENECA 上でスパース化した ANN と SNN を同条件で比較（SNN はエネルギー 75.2%）。差の要因は画素単位の密度 | ✅ p.8 |
+| 8 | [Hardware-aware vs. Hardware-agnostic Energy Estimation for SNN in Space Applications](https://arxiv.org/abs/2508.19654) | 2025 | IAA-SPAICE | 最新 | 同じ SNN/CNN に HW非依存と HW考慮の推定を適用。前者は一律 50〜60% 省エネ、後者はメモリ単価比と HW 種別で結論が反転 | ✅ p.9 |
+| 9 | [Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives](https://arxiv.org/abs/2409.08290) | 2026 | IEEE TCAD | 最新 | 容量を揃えた QNN-SNN 双子とデータ移動込みの第一原理モデル。典型条件で T=5 ならスパイク率 5.7% 未満が必要 | ✅ p.10 |
+| 10 | [Real-Time Frame- and Event-based Object Detection with Spiking Neural Networks on Edge Neuromorphic Hardware: Design, Deployment and Benchmark](https://arxiv.org/abs/2605.00146) | 2026 | Neurocomputing | 最新 | Loihi 2 実機の SNN 検出と Jetson/M2 の ANN を実測比較。動的エネルギーは Loihi 2 が最小だが EDP は Orin Nano が最良、静的電力が支配的 | ✅ p.11 |
+| 11 | [1.1 Computing's energy problem (and what we can do about it)](https://doi.org/10.1109/ISSCC.2014.6757323) | 2014 | ISSCC | 原典 | 45nm の演算・メモリアクセスのエネルギー単価表（SNN 論文の E_MAC=4.6pJ、E_AC=0.9pJ の出典）。引用元論文の記述と検索情報に基づく。IEEE は到達不可、S2 では CLOSED | ⚠️ 本文未確認 |
+| 12 | [Are SNNs Really More Energy-Efficient Than ANNs? an In-Depth Hardware-Aware Study](https://doi.org/10.1109/TETCI.2022.3214509) | 2023 | IEEE TETCI | 発展 | Eyeriss を事例に、データ再利用・スパース性・メモリを含めた ANN 効率の上限と比較し、SNN が勝つには 0.15〜1.38 スパイク/シナプス程度の高いスパース性が必要と示した（検索情報と引用元に基づく。HAL 版は到達不可） | ⚠️ 本文未確認 |
+| 13 | [SpinalFlow: An Architecture and Dataflow Tailored for Spiking Neural Networks](https://doi.org/10.1109/ISCA45697.2020.00038) | 2020 | ISCA | 原典 | 系統配列上の SNN 専用データフロー。レート符号化 SNN は Row-Stationary の Eyeriss より最大約 60 倍、16 時刻の SNN は ANN より最大約 16 倍エネルギーを要すると指摘（それぞれ SATA と Bhattacharjee の記述に基づく） | ⚠️ 本文未確認 |
+| 14 | [Rethinking the performance comparison between SNNS and ANNS](https://doi.org/10.1016/j.neunet.2019.09.005) | 2020 | Neural Networks | 原典 | 画像入力では SNN は精度・演算量とも不利、イベントカメラ入力では有利と演算数ベースで比較（Xu+ 2025 の記述に基づく。非 OA） | ⚠️ 本文未確認 |
+| 15 | [Synaptic Activity and Hardware Footprint of Spiking Neural Networks in Digital Neuromorphic Systems](https://doi.org/10.1145/3520133) | 2022 | ACM TECS | 発展 | FPGA 上で ANN/SNN 加速器を設計し、演算数指標と実際の消費の不一致を示した（Lemaire+ 2022 の記述に基づく） | ⚠️ 本文未確認 |
+| 16 | [SpikeSim: An end-to-end Compute-in-Memory Hardware Evaluation Tool for Benchmarking Spiking Neural Networks](https://arxiv.org/abs/2210.12899) | 2023 | IEEE TCAD | 発展 | RRAM クロスバ上の SNN の精度・エネルギー・遅延・面積を評価するツール。#5 で用途と結果を代表させたため参照のみ | — 参照のみ |
+| 17 | [STEP: A Unified Spiking Transformer Evaluation Platform for Fair and Reproducible Benchmarking](https://arxiv.org/abs/2505.11151) | 2025 | NeurIPS | 最新 | Spiking Transformer の統一ベンチマーク。エネルギー節（Sec. 5.5）では、ビット直列の量子化 Transformer（16.5mJ）がメモリ込みで Spiking Transformer（17.2mJ）を下回ると示す。主題が Transformer 評価全般のため参照のみ（エネルギー節のみ精読） | — 参照のみ |
+| 18 | [Energy efficiency analysis of Spiking Neural Networks for space applications](https://arxiv.org/abs/2505.11418) | 2025 | Astrodynamics | 最新 | EuroSAT 分類で SNN 各手法を比較し、HW非依存の EMAC 指標を提案（#8 が比較対象とした手法）。アブストラクトと #8 の記述のみ確認のため参照のみ | — 参照のみ |
+| 19 | [Towards an Expressivity-Normalized Energy-Demand Comparison of ANNs and SNNs](https://arxiv.org/abs/2608.29869) | 2026 | arXiv プレプリント | 最新 | 線形領域数の上界で表現力を揃えた ANN/SNN のエネルギー比 η を定義し、幅・スパース性・深さの臨界値を導出。4頁の理論的試論で実証が乏しいため参照のみ（全文確認） | — 参照のみ |
+| 20 | [The Sparsity Tax: Weight Sparsity Trade-offs in Event-Driven SIMD and SIMT Neuromorphic Cores](https://arxiv.org/abs/2607.22790) | 2026 | IEEE MCSoC | 最新 | 重みスパース化が SIMD 型神経形態コアに課す制御・メタデータ・メモリの「税」を GF22 ゲートレベルで定量化。重み側スパース性の扱いが主題のため参照のみ（本文の大半を確認） | — 参照のみ |
+| 21 | [The Sparsity Ceiling: Where Spiking Networks Can and Cannot Trade Activity for Energy](https://arxiv.org/abs/2607.26648) | 2026 | arXiv プレプリント | 最新 | 発火率を下げられる限界は課題依存（順伝播知覚は 5%、再帰 LM は約 50% が下限）と主張。単著 5 頁でアブストラクト中心の確認のため参照のみ | — 参照のみ |
+| 22 | [Benchmarking spiking neural networks across sensing modalities on edge devices](https://arxiv.org/abs/2609.00026) | 2026 | arXiv プレプリント | 最新 | 5 モダリティ・7 物理エッジ機器・4 神経形態シミュレータで 4,662 評価。SNN の省エネは 1.27〜29.58 倍とモダリティ依存で、遅延・メモリは悪化。エネルギー計測法の記述が補足資料頼みのため参照のみ（本文確認） | — 参照のみ |
+| 23 | [Energy Aware Development of Neuromorphic Implantables: From Metrics to Action](https://arxiv.org/abs/2506.09599) | 2025 | arXiv プレプリント | 最新 | SNN ベンチマーク文献のエネルギー指標 13 種を、入手性・忠実度・行動可能性・傾向分析の 4 観点で分類。アブストラクトのみ確認のため参照のみ | — 参照のみ |
+| 24 | [Benchmarking Keyword Spotting Efficiency on Neuromorphic Hardware](https://arxiv.org/abs/1812.01739) | 2018 | arXiv プレプリント | 原典 | Loihi と CPU/GPU の動的エネルギー/推論の実測比較 | ↪ 既存：neuromorphic-hardware p.3 |
+| 25 | [Benchmarking Neuromorphic Hardware and Its Energy Expenditure](https://doi.org/10.3389/fnins.2022.873935) | 2022 | Frontiers in Neuroscience | 発展 | SNABSuite と単価分解型のエネルギーモデル | ↪ 既存：neuromorphic-hardware p.5 |
+| 26 | [NeuroBench: A Framework for Benchmarking Neuromorphic Computing Algorithms and Systems](https://arxiv.org/abs/2304.04640) | 2025 | Nature Communications | 最新 | synop・effective MAC 等の algorithm track 指標と system track 実測の標準 | ↪ 既存：neuromorphic-hardware p.10 |
+| 27 | [Modeling and Optimizing Performance Bottlenecks for Neuromorphic Accelerators](https://arxiv.org/abs/2511.21549) | 2025 | arXiv プレプリント | 最新 | 総 synop などの代理指標は実機性能を説明できないと示した floorline モデル | ↪ 既存：neuromorphic-hardware p.11 |
+| 28 | [Spikformer: When Spiking Neural Network Meets Transformer](https://arxiv.org/abs/2209.15425) | 2022 | ICLR 2023 | 発展 | Horowitz 単価による SOP ベースのエネルギー推定を用いる代表例（#6・#17 の比較対象） | ↪ 既存：spiking-transformer p.3 |
+| 29 | [Conversion of Continuous-Valued Deep Networks to Efficient Event-Driven Networks for Image Classification](https://doi.org/10.3389/fnins.2017.00682) | 2017 | Frontiers in Neuroscience | 原典 | ANN→SNN 変換。#1 が想定するレート符号化 SNN の出所 | ↪ 既存：training p.3 |
+
+---
+
+<a id="spike-coding"></a>
+
+## スパイク符号化と量子化の境界（spike-coding/）
+
+資料：[spike-coding.pptx](spike-coding/spike-coding.pptx) ／ [spike-coding.pdf](spike-coding/spike-coding.pdf) ／ 生成元 [spec.json](spike-coding/spec.json)
+
+
+### 調査履歴
+- 2026-10-23（第2回調査）: arXiv API（`spiking` × time-to-first-spike/TTFS、graded/multi-level/integer spike、quantized、coding/encoding のタイトル検索、新しい順）と Web 検索で 2025〜2026 年の動向をつかんだ。TTFS-LLM（1.5B）、2 進時間重み符号の Spora、I-LIF/SFA の注意での等価性の破れ（PT-SSA）、TTFS の多面体幾何、QNN との公平なエネルギー比較（QNN-SNN 双子）が見つかった。
+- そこから 3 つの系譜を原典まで遡った。①時間符号（Mostafa 2017 → Stanojevic+ 2024 → TTFS-LLM / 多面体幾何）、②位取り符号（位相/バースト：Park+ 2019 → FS ニューロン：Stöckl & Maass 2021 → Spora）、③レート符号＝量子化（Rueckauer+ 2017〔既存：training〕→ Fast-SNN → I-LIF → PT-SSA、および QNN-SNN 双子のエネルギー比較）。
+- 本文は arXiv で読んだ（DAC・Nature MI・TPAMI・Nature Commun.・ECCV・TCAD 採録版に対応する arXiv 版）。位相符号の原典 Kim+ 2018、TTFS 変換の原典 Rueckauer & Liu 2018、Thorpe+ 2001 は出版社サイトにしかなく、本文未確認。OpenAlex は当日の無料枠を使い切っており（429）、Semantic Scholar も 429 で、OA 版の探索は Crossref と arXiv 検索に限られた。
+- 既存テーマとの重複：QCFS・Rueckauer+ 2017（training）、E-SpikeFormer/SFA・SpikeLLM・SpikingBrain（spiking-transformer）は再掲せず、s6 と系譜図で参照した。spiking-transformer で題目のみ参照していた「LLM with At Most One Spike per Neuron」と Spora は、本テーマで全文を読みスライド化した。
+
+### 系譜
+```
+[時間符号 TTFS]  Thorpe+ 2001 (未確認) ─ Maass 1997 (未確認)
+                    ↓
+                 Mostafa 2017（z=e^t で区分線形） ──────────────→ TTFS 多面体幾何 (Singh+ 2026：ReLU より細かい分割)
+                    ↓ (Rueckauer & Liu 2018 変換, 未確認 / Göltz+ 2021)
+                 Stanojevic+ 2024（TTFS≡ReLU、0.3 spikes/neuron）
+                    ↓
+                 TTFS-LLM (Zhao+ 2026：R-TTFS で BERT / GPT-2 1.5B)
+
+[位取り符号]      位相符号 Kim+ 2018 (未確認) → バースト/位相 Park+ 2019 → FS ニューロン (Stöckl & Maass 2021：K ステップ＝K ビット)
+                                                                       ↓
+                                                         Spora (Liu+ 2026：2 進時間重み UBS/BBS＋シフト注意)
+
+[レート符号＝量子化] Rueckauer+ 2017 (既存：training) → QCFS 2022 (既存：training)
+                    ↓
+                 Fast-SNN (Hu+ 2023：T=2^b−1 で一様量子化と等価) ─→ QNN-SNN 双子のエネルギー比較 (Yan+ 2024/2026)
+                    ↓
+                 SpikeYOLO / I-LIF (Luo+ 2024：整数で学習しスパイクで推論)
+                    ↓ → E-SpikeFormer / SFA (2024, 既存：spiking-transformer) → SpikingBrain (既存)
+                 PT-SSA (Xue+ 2026：注意では整数⇔スパイクの等価性が崩れる TIM を解消)
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Supervised learning based on temporal coding in spiking neural networks](https://arxiv.org/abs/1606.08165) | 2017 | IEEE TNNLS 2018 | 原典 | 発火時刻を z=e^t に変換すると入出力が区分線形になり、1 スパイク/ニューロンの SNN を逆伝播で直接学習できる。MNIST 誤り 2.45%。 | ✅ p.2 |
+| 2 | [Fast and Efficient Information Transmission with Burst Spikes in Deep Spiking Neural Networks](https://arxiv.org/abs/1809.03142) | 2019 | DAC | 原典 | 閾値を下げて連発させるバースト符号と、入力＝位相・隠れ＝バーストのハイブリッド符号。CIFAR-10 VGG-16 で DNN と同じ 91.41% を、より少ないステップとスパイクで達成。 | ✅ p.3 |
+| 3 | [Optimized spiking neurons can classify images with high accuracy through temporal coding with two spikes](https://arxiv.org/abs/2002.00860) | 2021 | Nature Machine Intelligence | 発展 | 時刻ごとの重み d(t) をもつ FS ニューロン。ReLU では K ステップの 2 進符号になる。EfficientNet-B7 を ImageNet 83.57%・約 2 スパイク/ニューロンで変換。 | ✅ p.4 |
+| 4 | [Fast-SNN: Fast Spiking Neural Network by Converting Quantized ANN](https://arxiv.org/abs/2305.19868) | 2023 | IEEE TPAMI | 発展 | IF の発火率と b ビット一様量子化が T=2^b−1 で等価。QAT 済み ANN を変換し、ImageNet VGG-16 を T=3 で 71.31%。符号付き IF で順序誤差を除く。 | ✅ p.5 |
+| 5 | [High-performance deep spiking neural networks with 0.3 spikes per neuron](https://arxiv.org/abs/2306.08744) | 2024 | Nature Communications | 発展 | 閾値交差時の傾き B=1 の恒等写像で、TTFS-SNN の学習軌道が ReLU と一致。CIFAR100 72.24%、L1 正則化で 0.20〜0.27 スパイク/ニューロン。 | ✅ p.6 |
+| 6 | [Integer-Valued Training and Spike-Driven Inference Spiking Neural Network for High-performance and Energy-efficient Object Detection (SpikeYOLO)](https://arxiv.org/abs/2407.20708) | 2024 | ECCV | 発展 | 整数 0..D で学習し、推論では D 個の仮想ステップのスパイクに展開する I-LIF。COCO mAP@50 66.2%。D を増やす方が T を増やすより効く。 | ✅ p.7 |
+| 7 | [Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives](https://arxiv.org/abs/2409.08290) | 2024 | IEEE TCAD 2026 | 発展 | T ステップ SNN と ⌈log2(T+1)⌉ ビット QNN を「双子」として、データ移動込みでエネルギーを比較。SNN が有利なのは T≤5・スパイク率 5.7% 未満程度。 | ✅ p.8 |
+| 8 | [Large Language Models with At Most One Spike per Neuron](https://arxiv.org/abs/2609.05151) | 2026 | arXiv | 最新 | 参照時刻つき R-TTFS で LayerNorm・注意まで TTFS 化した LLM。GPT-2 XL（1.5B）まで拡大。GLUE はベースラインに迫るが、言語モデリングの ppl は大きく劣化。 | ✅ p.9 |
+| 9 | [Polyhedral Geometry of Time-to-First-Spike Neural Networks](https://arxiv.org/abs/2609.11227) | 2026 | arXiv | 最新 | 正の重みの TTFS ネットの因果領域を多面体幾何で解析。maxout 型で指数個のアフィン片をもち、ReLU より細かい分割を作れる（上下界と実験）。 | ✅ p.10 |
+| 10 | [Parallel Time-Aligned Spiking Self-Attention for Consistent Integer-Valued Training and Spike-Driven Inference](https://arxiv.org/abs/2610.03291) | 2026 | arXiv | 最新 | I-LIF/SFA を自己注意に使うと、時刻をまたぐ積で整数推論とスパイク推論が食い違う（TIM、ImageNet で −27.78pt）。時刻をそろえた並列注意で差を 0.06pt に。 | ✅ p.11 |
+| 11 | [Rethinking the Tradeoff Between Temporal Encoding and Nonlinear Computation in Spiking Language Models (Spora)](https://arxiv.org/abs/2610.10933) | 2026 | arXiv | 最新 | 2 進時間重みの UBS/BBS 符号とシフト近似 softmax。4 ステップで GLUE 76.6。同じ状態数の静的 4bit QAT より CoLA で +6.43 MCC。 | ✅ p.12 |
+| 12 | [Deep neural networks with weighted spikes (Kim+)](https://doi.org/10.1016/j.neucom.2018.05.087) | 2018 | Neurocomputing | 原典 | 位相符号（重み付きスパイク）による ANN→SNN 変換の原典。閾値を 2^−(1+t mod k) で振動させ、k ステップで k ビットを送る（Park+ 2019 の記述に基づく）。 | ⚠️ 本文未確認 |
+| 13 | [Conversion of analog to spiking neural networks using sparse temporal coding (Rueckauer & Liu)](https://doi.org/10.1109/ISCAS.2018.8351295) | 2018 | ISCAS | 原典 | ReLU ネットを TTFS SNN に変換する最初期の手法（Stanojevic+・TTFS-LLM・FS 論文の記述に基づく）。IEEE のため本文にアクセスできない。 | ⚠️ 本文未確認 |
+| 14 | [Spike-based strategies for rapid processing (Thorpe+)](https://doi.org/10.1016/S0893-6080(01)00083-1) | 2001 | Neural Networks | 原典 | 最初のスパイク時刻・順位で情報を表す（rank-order coding）生物学的な根拠と戦略。TTFS 系の引用元。出版社サイトのみ。 | ⚠️ 本文未確認 |
+| 15 | [Networks of spiking neurons: The third generation of neural network models (Maass)](https://doi.org/10.1016/S0893-6080(97)00011-7) | 1997 | Neural Networks | 原典 | スパイク時刻で計算する SNN の計算能力の古典。多面体幾何論文が普遍性の出発点として引用。 | ⚠️ 本文未確認 |
+| 16 | [Fast and energy-efficient neuromorphic deep learning with first-spike times (Göltz+)](https://arxiv.org/abs/1912.11443) | 2021 | Nature Machine Intelligence | 発展 | BrainScaleS-2 上の TTFS 学習（絶対時刻方式）。Mostafa と Stanojevic の間をつなぐが、紙幅の都合で参照のみ。 | — 参照のみ |
+| 17 | [An Exact Mapping From ReLU Networks to Spiking Neural Networks (Stanojevic+)](https://arxiv.org/abs/2212.12522) | 2023 | Neural Networks | 発展 | ReLU→TTFS の厳密写像（α1 モデル）。2024 論文の前提。題目と 2024 論文中の記述のみ確認。 | — 参照のみ |
+| 18 | [Conversion of Continuous-Valued Deep Networks to Efficient Event-Driven Networks for Image Classification (Rueckauer+)](https://doi.org/10.3389/fnins.2017.00682) | 2017 | Front. Neurosci. | 原典 | レート符号変換の基準。Fast-SNN・FS 論文の比較対象。 | ↪ 既存：training p.3 |
+| 19 | [Optimal ANN-SNN Conversion for High-accuracy and Ultra-low-latency Spiking Neural Networks (QCFS)](https://arxiv.org/abs/2303.04347) | 2022 | ICLR | 発展 | 量子化 clip-floor-shift 活性による変換。Fast-SNN と並ぶ「レート符号＝量子化」の代表。 | ↪ 既存：training p.9 |
+| 20 | [Scaling Spike-driven Transformer with Efficient Spike Firing Approximation Training (E-SpikeFormer / SFA)](https://arxiv.org/abs/2411.16061) | 2024 | IEEE TPAMI 2025 | 発展 | I-LIF を正規化した SFA。PT-SSA が注意での等価性の破れを指摘した対象。 | ↪ 既存：spiking-transformer p.9 |
+| 21 | [SpikeLLM: Scaling up Spiking Neural Network to Large Language Models via Saliency-based Spiking](https://arxiv.org/abs/2407.04752) | 2024 | ICLR 2025 | 発展 | GIF ニューロン（多値スパイク）で LLM をスパイク化。TTFS-LLM・Spora の比較文脈。 | ↪ 既存：spiking-transformer p.7 |
+| 22 | [SpikingBrain: Spiking Brain-inspired Large Models](https://arxiv.org/abs/2509.05276) | 2025 | arXiv | 最新 | 整数→スパイク符号化で 7B/76B を構成。I-LIF/SFA 系譜の大規模版。 | ↪ 既存：spiking-transformer p.10 |
+| 23 | [Modeling and Optimizing Performance Bottlenecks for Neuromorphic Accelerators (Floorline)](https://arxiv.org/abs/2511.21549) | 2025 | arXiv | 関連 | ニューロモルフィック計算の性能上限モデル。Yan+ のエネルギー比較と相補的。 | ↪ 既存：neuromorphic-hardware p.11 |
+| 24 | [SpikeLM: Towards General Spike-Driven Language Modeling via Elastic Bi-Spiking Mechanisms](https://arxiv.org/abs/2406.03287) | 2024 | ICML 2024 | 発展 | 双方向・振幅可変（3 値）スパイクの言語モデル。Spora・TTFS-LLM の主な比較対象。 | — 参照のみ（spiking-transformer でも参照のみ） |
+| 25 | [Sorbet: A Neuromorphic Hardware-Compatible Transformer-Based Spiking Language Model](https://arxiv.org/abs/2409.15298) | 2024 | ICML 2025 | 発展 | シフト型 softmax・PowerNorm を使う 16 ステップのスパイキング言語モデル。Spora の比較対象。 | — 参照のみ |
+| 26 | TTFSFormer: A TTFS-based Lossless Conversion of Spiking Transformer (Zhao, Huang, Ding, Yu) | 2025 | ICML | 発展 | TTFS による Transformer の無損失変換（TTFS-LLM の関連研究の記述に基づく）。本文未取得。 | — 参照のみ |
+| 27 | SpikedAttention: Training-free and fully spike-driven transformer-to-SNN conversion with winner-oriented spike shift for softmax operation (Hwang+) | 2024 | NeurIPS | 発展 | 時間符号による Transformer 変換（TTFS-LLM の引用に基づく）。本文未取得。 | — 参照のみ |
+| 28 | [Ternary Spike: Learning Ternary Spikes for Spiking Neural Networks](https://arxiv.org/abs/2312.06372) | 2023 | AAAI 2024 | 発展 | {−1,0,1} の 3 値スパイク。多値スパイクの一系統として検索で確認（未読）。 | — 参照のみ |
+| 29 | [ShiftLIF: Efficient Multi-Level Spiking Neurons with Power-of-Two Quantization](https://arxiv.org/abs/2605.01866) | 2026 | arXiv | 最新 | 膜電位を 2 のべき乗の多値スパイクに写す LIF。抄録のみ確認（Spora と同じ方向）。 | — 参照のみ |
+| 30 | [Burst Spiking Neural Networks (BuSNN)](https://arxiv.org/abs/2607.11914) | 2026 | arXiv（TPAMI 投稿） | 最新 | バースト発火による段階的スパイクで頑健性を高める。抄録のみ確認。 | — 参照のみ |
+| 31 | [Latency and accuracy tradeoffs in Spiking Neural Networks (Falcon)](https://arxiv.org/abs/2609.35260) | 2026 | arXiv | 最新 | 層間のタイムステップ単位パイプラインにより、SNN が bit-serial QNN より速く終わりうる。待つほど遅く不正確になる層もあると証明。導入部と問題設定のみ精読し、音声 KWS・アナログ CIM に特化しているため参照のみ。 | — 参照のみ |
+| 32 | [Revisiting Reset Mechanisms in Spiking Neural Networks for Sequential Modeling](https://arxiv.org/abs/2504.17751) | 2025 | arXiv | 最新 | 画像では SNN は量子化活性 ANN と同じで、系列では 2 値活性 RNN と見るべきと主張。抄録のみ確認。 | — 参照のみ |
+| 33 | [NEXUS: Bit-Exact ANN-to-SNN Equivalence via Neuromorphic Gate Circuits](https://arxiv.org/abs/2601.21279) | 2026 | arXiv | 最新 | IF ニューロンの論理ゲートで IEEE-754 演算を組み、ビット単位で ANN と等価にすると主張。単著・自己申告の数値が多く、抄録のみ確認。 | — 参照のみ |
+| 34 | [Closing the Theory-Practice Gap in Spiking Transformers via Effective Dimension](https://arxiv.org/abs/2604.15769) | 2026 | arXiv | 最新 | レート歪み理論によるスパイク数の下界 Ω(L²nd/ε²) と有効次元による説明。6 頁の短報で、抄録のみ確認。 | — 参照のみ |
+| 35 | [Energy-Efficient and Dequantization-Free Q-LLMs: A Spiking Neural Network Approach to Salient Value Mitigation (SpikeQuant)](https://arxiv.org/abs/2510.19498) | 2025 | arXiv | 最新 | 量子化 LLM の外れ値活性だけをスパイク列に再符号化し、混合精度を時間方向で実現。抄録のみ確認。 | — 参照のみ |
+| 36 | [Rate Coding or Direct Coding: Which One is Better for Accurate, Robust, and Energy-efficient Spiking Neural Networks?](https://arxiv.org/abs/2202.03133) | 2022 | ICASSP | 発展 | 入力のレート符号と直接（実数）符号の比較。題目と抄録のみ確認。 | — 参照のみ |
+| 37 | [Integer Binary-Range Alignment Neuron for Spiking Neural Networks](https://arxiv.org/abs/2506.05679) | 2025 | arXiv | 最新 | 整数値ニューロンの範囲合わせ。I-LIF 系の派生として題目のみ確認。 | — 参照のみ |
