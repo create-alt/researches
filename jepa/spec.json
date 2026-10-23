@@ -1,0 +1,217 @@
+{
+ "field": "世界モデル",
+ "theme": "JEPA 系の非生成型潜在世界モデル",
+ "date": "2026-10-23",
+ "summary": "画素を再構成せず潜在表現の予測で学ぶ JEPA 系世界モデルの系譜。崩壊防止の VICReg と画像の I-JEPA を原典に、凍結表現上の DINO-WM・V-JEPA 2 と end-to-end の PLDM へ発展。\n2025〜26年は SIGReg（LeJEPA）による2項損失の LeWM が登場し、設計要因の整理（JEPA-WMs）や Dreamer の再構成離れ、画素忠実度との比較が進む。",
+ "papers": [
+  {
+   "title": "VICReg: Variance-Invariance-Covariance Regularization for Self-Supervised Learning",
+   "short": "VICReg (Bardes+ 2021)",
+   "authors": "Adrien Bardes, Jean Ponce, Yann LeCun（Meta FAIR / Inria・ENS）｜ ICLR 2022",
+   "year": 2021,
+   "venue": "ICLR 2022",
+   "link": "https://arxiv.org/abs/2105.04906",
+   "lineage": "原典",
+   "s1": "2つの視点の埋め込みを近づける不変項に、次元ごとの標準偏差を閾値以上に保つ分散項と、次元間の共分散を0に近づける共分散項を加えた自己教師あり学習 VICReg を提案。崩壊を損失だけで防ぎ、ImageNet 線形評価 73.2% と当時の最良水準に並んだ。",
+   "s2": "SimCLR は大量の負例、SwAV はクラスタリング、BYOL・SimSiam は EMA・stop-gradient・predictor という仕組みの不明な非対称性に頼っていた。VICReg は正則化項だけで崩壊を防ぎ、重み共有や同一アーキテクチャも不要にした。",
+   "s3": "損失 ℓ = λs(Z,Z′) + μ[v(Z)+v(Z′)] + ν[c(Z)+c(Z′)]。v は各次元の標準偏差のヒンジ max(0, γ−√(Var+ε))（分散でなく標準偏差を使うのが要点）、c は共分散行列の非対角成分の二乗和。各ブランチを独立に正則化する。",
+   "s4": "ResNet-50 を ImageNet で1000エポック事前学習。線形評価 Top-1 73.2%（Barlow Twins 73.2%、BYOL 74.3%、Table 1）。分散項なしで SG・predictor を外すと崩壊（Table 4）。画像-文章検索 R@1 33.6（Barlow Twins 31.4、Table 3）。",
+   "s5": "著者：分散項は BYOL・SimSiam に加えても学習を安定させ、異なるモダリティのブランチにも使える。\n所感：画像 SSL の手法だが、PLDM が時間方向に拡張して世界モデルの崩壊防止に転用した。係数の多さは後に LeWM が批判する点になる。",
+   "s6": "・Barlow Twins (2021)（未調査）\n・PLDM (2025)（本資料）\n・LeJEPA (2025)（本資料）",
+   "figure": {
+    "file": "figures/vicreg_fig1.png",
+    "caption": "出典：VICReg Fig. 1（分散・不変・共分散の3項による共同埋め込み）"
+   },
+   "notes": "arXiv v3（ICLR 2022 版）を本文・Table 1〜5・結論まで読了。付録 D は拾い読み。"
+  },
+  {
+   "title": "Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture",
+   "short": "I-JEPA (Assran+ 2023)",
+   "authors": "Mahmoud Assran, Quentin Duval, Ishan Misra ほか（Meta AI (FAIR)）｜ CVPR 2023",
+   "year": 2023,
+   "venue": "CVPR 2023",
+   "link": "https://arxiv.org/abs/2301.08243",
+   "lineage": "原典",
+   "parent": "LeCun の JEPA 構想",
+   "s1": "1つの文脈ブロックから、同じ画像の複数ターゲットブロックの「表現」を予測する非生成型の自己教師あり学習 I-JEPA を提案。手作りのデータ拡張なしに ViT-H/14 を 16 GPU・72時間未満で学習し、ImageNet 線形評価 79.3% を得た。",
+   "s2": "不変性型（DINO・iBOT）は手作りのデータ拡張に頼り、生成型（MAE）は画素を復元するため表現の意味水準が低く線形評価に弱い。I-JEPA は損失を表現空間に置き、画素レベルの不要な細部を予測対象から外した。",
+   "s3": "LeCun の JEPA を画像に具体化。文脈エンコーダ（ViT）が見えるパッチだけを処理し、狭い ViT の予測器が位置トークンを条件に各ターゲットの表現を出し、EMA ターゲットエンコーダの出力と L2 で合わせる。大きめのターゲット4個と広い文脈が鍵。",
+   "s4": "ImageNet 線形評価 ViT-H/14 79.3%、ViT-H/16(448) 81.1%（MAE ViT-H 77.2%、Table 1）。Clevr 深度 72.4（DINO 53.4、Table 4）。ターゲットを画素にすると 66.9→40.7%（Table 7）。multi-block マスク 54.2 vs block 20.2（Table 6）。",
+   "s5": "著者：表現空間での予測は MAE より約5倍少ない反復で収束し、予測器は位置の不確かさを保ちつつ細部を捨てる（Fig. 6）。\n所感：崩壊防止は EMA と非対称構造という経験則のままで、ここが LeJEPA・LeWM の出発点になる。時間と行動はまだ扱わない。",
+   "s6": "・V-JEPA (2024)（未調査）\n・V-JEPA 2 (2025)（本資料）\n・H-JEPA 構想 (2023)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/ijepa_fig3.png",
+    "caption": "出典：I-JEPA Fig. 3（文脈ブロックから複数ターゲットの表現を予測）"
+   },
+   "notes": "arXiv v3 を本文・Table 1〜7・結論まで読了。付録は未読。"
+  },
+  {
+   "title": "DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning",
+   "short": "DINO-WM (Zhou+ 2024)",
+   "authors": "Gaoyue Zhou, Hengkai Pan, Yann LeCun, Lerrel Pinto（New York University）｜ ICML 2025",
+   "year": 2024,
+   "venue": "ICML 2025",
+   "link": "https://arxiv.org/abs/2411.04983",
+   "lineage": "発展",
+   "parent": "I-JEPA",
+   "s1": "凍結した DINOv2 のパッチ特徴の上で、行動条件付き ViT 予測器が次時刻の特徴を予測する世界モデル DINO-WM を提案。報酬もデモもないオフライン軌跡から学び、目標画像に向けて潜在空間で MPC するだけで6環境のゼロショット計画を実現した。",
+   "s2": "Dreamer・IRIS・TD-MPC2 は画像再構成や報酬予測で潜在を学ぶためタスクに特化しやすく、拡散モデルの動画生成型（AVDC）は重く物理的に破綻しやすい。DINO-WM は再構成も報酬も使わず、汎用の事前学習表現を観測モデルにした。",
+   "s3": "観測モデルは凍結 DINOv2（パッチ×次元）、遷移モデルはフレーム単位の因果注意を持つ ViT（行動を MLP で埋め込み各パッチに連結）。教師強制で次の特徴を回帰し、計画は ‖ẑ_T − z_g‖ を CEM で最小化。デコーダは可視化専用。",
+   "s4": "PushT 成功率 0.90（DreamerV3 0.30、IRIS 0.32、TD-MPC2 0.00）、Wall 0.96（DreamerV3 1.00）、Granular の CD 0.26（DreamerV3 1.05）（Table 1）。大域特徴の DINO CLS は PushT 0.44（Table 2）。未知の壁配置で 0.82（Table 3）。",
+   "s5": "著者：状態・行動を十分に覆うオフラインデータと行動ラベルが前提で、計画は行動空間のみ（階層化が課題）。\n所感：比較先の Dreamer 系は報酬を外して改造しており公平性に留保が要る。ただ「凍結表現＋予測器」は以後の標準構成になった。",
+   "s6": "・PLDM (2025)（本資料）\n・JEPA-WMs (2025)（本資料）\n・LeWM (2026)（本資料）",
+   "figure": {
+    "file": "figures/dinowm_fig2.png",
+    "caption": "出典：DINO-WM Fig. 2（DINOv2 特徴上の予測器と潜在空間での行動最適化）"
+   },
+   "notes": "arXiv v2 を本文・Table 1〜4・限界まで読了。付録（A.4〜A.8 のアブレーション）は参照のみ。"
+  },
+  {
+   "title": "Learning from Reward-Free Offline Data: A Case for Planning with Latent Dynamics Models",
+   "short": "PLDM (Sobal+ 2025)",
+   "authors": "Vlad Sobal, Wancong Zhang, Kyunghyun Cho ほか（New York University）｜ NeurIPS 2025",
+   "year": 2025,
+   "venue": "NeurIPS 2025",
+   "link": "https://arxiv.org/abs/2502.14819",
+   "lineage": "発展",
+   "parent": "VICReg",
+   "s1": "報酬のないオフライン軌跡から学ぶ6手法（GCIQL・HIQL・HILP・CRL・GCBC と PLDM）を23データセットで比較。JEPA で潜在ダイナミクスを画素から end-to-end 学習し MPPI で計画する PLDM が、未知の迷路配置や新タスクへの汎化で最も強いと示した。",
+   "s2": "オフライン目標条件付き RL は良質で大量のデータでは強いが、データの質の影響は整理されていなかった。凍結エンコーダに頼る DINO-WM と違い、PLDM はエンコーダと予測器を同時に学習し、DreamerV3 型の再構成も使わない。",
+   "s3": "予測損失に、時間方向にも適用した VICReg 型の分散・共分散項、逆動力学（IDM）、時間平滑化項を加える（Appendix D.1.1）。計画は目標埋め込みとの距離＋予測器アンサンブルの分散（分布外ペナルティ）を MPPI で最小化する。",
+   "s4": "Two-Rooms の良質データでは各手法とも高成功（PLDM 97.8%、Table 2）。ランダム方策・少量・短い軌跡のデータでも PLDM は頑健（Fig. 4）。5配置で学習し未知の迷路で成功したのは PLDM のみ（Fig. 2）。再構成版は 26.2%、TD-MPC2 は 0%（Table 6）。",
+   "s5": "著者：扉を通る軌跡がないデータでは 34.4% に落ち、軌跡の縫い合わせは HILP・GCIQL に劣る。推論は約4倍遅く、実験はナビゲーションのみ。\n所感：損失項が多く、崩壊防止の係数調整が実用上の壁になる（後に LeWM が指摘）。",
+   "s6": "・JEPA Focus on Slow Features (2022)（未調査）\n・LeWM (2026)（本資料）\n・HWM (2026)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/pldm_fig1.png",
+    "caption": "出典：PLDM Fig. 1（23データセット×6手法の比較と PLDM の構成）"
+   },
+   "notes": "arXiv v4（NeurIPS 2025 版）を本文・Table 1〜2・結論と付録 D.1.1・G・L まで読了。"
+  },
+  {
+   "title": "V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning",
+   "short": "V-JEPA 2 (Assran+ 2025)",
+   "authors": "Mido Assran, Adrien Bardes, David Fan ほか（FAIR at Meta）｜ arXiv プレプリント 2025",
+   "year": 2025,
+   "venue": "arXiv プレプリント 2025",
+   "link": "https://arxiv.org/abs/2506.09985",
+   "lineage": "発展",
+   "parent": "I-JEPA",
+   "s1": "100万時間超のネット動画で表現空間のマスク予測を ViT-g（1B）まで拡大した V-JEPA 2 と、その凍結エンコーダ上に62時間未満のロボット動画で行動条件付き予測器を学習した V-JEPA 2-AC を提案。未知の研究室の Franka でゼロショット把持・配置を行った。",
+   "s2": "行動条件付き動画生成モデル（Cosmos 等）は見た目の評価が中心で、計画に使うには重く、実ロボット制御の実証が乏しかった。DINO-WM・PLDM は小規模なシミュレーション止まりだった。本研究は行動なしの大規模事前学習と少量の相互作用データを組み合わせた。",
+   "s3": "事前学習は ‖P(Δ_y, E(x)) − sg(Ē(y))‖₁（EMA ターゲット）。データ・モデル・学習期間・解像度の拡大で平均 +4.0 点（Fig. 3）。AC 予測器（300M）は教師強制と2ステップ rollout 損失で学び、目標画像との L1 エネルギーを CEM で最小化する。",
+   "s4": "SSv2 77.3%、EK100 行動予測 R@5 39.7（従来比 +44%）。Octo と比べ把持（カップ）65% vs 15%、ピック＆プレース（カップ）80% vs 15%（Table 2）。Cosmos での計画は1行動4分・P&P 0%、V-JEPA 2-AC は16秒・80%（Table 3）。",
+   "s5": "著者：カメラ位置に敏感で、誤差の蓄積と探索空間の爆発により長期計画は難しく、P&P は人がサブゴール画像を与えている。\n所感：理解タスクに強い表現が計画にも最良とは限らず、後の JEPA-WMs では DINO 系エンコーダに劣ると報告された。",
+   "s6": "・V-JEPA (2024)（未調査）\n・JEPA-WMs (2025)（本資料）\n・HWM (2026)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/vjepa2_fig2.png",
+    "caption": "出典：V-JEPA 2 Fig. 2（行動なしの事前学習と行動条件付き後学習）"
+   },
+   "notes": "arXiv v1 を 1〜4 章（事前学習・AC・ロボット計画・限界）、関連研究、結論まで精読。5〜7 章（理解・予測・VQA）は表と要点のみ確認。"
+  },
+  {
+   "title": "LeJEPA: Provable and Scalable Self-Supervised Learning Without the Heuristics",
+   "short": "LeJEPA (Balestriero & LeCun 2025)",
+   "authors": "Randall Balestriero, Yann LeCun（Brown University / NYU / Meta FAIR）｜ arXiv プレプリント 2025",
+   "year": 2025,
+   "venue": "arXiv プレプリント 2025",
+   "link": "https://arxiv.org/abs/2511.08544",
+   "lineage": "最新",
+   "parent": "VICReg・I-JEPA",
+   "s1": "JEPA の埋め込みは等方ガウス分布に従うのが下流タスクのリスクを最小にすると証明し、その分布に寄せる正則化 SIGReg と予測損失だけの LeJEPA を提案。ハイパーパラメータ1つ・約50行の実装で、ViT-H/14 の ImageNet 線形評価 79% に達した。",
+   "s2": "I-JEPA や DINO は stop-gradient、教師-生徒（EMA）、白色化、register トークンなど、理論的な裏付けのない崩壊対策を組み合わせており調整が脆かった。VICReg は2次統計しか見ない。LeJEPA は埋め込みの分布全体を目標に合わせる。",
+   "s3": "SIGReg：埋め込みをランダムな1次元方向へ射影し、各射影が標準正規に従うかを Epps–Pulley 検定（特性関数の差）で測って平均する（Cramér–Wold 定理で全分布の一致に帰着）。計算量は線形で勾配は有界。損失は (1−λ)予測 + λSIGReg。",
+   "s4": "60超のアーキテクチャ・10超のデータセットで検証。timm の約50モデルが ImageNet-10 で線形 91.5〜95%（Fig. 9）。訓練損失と下流精度の Spearman 相関 94.52%（Fig. 1）。Galaxy10 の領域内事前学習で DINOv3 の転移を上回る（76.52 vs 71.38）。",
+   "s5": "著者：予測器や教師-生徒を外しても崩壊せず、1.8B の ViT-g も安定して学習できる。\n所感：最適性は線形・k-NN・カーネルのプローブを仮定した議論。世界モデルではなく画像 SSL の論文だが、SIGReg がそのまま LeWM の崩壊防止になり、系譜の転換点となった。",
+   "s6": "・LeWM (2026)（本資料）\n・When Does LeJEPA Learn a World Model? (2026)（未調査）\n・VICReg (2021)（本資料）",
+   "figure": {
+    "file": "figures/lejepa_fig2.png",
+    "caption": "出典：LeJEPA Fig. 2（SIGReg：1次元射影の分布をガウスに一致させる）"
+   },
+   "notes": "arXiv v3 を 1〜6 章と結論まで読了。付録の証明（B 節）は定理の主張のみ確認。"
+  },
+  {
+   "title": "What Drives Success in Physical Planning with Joint-Embedding Predictive World Models?",
+   "short": "JEPA-WMs (Terver+ 2025)",
+   "authors": "Basile Terver, Tsung-Yen Yang, Jean Ponce ほか（Meta FAIR / Inria Paris）｜ TMLR 2026",
+   "year": 2025,
+   "venue": "TMLR 2026",
+   "link": "https://arxiv.org/abs/2512.24497",
+   "lineage": "最新",
+   "parent": "DINO-WM・V-JEPA 2",
+   "s1": "DINO-WM・V-JEPA 2-AC・PLDM などを「JEPA-WM」と総称し、計画の最適化器・多段 rollout 損失・固有受容覚・文脈長・エンコーダ・予測器構造・規模を系統的に比較。得た最適構成でナビゲーションと操作の両方で DINO-WM と V-JEPA 2-AC を上回った。",
+   "s2": "JEPA-WM は個別に提案されてきたが、どの設計が計画の成否を決めるかは整理されていなかった。本研究は凍結エンコーダ上の予測器学習に絞り、シミュレーション（Metaworld・PushT 等）と実データ（DROID→Robocasa）で同じ条件で比べた。",
+   "s3": "凍結エンコーダの埋め込みに対する教師強制 MSE に k ステップ rollout 損失（TBPTT）を加える。計画は予測器を H ステップ展開し、目標埋め込みとの L1/L2 距離を CEM・Nevergrad・Adam・GD で最小化。行動の入れ方は特徴連結・系列トークン・AdaLN を比較。",
+   "s4": "CEM＋L2 が総合で最良、勾配法は滑らかな Metaworld でのみ強い（Fig. 3）。DINO 系が V-JEPA 系より良く、2ステップ rollout と固有受容覚が効く（Fig. 3〜5）。最終モデルは PushT 70.2（DINO-WM 66.0）、DROID 48.2（V-JEPA 2-AC 42.9）（Table 2）。",
+   "s5": "著者：決定的な予測器は多峰な未来の平均しか学べず、確率的な環境には潜在変数や潜在拡散が要る。規模の拡大は実データでのみ効く。\n所感：シミュレーションの飽和を示唆する結果で、Robocasa は依然 25〜31% と低くベンチマークの再設計が必要。",
+   "s6": "・DINO-WM (2024)（本資料）\n・V-JEPA 2 (2025)（本資料）\n・The Planning Limits of Latent World Models (2026)（未調査）",
+   "figure": {
+    "file": "figures/jepawms_fig1.png",
+    "caption": "出典：JEPA-WMs Fig. 1（JEPA-WM の学習と潜在空間での計画）"
+   },
+   "notes": "arXiv v4（TMLR 版）を本文・Table 1〜2・結論まで読了。付録（B〜G）は節見出しと主要表のみ確認。"
+  },
+  {
+   "title": "Dreamer-CDP: Improving Reconstruction-free World Models Via Continuous Deterministic Representation Prediction",
+   "short": "Dreamer-CDP (Hauri & Zenke 2026)",
+   "authors": "Michael Hauri, Friedemann Zenke（Friedrich Miescher Institute）｜ ICLR 2026 ワークショップ（tiny paper）",
+   "year": 2026,
+   "venue": "ICLR 2026 WS",
+   "link": "https://arxiv.org/abs/2603.07083",
+   "lineage": "最新",
+   "parent": "DreamerV3",
+   "s1": "DreamerV3 から画像の再構成損失を外し、隠れ状態から次の観測の連続・決定的な埋め込みを予測する JEPA 型の損失（CDP）を加えた Dreamer-CDP を提案。再構成なしで Crafter スコア 16.2% と、DreamerV3（14.5%）に並んだ。",
+   "s2": "再構成型の Dreamer は課題に無関係な画素の細部に表現が引っ張られる。一方、再構成を外した MuDreamer（行動予測）や DreamerPro（視点拡張＋プロトタイプ）は Crafter で Dreamer に劣っていた。著者は原因を離散確率状態どうしの予測に求めた。",
+   "s3": "観測を特徴抽出器で連続埋め込み u_t に写し、確率的エンコーダが z_t を出す。予測器 g(h_{t+1}) で u_{t+1} を負のコサイン類似度で予測する（ターゲットは stop-gradient、EMA なし）。代わりに系列モデル側の学習率を高くして崩壊を避ける。",
+   "s4": "Crafter・1M ステップ・7シード（Table 2）：Dreamer-CDP 16.2±2.1%、DreamerV3 14.5±1.6%（p=0.10）、MuDreamer 7.3%、DreamerPro 4.7%。CDP を外すと 3.2%、KL 整合項を外すと 6.3%、報酬勾配を止めると 12.7%（Fig. A.2）。",
+   "s5": "著者：CDP は必要だが十分ではなく、Dreamer の KL 整合項と報酬予測も効いている。\n所感：環境は Crafter のみの短報で一般性は未確認。それでも生成型の代表 Dreamer が JEPA 型の目的に歩み寄った例で、論争が対立より収束に向かっていることを示す。",
+   "s6": "・DreamerV3 (2023)（未調査）\n・MuDreamer (2024)（未調査）\n・LeWM (2026)（本資料）",
+   "figure": {
+    "file": "figures/dreamercdp_fig1.png",
+    "caption": "出典：Dreamer-CDP Fig. 1（再構成損失を連続決定的表現の予測に置換）"
+   },
+   "notes": "arXiv v2（4ページの短報）を付録まで全文読了。採録先は著者ラボの告知（ICLR 2026 ワークショップの tiny paper）に基づく。"
+  },
+  {
+   "title": "LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels",
+   "short": "LeWM (Maes+ 2026)",
+   "authors": "Lucas Maes, Quentin Le Lidec, Damien Scieur ほか（Mila / Université de Montréal）｜ arXiv プレプリント 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2603.19312",
+   "lineage": "最新",
+   "parent": "LeJEPA・PLDM",
+   "s1": "次埋め込みの予測損失と SIGReg の2項だけで、画素から end-to-end に安定して学習できる JEPA 世界モデル LeWorldModel を提案。15M パラメータで単一 GPU・数時間で学習でき、DINO-WM より最大48倍速く計画しつつ Push-T などで同等以上の成功率。",
+   "s2": "既存の JEPA 世界モデルは崩壊を防ぐため、凍結した事前学習エンコーダ（DINO-WM）か、多項の VICReg 系損失（PLDM、ハイパーパラメータ6個）か、EMA・stop-gradient に頼っていた。LeWM は実質的に調整する値を λ 1つにした。",
+   "s3": "ViT-tiny エンコーダの CLS 埋め込み（BatchNorm 付き射影）と、AdaLN で行動を入れる6層の予測器。損失 L = ‖ẑ_{t+1} − z_{t+1}‖² + λSIGReg(Z)（1024方向、λ=0.1）。計画は終端の潜在距離を CEM で最小化する MPC。トークン数は DINO-WM の約1/200。",
+   "s4": "成功率（Fig. 6）：Push-T 96%（PLDM 78%、DINO-WM 74%）、Reacher 86%（78%／79%）、OGBench-Cube 74%（DINO-WM 86%）、Two-Room 87%（他はほぼ100%）。計画時間 0.98秒 vs 47秒（Fig. 3）。物体の瞬間移動で予測誤差（驚き）が有意に増える（Fig. 8）。",
+   "s5": "著者：計画は短期に限られ階層化が要る。低次元で単純な環境では高次元ガウスに合わせにくく劣る。行動ラベルが必要。\n所感：独立再現（2608.10145）が、公開設定にない前処理や評価条件の違いで結果が大きく変わると報告しており、評価手順の標準化が急務。",
+   "s6": "・Mind the Gap / Hi-LeWM (2026)（既存：hierarchical）\n・H-JEPA (2026)（既存：hierarchical）\n・Frozen in a Frame (2026)（未調査）",
+   "figure": {
+    "file": "figures/lewm_fig1.png",
+    "caption": "出典：LeWM Fig. 1（予測 MSE と SIGReg の2項で end-to-end 学習）"
+   },
+   "notes": "arXiv v3 を本文・Table 1・結論・限界まで読了。Fig. 6 の数値は PDF の棒グラフ注記から読み取った。付録は G（アブレーション）を拾い読み。"
+  },
+  {
+   "title": "What Makes Video World Model Latents Action-Relevant: Prediction over Reconstruction",
+   "short": "Prediction over Reconstruction (Yeom+ 2026)",
+   "authors": "Jewon Yeom, Hanseul Kim, Jeongjae Park ほか（Seoul National University）｜ arXiv プレプリント 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2606.07687",
+   "lineage": "最新",
+   "parent": "V-JEPA 2",
+   "s1": "画像 SSL・動画 SSL（V-JEPA、VideoMAE）・再構成型 VAE・画素拡散・Dreamer 4 型など8系統の事前学習表現を、同じ逆動力学プローブで比較。行動の読み取りやすさは画素の再現度ではなく、動画による時間的な予測事前学習で決まると示した。",
+   "s2": "世界モデルは PSNR・FVD・LPIPS など画素の忠実度で評価・選択されてきたが、制御での有用性との相関は弱いと指摘されていた。先行比較（Nilaksh+ 2026）は方策を回す間接評価だったのに対し、本研究は表現そのものを固定プローブで直接比べた。",
+   "s3": "LIBERO の未学習タスク分割で、各エンコーダの凍結特徴から7自由度の行動を MLP プローブで回帰し R² を測る。さらに逆動力学（ID）損失 L_primary + λ·MSE(â_t, a_t) で調整した版と比べ、事前学習の目的ごとの伸びしろを見る。",
+   "s4": "凍結時の R²：V-JEPA 2 0.40、VideoMAE 0.46、Web-DINO −0.01、SDXL VAE −0.55、Dreamer 4 −0.04。ID 後は V-JEPA 2 0.85、VideoMAE 0.75、Web-DINO 0.16、Dreamer 4 は変化なし（Table 1）。PSNR 約20dB でも R² は −0.01〜0.46 と散らばる（Fig. 1）。",
+   "s5": "著者：シミュレーションのみで閉ループ成功率ではない、Dreamer 4 は非公式の再現。\n所感：利得の大半は自然動画の時間文脈によるもので、JEPA の潜在予測に固有の寄与は約 0.1 R² と控えめ。Fig. 1 は「凍結」とあるが値は ID 後の Table 1 と一致しており、記載に揺れがある。",
+   "s6": "・Reconstruction or Semantics? (2026)（未調査）\n・V-JEPA 2 (2025)（本資料）\n・Dreamer-CDP (2026)（本資料）",
+   "figure": {
+    "file": "figures/predrec_fig1.png",
+    "caption": "出典：Prediction over Reconstruction Fig. 1（画素忠実度 PSNR と行動 R² の関係）"
+   },
+   "notes": "arXiv v1 を本文・Table 1〜2・限界・結論まで読了。付録（A〜K）は未読。"
+  }
+ ]
+}

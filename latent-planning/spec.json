@@ -1,0 +1,216 @@
+{
+ "field": "世界モデル",
+ "theme": "潜在空間での計画と分布外への逸脱",
+ "date": "2026-10-23",
+ "summary": "学習済み世界モデル上で「どう計画するか」の系譜。PETS・PlaNet（不確実性付き／潜在空間の CEM）、DAE 正則化（モデル誤差の悪用対策）、Diffuser（生成＝計画）を原典とし、TD-MPC の方策・価値による償却化を経て、\n2025〜2026年は勾配計画の再興（AWM・GRASP・Dream-MPC）、モデル悪用の理論化、LeWM 上のフロー生成による償却化計画（LeFlow）が中心。",
+ "papers": [
+  {
+   "title": "Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models",
+   "short": "PETS (Chua+ 2018)",
+   "authors": "Kurtland Chua, Roberto Calandra, Rowan McAllister, Sergey Levine（UC Berkeley）｜ NeurIPS 2018",
+   "year": 2018,
+   "venue": "NeurIPS 2018",
+   "link": "https://arxiv.org/abs/1805.12114",
+   "lineage": "原典",
+   "s1": "確率的 NN のブートストラップ・アンサンブルで偶然的／認識的不確実性を分けて表し、粒子の軌道サンプリングで伝播して CEM-MPC で行動を選ぶ PETS を提案。モデルベースのみで model-free の漸近性能に到達した。",
+   "s2": "NN 動力学モデルは少データで過学習し遠い未来を誤るため、MBRL は漸近性能で PPO・SAC に劣り、GP は高次元・接触の不連続に弱かった。決定論的 NN＋ランダムシューティング（Nagabandi+ 2017）との差は不確実性の扱い。",
+   "s3": "各メンバーがガウス分布を出力する B=5 のアンサンブル（PE）。P=20 粒子をブートストラップごとに再サンプルしながら伝播（TS1/TS∞）し、期待報酬で CEM の行動列分布を更新、先頭行動だけ実行する MPC。",
+   "s4": "Cartpole・7自由度 Reacher/Pusher・Half-cheetah。100試行以内に PPO の漸近性能に到達し、Half-cheetah では SAC の1/8、PPO の1/125 のサンプル数（Abstract, Fig. 3）。モデルの順位は PE > P > DE > D（Fig. 4）。",
+   "s5": "著者：伝播法よりモデル選択（不確実性の表現）が効く。方策学習による計画の償却化は今後の課題。\n所感：不確実性は期待値で評価するだけで罰則にはしていない。分布外への逸脱を明示的に罰する後続（MOPO 等）の出発点。",
+   "s6": "・PlaNet (2019)（本資料）\n・DAE-Reg (2019)（本資料）\n・MOPO (2020)（未調査）\n・Plan2Explore (2020)（既存：intrinsic-reward）",
+   "figure": {
+    "file": "figures/pets_fig1.png",
+    "caption": "出典：PETS Fig. 1（確率的アンサンブル→軌道サンプリング→MPC）"
+   },
+   "notes": "arXiv v2（NeurIPS 2018 版）本文・付録の一部を読了。数値は主に図からの記述で表形式の数値は少ない。"
+  },
+  {
+   "title": "Learning Latent Dynamics for Planning from Pixels",
+   "short": "PlaNet (Hafner+ 2019)",
+   "authors": "Danijar Hafner, Timothy Lillicrap, Ian Fischer ほか（Google Brain / トロント大学）｜ ICML 2019",
+   "year": 2019,
+   "venue": "ICML 2019",
+   "link": "https://arxiv.org/abs/1811.04551",
+   "lineage": "原典",
+   "parent": "PETS",
+   "s1": "画像から決定論・確率の両経路を持つ潜在ダイナミクス RSSM を学習し、画像を生成せず潜在空間だけで CEM による MPC を行う PlaNet を提案。DMC 6課題を画素入力から D4PG の約1/200 のエピソードで解いた。",
+   "s2": "学習モデル上の計画は低次元状態（PETS 等）か、E2C・RCE の単純課題に限られ、画素からは誤差蓄積・多峰性・分布外での過信が壁だった。方策も価値も持たない純粋な計画エージェントで接触・疎報酬課題に挑む。",
+   "s3": "RSSM：h_t=f(h_{t−1},s_{t−1},a_{t−1})、s_t~p(s_t|h_t)。報酬も潜在から予測するため CEM は千本の行動列を潜在だけで評価できる（H=12, J=1000, K=100）。毎ステップ分布をリセットして再計画する。",
+   "s4": "DMC 6課題（64×64画素）。1,000エピソードで cartpole 821、reacher 832、cheetah 662、finger 700、cup 930、walker 951（Table 1）。D4PG（10万エピソード）比 40〜500倍のデータ効率。CEM 反復は単発シューティングより全課題で良い（Fig. 5）。",
+   "s5": "著者：確率的経路が不可欠で、決定論 RNN は「計画器にモデルの不正確さを突かれやすい」（Fig. 2）。価値関数・勾配計画・時間抽象は今後。\n所感：確率性が安全マージンになるという指摘は、のちの悪用対策の萌芽。",
+   "s6": "・TD-MPC (2022)（本資料）\n・Grad-MPC (2023)（readme 参照）\n・Director (2022)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/planet_fig2.png",
+    "caption": "出典：PlaNet Fig. 2（RNN・SSM・RSSM の潜在ダイナミクス設計）"
+   },
+   "notes": "arXiv v5（ICML 2019 版）を本文・付録まで読了。latent overshooting は最終 RSSM エージェントには不要（付録 D）。"
+  },
+  {
+   "title": "Regularizing Trajectory Optimization with Denoising Autoencoders",
+   "short": "DAE-Reg (Boney+ 2019)",
+   "authors": "Rinu Boney, Norman Di Palo, Alexander Ilin ほか（Aalto University / Curious AI）｜ NeurIPS 2019",
+   "year": 2019,
+   "venue": "NeurIPS 2019",
+   "link": "https://arxiv.org/abs/1903.11981",
+   "lineage": "原典",
+   "parent": "PETS",
+   "s1": "学習モデル上の軌道最適化は「自分のモデルへの敵対的攻撃」になりモデル誤差を悪用すると指摘し、過去軌道で学習したデノイジング AE の誤差を罰則に加えて計画をデータ分布内に留める手法を提案した。",
+   "s2": "PETS などは CEM の雑音や不確実性で暗黙に悪用を抑えるだけで、勾配法（Adam）は高次元行動で破綻していた。行動分布の KL 罰則（Levine & Koltun ほか）と違い、状態を含む軌道の「なじみ深さ」を直接罰する。",
+   "s3": "G_reg = G + α Σ log p(x_τ)（x_τ は短い窓の観測・行動）。最適 DAE では g(x)−x ∝ ∇log p(x) なので、密度を陽に作らず ‖g(x)−x‖² を報酬から引くだけで実装でき、CEM にも勾配法にも挿せる。",
+   "s4": "化学反応器：正則化なしの勾配計画は想像と現実が乖離し圧力制約を破るが、DAE で一致（Fig. 1）。Half-cheetah の PETS モデルで CEM 10955 → CEM+DAE 12967、Adam 単独は失敗 → Adam+DAE 12796（Table 1）。",
+   "s5": "著者：DAE 罰則は探索も罰するため10エピソード以降伸びず、PETS の漸近性能に届かない。\n所感：「データ分布への正則化」の原型で、AWM や LePlanner の行動支持罰則まで続く。保守性と探索のトレードオフは今も未解決。",
+   "s6": "・PETS (2018)（本資料）\n・AWM (2025)（本資料）\n・MOPO / MOReL (2020)（未調査）\n・Hi-LeWM (2026)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/daereg_fig1.png",
+    "caption": "出典：DAE-Reg Fig. 1（黒＝モデルの想像、赤＝現実。正則化なしでは乖離）"
+   },
+   "notes": "arXiv v3（NeurIPS 2019 版）本文を読了。"
+  },
+  {
+   "title": "Temporal Difference Learning for Model Predictive Control",
+   "short": "TD-MPC (Hansen+ 2022)",
+   "authors": "Nicklas Hansen, Xiaolong Wang, Hao Su（UC San Diego）｜ ICML 2022",
+   "year": 2022,
+   "venue": "ICML 2022",
+   "link": "https://arxiv.org/abs/2203.04955",
+   "lineage": "発展",
+   "parent": "PlaNet",
+   "s1": "報酬・価値・潜在一貫性だけで学ぶ課題指向の潜在モデル TOLD 上で、短い地平線の MPPI と TD 学習した終端価値を組み合わせる TD-MPC を提案。38次元行動の Dog を含む DMC の難課題を初めて解いた。",
+   "s2": "長い地平線の計画は高コスト（PlaNet 等）で、モデル生成データで方策を学ぶとモデル誤差が方策に伝播する。観測の再構成（Dreamer）は課題に無関係な細部までモデル化し誤差を増やす。類似の LOOP より軽く速い。",
+   "s3": "φ = Σ γ^t R(z_t,a_t) + γ^H Q(z_H,a_H) で H=5 の行動列を評価。N=512 本のガウス標本に方策 π_θ からの 5% を混ぜて MPPI で更新し、前ステップの解で warm start。π_θ は償却化された提案分布を兼ねる。",
+   "s4": "DMC・Meta-World の計92課題。Humanoid・Dog を 3M ステップ以内で解き SAC を大差で上回る（Fig. 1）。Walker Walk の解決時間は LOOP 7.72h に対し 0.47h（Table 2）。方策単独は計画より劣る（Fig. 6）。",
+   "s5": "著者：探索が難しい Finger Turn Hard では SAC に劣る。推論時は計画反復を半減しても性能を保つ。\n所感：方策を提案分布に使う償却化が以後の標準に。一方、価値の過大評価がモデル悪用の新たな入口になる（Dream-MPC が指摘）。",
+   "s6": "・TD-MPC2 (2023)（未調査）\n・Dream-MPC (2026)（本資料）\n・Puppeteer (2024)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/tdmpc_fig1.png",
+    "caption": "出典：TD-MPC Fig. 1（潜在 MPC＋終端価値の概要と Humanoid/Dog の学習曲線）"
+   },
+   "notes": "arXiv v2（ICML 2022 版）本文を読了。"
+  },
+  {
+   "title": "Planning with Diffusion for Flexible Behavior Synthesis",
+   "short": "Diffuser (Janner+ 2022)",
+   "authors": "Michael Janner, Yilun Du, Joshua B. Tenenbaum, Sergey Levine（UC Berkeley / MIT）｜ ICML 2022",
+   "year": 2022,
+   "venue": "ICML 2022",
+   "link": "https://arxiv.org/abs/2205.09991",
+   "lineage": "原典",
+   "s1": "状態・行動の軌道全体を拡散モデルで生成し、報酬勾配のガイダンスや始点・終点のインペインティングで計画する Diffuser を提案。「サンプリング＝計画」とし、長期・疎報酬の迷路で既存手法を大差で上回った。",
+   "s2": "強い軌道最適化器は学習モデルを悪用し、計画が敵対的サンプルのようになる（Talvitie, Ke+）。そのため MBRL は CEM 等の単純な最適化や価値・方策に頼ってきた。単ステップモデルの誤差累積と近視眼的シューティングを共に避ける。",
+   "s3": "時間方向1次元畳み込みの U-Net で軌道全体を同時にノイズ除去。報酬予測器 J の勾配で平均をずらす τ^{i−1}~N(μ+αΣ∇J(μ), Σ) と、制約値を毎ステップ上書きするインペインティングで条件付ける。",
+   "s4": "Maze2D 単一課題平均 119.5（IQL 47.0、真の動力学の MPPI 16.2）、多課題 129.4（Table 1）。条件付き積み木 45.6〜58.9 で BCQ/CQL はほぼ 0（Table 3）。D4RL 平均 77.5 で CQL 77.6 と同等（Table 2）。",
+   "s5": "著者：反復生成が遅いが warm start で1/10 に削減可（Fig. 7）。Diffuser を MPPI の動力学モデルに使うとランダム同然。\n所感：データ分布外の軌道を作りにくいことが暗黙の保守性になる半面、新しい解は既知断片のつなぎ合わせに留まりやすい。",
+   "s6": "・Decision Diffuser (2023)（未調査）\n・LeFlow (2026)（本資料）\n・DAE-Reg (2019)（本資料）",
+   "figure": {
+    "file": "figures/diffuser_fig2.png",
+    "caption": "出典：Diffuser Fig. 2（状態・行動配列を局所受容野でノイズ除去）"
+   },
+   "notes": "arXiv v2（ICML 2022 版）本文を読了。"
+  },
+  {
+   "title": "Closing the Train-Test Gap in World Models for Gradient-Based Planning",
+   "short": "AWM (Agrawal+ 2025)",
+   "authors": "Rohun Agrawal, Nimit Kalra, Arjun Parthasarathy ほか（Columbia University / NYU）｜ NeurIPS 2026",
+   "year": 2025,
+   "venue": "NeurIPS 2026",
+   "link": "https://arxiv.org/abs/2512.09929",
+   "lineage": "最新",
+   "parent": "DAE-Reg",
+   "s1": "次状態予測で学んだ世界モデルを勾配計画に使うと、行動列最適化がモデルの弱点を突く「訓練と利用のずれ」が生じると分析。FGSM で状態・行動を摂動して学ぶ Adversarial World Modeling で勾配計画を CEM 並みにした。",
+   "s2": "勾配計画（GBP）は CEM/MPPI より速いはずが性能で劣ってきた（Grad-MPC 等）。モデル上の損失と真の距離の差（model-simulator gap）が GBP でだけ最適化中に拡大し、CEM は暗黙に頑健であることを示した（Fig. 1）。",
+   "s3": "min_θ E[ max_{δa,δz} ‖f_θ(z+δz, a+δa) − z′‖² ]（‖δ‖∞≤ε、FGSM 1歩）で DINO-WM の予測器を微調整し、行動に関する損失地形を平滑化。対照としてシミュレータで補正した GBP 軌道を足す DAgger 型 Online WM も試す。",
+   "s4": "DINO-WM 上の6課題で GBP を +16〜34pt 改善。PointMaze 98% 対 CEM 92%、Wall 96 対 82、Reacher 76 対 66、PushT 92 で同等（Fig. 3）。時間は CEM の約1/10（Fig. 6）。Online WM はほぼ改善せず（Fig. 1, 2）。",
+   "s5": "著者：データ被覆を増やす OWM は効かず、問題はデータ量より最適化地形。摂動半径が大きすぎると劣化。実機は未検証。\n所感：分布外への逸脱を避けるのでなく、モデル側を頑健にする発想。評価は専門家データ由来のゴール到達課題に限られる。",
+   "s6": "・GRASP (2026)（本資料）\n・DAE-Reg (2019)（本資料）\n・DINO-WM (2024)（未調査）\n・Hi-LeWM (2026)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/awm_fig2.png",
+    "caption": "出典：AWM Fig. 2（PushT の行動最適化地形。右端の AWM で平滑化）"
+   },
+   "notes": "arXiv v2（2026-10）を本文・付録の一部まで読了。採録先は NeurIPS 2026 公式サイトの掲載で確認（arXiv に採録注記なし）。v1 と著者順が異なり、他論文では Parthasarathy et al. (2025) として引用される。"
+  },
+  {
+   "title": "Parallel Stochastic Gradient-Based Planning for World Models",
+   "short": "GRASP (Psenka+ 2026)",
+   "authors": "Michael Psenka, Michael Rabbat, Aditi Krishnapriyan ほか（UC Berkeley / Meta FAIR）｜ ICML 2026",
+   "year": 2026,
+   "venue": "ICML 2026",
+   "link": "https://arxiv.org/abs/2602.00475",
+   "lineage": "最新",
+   "parent": "AWM",
+   "s1": "中間状態を「仮想状態」として行動と同時に最適化し、力学を罰則で緩く課す並列な勾配計画器 GRASP を提案。状態への雑音注入と状態入力の勾配遮断で、長地平線の視覚計画で CEM と素朴な勾配降下を上回った。",
+   "s2": "逐次ロールアウトを逆伝播する勾配計画は条件数が悪く局所解に陥る。視覚世界モデルの状態入力勾配は「敵対的」で、微小な摂動で任意の出力に誘導できる（Fig. 3）。LatCo 等のコロケーションは既知の力学向けだった。",
+   "s3": "Σ‖F(s̄_t,a_t)−s_{t+1}‖² + γΣ‖F(s̄_t,a_t)−g‖²（s̄ は勾配停止）を最小化し、状態に Langevin 型の雑音を加えて谷を移る。定期的に全ロールアウトの勾配で行動のみ同期更新。全時刻の評価が並列にできる。",
+   "s4": "DINO-WM 型モデルの PushT 開ループ（各500試行）：H=50 で成功率 43.4% 対 CEM 30.2%・GD 37.6%、時間 15.2s 対 96.2s。H=80 でも 10.4 対 2.8%（Table 1）。H=40 は CEM 61.4 が上。短地平線は同等（Table 3）。",
+   "s5": "著者：利点は長地平線に限られ、追加の安定化と超パラメータが要る。潜在幾何が滑らかなら不要になる。\n所感：成功判定は「学習済み世界モデル上」で実環境ではない。モデル悪用を測れない設定なので、AWM と組み合わせた実環境評価が欲しい。",
+   "s6": "・AWM (2025)（本資料）\n・LatCo (2021)（未調査）\n・Temporal Straightening (2026)（未調査）",
+   "figure": {
+    "file": "figures/grasp_fig2.png",
+    "caption": "出典：GRASP Fig. 2（(a) 逐次計画と (b) 仮想状態による並列計画）"
+   },
+   "notes": "arXiv v1 を本文・付録の一部まで読了。成功率は学習済み世界モデル上で判定（Sec. 4 冒頭の記述）。"
+  },
+  {
+   "title": "Dream-MPC: Gradient-Based Model Predictive Control with Latent Imagination",
+   "short": "Dream-MPC (Spieler+ 2026)",
+   "authors": "Jonathan Spieler, Sven Behnke（University of Bonn）｜ ICML 2026",
+   "year": 2026,
+   "venue": "ICML 2026",
+   "link": "https://arxiv.org/abs/2605.04568",
+   "lineage": "最新",
+   "parent": "TD-MPC",
+   "s1": "方策から少数（N=5）の候補行動列を潜在空間でロールアウトし、世界モデルを通した勾配上昇で磨く勾配 MPC、Dream-MPC を提案。Q アンサンブルの不確実性罰則と前時刻の解の再利用を加え、BMPC 上で MPPI を上回った。",
+   "s2": "TD-MPC2 等は MPPI（1ステップ 512×6×3=9216 回のモデル評価）に頼り計算が重い。従来の勾配計画（Grad-MPC, Policy+Grad-MPC）は勾配自由法に劣り、純粋な償却化方策（Dreamer）は汎化に弱い。",
+   "s3": "J = Σγ^h(R(z_h,a_h) − λu_h) + γ^H(Q − λu_H)、u = mean(Q̂)·std(Q̂)（λ=0.01）。初期解は ρ·前時刻の最適化済み行動 + (1−ρ)·方策行動。勾配上昇1反復で、モデル評価は計 15 回。",
+   "s4": "DMC・HumanoidBench・Meta-World の24課題。BMPC 比 IQM +26.7%、平均 +20.5%（Fig. 1）。TD-MPC2 上では方策単独を大きく改善するが MPPI には届かない（Table 1）。Dreamer 統合で Grad-MPC 等を上回る（Table 3）。推論 18ms。",
+   "s5": "著者：良い方策事前分布が不可欠（無いと Humanoid Run 531 → 7、Table 4）。学習時に使うと探索不足で早期収束。\n所感：不確実性罰則の効果は小さく、外すと良くなる課題もある（Table 4）。悪用を防いでいる主因は方策事前分布に見える。",
+   "s6": "・TD-MPC (2022)（本資料）\n・TD-MPC2 (2023)（未調査）\n・BMPC (2025)（未調査）",
+   "figure": {
+    "file": "figures/dreammpc_fig2.png",
+    "caption": "出典：Dream-MPC Fig. 2（方策で初期化した行動列を世界モデル越しの勾配で最適化）"
+   },
+   "notes": "arXiv v3（ICML 2026 版）を本文・付録の一部まで読了。"
+  },
+  {
+   "title": "Imperfect World Models are Exploitable",
+   "short": "Exploitable WM (Bhamidipaty+ 2026)",
+   "authors": "Logan Mondal Bhamidipaty, Esmeralda S. Whitammer, David Abel ほか（University of Edinburgh / Stanford）｜ arXiv 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2605.15960",
+   "lineage": "最新",
+   "parent": "DAE-Reg",
+   "s1": "「世界モデルでは方策 π′ が π より良いが、真の環境では逆」という順序の逆転としてモデル悪用を初めて定義し、開集合を含む方策集合では、非自明に異なるモデル同士は必ず悪用可能であることを証明した。",
+   "s2": "シミュレーション補題や価値等価原理は予測誤差の大きさ（基数的・局所的）でモデルを測るが、安全な計画に要るのは方策の順位を保つか（順序的・大域的）。報酬ハッキングの理論（Skalse+ 2022）はそのまま移植できない。",
+   "s3": "価値関数 J(π) が方策の有理関数（実解析的）であることを示し、二つの価値勾配が反平行・独立なら逆転、正比例なら同値という統一定理を導く。緩和した ε-悪用では安全地平線 H(ε,δ) を閉形式で与える（δ: 全変動距離）。",
+   "s4": "理論論文で実験はなく、3状態 MDP の例で自明・同値・悪用可能を図示（Fig. 1, 2）。1/(1−γ) ≤ H(ε,δ) なら全方策集合で ε-悪用不能で、境界はタイト（Thm. 2）。γ=0.99 では約 10,000δ の逆転を排除できない（Cor. 4）。",
+   "s5": "著者：有限状態・行動 MDP に限られ、連続・POMDP は今後。有限方策集合での必要十分条件は未解決。\n所感：「予測誤差が小さくても順位は逆転しうる」は、潜在計画で予測精度と計画性能が乖離する経験則の理論的裏づけ。短地平線設計の根拠にもなる。",
+   "s6": "・Defining Reward Hacking (2022)（未調査）\n・MOReL (2020)（未調査）\n・DAE-Reg (2019)（本資料）",
+   "figure": {
+    "file": "figures/exploit_fig3.png",
+    "caption": "出典：Exploitable WM Fig. 3（ε-悪用の例と安全地平線 H(ε,δ) の等高線）"
+   },
+   "notes": "arXiv v2 を本文・付録（証明・反例）まで読了。"
+  },
+  {
+   "title": "LeFlow: Generative Latent Flow Planning for World Models",
+   "short": "LeFlow (Huang+ 2026)",
+   "authors": "Hsiang-Wei Huang, Jianxu Shangguan, Junbin Lu, Jenq-Neng Hwang（University of Washington）｜ arXiv 2026",
+   "year": 2026,
+   "venue": "arXiv プレプリント 2026",
+   "link": "https://arxiv.org/abs/2608.24855",
+   "lineage": "最新",
+   "parent": "Diffuser",
+   "s1": "凍結した LeWM の潜在空間で、始点とゴールの間の潜在軌道を rectified flow で生成し、逆動力学で行動に戻して世界モデルのロールアウトで選ぶ償却化計画器 LeFlow を提案。CEM より約1桁速く成功率も上回った。",
+   "s2": "LeWM 等の潜在世界モデルは状態・ゴールごとに CEM を一から回し、毎回数千回のモデル評価をやり直して計画経験を再利用しない。Diffuser・Decision Diffuser は状態・行動空間の軌道を生成し、世界モデルの潜在構造を使わない。",
+   "s3": "L = L_flow + L_inv + 0.1·L_cons。L_cons は生成遷移から復号した行動を凍結予測器で1歩進めた結果とのずれ。推論は N=64 本を 16 Euler ステップで生成し、実ロールアウト終端とゴールの距離で再ランク（制御可能な多様体への射影）。",
+   "s4": "LeWM 4課題（H=5, 50エピソード）：TwoRoom 100%、PushT 95.2、Reacher 86.8、Cube 100 に対し LeWM+CEM 82.0/89.3/68.0/73.3（Table 1）。計画時間 4.5〜14.4倍速（Table 2）。再ランクを外すと Reacher 87.5 → 77.0（Table 4）。",
+   "s5": "著者：固定の短い地平線（H=5）のみで、長くすると生成軌道と制御可能な多様体の乖離が広がる。階層化が次の一手。\n所感：データ分布から生成し世界モデルで検証する構成は分布外逸脱を抑える実用解。CEM 基準値の再現性と LeWM 以外への一般性は要確認。",
+   "s6": "・Diffuser (2022)（本資料）\n・LePlanner (2026)（readme 参照）\n・Hi-LeWM (2026)（既存：hierarchical）",
+   "figure": {
+    "file": "figures/leflow_fig2.png",
+    "caption": "出典：LeFlow Fig. 2（凍結 LeWM 上の潜在フロー計画器と逆動力学デコーダ）"
+   },
+   "notes": "arXiv v1 を本文・付録の一部まで読了。"
+  }
+ ]
+}
