@@ -7,13 +7,24 @@
 
 ## 分野ブランチ一覧
 
-| 分野 | ブランチ | テーマ | スライド化 / 一覧掲載 | 最終更新 |
+| 分野 | ブランチ | テーマ（第1回／第2回） | スライド化 / 一覧掲載 | 最終更新 |
 | --- | --- | --- | --- | --- |
-| 世界モデル | [`world-model`](https://github.com/create-alt/researches/tree/world-model) | 内発的報酬、階層化 | 20 / 69 本 | 2026-10-23 |
-| 群知能 | [`swarm-intelligence`](https://github.com/create-alt/researches/tree/swarm-intelligence) | 全体像（原著論文まわり）、DeepLearning・NN との融合、GA との融合 | 31 / 97 本 | 2026-10-23 |
-| SNN | [`snn`](https://github.com/create-alt/researches/tree/snn) | 学習手法、Spiking Transformer・大規模化、ニューロモルフィックハードウェアと応用 | 35 / 105 本 | 2026-10-23 |
+| 世界モデル | [`world-model`](https://github.com/create-alt/researches/tree/world-model) | 内発的報酬、階層化／JEPA 系潜在世界モデル、潜在空間での計画、動画・基盤世界モデルのデータ収集 | 50 / 170 本 | 2026-10-23 |
+| 群知能 | [`swarm-intelligence`](https://github.com/create-alt/researches/tree/swarm-intelligence) | 全体像、DL・NN との融合、GA との融合／Meta-BBO・LLM による自動設計、CBO と平均場理論、ACO と Neural ACO | 61 / 198 本 | 2026-10-23 |
+| SNN | [`snn`](https://github.com/create-alt/researches/tree/snn) | 学習手法、Spiking Transformer・大規模化、ニューロモルフィック HW と応用／並列学習とスパイキング SSM、エネルギー評価、スパイク符号化と量子化 | 66 / 206 本 | 2026-10-23 |
 
 > 分野ブランチを作成・更新したら、この表にも追記します。
+
+## 候補分野（隣接分野の最新研究メモ）
+
+既存の3分野から見て関連が深い隣接分野について、2025〜2026 年の最新研究を調べたメモ（ブランチ化する前の下調べ）。各ファイルに分野の概要・古典・最新研究6本の要約・テーマ案がある。
+
+| 分野 | 既存分野とのつながり | メモ |
+| --- | --- | --- |
+| 能動的推論・自由エネルギー原理 | 世界モデル（好奇心＝認識的価値、階層的生成モデル）、SNN（脳の計算理論） | [active-inference.md](candidates/active-inference.md) |
+| オープンエンド学習・人工生命・Quality-Diversity | 群知能・GA（多様性維持、LLM 駆動の進化）、内発的報酬（新奇性） | [open-endedness.md](candidates/open-endedness.md) |
+| ニューラルセルオートマトン・自己組織化 | 群知能（局所則からの創発）、SNN（局所・並列計算）、世界モデル（CA は最小の世界） | [neural-cellular-automata.md](candidates/neural-cellular-automata.md) |
+| イベントベース視覚とニューロモルフィック・ロボティクス | SNN・ニューロモルフィック HW の身体的応用、イベントからの世界モデル学習 | [neuromorphic-robotics.md](candidates/neuromorphic-robotics.md) |
 
 ## リポジトリ構成
 
@@ -23,7 +34,8 @@ main
 ├── template/
 │   ├── ochiai_format_template.pptx    # 落合陽一フォーマットのテンプレート（1枚）
 │   └── ochiai_format_template.pdf     # 上記の PDF 版
-└── tools/ochiai/                      # スライド生成スクリプト（pptxgenjs）
+├── tools/ochiai/                      # スライド生成スクリプト（pptxgenjs）
+└── candidates/                        # 候補分野（隣接分野）の最新研究メモ
 
 <分野ブランチ>（例：world-model, swarm-intelligence）
 ├── README.md                          # 調査履歴・引用論文一覧（概要＋リンク）
