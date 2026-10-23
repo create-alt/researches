@@ -6,7 +6,7 @@ const { COLORS, FONT, G, newDeck, addPaperSlide } = require("./ochiai");
 const out = process.argv[2] || path.join(__dirname, "../../template/ochiai_format_template.pptx");
 const pres = newDeck("落合陽一フォーマット テンプレート");
 
-const slide = addPaperSlide(pres, {
+const { slide } = addPaperSlide(pres, {
   tag: "分野名 › テーマ名 ｜ 系譜：原典 / 発展 / 最新動向",
   title: "論文タイトル（原題をそのまま記載）",
   authors: "著者1, 著者2, …（筆頭著者の所属）｜ 会議・ジャーナル名 発表年",

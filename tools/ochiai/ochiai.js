@@ -1,5 +1,5 @@
 // 落合陽一フォーマット（1論文1スライド）の共通レイアウトとデッキ生成。
-// template.js からテンプレートを、各分野ブランチではテーマごとのスペックから本番デッキを生成する。
+// template.js からテンプレートを、各分野ブランチでは build.js からテーマごとのデッキを生成する。
 const pptxgen = require("pptxgenjs");
 
 // 配色とフォントはここだけで管理する
@@ -27,16 +27,19 @@ const SECTIONS = [
 // 13.333" x 7.5"（LAYOUT_WIDE）上の配置
 const G = {
   mx: 0.5,
-  bodyY: 1.8,
+  bodyY: 1.65,
   cardW: 4.15,
-  cardH: 1.55,
-  gap: 0.2,
-  sideX: 9.2,
-  sideW: 3.633,
-  figH: 2.9,
+  cardH: 1.65,
+  gap: 0.15,
+  sideX: 9.15,
+  sideW: 3.683,
+  figH: 3.0,
 };
 G.infoY = G.bodyY + G.figH + G.gap;
 G.infoH = G.bodyY + 3 * G.cardH + 2 * G.gap - G.infoY;
+// 各カード本文の領域（カード左上からの相対位置）
+const BODY = { dx: 0.18, dy: 0.52, w: G.cardW - 0.36, h: G.cardH - 0.6 };
+const INFO = { x: G.sideX + 0.15, y: G.infoY + 0.48, w: G.sideW - 0.3, h: G.infoH - 0.56 };
 
 function cardPos(i) {
   const col = i % 2;
@@ -44,7 +47,52 @@ function cardPos(i) {
   return { x: G.mx + col * (G.cardW + G.gap), y: G.bodyY + row * (G.cardH + G.gap) };
 }
 
+// ---- 文字量に応じたフォントサイズの自動調整 ----
+// 行送りを pt で固定するため、PowerPoint と LibreOffice で行数がほぼ一致する
+const LEAD = 1.35;
+const lineSpacingFor = (size) => Math.round(size * LEAD * 2) / 2;
+
+function textUnits(s) {
+  let u = 0;
+  for (const ch of s) u += ch.charCodeAt(0) < 0x2000 ? 0.6 : 1.0;
+  return u;
+}
+
+function linesNeeded(paragraphs, w, size) {
+  const perLine = Math.max(1, Math.floor(((w * 72) / size) * 0.96));
+  return paragraphs.reduce((n, p) => n + Math.max(1, Math.ceil(textUnits(p) / perLine)), 0);
+}
+
+// sizes の大きい順に試し、収まる最大サイズを返す（収まらなければ最小サイズ）
+function fitSize(paragraphs, w, h, sizes) {
+  for (const size of sizes) {
+    const cap = Math.floor((h * 72) / lineSpacingFor(size));
+    if (linesNeeded(paragraphs, w, size) <= cap) return { size, overflow: false };
+  }
+  return { size: sizes[sizes.length - 1], overflow: true };
+}
+
+const BODY_SIZES = [12, 11.5, 11, 10.5, 10, 9.5, 9];
+
+// 改行区切りの文字列を段落ごとのランに変換
+function paragraphRuns(text, size) {
+  const paras = String(text || "").split("\n");
+  return paras.map((p, i) => ({
+    text: p,
+    options: { fontSize: size, lineSpacing: lineSpacingFor(size), breakLine: i < paras.length - 1 },
+  }));
+}
+
 function defineLayouts(pres) {
+  const ph = (name, x, y, w, h, opts) => ({
+    placeholder: {
+      options: { name, type: "body", x, y, w, h, fontFace: FONT, color: COLORS.ink, valign: "top", margin: 0, ...opts },
+      text: "",
+    },
+  });
+  const slideNumber = { x: 12.233, y: 7.05, w: 0.6, h: 0.3, fontFace: FONT, fontSize: 10, color: COLORS.muted, align: "right" };
+
+  // 論文スライド
   const objects = [];
   SECTIONS.forEach((s, i) => {
     const { x, y } = cardPos(i);
@@ -71,7 +119,6 @@ function defineLayouts(pres) {
       },
     });
   });
-  // 右カラム：書誌情報カードの見出し
   objects.push({
     rect: { x: G.sideX, y: G.infoY, w: G.sideW, h: G.infoH, fill: { color: COLORS.card }, rectRadius: 0.08 },
   });
@@ -84,28 +131,28 @@ function defineLayouts(pres) {
       },
     },
   });
-
-  const ph = (name, x, y, w, h, opts) => ({
-    placeholder: {
-      options: { name, type: "body", x, y, w, h, fontFace: FONT, color: COLORS.ink, valign: "top", margin: 0, ...opts },
-      text: "",
-    },
-  });
   SECTIONS.forEach((s, i) => {
     const { x, y } = cardPos(i);
-    objects.push(ph(s.key, x + 0.18, y + 0.55, G.cardW - 0.36, G.cardH - 0.65, { fontSize: 12, lineSpacingMultiple: 1.1 }));
+    objects.push(ph(s.key, x + BODY.dx, y + BODY.dy, BODY.w, BODY.h, { fontSize: 12 }));
   });
-  objects.push(ph("tag", G.mx, 0.3, 12.333, 0.3, { fontSize: 11, bold: true, color: COLORS.teal, valign: "middle" }));
-  objects.push(ph("title", G.mx, 0.62, 12.333, 0.62, { fontSize: 24, bold: true, valign: "middle", fit: "shrink" }));
-  objects.push(ph("meta", G.mx, 1.26, 12.333, 0.34, { fontSize: 12, color: COLORS.muted, valign: "middle" }));
-  objects.push(ph("info", G.sideX + 0.15, G.infoY + 0.5, G.sideW - 0.3, G.infoH - 0.6, { fontSize: 10.5, lineSpacingMultiple: 1.15 }));
-  objects.push(ph("footer", G.mx, 7.02, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }));
+  objects.push(ph("tag", G.mx, 0.3, 12.333, 0.28, { fontSize: 11, bold: true, color: COLORS.teal, valign: "middle" }));
+  objects.push(ph("title", G.mx, 0.6, 12.333, 0.56, { fontSize: 24, bold: true, valign: "middle" }));
+  objects.push(ph("meta", G.mx, 1.18, 12.333, 0.32, { fontSize: 12, color: COLORS.muted, valign: "middle" }));
+  objects.push(ph("info", INFO.x, INFO.y, INFO.w, INFO.h, { fontSize: 10.5 }));
+  objects.push(ph("footer", G.mx, 7.05, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }));
+  pres.defineSlideMaster({ title: "OCHIAI_PAPER", background: { color: COLORS.white }, objects, slideNumber });
 
+  // テーマ表紙（調査論文の一覧）
   pres.defineSlideMaster({
-    title: "OCHIAI_PAPER",
+    title: "OCHIAI_COVER",
     background: { color: COLORS.white },
-    objects,
-    slideNumber: { x: 12.233, y: 7.02, w: 0.6, h: 0.3, fontFace: FONT, fontSize: 10, color: COLORS.muted, align: "right" },
+    objects: [
+      ph("tag", G.mx, 0.45, 12.333, 0.3, { fontSize: 12, bold: true, color: COLORS.teal, valign: "middle" }),
+      ph("title", G.mx, 0.8, 12.333, 0.75, { fontSize: 36, bold: true, valign: "middle" }),
+      ph("summary", G.mx, 1.65, 12.333, 0.9, { fontSize: 13, color: COLORS.muted }),
+      ph("footer", G.mx, 7.05, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }),
+    ],
+    slideNumber,
   });
 }
 
@@ -127,10 +174,13 @@ function infoRuns(info) {
     ["調査日", info.date],
     ["確認範囲", info.scope],
   ];
+  const paras = rows.map(([label, value]) => `${label}：${value || "—"}`);
+  const { size } = fitSize(paras, INFO.w, INFO.h, [10.5, 10, 9.5, 9]);
+  const ls = lineSpacingFor(size);
   const runs = [];
   rows.forEach(([label, value], i) => {
-    runs.push({ text: `${label}：`, options: { bold: true } });
-    const v = { text: value || "—", options: { breakLine: i < rows.length - 1 } };
+    runs.push({ text: `${label}：`, options: { bold: true, fontSize: size, lineSpacing: ls } });
+    const v = { text: value || "—", options: { fontSize: size, lineSpacing: ls, breakLine: i < rows.length - 1 } };
     if (label === "リンク" && /^https?:\/\//.test(value || "")) v.options.hyperlink = { url: value };
     runs.push(v);
   });
@@ -139,24 +189,74 @@ function infoRuns(info) {
 
 // 1論文 = 1スライド
 // paper: { title, authors, tag, footer, s1..s6, info: {venue, link, lineage, date, scope}, figure?: {path, caption}, notes? }
+// 戻り値の overflow には、最小サイズでも収まらない欄のキーが入る
 function addPaperSlide(pres, paper) {
   const slide = pres.addSlide({ masterName: "OCHIAI_PAPER" });
+  const overflow = [];
   slide.addText(paper.tag, { placeholder: "tag" });
-  slide.addText(paper.title, { placeholder: "title" });
-  slide.addText(paper.authors, { placeholder: "meta" });
-  SECTIONS.forEach((s) => slide.addText(paper[s.key], { placeholder: s.key }));
+  const titleFit = fitSize([paper.title], 12.333, 0.56, [24, 22, 20, 18, 16]);
+  if (titleFit.overflow) overflow.push("title");
+  slide.addText(paper.title, { placeholder: "title", fontSize: titleFit.size });
+  const metaFit = fitSize([paper.authors], 12.333, 0.32, [12, 11, 10]);
+  if (metaFit.overflow) overflow.push("authors");
+  slide.addText(paper.authors, { placeholder: "meta", fontSize: metaFit.size });
+  SECTIONS.forEach((s) => {
+    const text = String(paper[s.key] || "");
+    const { size, overflow: of } = fitSize(text.split("\n"), BODY.w, BODY.h, BODY_SIZES);
+    if (of) overflow.push(s.key);
+    slide.addText(paragraphRuns(text, size), { placeholder: s.key });
+  });
   slide.addText(infoRuns(paper.info), { placeholder: "info" });
   slide.addText(paper.footer, { placeholder: "footer" });
 
   const fig = { x: G.sideX, y: G.bodyY, w: G.sideW, h: G.figH };
   if (paper.figure && paper.figure.path) {
-    slide.addImage({ path: paper.figure.path, x: fig.x, y: fig.y, w: fig.w, h: fig.h - 0.35, sizing: { type: "contain", w: fig.w, h: fig.h - 0.35 } });
+    const imgH = fig.h - 0.4;
+    const img = { path: paper.figure.path, x: fig.x, y: fig.y, w: fig.w, h: imgH };
+    // 縦横比を保って枠内に収める（sizing: contain は LibreOffice で崩れるため自前で計算）
+    if (paper.figure.width && paper.figure.height) {
+      const r = Math.min(fig.w / paper.figure.width, imgH / paper.figure.height);
+      img.w = paper.figure.width * r;
+      img.h = paper.figure.height * r;
+      img.x = fig.x + (fig.w - img.w) / 2;
+      img.y = fig.y + (imgH - img.h) / 2;
+    }
+    slide.addImage(img);
     slide.addText(paper.figure.caption || "", {
-      x: fig.x, y: fig.y + fig.h - 0.3, w: fig.w, h: 0.3, fontSize: 10, color: COLORS.muted, margin: 0, isTextBox: true,
+      x: fig.x, y: fig.y + fig.h - 0.35, w: fig.w, h: 0.35, fontFace: FONT, fontSize: 9.5,
+      color: COLORS.muted, margin: 0, valign: "top", isTextBox: true,
     });
   }
   if (paper.notes) slide.addNotes(paper.notes);
+  return { slide, overflow };
+}
+
+// テーマ表紙：概要と調査論文の一覧表
+// cover: { tag, title, summary, footer, rows: [[#, 年, タイトル, 発表, 系譜], ...] }
+function addCoverSlide(pres, cover) {
+  const slide = pres.addSlide({ masterName: "OCHIAI_COVER" });
+  slide.addText(cover.tag, { placeholder: "tag" });
+  slide.addText(cover.title, { placeholder: "title" });
+  const sumFit = fitSize(cover.summary.split("\n"), 12.333, 0.9, [13, 12, 11]);
+  slide.addText(paragraphRuns(cover.summary, sumFit.size).map((r) => ({ ...r, options: { ...r.options, color: COLORS.muted } })), { placeholder: "summary" });
+  slide.addText(cover.footer, { placeholder: "footer" });
+
+  const n = cover.rows.length;
+  const tableTop = 2.7;
+  const rowH = Math.min(0.4, (6.9 - tableTop) / (n + 1));
+  const size = rowH >= 0.36 ? 11 : rowH >= 0.3 ? 10 : 9;
+  const head = ["#", "年", "論文", "発表", "系譜"].map((t) => ({
+    text: t, options: { bold: true, color: COLORS.white, fill: { color: COLORS.teal } },
+  }));
+  const body = cover.rows.map((r, i) =>
+    r.map((t) => ({ text: String(t), options: { fill: { color: i % 2 ? COLORS.white : COLORS.card } } }))
+  );
+  slide.addTable([head, ...body], {
+    x: G.mx, y: tableTop, w: 12.333, colW: [0.45, 0.75, 7.6, 2.0, 1.533],
+    rowH, fontFace: FONT, fontSize: size, color: COLORS.ink, valign: "middle",
+    border: { type: "solid", pt: 0.5, color: COLORS.line }, margin: [0.03, 0.08, 0.03, 0.08],
+  });
   return slide;
 }
 
-module.exports = { COLORS, FONT, G, SECTIONS, newDeck, addPaperSlide };
+module.exports = { COLORS, FONT, G, SECTIONS, newDeck, addPaperSlide, addCoverSlide, fitSize };

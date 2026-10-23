@@ -65,10 +65,10 @@ main
 ```bash
 cd tools/ochiai
 npm install
-node template.js                      # template/ochiai_format_template.pptx を再生成
-
-# PDF 化（LibreOffice）。Meiryo の無い環境では fonts.conf で日本語フォントに置き換える
-FONTCONFIG_FILE=$PWD/fonts.conf soffice --headless --convert-to pdf --outdir ../../template ../../template/ochiai_format_template.pptx
+node template.js                                  # template/ochiai_format_template.pptx を再生成
+node build.js <theme>/spec.json <theme>/<theme>.pptx  # テーマのデッキ（表紙＋1論文1スライド）を生成
+./to_pdf.sh <theme>/<theme>.pptx                   # PDF 化（LibreOffice。Meiryo が無い環境では fonts.conf で日本語フォントに置換）
 ```
 
-分野ブランチでは `ochiai.js` の `newDeck()` / `addPaperSlide()` を使い、論文ごとの内容（6項目・書誌情報・代表図）を渡してデッキを作ります。
+- `spec.json` の書式は `build.js` 冒頭のコメントを参照。各欄の文字量に応じて 12pt〜9pt の範囲で文字サイズを自動調整し、収まらない欄は警告します。
+- デッキの1枚目は表紙（テーマ概要と調査論文の一覧）、2枚目以降が1論文1スライドです。
