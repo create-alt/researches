@@ -1,0 +1,224 @@
+{
+  "field": "群知能",
+  "theme": "自動設計アルゴリズムの評価基盤",
+  "date": "2026-10-24",
+  "summary": "最適化アルゴリズム、特に LLM が自動生成する手法の評価基盤を、性能の集約（performance profile→COCO→IOHanalyzer）、統計的比較（Bayesian 検定・IRT）、偏りの検出（構造的バイアス）、分布外評価（MA-BBOB）の系譜で整理。\n最新は LLM 生成手法の汎化検証、BLADE、振る舞い空間解析、LLM による評価問題の生成へ進んでいる。",
+  "papers": [
+    {
+      "title": "Benchmarking Optimization Software with Performance Profiles",
+      "short": "Performance profiles (Dolan & Moré 2002)",
+      "authors": "Elizabeth D. Dolan, Jorge J. Moré（Argonne National Laboratory）｜ Mathematical Programming 2002",
+      "year": 2002,
+      "venue": "Math. Program. 91 (2002)",
+      "link": "https://arxiv.org/abs/cs/0102001",
+      "lineage": "原典",
+      "s1": "ソルバ比較の集約法として performance profile（性能比の累積分布 ρ_s(τ)）を提案。COPS の問題群で LANCELOT・LOQO・MINOS・SNOPT を比べ、少数の問題に左右されずに勝率と頑健性を1枚で読めることを示した。",
+      "s2": "従来の平均・合計は難問が支配し失敗問題を除外、順位の数え上げは差の大きさが消え、四分位は間の情報が欠ける。Billups らの比率法は「competitive」の閾値が恣意的。比率の分布全体を示してこれらを解消した。",
+      "s3": "性能比 r_{p,s}=t_{p,s}/min_s t_{p,s}（失敗は r_M）、ρ_s(τ)=|{p: r_{p,s}≤τ}|/n_p。ρ_s(1) が勝率、τ→r_M の値が成功率。1問題の変化で ρ は 1/n_p 以下しか動かず、比率の誤差 ε に対し L1 誤差 ≤ε（Thm 2.1）。",
+      "s4": "COPS 2.0（AMPL、3600秒打切り）。部分集合では LOQO の勝率約0.61、τ>40 で SNOPT が90%超を解く（Fig. 4.1–4.2）。全 COPS では LOQO が全τで上位、最速約58%・解決率約87%（Fig. 5.1）。Mittelmann の LP 7ソルバにも適用。",
+      "s5": "著者：問題集合の選び方は扱わず、テスト集合外への主張は慎重にと明記。\n所感：相対指標なので比較対象の追加・削除で結果が動く（COCO が指摘）。生成手法を大量に並べる場面ほどこの不安定さに注意したい。",
+      "s6": "・Moré & Wild: data profiles (2009)（未調査）\n・COCO (Hansen+ 2021)（本資料）\n・Gould & Scott: performance profiles への注意 (2016)（未調査）",
+      "figure": {
+        "file": "figures/dolan2002.png",
+        "caption": "出典：Dolan & Moré 2002 Fig. 5.1（全 COPS での log2 スケール性能プロファイル。LOQO が全τで上位）"
+      }
+    },
+    {
+      "title": "Structural bias in population-based algorithms",
+      "short": "Structural bias (Kononova+ 2015)",
+      "authors": "Anna V. Kononova, David W. Corne, Philippe De Wilde ほか（Heriot-Watt University）｜ Information Sciences 2015",
+      "year": 2015,
+      "venue": "Information Sciences 298 (2015)",
+      "link": "https://arxiv.org/abs/1408.5350",
+      "lineage": "原典",
+      "s1": "目的関数を一様乱数 f0 に置き換えて「地形の力」を消し、最終解の分布の偏りからアルゴリズム固有の構造的バイアス（SB）を検出する方法を提案。GA と PSO の両方に SB があり、集団サイズで増幅されることを示した。",
+      "s2": "中心バイアス（origin-seeking）の研究は特定の PSO 変種と少数関数に限られ、実関数での反復試行が必要だった。f0 による地形非依存の検出と、分散減少の定理による理論的説明を組み合わせた。中心バイアスを含む一般の偏りの原典。",
+      "s3": "f0 の最小点は定義域で一様（命題）なので、偏りのない手法なら50試行の最良点は一様に散るはず。平行座標の目視と、各次元で一様分布への Kolmogorov–Smirnov 検定で定量化。簡略 GA では標本分散が閾値 K を超えると期待値で減少（定理1）。",
+      "s4": "30次元・30万評価・50試行・N∈{5,20,100}。GA は N=100 で中心に集中（Fig. 3）、PSO は N=5 で角、N=100 で一隅に偏る（Fig. 5）。KS 検定の p 値も同じ序列（Fig. 9）。CEC2005 では多峰関数（f8, f9, f14, f24）ほど SB の影響が出た。",
+      "s5": "著者：疑似乱数器が原因でないことを3種の相関テストで確認。理論は簡略 GA のみで端緒にすぎない。\n所感：f0 プローブは安価で、LLM が生成した大量の手法を性能評価の前にふるい分ける前処理に使える。PSO の偏りが N に非単調なのも興味深い。",
+      "s6": "・The EC Methods No One Should Use (Kudela 2023)（既存：foundations）\n・Deep-BIAS (van Stein+ 2023)（未調査）\n・Structural bias in MOO (Kudela+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/kononova2015.png",
+        "caption": "出典：Kononova+ 2015 Fig. 5(b)（f0 上の PSO, N=5 の50試行の最終最良点。各座標の端（0/1付近）に偏る）"
+      }
+    },
+    {
+      "title": "Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis",
+      "short": "Bayesian tests (Benavoli+ 2017)",
+      "authors": "Alessio Benavoli, Giorgio Corani, Janez Demšar, Marco Zaffalon（IDSIA）｜ JMLR 2017",
+      "year": 2017,
+      "venue": "JMLR 18 (2017)",
+      "link": "https://arxiv.org/abs/1606.04316",
+      "lineage": "原典",
+      "s1": "アルゴリズム比較での帰無仮説検定（NHST）をやめ、ベイズ的比較へ移ることを訴えたチュートリアル。Bayesian correlated t-test、Bayesian signed-rank test、階層モデルを実用的同等域 rope とともに示し、コードを公開した。",
+      "s2": "Demšar 2006 以来の NHST（Wilcoxon, Friedman など）は「A が良い確率」に答えず、効果量と標本数を分離できず、非有意を同等と誤読させる。rope により「実質同等」を確率で肯定でき、多重比較補正の恣意性も避けられる。",
+      "s3": "差の事後分布から P(A≫B)、P(A=B)（rope 内）、P(A≪B) の3確率を読む。複数データには Dirichlet 過程事前（s=0.5）の Bayesian signed-rank を使い、事後サンプルを三角形（単体）上に描いて判定する。",
+      "s4": "54 UCI データ・10×10-fold CV・5分類器。NHST 非有意 341/540 件のうち 22% を「実質同等」と判定。有意 199 件では 71% を確認、26% は判断保留、3% は逆に同等（Table 5–6）。nbc vs aode は aode 優位 90%、rope 10%（Fig. 11）。",
+      "s5": "著者：rope の幅（例 1%）と事前分布の選択が必要。階層モデルは情報を多く使えるが遅い。\n所感：分類器向けだが「関数×試行」の最適化データにも使え、LLM 生成手法が既存手法と実質同じかの判定に向く。",
+      "s6": "・Demšar: 複数データでの分類器比較 (2006)（未調査）\n・Calvo+: Bayesian performance analysis for BBO (2019)（未調査）\n・IRT for benchmark suites (Mattos+ 2021)（本資料）",
+      "figure": {
+        "file": "figures/benavoli2017.png",
+        "caption": "出典：Benavoli+ 2017 Fig. 11（nbc vs aode の Bayesian signed-rank 事後。三角形上で aode 優位域に集中）"
+      }
+    },
+    {
+      "title": "COCO: A Platform for Comparing Continuous Optimizers in a Black-Box Setting",
+      "short": "COCO (Hansen+ 2021)",
+      "authors": "Nikolaus Hansen, Anne Auger, Raymond Ros ほか（Inria）｜ Optimization Methods and Software 2021",
+      "year": 2021,
+      "venue": "Optim. Methods Softw. 36 (2021)",
+      "link": "https://arxiv.org/abs/1603.08785",
+      "lineage": "原典",
+      "parent": "Performance profiles (Dolan & Moré 2002)",
+      "s1": "連続ブラックボックス最適化の比較を自動化する基盤 COCO。関数インスタンス・目標精度・評価回数で測るランタイムを中核とする方法論と、bbob 24関数など7スイート、200超の過去データ、後処理 cocopp を提供した。",
+      "s2": "Paver・jMetal・PlatEMO などは実験設計を利用者任せにし、最終値の表や検定が中心だった。COCO は実験手順まで固定し、予算に依存しない anytime 評価と過去データとの即時比較を可能にした。性能プロファイルの相対性も批判。",
+      "s3": "問題＝(関数, 次元, インスタンス)。インスタンスは平行移動・回転で作り、過適合と特殊性の悪用を防ぐ。性能は目標到達までの評価回数だけで測り、51目標（10²〜10⁻⁸）の runtime ECDF・ERT・simulated restart で集約。次元間は集約しない。",
+      "s4": "BFGS・NEWUOA・Nelder–Mead・MCS・CMA-ES 2種・ランダム探索の公開データで ECDF を例示（Fig. 5）。目標の決め方で見え方が変わることも示した（Fig. 6）。2019年時点で BBOB 論文の著者 109名、文書の被引用 1455（Table 1）。",
+      "s5": "著者：設計段階には不向きで、検証実験・回帰テスト向け。偏ったスイートでの集約は研究を誤導しうる。\n所感：インスタンス設計（最適解位置の分布）自体が後に中心バイアスや MA-BBOB の問題提起につながる。LLM の学習データへの混入も新たな論点。",
+      "s6": "・COCO: Performance assessment (Hansen+ 2016)（未調査）\n・IOHanalyzer (Wang+ 2022)（本資料）\n・Anytime performance assessment (Hansen+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/coco2021.png",
+        "caption": "出典：COCO (Hansen+ 2021) Fig. 5 上2段（bbob の runtime ECDF。次元別と関数群別の比較）"
+      }
+    },
+    {
+      "title": "On the Assessment of Benchmark Suites for Algorithm Comparison",
+      "short": "IRT for benchmark suites (Mattos+ 2021)",
+      "authors": "David Issa Mattos, Lucas Ruud, Jan Bosch ほか（Chalmers University of Technology）｜ arXiv 2021",
+      "year": 2021,
+      "venue": "arXiv プレプリント 2021",
+      "link": "https://arxiv.org/abs/2104.07381",
+      "lineage": "発展",
+      "parent": "Bayesian tests (Benavoli+ 2017)",
+      "s1": "ベンチマーク関数を「試験問題」、アルゴリズムを「受験者」とみなし、ベイズ版2パラメータ・ロジスティック IRT で各関数の難易度・識別力とスイートの情報量を推定。BBOB は難しすぎ、PBO は易しすぎて比較に不向きと示した。",
+      "s2": "スイートの評価は ELA などの地形特徴による定性的な議論が中心で、「アルゴリズムを見分けられるか」を統計的に測った研究はなかった。古典テスト理論と違い、関数の性質と手法の能力を分離して推定できる。",
+      "s3": "P(成功)=logit⁻¹(a_i(θ_p−b_i))。a_i：識別力、b_i：難易度、θ_p：手法の能力。成功数を二項分布でモデル化し Stan（NUTS）で推定。項目情報（∝a_i²）を足したテスト情報曲線で、どの能力帯を精度よく測れるかを見る。",
+      "s4": "BBOB 2019 アーカイブ（5次元・13手法）：多くの関数が難易度 0〜5、識別力の中央値≈1 で、情報はほぼ f1–3, 8–11 に集中（Fig. 3, 5）。PBO（16次元・12手法）は多くが易しく、手法の能力帯でテスト情報がほぼゼロ（Fig. 10）。",
+      "s5": "著者：指標は成功率のみ。多次元 IRT や適応的テスト（CAT）への拡張を提案。\n所感：推定は手法集合に依存する点に注意。LLM 生成手法が増えるほど「識別力の高い問題」を選ぶ発想が効く。プレプリントのまま。",
+      "s6": "・Benchmarking in Optimization: Best Practice (Bartz-Beielstein+ 2020)（参照のみ）\n・IRT in AI (Martínez-Plumed+ 2019)（未調査）\n・SELECTOR (Cenikj+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/mattos2021.png",
+        "caption": "出典：Mattos+ 2021 Fig. 3（BBOB 24関数の難易度 b（左）と識別力 a（右）の事後分布）"
+      }
+    },
+    {
+      "title": "IOHanalyzer: Detailed Performance Analyses for Iterative Optimization Heuristics",
+      "short": "IOHanalyzer (Wang+ 2022)",
+      "authors": "Hao Wang, Diederick Vermetten, Furong Ye ほか（Leiden University）｜ ACM TELO 2022",
+      "year": 2022,
+      "venue": "ACM TELO 2(1) (2022)",
+      "link": "https://arxiv.org/abs/2007.03953",
+      "lineage": "発展",
+      "parent": "COCO (Hansen+ 2021)",
+      "s1": "反復型最適化ヒューリスティクス（IOH）の性能データを対話的に解析する R/C++ ツール。固定目標と固定予算の両視点、内部パラメータの推移、検定、Glicko-2 順位を GUI で提供し、COCO や Nevergrad のデータも読める。",
+      "s2": "COCO の後処理は定型の図表を自動生成する方式で、Nevergrad は最終値しか残さない。IOHanalyzer は指標・範囲・粒度を利用者が対話的に変えられ、性能の軌跡と内部パラメータの推移を結びつけて見られる。",
+      "s3": "ランタイム T(A,f,d,B,v,i) と固定予算値 V(A,f,d,t,i) を基本量に、ERT・PAR-c・成功率・目標/関数横断 ECDF とその AUC を算出。KS 検定の多重比較と半順序グラフ、Glicko-2 の試合形式順位、Shapley 値によるポートフォリオ寄与も備える。",
+      "s4": "PBO スイートのデータで実演：RLS と (1,λ)GA を4問題・2次元で比較（Fig. 3–8）、12参照手法に KS 検定を適用（f1・64次元・有意水準0.01、Fig. 9）。Glicko-2 は既定25試合を標本化して順位化。構造的バイアス研究の DE データも平行座標で表示できる。",
+      "s5": "著者：固定予算の関数横断 ECDF は未実装。ベイズ統計や DSCtool の統合を予定。\n所感：ツール論文で新知見はないが、LLaMEA や BLADE の評価は AOCC・EAF とともにこの基盤に載っており、LLM 生成手法を比べる共通の場になっている。",
+      "s6": "・IOHprofiler (Doerr+ 2018)（未調査）\n・EAF for single-objective BBO (López-Ibáñez+ 2024)（参照のみ）\n・BLADE (van Stein+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/iohanalyzer2022.png",
+        "caption": "出典：IOHanalyzer (Wang+ 2022) Fig. 1（IOHprofiler のパイプラインと IOHanalyzer の位置づけ）"
+      }
+    },
+    {
+      "title": "MA-BBOB: A Problem Generator for Black-Box Optimization Using Affine Combinations and Shifts",
+      "short": "MA-BBOB (Vermetten+ 2025)",
+      "authors": "Diederick Vermetten, Furong Ye, Thomas Bäck, Carola Doerr（Leiden University）｜ ACM TELO 2025",
+      "year": 2025,
+      "venue": "ACM TELO 5 (2025)",
+      "link": "https://arxiv.org/abs/2312.11083",
+      "lineage": "発展",
+      "parent": "COCO (Hansen+ 2021)",
+      "s1": "BBOB の24関数を対数精度の空間でアフィン結合し、最適解を定義域内に一様に置く問題生成器 MA-BBOB を提案。BBOB で学習したアルゴリズム選択器が MA-BBOB に汎化せず、単一最良ソルバ（modcma）に負けることを示した。",
+      "s2": "BBOB は24関数と少数インスタンスで、AutoML の訓練・評価には不向き（関数を抜く CV は難しすぎ、インスタンス分割は過大評価）。Dietrich & Mersmann の2関数結合を多関数へ拡張し、尺度補正と最適解の一様配置で BBOB 固有の偏りを除いた。",
+      "s3": "各成分関数を log 精度に変換し、尺度 S_i で約 [0,1] に正規化して重み付き和を取る。重みは閾値 T=0.85 で疎にし（平均3.6関数が寄与）、最適解は [−5,5]^d で一様に置く。IOHexperimenter に実装した。",
+      "s4": "5手法（dCMA, DE, Cobyla, modde, modcma）・予算 2000d・50試行・AOCC。球との結合比で性能が滑らかに遷移し最良手法が入れ替わる（Fig. 5）。最適解を動かすと ELA 特徴が大きく変わる（Fig. 12）。1000関数で BBOB→MA-BBOB の選択器は SBS に及ばない（Fig. 16）。",
+      "s5": "著者：最適解の一様配置は元関数の重要部分を定義域外へ出す代償がある。代表的な問題集合の選び方は未解決。\n所感：BLADE が学習20/検証50インスタンスとして採用し、LLM の暗記対策にもなる。一方で多様性不足の指摘もある（Dietrich+）。",
+      "s6": "・Affine recombination of BBOB (Dietrich & Mersmann 2022)（未調査）\n・SBOX-COST (Vermetten+ 2023)（未調査）\n・BLADE (van Stein+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/vermetten2025.png",
+        "caption": "出典：MA-BBOB (Vermetten+ 2025) Fig. 5a（球関数との結合比 α ごとの Diagonal CMA-ES の AOCC）"
+      }
+    },
+    {
+      "title": "Beyond the Hype: Benchmarking LLM-Evolved Heuristics for Bin Packing",
+      "short": "Beyond the Hype (Sim+ 2025)",
+      "authors": "Kevin Sim, Quentin Renau, Emma Hart（Edinburgh Napier University）｜ EvoApplications 2025",
+      "year": 2025,
+      "venue": "EvoApplications 2025",
+      "link": "https://arxiv.org/abs/2501.11411",
+      "lineage": "最新",
+      "s1": "FunSearch と EoH が生成したオンライン bin packing ヒューリスティクス5種を、12データセット 6064 インスタンス・3指標で手設計5種と比べた初の厳密なベンチマーク。多くの LLM 生成手法は分布外に汎化せず、Best-Fit が総合1位。",
+      "s2": "FunSearch・EoH の評価は単一分布（Weibull や OR1）の数〜数十インスタンスに限られていた。分布の異なる外部データでの汎化、埋め込み定数のチューニング耐性、インスタンス空間での得意領域を体系的に検証した。",
+      "s3": "指標は超過ビン率 AEB・Falkenauer 適合度・勝率。各ヒューリスティクスが勝つ新インスタンスを EA で100個ずつ生成し、tsfresh の時系列特徴10個で Instance Space Analysis（2次元射影）を行う。irace で埋め込み定数も再調整した。",
+      "s4": "AEB 合計は BF 5.85 が1位、FS1 6.38 が2位、FSW は 113.21 で BF の約20倍（Fig. 2d）。データセット別勝率の中央値は BF 0.92、EoC 0.50（Fig. 3）。irace 調整の効果は小さい（Table 2）。ISA では Weibull で学習した手法が別領域に偏る（Fig. 4）。",
+      "s5": "著者：LLM 手法は学習分布内では優れるが、特化の利得を生成コスト（FunSearch 1回 800〜1400ドル）と比べるべき。\n所感：問題は手法より評価設計にあるという指摘で、訓練・検証の分布を分ける BLADE などの動機になった。",
+      "s6": "・EoH (Liu+ 2024)（既存：ga-hybrid）\n・FunSearch (Romera-Paredes+ 2024)（既存：metabbo）\n・Instance Space Analysis (Smith-Miles+)（未調査）",
+      "figure": {
+        "file": "figures/sim2025.png",
+        "caption": "出典：Sim+ 2025 Fig. 2d（全12データセットでの AEB 合計。赤字が LLM 生成手法、FSW は 113.21）"
+      }
+    },
+    {
+      "title": "BLADE: Benchmark suite for LLM-driven Automated Design and Evolution of iterative optimisation heuristics",
+      "short": "BLADE (van Stein+ 2025)",
+      "authors": "Niki van Stein, Anna V. Kononova, Haoran Yin, Thomas Bäck（Leiden University）｜ GECCO 2025 Workshop",
+      "year": 2025,
+      "venue": "GECCO 2025 Companion",
+      "link": "https://arxiv.org/abs/2504.20183",
+      "lineage": "最新",
+      "parent": "MA-BBOB (Vermetten+ 2025)",
+      "s1": "LLM による自動アルゴリズム発見（AAD）を連続最適化で比べる基盤 BLADE。MA-BBOB・SBOX-COST・実問題と学習/検証分割、LLM 呼び出しの全記録、CEG 解析、IOHanalyzer 連携をまとめ、汎化・特化・情報活用を能力別に試す。",
+      "s2": "LLM4AD は組合せ最適化が中心で、LLaMEA・EoH などの論文は問題・予算・LLM がばらばらで比べられない。BBOB の中心バイアス、BBOB→CEC の汎化失敗、Sim+ 2025 の結果を受け、暗記されにくい問題と標準手順を用意した。",
+      "s3": "実験＝手法×問題×LLM（＋予算・試行数）を固定し、ロガーが全プロンプトと評価を探索法と独立に記録。学習インスタンスで進化させ、別の検証インスタンスで最良手法を CMA-ES などと AOCC・EAF・ELO で比べる。MA-BBOB は学習20/検証50を推奨。",
+      "s4": "LLaMEA の変異プロンプト5構成（Gemini 2.0 Flash、MA-BBOB 5次元、各100手法）：「simplify」を含む構成が高 AOCC、全プロンプト混合が ELO 首位で CMA-ES を上回る（Fig. 2, 5）。4 LLM の比較で Gemini 2.0 が有意に勝ったのは10設定中2つ（Table 1）。",
+      "s5": "著者：実問題と人手設計ベースラインの拡充、HPO の統合が今後の課題。\n所感：用例は10試行・5次元と小規模で、検定も t 検定中心。Bayesian 比較や IRT による問題選択と組み合わせる余地が大きい。",
+      "s6": "・Code Evolution Graphs (van Stein+ 2025)（参照のみ）\n・LLM4AD (Liu+ 2024)（未調査）\n・Behaviour Space Analysis (van Stein+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/blade2025.png",
+        "caption": "出典：BLADE (van Stein+ 2025) Fig. 1（実験・AAD 解析・人手設計ベースラインとの評価の3段構成）"
+      }
+    },
+    {
+      "title": "Behaviour Space Analysis of LLM-driven Meta-heuristic Discovery",
+      "short": "Behaviour Space Analysis (van Stein+ 2025)",
+      "authors": "Niki van Stein, Haoran Yin, Anna V. Kononova ほか（Leiden University）｜ CCIS 2026",
+      "year": 2025,
+      "venue": "Computational Intelligence (CCIS) 2026",
+      "link": "https://arxiv.org/abs/2507.03605",
+      "lineage": "最新",
+      "parent": "BLADE (van Stein+ 2025)",
+      "s1": "LLaMEA が生成した最適化手法を、性能だけでなく「探索の振る舞い」で比べる枠組み。探索率・最良点距離・収束率・停滞長などの行動指標、コード進化グラフ（CEG）、探索軌跡ネットワーク（STN）を組み合わせ、良い手法の行動プロファイルを示した。",
+      "s2": "生成手法の比較は AOCC などの性能値だけで、なぜ良いのかが分からなかった。静的なコード特徴（CEG）・動的な探索痕跡（STN と行動指標）・anytime 性能を同じ実験で結びつけた。BehaveSim（既存）の行動類似度と相補的。",
+      "s3": "各生成手法の探索痕跡から、最近傍距離・被覆分散・探索%（チャンク内平均距離/一様時の期待値）・最良点距離・強化率・平均収束率・成功率・最長停滞などを計算。相関の低い5指標で行動空間を超立方体に分割し、生成過程を STN で描く。",
+      "s4": "o4-mini、BBOB 10関数・5次元、学習5/検証10インスタンス、6構成×5試行×100手法。simplify＋random-new の (1+1) 精鋭（LLaMEA-4）が最良で安定（Fig. 1）。良い手法は小さい歩幅・搾取寄り・低い成功率（約0.1）という共通プロファイルをもつ（Fig. 4）。",
+      "s5": "著者：5次元・1 LLM・5試行のみで結論は慎重に。行動指標を進化ループへフィードバックする案を示す。\n所感：行動指標は既知手法との等価性判定にも転用できる。Fister+ 2026 の特徴ベクトル比較とまとめて扱えるかが次の論点。",
+      "s6": "・Search Trajectory Networks (Ochoa+ 2021)（未調査）\n・BehaveSim (Zhang & Lu 2026)（既存：metabbo）\n・Equivalence framework (Fister+ 2026)（既存：foundations）",
+      "figure": {
+        "file": "figures/vanstein2025bsa.png",
+        "caption": "出典：Behaviour Space Analysis (van Stein+ 2025) Fig. 4 左（全生成手法の行動プロファイル。赤＝高性能の四分位）"
+      }
+    },
+    {
+      "title": "Automatic Design of Optimization Test Problems with Large Language Models",
+      "short": "EoTF (Achtelik+ 2026)",
+      "authors": "Wojciech Achtelik, Hubert Guzowski, Maciej Smołka, Jacek Mańdziuk（AGH University of Krakow）｜ IEEE TEVC 2026",
+      "year": 2026,
+      "venue": "IEEE TEVC 2026",
+      "link": "https://arxiv.org/abs/2602.02724",
+      "lineage": "最新",
+      "parent": "MA-BBOB (Vermetten+ 2025)",
+      "s1": "EoH の枠組みを「最適化手法」ではなく「テスト関数」の進化に転用し、目標の ELA 特徴ベクトルに合う numpy 関数を LLM で生成する EoTF を提案。生成関数は最適化手法の順位をほぼ保ち、BBOB の代替・拡張ベンチマークになると示した。",
+      "s2": "アフィン結合（MA-BBOB）は BBOB の構造に縛られ、GP は式が複雑になり、NN による生成（Prager+）は不透明で3次元以上に広げにくい。LLM で読めるコードを生成し、BBOB の暗記への懸念は MA-BBOB 混合関数で確かめた。",
+      "s3": "f*=argmin‖φ_f−φ*‖₂（φ：ELA 8特徴、100標本の平均を min-max 正規化）。EoH の初期化・探索2種・変異3種の演算子を、関数生成用のプロンプトに置き換えた。出力は次元に依存しない自己完結の Python 関数。",
+      "s4": "BBOB 24関数で NN・LLaMEA・Zero-shot と比較（各250問合せ）：2次元は NN が全勝、3次元は EoTF が NN に75%超で勝つ（Fig. 2–3）。7手法の CD 図で順位をほぼ保存（Fig. 4）。MA-BBOB でも距離は同水準、2〜5次元で 0.17〜0.20 と安定。",
+      "s5": "著者：2次元の精度は NN に劣る。生成関数の構造の分類、制約・多目的への拡張は今後の課題。\n所感：評価用の問題も LLM で作れるようになり、生成手法と生成問題の共進化が視野に入る。ただし ELA 8特徴で難しさを代表できるかは疑問。",
+      "s6": "・Prager+: NN による関数生成 (FOGA 2023)（未調査）\n・EoB (Wang+ 2026)（参照のみ）\n・MOSAIC (Gungordu+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/achtelik2026.png",
+        "caption": "出典：EoTF (Achtelik+ 2026) Fig. 4(c)(d)（3次元での7手法の CD 図。BBOB と生成関数で順位がほぼ一致）"
+      }
+    }
+  ]
+}

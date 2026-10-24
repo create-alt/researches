@@ -14,28 +14,32 @@ PSO・ACO などの群知能アルゴリズムについて、原著から理論�
 | 第2回 | [Meta-BBO と LLM による最適化アルゴリズムの自動設計](#metabbo) | ParamILS・L2O・LES から FunSearch・AlphaEvolve・MetaBox-v2・HADA まで、最適化器の設計の学習・自動化 | [pptx](metabbo/metabbo.pptx) / [pdf](metabbo/metabbo.pdf) | 10 本 | 32 本 | 2026-10-23 |
 | 第2回 | [Consensus-Based Optimization（CBO）と群れの平均場理論](#cbo-mean-field) | CBO の原典から大域収束の証明、サンプリング・制約付きへの拡張、有限粒子・一様時間の解析、ES との接続まで | [pptx](cbo-mean-field/cbo-mean-field.pptx) / [pdf](cbo-mean-field/cbo-mean-field.pdf) | 10 本 | 35 本 | 2026-10-23 |
 | 第2回 | [ACO の系譜と Neural ACO による大規模組合せ最適化](#aco-neural) | AntNet・MMAS のランタイム解析から、Attention Model・POMO・ML-ACO・ReEvo・HeatACO・TIDE まで | [pptx](aco-neural/aco-neural.pptx) / [pdf](aco-neural/aco-neural.pdf) | 10 本 | 34 本 | 2026-10-23 |
+| 第3回 | [自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）](#algo-evaluation) | performance profile・ベイズ検定・COCO/IOHanalyzer から、構造バイアス、分布外評価（MA-BBOB）、LLM 生成ヒューリスティクスの汎化と BLADE まで | [pptx](algo-evaluation/algo-evaluation.pptx) / [pdf](algo-evaluation/algo-evaluation.pdf) | 11 本 | 47 本 | 2026-10-24 |
+| 第3回 | [学習型群知能と、学習器・古典的探索の役割分担](#learned-swarm) | DE-DDQN・RL-DAS などの学習型制御と、DIMES・DIFUSCO・UTSP などヒートマップ型 NCO と探索器の分担、学習が効かない条件まで | [pptx](learned-swarm/learned-swarm.pptx) / [pdf](learned-swarm/learned-swarm.pdf) | 10 本 | 27 本 | 2026-10-24 |
+| 第3回 | [粒子系最適化の理論の拡張](#particle-theory) | IGO・異方性 CBO・多目的／鞍点／二層 CBO・FedCBO と、NSGA-II・EDA のランタイム解析、ES/CBO の統一まで | [pptx](particle-theory/particle-theory.pptx) / [pdf](particle-theory/particle-theory.pdf) | 12 本 | 42 本 | 2026-10-24 |
 
-合計：スライド化 61 本、引用論文一覧 198 本（テーマ間の重複を含む）。
+合計：スライド化 94 本、引用論文一覧 314 本（テーマ間の重複を含む）。
 
 ## 調査履歴
 
 | 日付 | 内容 |
 | --- | --- |
-| 2026-10-23 | 第1回調査。「全体像（原著論文まわり）」、「DeepLearning・NN との融合」、「GA との融合」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
-| 2026-10-23 | 第2回調査。第1回の推奨テーマ 「Meta-BBO と LLM による最適化アルゴリズムの自動設計」、「Consensus-Based Optimization（CBO）と群れの平均場理論」、「ACO の系譜と Neural ACO による大規模組合せ最適化」 を追加調査。既存デッキでスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
+| 2026-10-23 | 第1回調査。「全体像（原著論文まわり）」、「DeepLearning・NN との融合」、「GA との融合」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌・著者公開版など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
+| 2026-10-23 | 第2回調査。第1回の推奨テーマ 「Meta-BBO と LLM による最適化アルゴリズムの自動設計」、「Consensus-Based Optimization（CBO）と群れの平均場理論」、「ACO の系譜と Neural ACO による大規模組合せ最適化」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
+| 2026-10-24 | 第3回調査。第2回の推奨テーマ 「自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）」、「学習型群知能と、学習器・古典的探索の役割分担」、「粒子系最適化の理論の拡張」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
 
 ## 追加調査を推奨するテーマ
 
-第2回までの全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾（next themes）にはテーマ単位の候補もある。
+これまでの全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾（next themes）にはテーマ単位の候補もある。
 
-1. **自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）**  
-   Meta-BBO と Neural ACO の両テーマで、評価の弱さ（最下位手法を基準にした改善率、わずかな既知最良の更新、本文と表の食い違い、問題分布の外での劣化）が繰り返し見つかった。BehaveSim のような挙動ベースの新規性判定、分布外ベンチマーク、統計的比較の作法をまとめて調べる。
+1. **学習型・自動設計最適化の公平な評価プロトコル**  
+   評価基盤テーマと学習型群知能テーマが同じ結論に達した。同予算の静的チューニング・ランダム基線・距離ベースの単純法と比べると学習の上乗せは小さく、統計的比較の作法（ベイズ・IRT・anytime 指標）も揃っていない。比較手順そのものを1テーマとして整理する。
 
-2. **学習型群知能と、ヒートマップ型 NCO における「学習器と探索器の分担」**  
-   MetaBox-v2 では学習型 PSO が下位に留まり、HeatACO では学習ヒートマップの付加価値が距離ベースの SoftDist と同程度だった。PSO・ACO の制御則やヒューリスティック値を学ぶとき、どこまでを学習に任せ、どこを古典的探索に残すべきかを横断的に整理する。
+2. **LLM による評価問題の自動生成と、手法との共進化**  
+   EoTF のように評価用の問題を LLM で生成する研究が出始め、LLM 生成ヒューリスティクスの分布外汎化の弱さ（Beyond the Hype）も報告された。問題生成と手法生成の共進化、組合せ最適化での分布外ベンチマークを追う。
 
-3. **粒子系最適化の理論の拡張（ES/CMA-ES との統一、多目的・二層・ゲーム、ランタイム解析）**  
-   CBO→ES の接続（Fornasier+ 2026）、異方性・共分散適応 CBO、鞍点・二層問題への拡張、ACO/EDA のランタイム解析の最前線を、「群知能の理論」として1テーマにまとめる。
+3. **共分散適応・回転不変な粒子系最適化と、連続空間のランタイム解析**  
+   IGO・異方性 CBO・CMA-ES の理論が接続し始め、ドリフト理論を ES・CBO に適用する連続空間のランタイム解析も進んでいる。PSO・ACO 固有の状態表現を学習型制御にどう与えるか（群知能版 MetaBBO の弱さの原因）も合わせて調べる。
 
 <details><summary>第1回の推奨テーマ（第2回で調査済み）</summary>
 
@@ -45,9 +49,17 @@ PSO・ACO などの群知能アルゴリズムについて、原著から理論�
 
 </details>
 
+<details><summary>第2回の推奨テーマ（第3回で調査済み）</summary>
+
+- 自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性） → [自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）](#algo-evaluation)
+- 学習型群知能と、ヒートマップ型 NCO における「学習器と探索器の分担」 → [学習型群知能と、学習器・古典的探索の役割分担](#learned-swarm)
+- 粒子系最適化の理論の拡張（ES/CMA-ES との統一、多目的・二層・ゲーム、ランタイム解析） → [粒子系最適化の理論の拡張](#particle-theory)
+
+</details>
+
 ## 凡例
 
-- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`↪ 既存：<theme> p.N` は同じ分野の既存デッキでスライド化済み、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
+- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`↪ 既存：<theme> p.N` は既存デッキ（他分野の場合は `<field>/<theme>`）でスライド化済み、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
 - 「系譜」列：原典（系譜の起点）／発展／最新（主に 2025〜2026 年）。
 
 ---
@@ -506,3 +518,254 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 | 32 | [RouteRepair: Instance-Level Failure Diagnosis and Targeted Repair in LLM-Based Automated Heuristic Design for Routing Optimization](https://arxiv.org/abs/2609.11452) | 2026 | arXiv | 最新 | 事例単位の失敗診断で LLM-AHD を修復する。要旨のみ確認 | — 参照のみ |
 | 33 | [A full process algebraic representation of Ant Colony Optimization](https://arxiv.org/abs/2601.14436) | 2026 | Information Sciences | 理論 | 並列 ACO（AS・MMAS・ACS）をプロセス代数 PA²CO で形式化。要旨のみ確認 | — 参照のみ |
 | 34 | [RoCo: Role-Based LLMs Collaboration for Automatic Heuristic Design](https://arxiv.org/abs/2512.03762) | 2025 | arXiv | 最新 | 役割分担した複数 LLM で ACO のη等を設計。検索結果のみ | — 参照のみ |
+
+---
+
+<a id="algo-evaluation"></a>
+
+## 自動設計アルゴリズムの評価基盤（algo-evaluation/）
+
+資料：[algo-evaluation.pptx](algo-evaluation/algo-evaluation.pptx) ／ [algo-evaluation.pdf](algo-evaluation/algo-evaluation.pdf) ／ 生成元 [spec.json](algo-evaluation/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: LLM が生成・自動設計した最適化アルゴリズムを「どう評価するか」に絞って調べた。arXiv API で「automated algorithm design / automated heuristic design × benchmark / generalization」「BBOB × overfitting / bias」「IOHprofiler」「structural bias」「performance profiles」などを検索し、Web 検索で補った。手法そのもの（LLaMEA・EoH・ReEvo など）は既存デッキと open-endedness/llm-driven-evolution に任せ、評価方法の論文だけを選んだ。
+- 最新の論点は 3 つあった。①生成手法が学習分布の外へ汎化するか（Sim+ 2025 の bin packing、BLADE）、②生成手法を性能以外の振る舞いで分析する（Behaviour Space Analysis）、③評価に使う問題自体を LLM で作る（EoTF ほか 2026 年の 3 本）。そこから 4 つの系譜を原典までさかのぼった。性能の集約は Dolan & Moré 2002 → COCO → IOHanalyzer、統計的比較は Benavoli+ 2017 → Mattos+ 2021（IRT）、偏りの検出は Kononova+ 2015（構造的バイアス）、分布外評価は MA-BBOB。
+- スライドにした 11 本はすべて arXiv 版の全文を読んだ（2023 年以降のものは HTML 版の図を使った）。採録先は Crossref で確かめた（EoTF は IEEE TEVC 2026、Behaviour Space Analysis は CCIS 2026、MA-BBOB は ACM TELO 2025）。Mattos+ 2021 は採録先が見つからず、arXiv プレプリントとして扱った。
+- 既存デッキと重ならないようにした。Kudela 2023・Vermetten+ 2024・Fister+ 2026 は foundations、BehaveSim・MetaBox-v2・HADA・FunSearch は metabbo、LLaMEA・EoH は ga-hybrid にあるので、本デッキでは参照だけにした。
+
+### 系譜
+```
+【性能の集約・ベンチマーク基盤】
+Dolan & Moré 2002 performance profile ✅ ─→ Moré & Wild 2009 data profile ⚠
+   └→ COCO / BBOB (Hansen+ 2016→2021) ✅ ── anytime 評価・ERT・runtime ECDF
+         ├→ IOHprofiler 2018 (参照) → IOHanalyzer 2022 ✅ → EAF (López-Ibáñez+ 2024, 参照)
+         └→ BBOB の偏り：中心バイアス Kudela 2023 (↪foundations)／294手法評価 Vermetten+ 2024 (↪foundations)
+               └→ 分布外評価：MA-BBOB (Vermetten+ 2023→2025) ✅ → SBOX-COST (未調査)
+
+【統計的比較】
+Demšar 2006 NHST ⚠・Derrac+ 2011 ノンパラ検定 ⚠
+   └→ Benavoli+ 2017 Bayesian 検定＋rope ✅ → Calvo+ 2019 Bayesian BBO 解析 ⚠
+         └→ Mattos+ 2021 IRT によるスイート評価 ✅
+
+【偏りの検出（中心バイアス以外も）】
+Kononova+ 2015 構造的バイアス（f0 プローブ）✅ → Deep-BIAS 2023 (参照) → Kudela+ 2026 多目的 SB (参照)
+
+【LLM 生成アルゴリズムの評価（2025〜2026）】
+LLaMEA 2024 (↪ga-hybrid)・EoH 2024 (↪ga-hybrid)・FunSearch 2024 (↪metabbo)
+   ├→ 汎化の検証：Beyond the Hype (Sim+ 2025) ✅ ─┐
+   ├→ ベンチマーク基盤：BLADE (van Stein+ 2025) ✅ ←┘（MA-BBOB を学習20/検証50で採用）
+   │      └→ Code Evolution Graphs 2025 (参照) → Behaviour Space Analysis 2025 ✅
+   │             ↔ BehaveSim 2026 (↪metabbo)・等価性判定 Fister+ 2026 (↪foundations)
+   ├→ 組合せ最適化のベンチマーク：HeuriGym 2025・FrontierCO 2025・FrontierOR 2026 (参照)
+   └→ 評価問題の自動生成：EoTF (Achtelik+ 2026) ✅・EoB 2026・LLM-EBG 2026・Skvorc+ 2026 (参照)
+✅=スライド化 ⚠=本文未確認 (参照)=要旨のみ確認
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Benchmarking Optimization Software with Performance Profiles](https://arxiv.org/abs/cs/0102001) | 2002 | Math. Program. 91 | 原典 | 性能比の累積分布 ρ_s(τ) で、勝率と頑健性をまとめて見せる。COPS で LOQO が全τで上位になった。 | ✅ p.2 |
+| 2 | [Structural bias in population-based algorithms](https://arxiv.org/abs/1408.5350) | 2015 | Information Sciences 298 | 原典 | 一様乱数関数 f0 で地形の影響を消し、GA・PSO の構造的バイアスを検出した。集団サイズでバイアスが増幅される。 | ✅ p.3 |
+| 3 | [Time for a Change: a Tutorial for Comparing Multiple Classifiers Through Bayesian Analysis](https://arxiv.org/abs/1606.04316) | 2017 | JMLR 18 | 原典 | NHST の代わりに、rope 付きの Bayesian t / signed-rank 検定と階層モデルを使うことを提案した。 | ✅ p.4 |
+| 4 | [COCO: A Platform for Comparing Continuous Optimizers in a Black-Box Setting](https://arxiv.org/abs/1603.08785) | 2021 | Optim. Methods Softw. 36 | 原典 | BBOB・インスタンス・目標精度・runtime ECDF による、予算に依存しない比較基盤。 | ✅ p.5 |
+| 5 | [On the Assessment of Benchmark Suites for Algorithm Comparison](https://arxiv.org/abs/2104.07381) | 2021 | arXiv プレプリント | 発展 | ベイズ IRT で関数の難易度と識別力を推定した。BBOB は難しすぎ、PBO は易しすぎるという結果。 | ✅ p.6 |
+| 6 | [IOHanalyzer: Detailed Performance Analyses for Iterative Optimization Heuristics](https://arxiv.org/abs/2007.03953) | 2022 | ACM TELO 2(1) | 発展 | 固定目標・固定予算の両方の視点で対話的に解析する。KS 検定、Glicko-2、Shapley 値を備えた IOHprofiler の解析部。 | ✅ p.7 |
+| 7 | [MA-BBOB: A Problem Generator for Black-Box Optimization Using Affine Combinations and Shifts](https://arxiv.org/abs/2312.11083) | 2025 | ACM TELO 5 | 発展 | BBOB 関数をアフィン結合し、最適解を一様に置く生成器。BBOB で学習した選択器は MA-BBOB に汎化しなかった。 | ✅ p.8 |
+| 8 | [Beyond the Hype: Benchmarking LLM-Evolved Heuristics for Bin Packing](https://arxiv.org/abs/2501.11411) | 2025 | EvoApplications 2025 | 最新 | FunSearch と EoH の生成手法を 6064 インスタンスで評価した。分布外に汎化せず、Best-Fit が総合 1 位。 | ✅ p.9 |
+| 9 | [BLADE: Benchmark suite for LLM-driven Automated Design and Evolution of iterative optimisation heuristics](https://arxiv.org/abs/2504.20183) | 2025 | GECCO 2025 Companion | 最新 | LLM による AAD のベンチマーク基盤。学習/検証の分割、全ログの記録、CEG、IOHanalyzer 連携を備える。 | ✅ p.10 |
+| 10 | [Behaviour Space Analysis of LLM-driven Meta-heuristic Discovery](https://arxiv.org/abs/2507.03605) | 2025 | CCIS 2026 | 最新 | 行動指標・CEG・STN で、LLaMEA が生成した手法の振る舞いを分析した。(1+1) 精鋭＋2種プロンプトの構成が最良。 | ✅ p.11 |
+| 11 | [Automatic Design of Optimization Test Problems with Large Language Models](https://arxiv.org/abs/2602.02724) | 2026 | IEEE TEVC | 最新 | 目標 ELA に合うテスト関数を LLM で進化させる EoTF。手法の順位を保ち、3 次元以上では NN 生成に勝つ。 | ✅ p.12 |
+| 12 | [Statistical Comparisons of Classifiers over Multiple Data Sets (Demšar)](https://jmlr.org/papers/v7/demsar06a.html) | 2006 | JMLR 7 | 原典 | Friedman＋Nemenyi など、NHST による多重比較の定番手順（検索情報に基づく）。jmlr.org にこの環境から到達できなかった。 | ⚠️ 本文未確認 |
+| 13 | [A practical tutorial on the use of nonparametric statistical tests … evolutionary and swarm intelligence algorithms (Derrac+)](https://doi.org/10.1016/j.swevo.2011.02.002) | 2011 | Swarm Evol. Comput. 1(1) | 原典 | 群知能・進化計算でノンパラメトリック検定を使う手順の定番チュートリアル（検索情報に基づく）。OA 版はなし。 | ⚠️ 本文未確認 |
+| 14 | [Benchmarking Derivative-Free Optimization Algorithms (Moré & Wild)](https://doi.org/10.1137/080724083) | 2009 | SIAM J. Optim. | 発展 | performance profile を拡張した data profile（検索情報に基づく）。 | ⚠️ 本文未確認 |
+| 15 | [Bayesian performance analysis for black-box optimization benchmarking (Calvo+)](https://doi.org/10.1145/3319619.3326888) | 2019 | GECCO 2019 Companion | 発展 | Bayesian 順位モデルを BBO の比較に持ち込んだ（検索情報に基づく）。 | ⚠️ 本文未確認 |
+| 16 | [Anytime Performance Assessment in Blackbox Optimization Benchmarking (Hansen+)](https://doi.org/10.1109/tevc.2022.3210897) | 2022 | IEEE TEVC 26(6) | 発展 | COCO の anytime 評価の理論。AOCC の根拠として LLaMEA 系の論文が引用している（検索情報に基づく）。 | ⚠️ 本文未確認 |
+| 17 | [IOHprofiler: A Benchmarking and Profiling Tool for Iterative Optimization Heuristics](https://arxiv.org/abs/1810.05281) | 2018 | arXiv | 発展 | IOHanalyzer の前身となる全体構想。p.7 で代表させた。 | — 参照のみ |
+| 18 | [Benchmarking in Optimization: Best Practice and Open Issues](https://arxiv.org/abs/2007.03488) | 2020 | arXiv | 発展 | ベンチマークの目的・問題選択・解析の作法をまとめたサーベイ（要旨のみ確認）。 | — 参照のみ |
+| 19 | [Using the Empirical Attainment Function for Analyzing Single-objective Black-box Optimization Algorithms](https://arxiv.org/abs/2404.02031) | 2024 | IEEE TEVC | 発展 | target ECDF は EAF の近似で、AOCC と等価な指標があることを示した（要旨のみ確認）。BLADE が採用。 | — 参照のみ |
+| 20 | [MA-BBOB: Many-Affine Combinations of BBOB Functions for Evaluating AutoML Approaches …](https://arxiv.org/abs/2306.10627) | 2023 | AutoML 2023 | 発展 | MA-BBOB の会議版。p.8 の TELO 版に統合した。 | — 参照のみ |
+| 21 | [BBOB Instance Analysis: Landscape Properties and Algorithm Performance across Problem Instances](https://arxiv.org/abs/2211.16318) | 2022 | arXiv | 発展 | BBOB のインスタンス間で ELA 特徴と性能がずれることを示した（要旨のみ確認）。 | — 参照のみ |
+| 22 | [Deep-BIAS: Detecting Structural Bias using Explainable AI](https://arxiv.org/abs/2304.01869) | 2023 | arXiv | 発展 | 構造的バイアスの種類を深層学習で判別する（要旨のみ確認）。 | — 参照のみ |
+| 23 | [Structural bias in multi-objective optimisation](https://arxiv.org/abs/2602.06742) | 2026 | arXiv | 最新 | SB を多目的に拡張し、情報のない多目的テスト問題を提案した（要旨のみ確認、手法提案段階）。 | — 参照のみ |
+| 24 | [Code Evolution Graphs: Understanding Large Language Model Driven Design of Algorithms](https://arxiv.org/abs/2503.16668) | 2025 | GECCO 2025 | 発展 | LLM 生成コードの静的特徴の系譜を可視化した。p.10–11 の論文で内容を取り込んだため単独ではスライド化していない。 | — 参照のみ |
+| 25 | [Can Large Language Models Reinvent Foundational Algorithms?](https://arxiv.org/abs/2604.05716) | 2026 | arXiv | 最新 | アンラーニング後の再発明率から、LLM の新規性が暗記に依存していることを示した（要旨のみ確認）。最適化に限らないため対象外。 | — 参照のみ |
+| 26 | [HeuriGym: An Agentic Benchmark for LLM-Crafted Heuristics in Combinatorial Optimization](https://arxiv.org/abs/2506.07972) | 2025 | ICLR 2026 | 最新 | 9 問題と Quality-Yield Index による、組合せ最適化ヒューリスティクスのベンチマーク（要旨のみ確認）。 | — 参照のみ |
+| 27 | [FrontierCO: Real-World and Large-Scale Evaluation of Machine Learning Solvers for Combinatorial Optimization](https://arxiv.org/abs/2505.16952) | 2025 | ICLR 2026 | 最新 | 実問題・大規模インスタンスで ML/LLM ソルバと古典ソルバの差を測った（要旨のみ確認）。 | — 参照のみ |
+| 28 | [FrontierOR: Benchmarking LLMs' Capacity for Efficient Algorithm Design in Large-Scale Optimization](https://arxiv.org/abs/2605.25246) | 2026 | arXiv | 最新 | OR 論文由来の 180 課題。one-shot の最良モデルが Gurobi に勝ったのは 31%（要旨のみ確認）。 | — 参照のみ |
+| 29 | [A Closer Look at Agentic BBO: Benchmarking LLM Agents for Black-Box Optimization](https://arxiv.org/abs/2610.12183) | 2026 | arXiv | 最新 | 5 領域で LLM エージェントの BBO を統一プロトコルで比較した（要旨のみ確認）。生成アルゴリズムではなくエージェントの評価。 | — 参照のみ |
+| 30 | [Evolution of Benchmark: Black-Box Optimization Benchmark Design through Large Language Model](https://arxiv.org/abs/2601.21877) | 2026 | arXiv | 最新 | 地形の多様性と手法の識別力の 2 目的で、LLM がベンチマークを設計する（要旨のみ確認）。 | — 参照のみ |
+| 31 | [An Evolutionary Framework for Automatic Optimization Benchmark Generation via Large Language Models](https://arxiv.org/abs/2601.12723) | 2026 | arXiv | 最新 | GA と DE の性能差を最大化する問題を LLM で生成した（要旨のみ確認）。 | — 参照のみ |
+| 32 | [LLM Driven Design of Continuous Optimization Problems with Controllable High-level Properties](https://arxiv.org/abs/2601.18846) | 2026 | EvoApplications 2026 | 最新 | LLaMEA で高次の地形特性を指定して問題を生成した（要旨のみ確認）。 | — 参照のみ |
+| 33 | [Evaluating Real-World Generalizability of Algorithm Selection Models](https://arxiv.org/abs/2606.02016) | 2026 | arXiv | 最新 | BBOB/CEC で学習した選択器を実問題（ロボット・UAV）へ移すと汎化しない（要旨のみ確認）。 | — 参照のみ |
+| 34 | [Re-evaluating LLM-based Heuristic Search: A Case Study on the 3D Packing Problem](https://arxiv.org/abs/2509.02297) | 2025 | arXiv | 最新 | LLM が scoring 関数ばかり改良するという事前学習の偏りを指摘した（要旨のみ確認）。 | — 参照のみ |
+| 35 | [AdaEva: Accelerating LLM-Driven Algorithm Design with Adaptive Partial Evaluation](https://arxiv.org/abs/2610.03896) | 2026 | arXiv | 最新 | racing・successive halving で評価コストを下げ、held-out での汎化も改善した（要旨のみ確認）。 | — 参照のみ |
+| 36 | [MOSAIC: Adversarial Co-evolution of Specialist Heuristics and Problem Instances for LLM-based Automated Heuristic Design](https://arxiv.org/abs/2608.07544) | 2026 | arXiv | 最新 | ヒューリスティクスとインスタンスを敵対的に共進化させる（タイトルのみ確認）。 | — 参照のみ |
+| 37 | [Multi-Task Evolution for Zero-Shot Cross-Problem Generalization using LLMs (MECo)](https://arxiv.org/abs/2610.03316) | 2026 | arXiv | 最新 | 問題間の汎化（ID/OOD）を評価軸にした AHD 手法（要旨のみ確認）。 | — 参照のみ |
+| 38 | [From Heuristic Selection to Automated Algorithm Design: LLMs Benefit from Strong Priors](https://arxiv.org/abs/2603.02792) | 2026 | arXiv | 最新 | ベンチマークの既存アルゴリズムを事前知識として与えると LLM の設計が良くなる（要旨のみ確認）。 | — 参照のみ |
+| 39 | [The Evolutionary Computation Methods No One Should Use](https://arxiv.org/abs/2301.01984) | 2023 | arXiv | 発展 | 中心バイアスの検出。 | ↪ 既存：swarm-intelligence/foundations p.7 |
+| 40 | [Large-scale Benchmarking of Metaphor-based Optimization Heuristics](https://arxiv.org/abs/2402.09800) | 2024 | GECCO 2024 | 発展 | 294 手法の BBOB 評価。AOCC を使う。 | ↪ 既存：swarm-intelligence/foundations p.8 |
+| 41 | [Framework for identifying the equivalence between Nature-Inspired Metaheuristics](https://arxiv.org/abs/2603.28255) | 2026 | arXiv | 最新 | 挙動の特徴ベクトルによる等価性の判定。 | ↪ 既存：swarm-intelligence/foundations p.11 |
+| 42 | [Rethinking Code Similarity for Automated Algorithm Design with LLMs (BehaveSim)](https://arxiv.org/abs/2603.02787) | 2026 | ICLR 2026 | 最新 | 行動に基づく生成コードの類似度。 | ↪ 既存：swarm-intelligence/metabbo p.10 |
+| 43 | [MetaBox-v2: A Unified Benchmark Platform for Meta-Black-Box Optimization](https://arxiv.org/abs/2505.17745) | 2025 | arXiv | 最新 | MetaBBO のベンチマーク基盤。 | ↪ 既存：swarm-intelligence/metabbo p.8 |
+| 44 | [LLaMEA: A Large Language Model Evolutionary Algorithm for Automatically Generating Metaheuristics](https://arxiv.org/abs/2405.20132) | 2024 | IEEE TEVC | 発展 | BLADE・BSA の土台となる生成フレームワーク。 | ↪ 既存：swarm-intelligence/ga-hybrid p.7 |
+| 45 | [Evolution of Heuristics (EoH)](https://arxiv.org/abs/2401.02051) | 2024 | ICML 2024 | 発展 | Sim+ 2025 の評価対象であり、EoTF の土台。 | ↪ 既存：swarm-intelligence/ga-hybrid p.6 |
+| 46 | [Mathematical discoveries from program search with large language models (FunSearch)](https://doi.org/10.1038/s41586-023-06924-6) | 2024 | Nature | 発展 | Sim+ 2025 の評価対象。 | ↪ 既存：swarm-intelligence/metabbo p.5 |
+| 47 | [CVaR-RMD: CVaR Selection Pressure for Robust Metaheuristic Discovery](https://arxiv.org/abs/2610.25697) | 2026 | Findings of EMNLP 2026 | 最新 | 頑健性（下側リスク）を選択圧に入れた生成手法（要旨のみ確認）。metabbo で参照済み。 | — 参照のみ |
+
+---
+
+<a id="learned-swarm"></a>
+
+## 学習型群知能と、学習器・古典的探索の役割分担（learned-swarm/）
+
+資料：[learned-swarm.pptx](learned-swarm/learned-swarm.pptx) ／ [learned-swarm.pdf](learned-swarm/learned-swarm.pdf) ／ 生成元 [spec.json](learned-swarm/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: aco-neural・metabbo の推奨テーマ（「ヒートマップ型 NCO と探索器の分担」「なぜ PSO の学習制御は伸びないのか」）を出発点にした。arXiv API と WebSearch で "heatmap MCTS TSP"、"particle swarm reinforcement learning"、"differential evolution reinforcement learning operator"、"MetaBBO" を検索し、2024〜2026 の評価研究（Beyond the Heatmap、SoftDist、When does learning pay off?）から入った。
+- そこから 2 つの系譜を原典まで遡った。①連続 BBO の学習型制御：DE-DDQN（2019）→ RL-DAS → RLDE-AFL。②ヒートマップ＋MCTS：Att-GCN+MCTS（2021）→ DIMES → DIFUSCO / UTSP → SoftDist → GT-Prior。どちらも「学習器なし・ランダム・単純な事前分布」との比較がどう変わってきたかに注目して全文を読んだ。
+- PSO 専用の DRL 制御（RLPSO、QLPSO）も探したが、arXiv で全文を読めたのは評価設計の弱い RLPSO だけだった。GLEET は既存デッキにある。そのため PSO の系譜は参照のみとし、DE 系で代表させた。
+
+### 系譜
+```
+[連続 BBO：学習器が古典 EA の「何を」制御するか]
+DE-DDQN (Sharma+ 2019, 演算子選択)
+  ├─ LDE (Sun+ 2021, F/CR 制御) ⚠️ ── GLEET (Ma+ 2024, PSO/DE の探索・活用) ↪既存
+  ├─ RL-DAS (Guo+ 2024, 熟練 DE を丸ごと選ぶ)
+  │    └─ RLDE-AFL (Guo+ 2025, 特徴も学習・14+3 演算子＋係数)
+  └─ [評価] When does learning pay off? (Mencaroni+ 2026, 同予算の静的調整と比較)
+                         MetaBox-v2 (Ma+ 2025) ↪既存
+
+[組合せ最適化：学習ヒートマップ × 古典探索（MCTS / k-opt / ACO）]
+Att-GCN+MCTS (Fu+ 2021, 教師あり＋MCTS)
+  ├─ DIMES (Qiu+ 2022, RL＋メタ学習)
+  │    └─ DIFUSCO (Sun & Yang 2023, 拡散・教師あり)
+  └─ UTSP (Min+ 2023, 教師なし代理損失)
+       ↓ 再評価
+  SoftDist / Position (Xia+ 2024) ⇄ Comment (Min 2024)
+       └─ Beyond the Heatmap (Pan+ 2025/ICLR 2026, MCTS 調整＋GT-Prior)
+            └─ HeatACO (Lin+ 2026, ヒートマップを MMAS で復号) ↪既存
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Deep Reinforcement Learning Based Parameter Control in Differential Evolution](https://arxiv.org/abs/1905.08006) | 2019 | GECCO 2019 | 原典 | DE の変異戦略を、99 次元の状態を見る Double DQN がオフライン学習で選ぶ（DE-DDQN）。固定戦略・ランダムには有意に勝つが、既存 AOS とは有意差なし | ✅ p.2 |
+| 2 | [Generalize a Small Pre-trained Model to Arbitrarily Large TSP Instances](https://arxiv.org/abs/2012.10658) | 2021 | AAAI 2021 | 原典 | 小規模で教師あり学習した Att-GCRN のヒートマップを合成し、k-opt の MCTS で改善する「ヒートマップ＋MCTS」の起点。TSP10000 で LKH3 比 4.39% | ✅ p.3 |
+| 3 | [DIMES: A Differentiable Meta Solver for Combinatorial Optimization Problems](https://arxiv.org/abs/2210.04123) | 2022 | NeurIPS 2022 | 発展 | 連続パラメータ化したヒートマップを REINFORCE＋メタ学習で訓練。ラベル不要で TSP10000 を直接学習。近傍順位ヒートマップとの差は小さい（Table 2d） | ✅ p.4 |
+| 4 | [DIFUSCO: Graph-based Diffusion Solvers for Combinatorial Optimization](https://arxiv.org/abs/2302.08224) | 2023 | NeurIPS 2023 | 発展 | 離散拡散 GNN でヒートマップを生成。MCTS 併用で TSP500/1000/10000 の gap 0.46/1.17/2.58%。貪欲 10.85% が 2-opt だけで 1.49% になる | ✅ p.5 |
+| 5 | [Unsupervised Learning for Solving the Travelling Salesman Problem](https://arxiv.org/abs/2303.10538) | 2023 | NeurIPS 2023 | 発展 | 代理損失と T→H 変換による教師なしヒートマップ（UTSP）。上位 10 辺で最適辺の 99.76% を覆い、探索空間を縮める | ✅ p.6 |
+| 6 | [Deep Reinforcement Learning for Dynamic Algorithm Selection: A Proof-of-Principle Study on Differential Evolution](https://arxiv.org/abs/2403.02131) | 2024 | IEEE TSMC: Systems | 発展 | 3 つの強い DE を区間ごとに PPO 方策で切り替える（RL-DAS）。ランダム切替でも単体に勝ち、RL の上乗せは小さい | ✅ p.7 |
+| 7 | [Position: Rethinking Post-Hoc Search-Based Neural Approaches for Solving Large-Scale Traveling Salesman Problems](https://arxiv.org/abs/2406.03503) | 2024 | ICML 2024 | 最新 | 距離 softmax の SoftDist が多くの学習ヒートマップに勝ち、同条件では MCTS が LKH-3 に大きく劣ると主張 | ✅ p.8 |
+| 8 | [Reinforcement Learning-based Self-adaptive Differential Evolution through Automated Landscape Feature Learning](https://arxiv.org/abs/2503.18061) | 2025 | GECCO 2025 | 最新 | NeurELA で状態特徴を学習し、14 変異・3 交叉とその係数を個体ごとに PPO で制御（RLDE-AFL）。手設計特徴との差は小さい | ✅ p.9 |
+| 9 | [Beyond the Heatmap: A Rigorous Evaluation of Component Impact in MCTS-Based TSP Solvers](https://arxiv.org/abs/2411.09238) | 2025 | ICLR 2026 | 最新 | MCTS を手法ごとに調整すると、k 近傍統計の GT-Prior が学習ヒートマップと同等以上で、分布・規模の変化にも頑健 | ✅ p.10 |
+| 10 | [When does learning pay off? A study on DRL-based dynamic algorithm configuration for carbon-aware scheduling](https://arxiv.org/abs/2604.01886) | 2026 | arXiv プレプリント | 最新 | 同じ予算の静的調整と比べると、DRL-DAC は既知型で差がなく、未知の大規模型でだけ最大 3.2% 勝つ | ✅ p.11 |
+| 11 | [Comment on paper: Position: Rethinking Post-Hoc Search-Based Neural Approaches …](https://arxiv.org/abs/2406.09441) | 2024 | arXiv | 最新 | UTSP 著者による反論（全文 4 頁を確認）。同じ時間計測なら UTSP が SoftDist に勝つ（TSP1000 で 1.65 vs 1.73%）とし、時間計測とハイパーパラメータ調整の不公平を指摘 | — 参照のみ（短い反論のため #7 のスライドで扱った） |
+| 12 | [Reinforcement learning based parameters adaption method for particle swarm optimization](https://arxiv.org/abs/2206.00835) | 2022 | arXiv（Swarm Evol. Comput. 投稿） | 発展 | PSO の w・c1・c2 を 5 部分群ごとに DDPG で制御する RLAM／RLPSO（本文を確認）。CEC2013 で評価しているが訓練と試験の分割がはっきりせず、MetaBox-v2 でも振るわないため、スライド化しなかった | — 参照のみ |
+| 13 | [Learning Adaptive Differential Evolution Algorithm From Optimization Experiences by Policy Gradient](https://doi.org/10.1109/TEVC.2021.3060811) | 2021 | IEEE TEVC 25(4) | 発展 | LSTM が個体ごとに F・CR を出す LDE（RL-DAS・RLDE-AFL・Mencaroni+ の記述に基づく）。arXiv 版・公開版は見つからなかった | ⚠️ 本文未確認 |
+| 14 | [Dynamic Algorithm Configuration: Foundation of a New Meta-Algorithmic Framework](https://doi.org/10.3233/FAIA200122) | 2020 | ECAI 2020 | 原典 | パラメータ制御を MDP（DAC）として定式化した枠組み（Mencaroni+ の記述に基づく）。公開版に到達できず | ⚠️ 本文未確認 |
+| 15 | [ConfigX: Modular Configuration for Evolutionary Algorithms via Multitask Reinforcement Learning](https://arxiv.org/abs/2412.07507) | 2024 | arXiv | 発展 | モジュール化した EA 群に対し、Transformer 方策をマルチタスク RL で事前学習する汎用構成エージェント。要旨のみ確認 | — 参照のみ |
+| 16 | [Learning to Orchestrate Evolutionary Search: Progression-Aware DRL for Dynamic DE-CMA-ES Coordination …](https://arxiv.org/abs/2610.11546) | 2026 | arXiv | 最新 | DDPG で DE と CMA-ES への資源配分・集団サイズ・再起動を制御（構造モデル更新）。要旨のみ確認 | — 参照のみ |
+| 17 | [Deep Reinforcement Learning for Dynamic Algorithm Configuration: A Case Study on Optimizing OneMax with the (1+(λ,λ))-GA](https://arxiv.org/abs/2512.03805) | 2025 | arXiv | 最新 | DDQN／PPO による集団サイズ制御の失敗要因（探索不足、計画地平）を分析し、報酬シフトで改善。要旨のみ確認。学習が効かない条件の理論寄りの例 | — 参照のみ |
+| 18 | [On Size and Hardness Generalization in Unsupervised Learning for the Travelling Salesman Problem](https://arxiv.org/abs/2403.20212) | 2024 | arXiv | 発展 | UTSP の訓練規模・埋め込み次元・分布の難しさが汎化に与える影響。要旨のみ確認 | — 参照のみ |
+| 19 | [Connected by Construction: Learning Tractable Near-Tour Marginals for Traveling Salesman Problems](https://arxiv.org/abs/2607.12127) | 2026 | arXiv | 最新 | 根付き 1-tree の Gibbs 分布で「復号前に何を学んだか」を構造的に表す C2TSP。要旨のみ確認 | — 参照のみ |
+| 20 | [Compute Time Scaling with Recursive Models for Combinatorial Optimization](https://arxiv.org/abs/2609.34585) | 2026 | arXiv | 最新 | 小さな再帰モデルの深さ・幅をスケールさせ、拡散型ヒートマップ解法より速く高品質と主張。要旨のみ確認 | — 参照のみ |
+| 21 | [Transport, Don't Generate: Deterministic Geometric Flows for Combinatorial Optimization](https://arxiv.org/abs/2602.10794) | 2026 | arXiv | 最新 | N×N ヒートマップをやめ、点を円周へ輸送して角度順で巡回路を得る CycFlow。要旨のみ確認 | — 参照のみ |
+| 22 | [Edge-wise Topological Divergence Gaps: Guiding Search in Combinatorial Optimization](https://arxiv.org/abs/2512.15800) | 2025 | arXiv | 最新 | 位相的特徴で探索を誘導する手法。題目のみ確認 | — 参照のみ |
+| 23 | QLPSO（A reinforcement learning-based communication topology in particle swarm optimization） | 2020 | Neural Computing and Applications | 発展 | Q 学習で PSO の通信トポロジを選ぶ。MetaBox のベースライン（検索情報に基づく） | — 参照のみ（影響は限定的） |
+| 24 | [Auto-configuring Exploration-Exploitation Tradeoff in Evolutionary Computation via Deep Reinforcement Learning](https://arxiv.org/abs/2404.08239)（GLEET） | 2024 | GECCO 2024 | 発展 | PSO/DE の探索・活用を Transformer 方策で制御。RLDE-AFL のベースライン | ↪ 既存：deep-learning-fusion p.6 |
+| 25 | [MetaBox-v2: A Unified Benchmark Platform for Meta-Black-Box Optimization](https://arxiv.org/abs/2505.17745) | 2025 | NeurIPS 2025 | 最新 | 分布外では従来の DE・SHADE が頑健で、PSO 系の学習型（RLPSO など）が振るわないと報告 | ↪ 既存：metabbo p.8 |
+| 26 | [HeatACO: A Heatmap-Guided Max–Min Ant System for Large-Scale Travelling Salesman Problems](https://arxiv.org/abs/2601.19041) | 2026 | arXiv | 最新 | ヒートマップを MMAS で復号。強い局所探索があると学習ヒートマップの寄与が消える | ↪ 既存：swarm-intelligence/aco-neural p.10 |
+| 27 | [DeepACO: Neural-enhanced Ant Systems for Combinatorial Optimization](https://arxiv.org/abs/2309.14032) | 2023 | NeurIPS 2023 | 発展 | GNN で ACO の η を学習する。ヒートマップ＋古典探索の ACO 版 | ↪ 既存：deep-learning-fusion p.4 |
+
+---
+
+<a id="particle-theory"></a>
+
+## 粒子系最適化の理論の拡張（ES/CMA-ES 統一・多目的/二層/ゲーム・ランタイム解析）（particle-theory/）
+
+資料：[particle-theory.pptx](particle-theory/particle-theory.pptx) ／ [particle-theory.pdf](particle-theory/particle-theory.pdf) ／ 生成元 [spec.json](particle-theory/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: cbo-mean-field 調査の推奨テーマ 1〜3 を受け、arXiv API で「consensus-based ×（anisotropic / covariance / CMA-ES / evolution strategies）」「consensus-based ×（multi-objective / saddle / bilevel / federated / game）」「runtime analysis ×（NSGA-II / NSGA-III / SMS-EMOA / MOEA）」「runtime ×（EDA / cGA / UMDA）」「CMA-ES / IGO の収束」を新しい順に洗い出した。
+- 2026 年の最新（離散時間 IGO の収束 Kimura & Akimoto、ES/OVI/CBO の統一 Ackermann & Peluchetti、構造を活かす異方性 CBO Bonandin+、動的個体数 MOEA Opris、多値 cGA Krejca & Witt）から入り、ES/CMA-ES 側は IGO（Ollivier+ 2017）、CBO 側は異方性 CBO（Fornasier+ 2022）、離散ランタイム側は NSGA-II の初解析（Zheng & Doerr 2022）を原典・転換点として遡った。CBO の応用枝は多目的（AM-CBO）・鞍点（CBO-SP）・連合学習（FedCBO）・二層（CB²O）を 1 本ずつ選んだ。
+- スライド化した 12 本はすべて arXiv 版で本文を読んだ（理論論文は定理の主張と証明方針まで。付録の細かな証明は概略）。図は arXiv HTML 版の画像、なければ PDF ページを切り抜いた（Krejca & Witt と Opris は図がないため Algorithm 1 を使用）。発表先は arXiv のコメント欄・Crossref・検索で確認した。
+- 既存デッキ（cbo-mean-field の CBO 原典・Fornasier+ 2021/2026・CBS・Constrained CBO・Gerber+ 2025・Göttlich+ 2025、foundations の Huang+ 2022・Borghi+ 2026、aco-neural の Kötzing+ 2011・Kergaßner+ 2024・Manthey+ 2025）は再掲せず ↪ で参照した。
+
+### 系譜
+```
+【ES/CMA-ES と情報幾何】
+  NES (Wierstra+ 2008) / CMA-ES = 自然勾配 (Akimoto+ 2010)
+        └→ IGO (Ollivier+ 2017) ✅ 原典（分位点重み＋Fisher 自然勾配で CMA-ES・xNES・PBIL・cGA・CEM を統一）
+              ├→ IGO-flow の収束 (Glasmachers 2012, Akimoto+ 2012) → ODE 法 (Akimoto+ 2022)
+              ├→ Beyond IGO-Flow (Kimura & Akimoto 2026) ✅ 最新（離散時間・フル共分散・分位重みでの収束）
+              ├→ Bridging ES/OVI/CBO (Ackermann & Peluchetti 2026) ✅ 最新（ES・OVI・CH・CBO・DiffEvo を一つの更新式に）
+              └→ 【EDA ランタイム】 cGA/UMDA の解析 (Sudholt & Witt 2016, Krejca & Witt 2018 サーベイ)
+                       → 多値 EDA (Ben Jedidia+ 2024, Adak & Witt 2024/2025) → r-cGA on G-OneMax (Krejca & Witt 2026) ✅ 最新
+
+【CBO の平均場理論の拡張】
+  CBO (Pinnau+ 2017) ↪既存 → CBO 大域収束 (Fornasier+ 2021) ↪既存 → CBO→ES (Fornasier+ 2026) ↪既存
+        ├→ Anisotropic CBO (Fornasier+ 2022) ✅ 発展（次元非依存の率 2λ−σ²）
+        │       └→ Structure-exploiting aniso CBO (Bonandin+ 2026) ✅ 最新（内在次元 d のみに依存）
+        ├→ 【多目的】 M-CBO (Borghi+ 2022) → AM-CBO (Borghi+ 2023) ✅ 発展 → Wozniak 2025（ロボット経路計画）
+        ├→ 【ゲーム】 CBO-SP (Huang+ 2024) ✅ 発展 → 多人数ゲーム (Chenchene+ 2023) → Huang & Warnett 2025/2026（平均場極限）
+        │                                    → UiT propagation of chaos for minimax (Bayraktar+ 2026)
+        ├→ 【機械学習】 FedCBO (Carrillo+ 2024) ✅ 発展 → 頑健連合学習 (García Trillos+ 2024)
+        └→ 【二層】 CB²O (García Trillos+ 2024) ✅ 発展 → SCB²O (Chao+ 2026)（滑らか分位で有限粒子保証）
+                    ／ multiscale multi-level CBO (Herty+ 2024)
+
+【多目的 EA のランタイム解析】
+  SEMO/GSEMO (Laumanns+ 2002, Giel 2003)
+        └→ NSGA-II runtime (Zheng & Doerr 2022) ✅ 原典（保存補題＋待ち時間）
+              ├→ NSGA-III (Wietheger & Doerr 2023 → Opris 2025 タイト界) ／ SMS-EMOA (Zheng & Doerr 2024) ／ SPEA2 (→ SPEA2+, Dang+ 2026)
+              └→ NSGA-II-DYN (Opris 2026) ✅ 最新（動的個体数で Ω(√n/log n) 倍の高速化）
+  【共進化・ゲーム】 Lehre 2022（maximin の共進化 EA ランタイム）→ Benford & Lehre 2024
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Information-Geometric Optimization Algorithms: A Unifying Picture via Invariance Principles](https://arxiv.org/abs/1106.3708) | 2017 | JMLR | 原典 | 分位点重みの Fisher 自然勾配流 IGO を定義し、CMA-ES（rank-μ）・xNES・PBIL・cGA・CEM を再導出。臨界学習率と RBM による多峰保持も示す。 | ✅ p.2 |
+| 2 | [Convergence of Anisotropic Consensus-Based Optimization in Mean-Field Law](https://arxiv.org/abs/2111.08136) | 2022 | EvoApplications | 発展 | 異方性 CBO が次元非依存の率 (2λ−σ²) で平均場則の大域収束をすることを証明。MNIST を 100 粒子で約 97%。 | ✅ p.3 |
+| 3 | [Mathematical Runtime Analysis for the Non-Dominated Sorting Genetic Algorithm II (NSGA-II)](https://arxiv.org/abs/2112.08581) | 2022 | AAAI 2022 / AIJ 2023 | 原典 | NSGA-II 初のランタイム解析。N≥4(n+1) で OneMinMax O(n log n)、LOTZ O(n²) 世代。N=n+1 では指数時間。 | ✅ p.4 |
+| 4 | [An Adaptive Consensus Based Method for Multi-objective Optimization with Uniform Pareto Front Approximation](https://arxiv.org/abs/2208.01362) | 2023 | Appl. Math. Optim. | 発展 | Chebyshev 重みを持つ粒子の CBO と、重み空間の斥力ポテンシャル勾配流で一様なパレートフロントを得る AM-CBO。 | ✅ p.5 |
+| 5 | [Consensus-Based Optimization for Saddle Point Problems](https://arxiv.org/abs/2212.12334) | 2024 | SIAM J. Control Optim. | 発展 | min/max の 2 群が互いの平均で合意点を計算する CBO-SP。非凸非凹で鞍点への合意を平均場で証明。 | ✅ p.6 |
+| 6 | [FedCBO: Reaching Group Consensus in Clustered Federated Learning through Consensus-based Optimization](https://arxiv.org/abs/2305.02894) | 2024 | JMLR | 発展 | 所属未知のクラスタ型連合学習を CBO 型粒子系で解く。回転 MNIST で 96.51%（IFCA 94.44%）。 | ✅ p.7 |
+| 7 | [CB²O: Consensus-Based Bi-Level Optimization](https://arxiv.org/abs/2411.13394) | 2024 | arXiv | 発展 | 下位目的の分位選抜＋上位目的の Gibbs 重みで合意点を作る二層 CBO。平均場解の存在と W₂ 指数収束。 | ✅ p.8 |
+| 8 | [Runtime Analysis of a Compact Genetic Algorithm on a Truly Multi-valued OneMax Function](https://arxiv.org/abs/2605.29477) | 2026 | PPSN 2026 | 最新 | r 値 cGA の G-OneMax ランタイムを O(nr log³n log³r) に改善（従来 O(nr³ log²n log r)）。 | ✅ p.9 |
+| 9 | [Beyond IGO-Flow: Toward Convergence Analysis of IGO in Continuous Spaces](https://arxiv.org/abs/2606.17523) | 2026 | PPSN 2026 | 最新 | 離散時間・フル共分散・分位重みの Gaussian IGO で、共分散→0 と条件数仮定下の平均の収束を証明。 | ✅ p.10 |
+| 10 | [Bridging Spherical Black-Box Optimizers](https://arxiv.org/abs/2606.25761) | 2026 | ICML 2026 | 最新 | ES・OVI・CH・CBO・pCBO・cCBO・DiffEvo を一つのマスター更新式で統一し、CH≡OVI を示して ES-OVI・AdaPol を提案。 | ✅ p.11 |
+| 11 | [Exploiting Structure with Anisotropic Consensus-Based Optimization](https://arxiv.org/abs/2607.10205) | 2026 | arXiv | 最新 | 加法分離な目的で異方性 CBO の計算量が内在次元 d のみに指数依存することを、離散・有限粒子で証明。 | ✅ p.12 |
+| 12 | [Provable Speedups From Dynamic Population Sizes in Evolutionary Algorithms for Multiobjective Optimization](https://arxiv.org/abs/2607.23800) | 2026 | arXiv | 最新 | 動的個体数 NSGA-II-DYN と GSEMO が CLIMB を O(n log n)、固定個体数 NSGA-II は Ω(n^1.5) 評価。 | ✅ p.13 |
+| 13 | [A consensus-based model for global optimization and its mean-field limit](https://arxiv.org/abs/1604.05648) | 2017 | M3AS | 原典 | CBO の原典。 | ↪ 既存：swarm-intelligence/cbo-mean-field p.2 |
+| 14 | [Consensus-based optimization methods converge globally](https://arxiv.org/abs/2103.15130) | 2021 | SIAM J. Optim. | 発展 | 等方性 CBO の大域収束（率 2λ−dσ²）。異方性版・CB²O・FedCBO の証明の雛形。 | ↪ 既存：swarm-intelligence/cbo-mean-field p.5 |
+| 15 | [Consensus Based Sampling](https://arxiv.org/abs/2106.02519) | 2022 | Stud. Appl. Math. | 発展 | 重み付き共分散を使う CBS。共分散適応 CBO の手がかり。 | ↪ 既存：swarm-intelligence/cbo-mean-field p.6 |
+| 16 | [From Consensus-Based Optimization to Evolution Strategies: Proof of Global Convergence](https://arxiv.org/abs/2602.11677) | 2026 | arXiv | 最新 | δ-CBO→CF→CH(=MPPI=(1,N)-ES) の大域収束。本テーマの ES 統一の出発点。 | ↪ 既存：swarm-intelligence/cbo-mean-field p.10 |
+| 17 | [On the Global Convergence of Particle Swarm Optimization Methods](https://arxiv.org/abs/2201.12460) | 2022 | Appl. Math. Optim. | 発展 | PSO の平均場大域収束。 | ↪ 既存：swarm-intelligence/foundations p.6 |
+| 18 | [Simple Max-Min Ant Systems and the Optimization of Linear Pseudo-Boolean Functions](https://arxiv.org/abs/1007.4707) | 2011 | FOGA 2011 | 発展 | ACO のランタイム解析（離散側の先行例）。 | ↪ 既存：swarm-intelligence/aco-neural p.3 |
+| 19 | [Consensus-based optimization for closed-box adversarial attacks and a connection to evolution strategies](https://arxiv.org/abs/2506.24048) | 2025 | arXiv | 最新 | CBO と NES の接続（CH）を敵対的攻撃で示す（アブストラクトと Bridging の整理で確認）。 | — 参照のみ |
+| 20 | [Uniform-in-time propagation of chaos for consensus-based minimax algorithm](https://arxiv.org/abs/2602.14403) | 2026 | arXiv | 最新 | CBO-SP 型 minimax で O(1/N₁+1/N₂) の一様時間 PoC（アブストラクトと序論で確認）。CBO-SP を優先しスライド化せず | — 参照のみ |
+| 21 | [Well-posedness and mean-field limit estimate of a consensus-based algorithm for min-max problems](https://arxiv.org/abs/2602.12886) | 2026 | arXiv | 最新 | min-max CBO の適切性と平均場極限（タイトルと検索結果で確認）。 | — 参照のみ |
+| 22 | [Well-posedness and mean-field limit estimate of a consensus-based algorithm for multiplayer games](https://arxiv.org/abs/2505.13632) | 2025 | arXiv | 発展 | 多人数ゲーム CBO の平均場極限（タイトルと検索結果で確認）。 | — 参照のみ |
+| 23 | [A consensus-based algorithm for non-convex multiplayer games](https://arxiv.org/abs/2311.08270) | 2023 | arXiv | 発展 | ナッシュ均衡探索の CBO（タイトルで確認）。 | — 参照のみ |
+| 24 | [A consensus-based algorithm for multi-objective optimization and its mean-field description](https://arxiv.org/abs/2203.16384) | 2022 | CDC 2022 | 発展 | M-CBO の原論文（6 ページの会議版、本文を流し読み）。理論は AM-CBO で拡張されるためスライド化せず | — 参照のみ |
+| 25 | [Consensus-Based Optimization for Multi-Objective Problems: A Multi-Swarm Approach](https://arxiv.org/abs/2211.15737) | 2022 | arXiv | 発展 | 多群 CBO による多目的最適化（タイトルで確認）。 | — 参照のみ |
+| 26 | [Unification of Consensus-Based Multi-Objective Optimization and Multi-Robot Path Planning](https://arxiv.org/abs/2504.09577) | 2025 | arXiv | 最新 | 多目的 CBO とロボット経路計画の統一（タイトルで確認）。 | — 参照のみ |
+| 27 | [Defending Against Diverse Attacks in Federated Learning Through Consensus-Based Bi-Level Optimization](https://arxiv.org/abs/2412.02535) | 2024 | arXiv | 発展 | CB²O の頑健連合学習への応用（タイトルと CB²O 本文の言及で確認）。 | — 参照のみ |
+| 28 | [Convergence of Consensus-Based Particle Methods for Nonconvex Bi-Level Optimization](https://arxiv.org/abs/2605.19667) | 2026 | arXiv | 最新 | 滑らかな分位選抜の SCB²O で有限粒子の高確率保証（序論まで確認）。CB²O を優先しスライド化せず | — 参照のみ |
+| 29 | [A multiscale Consensus-Based algorithm for multi-level optimization](https://arxiv.org/abs/2407.09257) | 2024 | arXiv | 発展 | 多段階最適化の多重スケール CBO（タイトルで確認）。 | — 参照のみ |
+| 30 | [From Mean-Field Limits to Semiclassical Concentration: Global Convergence of the Canonical Evolutionary Strategy](https://arxiv.org/abs/2605.30371) | 2026 | arXiv | 最新 | 複製-変異方程式の半古典極限で ES の大域収束を論じ、CBO の分散崩壊と対比（アブストラクトで確認）。 | — 参照のみ |
+| 31 | [Strong Global Convergence of the Consensus-Based Optimization Algorithm](https://arxiv.org/abs/2512.10654) | 2025 | arXiv | 最新 | 離散時間 CBO の強収束と Δt・N の率（Bonandin+ 2026 の本文中の記述で確認）。 | — 参照のみ |
+| 32 | [Towards a Rigorous Understanding of the Population Dynamics of the NSGA-III: Tight Runtime Bounds](https://arxiv.org/abs/2511.07125) | 2025 | AAAI 2026 | 最新 | NSGA-III の 2-OMM でのタイトな下界 Ω(n² log n/μ)（アブストラクトで確認）。 | — 参照のみ |
+| 33 | [SPEA2+: Improved Density Estimation in SPEA2 with Provable Runtime Guarantees](https://arxiv.org/abs/2606.12382) | 2026 | PPSN 2026 | 最新 | SPEA2 が OneTrapZeroTrap で失敗することを示し改良版 SPEA2+ を提案（アブストラクトで確認）。 | — 参照のみ |
+| 34 | [A Mathematical Runtime Analysis of the Non-dominated Sorting Genetic Algorithm III (NSGA-III)](https://arxiv.org/abs/2211.08202) | 2023 | IJCAI 2023 | 発展 | NSGA-III の初ランタイム解析（タイトルで確認）。 | — 参照のみ |
+| 35 | [Runtime Analysis of the SMS-EMOA for Many-Objective Optimization](https://arxiv.org/abs/2312.10290) | 2024 | AAAI 2024 | 発展 | SMS-EMOA の多目的ランタイム解析（タイトルで確認）。 | — 参照のみ |
+| 36 | [Runtime Analysis of Competitive co-Evolutionary Algorithms for Maximin Optimisation of a Bilinear Function](https://arxiv.org/abs/2206.15238) | 2022 | GECCO 2022 / Algorithmica | 発展 | 共進化 EA（PDCoEA）の maximin 問題での多項式時間保証。ゲームの離散側（アブストラクトと序論で確認）。 | — 参照のみ |
+| 37 | [Runtime Analysis of the Compact Genetic Algorithm on the LeadingOnes Benchmark](https://arxiv.org/abs/2501.16250) | 2025 | arXiv | 最新 | cGA の LeadingOnes 解析（タイトルで確認）。 | — 参照のみ |
+| 38 | [Theory of Estimation-of-Distribution Algorithms](https://arxiv.org/abs/1806.05392) | 2018 | 書籍章 | 発展 | EDA ランタイム理論のサーベイ（タイトル・目次で確認）。 | — 参照のみ |
+| 39 | [Update Strength in EDAs and ACO: How to Avoid Genetic Drift](https://arxiv.org/abs/1607.04063) | 2016 | GECCO 2016 | 発展 | cGA の更新強度と遺伝的浮動の古典的解析（タイトルで確認）。 | — 参照のみ |
+| 40 | [Natural Gradient Interpretation of Rank-One Update in CMA-ES](https://arxiv.org/abs/2406.16506) | 2024 | PPSN 2024 | 発展 | CMA-ES の rank-one 更新（IGO の外にあった部分）を自然勾配で解釈（タイトルで確認）。 | — 参照のみ |
+| 41 | [Global linear convergence of Evolution Strategies with recombination on scaling-invariant functions](https://arxiv.org/abs/2107.08847) | 2021 | J. Glob. Optim. | 発展 | 組換え付き ES の大域線形収束（タイトルで確認）。 | — 参照のみ |
+| 42 | [Drift Theory in Continuous Search Spaces: Expected Hitting Time of the (1+1)-ES with 1/5 Success Rule](https://arxiv.org/abs/1802.03209) | 2018 | GECCO 2018 | 発展 | 連続空間でのドリフト解析によるランタイム（タイトルで確認）。連続と離散のランタイム理論の橋。 | — 参照のみ |

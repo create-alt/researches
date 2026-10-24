@@ -1,0 +1,263 @@
+{
+  "field": "群知能",
+  "theme": "粒子系最適化の理論の拡張",
+  "date": "2026-10-24",
+  "summary": "ES/CMA-ES との統一、多目的・鞍点・二層・連合学習への拡張、進化計算のランタイム解析を追う。IGO（Ollivier+ 2017）は CMA-ES・cGA を自然勾配流で統一し、CBO は異方性雑音で次元非依存の収束率を得て多目的・ゲーム・ML へ広がった。\n離散側は NSGA-II のランタイム解析（Zheng+ 2022）が MOEA 理論を開いた。2026 年は離散時間 IGO の収束、ES/OVI/CBO の統一更新式、構造を活かす異方性 CBO、動的個体数 MOEA・多値 EDA の解析へ。",
+  "papers": [
+    {
+      "title": "Information-Geometric Optimization Algorithms: A Unifying Picture via Invariance Principles",
+      "short": "IGO (Ollivier+ 2017)",
+      "authors": "Yann Ollivier, Ludovic Arnold, Anne Auger, Nikolaus Hansen（CNRS & LRI, Université Paris-Saclay / Inria）｜ JMLR 2017",
+      "year": 2017,
+      "venue": "JMLR 2017（arXiv 2011）",
+      "link": "https://arxiv.org/abs/1106.3708",
+      "lineage": "原典",
+      "s1": "任意の分布族 P_θ から、分位点で変換した目的関数の Fisher 自然勾配上昇として連続時間の IGO flow を一意に定め、その離散化で CMA-ES（rank-μ）・xNES・PBIL・cGA・CEM を一つの枠組みから再導出した。",
+      "s2": "NES や勾配 EDA は E[f] を直接上げる定式化で、f の単調変換に対する不変性を後付けのヒューリスティックで補っていた。IGO は分位点重み W_θ^f により f・パラメータ化・探索空間の座標変換の三つの不変性を最初から満たす。",
+      "s3": "dθ/dt = I(θ)⁻¹ ∫ W_θ^f(x) ∂ln P_θ(x)/∂θ P_θ(dx)（W は P_θ 下での f の分位点を非増加関数 w に通した重み）。これは重み付き対数尤度の無限小最大化と同値（Thm 10）。",
+      "s4": "Gaussian では IGO 更新が η_c=η_m の rank-μ CMA-ES と一致（Prop 15）。線形関数で分散が縮まない臨界学習率は IGO-ML で q≈0.2 のとき約 0.4、CEM（j=∞）では 0（Fig.1）。RBM-IGO（d=40, N=10⁴）は二峰を保持し、通常勾配は 300 試行で常に一峰に崩れた（Fig.3, 4）。",
+      "s5": "著者：CMA-ES の進化パス（累積）やステップサイズ制御は IGO の外。有限 δt・有限 N による逸脱の理論は今後。\n所感：「CMA-ES＝自然勾配」の地図は強力だが、収束証明は連続時間の flow に限られ、離散時間の保証は 2026 年まで持ち越された。",
+      "s6": "・Beyond IGO-Flow (Kimura & Akimoto 2026)（本資料）\n・Bridging Spherical Black-Box Optimizers (Ackermann & Peluchetti 2026)（本資料）\n・Objective Improvement in IGO (Akimoto & Ollivier 2013)（未調査）",
+      "figure": {
+        "file": "figures/igo.png",
+        "caption": "出典：IGO (Ollivier+ 2017) Fig.1（選抜率 q に対する臨界学習率。j=1 が IGO-ML、j=∞ が CEM。CMA-ES（j=0）は q<0.5 で無限大）"
+      },
+      "notes": "arXiv 1106.3708v4（JMLR 最終版）。§1–5, 6, App. A, B を読了、App. C/D の証明は要点のみ。",
+      "scope": "全文（問題提起・手法・実験・考察。証明の細部は概略）"
+    },
+    {
+      "title": "Convergence of Anisotropic Consensus-Based Optimization in Mean-Field Law",
+      "short": "Anisotropic CBO (Fornasier+ 2022)",
+      "authors": "Massimo Fornasier, Timo Klock, Konstantin Riedl（Technical University of Munich）｜ EvoApplications 2022",
+      "year": 2022,
+      "venue": "EvoApplications 2022（LNCS 13224）",
+      "link": "https://arxiv.org/abs/2111.08136",
+      "lineage": "発展",
+      "parent": "IGO (Ollivier+ 2017)",
+      "s1": "座標ごとに雑音を入れる異方性 CBO について、W₂ 型エネルギー V(ρ_t) が次元に依存しない率 (2λ−σ²) で指数減衰し、平均場則で大域最小点へ収束することを最小限の初期条件の下で証明した。",
+      "s2": "等方性 CBO の大域収束（Fornasier+ 2021, 既存：cbo-mean-field）は率が (2λ−dσ²) で次元とともに悪化し、高次元では σ を極小にする必要があった。異方性 CBO（Carrillo+ 2019）は実用上強いが、平均場の大域収束は未証明だった。",
+      "s3": "主張（Thm 2）：2λ>σ² なら α>α₀ で V(ρ_t) ≤ V(ρ₀)·exp(−(1−τ)(2λ−σ²)t)（ε 到達まで）。鍵は ℓ∞ 球で書き直した定量的 Laplace 原理と、最小点近傍の質量が消えない下界（Prop 2）。",
+      "s4": "d∈{4,8,12,16} の Rastrigin（N=320000, α=10¹⁵）で等方性は d とともに減衰が遅くなるが、異方性は全 d で同じ率 (2λ−σ²) に乗る（Fig.1b）。MNIST を N=100 粒子・勾配なしで学習し、浅い NN で約 90%、LeNet-1 型 CNN で約 97%（逆伝播 98.3%）（Fig.4）。",
+      "s5": "著者：平均場極限の定量的な誤差評価（非コンパクト域）は未解決。ML 実験はミニバッチ・冷却など理論外の工夫込み。\n所感：雑音を「座標ごとの分散」にしただけで次元依存が消える点は CMA-ES の対角版（sep-CMA）に近い。回転には弱いはずで、2026 年の構造依存解析につながる。",
+      "s6": "・Structure-exploiting aniso CBO (Bonandin+ 2026)（本資料）\n・CBO global convergence (Fornasier+ 2021)（既存：cbo-mean-field）\n・High-dimensional ML CBO (Carrillo+ 2019)（未調査）",
+      "figure": {
+        "file": "figures/aniso.png",
+        "caption": "出典：Anisotropic CBO (Fornasier+ 2022) Fig.1b（Rastrigin, d=4〜16 での V(ρ_t) の減衰。等方性（破線）は d とともに遅くなり、異方性（実線）は次元によらず exp(−(2λ−σ²)t) に乗る）"
+      },
+      "notes": "arXiv 2111.08136v2 を全文読了（§3 の証明は流れを確認）。"
+    },
+    {
+      "title": "Mathematical Runtime Analysis for the Non-Dominated Sorting Genetic Algorithm II (NSGA-II)",
+      "short": "NSGA-II runtime (Zheng & Doerr 2022)",
+      "authors": "Weijie Zheng, Benjamin Doerr（Harbin Inst. of Technology / École Polytechnique）｜ AAAI 2022 → AIJ 2023",
+      "year": 2022,
+      "venue": "AAAI 2022 / AIJ 2023",
+      "link": "https://arxiv.org/abs/2112.08581",
+      "lineage": "原典",
+      "s1": "実務で最も使われる MOEA である NSGA-II に初めて数学的なランタイム解析を与えた。個体数 N≥4(n+1) なら OneMinMax を O(n log n)、LOTZ を O(n²) 世代でパレートフロント全被覆し、N=n+1 では指数時間かかることを示した。",
+      "s2": "MOEA の理論は SEMO/GSEMO や (μ+1)-SIBEA など、非優越解を全保持する単純化アルゴリズムに限られていた。NSGA-II は固定個体数・非優越ソート・混雑距離で一度見つけたフロント点を失い得るため、解析不能と考えられていた。",
+      "s3": "鍵（Lemma 1）：OneMinMax の各目的値で混雑距離が正の個体は高々 4 体なので、N≥4(n+1) なら一度見つけたフロント点は失われない。あとは新点発見の待ち時間の和で E[T] ≤ 2e²/(e−1)·n(ln n+1) 世代（Thm 2）。",
+      "s4": "Deb 実装準拠（二項トーナメント・ビット反転）で n=100〜400 を 50 試行。適切な N の NSGA-II は GSEMO より評価回数が少ない（Fig.1）。N=n+1 では被覆率が OneMinMax で約 80%、LOTZ で 50〜60% に停滞し（Fig.2）、両端点は早期に保持される（Fig.4）。",
+      "s5": "著者：交叉なし、ベンチマークは 2 目的の擬ブール関数のみ。N=n+1 の否定結果は一部の変種でのみ証明。\n所感：「保存補題＋待ち時間」という型が以後の NSGA-III・SMS-EMOA・SPEA2 解析の雛形になった転換点。連続 CBO の多目的版との理論の溝は大きい。",
+      "s6": "・Provable Speedups From Dynamic Population Sizes (Opris 2026)（本資料）\n・A Mathematical Runtime Analysis of NSGA-III (Wietheger & Doerr 2023)（未調査）\n・Runtime Analysis of the SMS-EMOA for Many-Objective Optimization (Zheng & Doerr 2024)（未調査）",
+      "figure": {
+        "file": "figures/nsga2.png",
+        "caption": "出典：NSGA-II runtime (Zheng & Doerr 2022) Fig.1a（OneMinMax の全被覆までの評価回数。個体数 N を変えた NSGA-II と GSEMO の比較、50 試行の中央値）"
+      },
+      "notes": "arXiv 2112.08581v7（AIJ 版）。§1–3, 5, 6, 7 を読了、§4（LOTZ）の証明は要点のみ。"
+    },
+    {
+      "title": "An Adaptive Consensus Based Method for Multi-objective Optimization with Uniform Pareto Front Approximation",
+      "short": "AM-CBO (Borghi+ 2023)",
+      "authors": "Giacomo Borghi, Michael Herty, Lorenzo Pareschi（RWTH Aachen / Univ. Ferrara）｜ Appl. Math. Optim. 2023",
+      "year": 2023,
+      "venue": "Appl. Math. Optim. 2023",
+      "link": "https://arxiv.org/abs/2208.01362",
+      "lineage": "発展",
+      "parent": "Anisotropic CBO (Fornasier+ 2022)",
+      "s1": "各粒子に Chebyshev スカラー化の重み w を持たせて N 個の部分問題を同時に CBO で解き（M-CBO）、さらに重み空間で Riesz・Newton・Morse などの斥力ポテンシャルに沿って w を動かし、パレートフロントを一様に覆う AM-CBO を提案した。",
+      "s2": "NSGA-II や MOEA/D は柔軟だが収束解析がない。前作 M-CBO（Borghi+ 2022）は重みを一様に固定するため、軸に平行に近い部分や非対称・不連続なフロントで解が偏る。エネルギー型多様性指標は選抜基準としてしか使われていなかった。",
+      "s3": "位置は dX = λ(Y_α(W)−X)dt + σD dB、重みは dW/dt = −P_T(W,Ω)[(τ/N)Σ∇U(g(Xⁱ)−g(Xʲ))]。平均場で GD が exp(−(λ−κσ²−Cτ/√ε)t/2) で減衰し、重みの動きは単体上の勾配流になる（Thm 4.1, 4.2）。",
+      "s4": "Lamé と DO2DK の 2 目的、d=10・N=100・25 試行。IGD は Lamé γ=0.25 で 0.131（τ=0）→0.026（Morse）、DO2DK k=2 で 0.282→0.093（Table 1）。一方 GD は多くの問題で τ=0 が最良。",
+      "s5": "著者：τ=o(√ε) と重み更新を遅くしないと CBO の収束を妨げる。計算量は O(N²) で、ミニバッチで O(NM) に削減可能。\n所感：収束と多様性を時間スケール分離で両立させる設計は理論的にきれい。ただし 3 目的以上の重み動力学はヒューリスティックで、解析は 2 目的に限られる。",
+      "s6": "・M-CBO (Borghi+ 2022)（未調査）\n・NSGA-II runtime (Zheng & Doerr 2022)（本資料）\n・CBO 多目的×マルチロボット経路計画 (Wozniak 2025)（未調査）",
+      "figure": {
+        "file": "figures/amcbo.png",
+        "caption": "出典：AM-CBO (Borghi+ 2023) Fig.1 の一部（Lamé γ=0.25 と DO2DK k=2 で、重み相互作用なし・Riesz・Newton・Morse の解（黒）と参照フロント（赤）。挿入図は重み分布）"
+      },
+      "notes": "arXiv 2208.01362v1 を全文読了（§4 の証明は流れを確認）。"
+    },
+    {
+      "title": "Consensus-Based Optimization for Saddle Point Problems",
+      "short": "CBO-SP (Huang+ 2024)",
+      "authors": "Hui Huang, Jinniao Qiu, Konstantin Riedl（University of Graz / University of Calgary / TU Munich）｜ SIAM J. Control Optim. 2024",
+      "year": 2024,
+      "venue": "SIAM J. Control Optim. 2024",
+      "link": "https://arxiv.org/abs/2212.12334",
+      "lineage": "発展",
+      "parent": "Anisotropic CBO (Fornasier+ 2022)",
+      "s1": "min 用と max 用の 2 群の粒子が互いの平均を介して合意点を計算し合う CBO-SP を提案し、非凸・非凹の目的でも平均場則で大域ナッシュ均衡（鞍点）近傍に合意することを証明した。",
+      "s2": "非凸非凹の min-max は大域均衡の探索が NP 困難で、GDA 系は局所均衡や弱凸などの構造仮定に頼る。PSO の min-max 版は 2 つの PSO を入れ子に回すため計算が重く、収束理論もなかった。",
+      "s3": "x 群の合意点は y 群の平均 ȳ で評価した重み exp(−αE(x,ȳ))、y 群は exp(βE(x̄,y)) で計算。主張（Thm 11）：Var_X(t)+Var_Y(t) ≤ Var_X(0)e^{−μ₁t}+Var_Y(0)e^{−μ₂t} で合意し、α,β→∞ でその点が鞍点に近づく。",
+      "s4": "1 次元の 4 種の鞍点関数（Rastrigin 混合の非凸非凹を含む, N=20）で全例とも鞍点に合意（Fig.1）。強単調な二次ゲーム（100 試行、精度 10⁻³ を成功）では d₁=d₂=40 でも N=200 で成功率 100%、N=40 では 0%（Table 1）。",
+      "s5": "著者：min max と max min が一致する同時ゲームに限られ、GAN のような逐次ゲームへの拡張は今後。\n所感：初期分散を小さくする well-prepared 条件が強く、定理は「局所的な大域」結果に近い。2026 年に一様時間の propagation of chaos（Bayraktar+）が補った。",
+      "s6": "・UiT propagation of chaos for CB minimax (Bayraktar+ 2026)（参照のみ）\n・CBO for multiplayer games (Chenchene+ 2023)（未調査）\n・Co-evolution maximin runtime (Lehre 2022)（参照のみ）",
+      "figure": {
+        "file": "figures/cbosp.png",
+        "caption": "出典：CBO-SP (Huang+ 2024) Fig.1 の (b)(d) 列（非凸非凹の鞍点関数 R(x)−R(y) と R(x)−2xy−R(y)。上：関数、中：初期配置、下：最終配置で鞍点（緑）に合意）"
+      },
+      "notes": "arXiv 2212.12334v2 を全文読了（§4 の証明は要点のみ）。"
+    },
+    {
+      "title": "FedCBO: Reaching Group Consensus in Clustered Federated Learning through Consensus-based Optimization",
+      "short": "FedCBO (Carrillo+ 2024)",
+      "authors": "José A. Carrillo, Nicolás García Trillos, Sixu Li, Yuhua Zhu（University of Oxford / UW-Madison / UC San Diego）｜ JMLR 2024",
+      "year": 2024,
+      "venue": "JMLR 2024",
+      "link": "https://arxiv.org/abs/2305.02894",
+      "lineage": "発展",
+      "parent": "Anisotropic CBO (Fornasier+ 2022)",
+      "s1": "所属クラスタ未知のクライアント群を、各自の損失で他者のモデルを重み付けする CBO 型粒子系として定式化し、クラスタ数を与えずに群ごとの合意を自動で形成する連合学習 FedCBO を提案。平均場極限と大域最小点への集中を証明した。",
+      "s2": "IFCA・HypCluster などのクラスタ型連合学習はクラスタ数の事前知識が要り、収束解析は凸性仮定に頼る。CBO は単一目的の大域最適化で、所属を知らずに K 個の最小点を同時に求める設定は扱えなかった。",
+      "s3": "クラス k の粒子は全粒子を exp(−αL_k) で重み付けた合意点 m_k へ引かれ、局所勾配 −λ₂∇L_k と雑音が加わる。他クラスタの粒子は L_k が大きく重みが小さいので、所属を知らずに群内合意が生じる（Thm 2.1–2.3）。",
+      "s4": "回転 MNIST（4 クラスタ, N=1200 クライアント, 100 ラウンド, 5 シード）で平均精度 96.51%、IFCA 94.44%、FedAvg 85.50%、ローカル学習 81.27%（Table 1）。ε-greedy 選択による同一クラスタの選択率はオラクル値にほぼ一致（Fig.3）。",
+      "s5": "著者：ε 到達後の長時間挙動、有限粒子系の直接解析、同一クラスタ内で損失が異なる現実的設定は未解決。\n所感：理論条件 2λ₁>2λ₂M+dσ₁²+… は通信回数の多さを意味し、実装は分割スキームで理論から離れる。CB2O の頑健連合学習へ発展した。",
+      "s6": "・CB2O (García Trillos+ 2024)（本資料）\n・Defending Against Diverse Attacks in Federated Learning Through Consensus-Based Bi-Level Optimization (García Trillos+ 2024)（未調査）\n・Efficient Clustered Federated Learning: IFCA (Ghosh+ 2020)（未調査）",
+      "figure": {
+        "file": "figures/fedcbo.png",
+        "caption": "出典：FedCBO (Carrillo+ 2024) Fig.1（クラスタ型連合学習の概念図。端末の色が未知のクラスタ所属、サーバ経由でモデルをやり取りする）"
+      },
+      "notes": "arXiv 2305.02894v1 を読了（§3–5 の証明は要点のみ）。JMLR 25(214), 2024 は検索で確認。"
+    },
+    {
+      "title": "CB²O: Consensus-Based Bi-Level Optimization",
+      "short": "CB²O (García Trillos+ 2024)",
+      "authors": "Nicolás García Trillos, Sixu Li, Konstantin Riedl, Yuhua Zhu（UW-Madison / University of Oxford / UCLA）｜ arXiv プレプリント 2024",
+      "year": 2024,
+      "venue": "arXiv プレプリント 2024",
+      "link": "https://arxiv.org/abs/2411.13394",
+      "lineage": "発展",
+      "parent": "FedCBO (Carrillo+ 2024)",
+      "s1": "下位目的 L の大域最小点集合の中で上位目的 G を最小化する非凸の二層問題に対し、L の分位点で粒子を選抜してから G の Gibbs 重みで合意点を作る CB²O を提案。平均場解の存在と W₂ での指数収束を証明した。",
+      "s2": "勾配型二層最適化は下位問題の強凸性や PL 条件で解集合を単純化し、非凸・非連結な Θ を扱えない。罰則化 CBO などは緩和問題を解くだけ。CB²O は問題そのものを直接解き、L の単調変換にも不変。",
+      "s3": "合意点 m = ∫θ ω_α^G dI_β^L / ‖ω_α^G‖（I_β^L は L の下位 β 分位の粒子）。Thm 2.7：2λ>dσ² なら W₂²(ρ_t, δ_θ*) ≤ W₂²(ρ₀, δ_θ*)·e^{−(1−ϑ)(2λ−dσ²)t}。鍵は新たな「分位付き」定量的 Laplace 原理。",
+      "s4": "円制約付き 2 次元 Ackley で、同程度の計算時間なら CB²O（N=1500）の精度 1×10⁻³ が投影 CBO 1.8×10⁻³・罰則 CBO 9.3×10⁻³ を上回る（Table 2）。星形制約でも 3.2×10⁻³ で最良（Table 4）。MNIST の疎表現学習でも精度を保ちつつ特徴を疎にした（Fig.12）。",
+      "s5": "著者：分位選抜で合意点が Wasserstein 摂動に不安定なため、有限粒子系の適切性と平均場近似は未証明。選ばれない粒子が無駄になる。\n所感：分位重みは IGO の W_θ^f と同じ発想で、CBO と ES の接点が二層問題でも現れる。2026 年の SCB²O（滑らかな分位）が有限粒子保証を補った。",
+      "s6": "・Convergence of Consensus-Based Particle Methods for Nonconvex Bi-Level Optimization (Chao+ 2026)（参照のみ）\n・A multiscale Consensus-Based algorithm for multi-level optimization (Herty+ 2024)（未調査）\n・FedCBO (Carrillo+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/cb2o.png",
+        "caption": "出典：CB²O (García Trillos+ 2024) Fig.1（下位目的 L の分位集合（黄）に入った粒子だけで上位目的 G の合意点（赤）を作り、良い大域最小点（緑星）へ導く）"
+      },
+      "notes": "arXiv 2411.13394v2 を読了（§3, 4 の証明は概略のみ）。",
+      "scope": "全文（問題提起・手法・実験・考察。証明の細部は概略）"
+    },
+    {
+      "title": "Runtime Analysis of a Compact Genetic Algorithm on a Truly Multi-valued OneMax Function",
+      "short": "r-cGA on G-OneMax (Krejca & Witt 2026)",
+      "authors": "Martin S. Krejca, Carsten Witt（LIX, École Polytechnique / DTU Compute）｜ PPSN 2026",
+      "year": 2026,
+      "venue": "PPSN 2026",
+      "link": "https://arxiv.org/abs/2605.29477",
+      "lineage": "最新",
+      "parent": "IGO (Ollivier+ 2017)",
+      "s1": "r 値の compact GA（r-cGA, IGO の Bernoulli 版 cGA の多値拡張）が全 r 値に依存する G-OneMax を高確率で O(nr log³n log³r) 評価で最適化することを示し、従来の O(nr³ log²n log r) を r² 倍近く改善した。",
+      "s2": "多値 EDA の解析（Ben Jedidia+ 2024 ほか）は最適値かそれ以外かの 2 種しか区別しない関数に限られ、二値の解析と本質的に同じだった。真に多値な G-OneMax の既存上界（Adak & Witt 2025）は r³ に比例して悲観的だった。",
+      "s3": "主張（Thm 4）：r=O(n^{1/6−ε}), K ≥ c·r√n ln²n ln²r なら確率 1−O(1/√n) で O(K√n log n log r) 反復。各位置の頻度分布の質量を上半分の値区間へ移す段階を log r 回繰り返し、自己ループを許すドリフト定理で遺伝的浮動を抑える。",
+      "s4": "検証は証明のみ（数値実験なし）。主結果は最小の K で O(nr log³n log³r) で、二値 cGA の O(n log n)（Sudholt & Witt 2019）と多値 r-OneMax の上界に polylog 因子を除いて一致する。新しい道具として時間依存成功確率の Chernoff 型集中不等式（Thm 6）と畳み込みの補題（Lemma 1）を導入。",
+      "s5": "著者：r=O(n^{1/6−ε}) の制限は解析上の副産物とみられる。位置ごとに独立に扱うため log n 因子を失う。\n所感：IGO で cGA は自然勾配の離散化だが、ランタイム理論は IGO 構造を使わず頻度のドリフトで戦う。両者をつなぐ解析が欲しい。",
+      "s6": "・Multi-valued EDAs (Ben Jedidia+ 2024)（未調査）\n・Theory of EDAs (Krejca & Witt 2018)（参照のみ）\n・Update Strength in EDAs and ACO (Sudholt & Witt 2016)（参照のみ）",
+      "figure": {
+        "file": "figures/kw.png",
+        "caption": "出典：r-cGA on G-OneMax (Krejca & Witt 2026) Algorithm 1（r 値 cGA。2 個体を標本化し、勝者の値の頻度を 1/K 増やし敗者の値を 1/K 減らす。本論文は図なし）"
+      },
+      "notes": "arXiv 2605.29477v2 を読了（§1–3, 5 と §4 の構成。付録の証明は未精読）。PPSN 2026 は Crossref で確認。",
+      "scope": "本文全文（問題提起・定理・証明概要・考察。付録の証明は概略、実験なし）"
+    },
+    {
+      "title": "Beyond IGO-Flow: Toward Convergence Analysis of IGO in Continuous Spaces",
+      "short": "Beyond IGO-Flow (Kimura & Akimoto 2026)",
+      "authors": "Ryosuke Kimura, Youhei Akimoto（University of Tsukuba / RIKEN AIP）｜ PPSN 2026",
+      "year": 2026,
+      "venue": "PPSN 2026",
+      "link": "https://arxiv.org/abs/2606.17523",
+      "lineage": "最新",
+      "parent": "IGO (Ollivier+ 2017)",
+      "s1": "フル共分散適応・固定学習率 τ・分位重みをすべて保った離散時間 IGO（Gaussian, 期待値パラメータ）を強凸二次関数で解析し、共分散が 0 行列に収束すること、条件数の頻度仮定の下で平均が最適解に収束することを証明した。",
+      "s2": "IGO の収束理論は連続時間の IGO-flow（Glasmachers 2012 ほか）か、等方性・単純な重みの離散アルゴリズムに限られていた。実用の CMA-ES に近い「フル共分散×有限学習率×分位重み」を同時に扱った解析はなかった。",
+      "s3": "V(P_t)=E[f] が毎ステップ τ(1−q)√(μ₂/(L+3)) 以上減少（Prop 1, 2, L=15）し、Σ√μ_{t,(2)}<∞ から AC_t→O。平均は τ<τ_crit(q)=−Φ⁻¹(q)/λ_q と、Cond(AC_t)≤R となる頻度の仮定の下で背理法により m_t→0（Prop 3）。",
+      "s4": "d=10, A=diag(1,…,10⁴), q=0.3 の数値例（Fig.1）。平均誤差が小さい初期化では Cond(√A C_t √A) が速やかに 1 に近づき仮定は成立。平均誤差が大きい初期化では τ=0.5, 0.9 で条件数が 10¹³ 超まで悪化するが、τ≤0.15 なら最終的に 1 近くに戻る。",
+      "s5": "著者：平均の収束は条件数の仮定付きで、無条件の保証が残る課題。解析は無限個体の決定論モデル。\n所感：τ_crit は Ollivier+ 2017 の IGO-ML の臨界学習率と同じ式で、15 年越しに「経験則の数値」が定理の条件になった。CMA-ES の進化パスは依然として範囲外。",
+      "s6": "・IGO (Ollivier+ 2017)（本資料）\n・An ODE method to prove the geometric convergence of adaptive stochastic algorithms (Akimoto+ 2022)（未調査）\n・Natural Gradient Interpretation of Rank-One Update in CMA-ES (Hamano+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/beyond_igo.png",
+        "caption": "出典：Beyond IGO-Flow (Kimura & Akimoto 2026) Fig.1（上：スケール済み共分散の条件数、下：平均誤差と Tr(AC_t)。左は平均誤差が小さい初期化、右は大きい初期化）"
+      },
+      "notes": "arXiv 2606.17523v1 を全文読了（付録 B の厳密証明は概略のみ）。"
+    },
+    {
+      "title": "Bridging Spherical Black-Box Optimizers",
+      "short": "Bridging ES/OVI/CBO (Ackermann & Peluchetti 2026)",
+      "authors": "Johannes Ackermann, Stefano Peluchetti（The University of Tokyo / Sakana AI）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2606.25761",
+      "lineage": "最新",
+      "parent": "IGO (Ollivier+ 2017)",
+      "s1": "ES（NES）・OVI・Consensus Hopping・CBO・polarized/clustered CBO・Diffusion Evolution を一つの「マスター更新式」の特殊例として統一し、CH≡OVI の同値性を示した。その知見から ES-OVI と CBO-OVI 混成（AdaPol, SchedPol）を提案した。",
+      "s2": "パラメトリック（ES/OVI）と粒子型（CBO）はそれぞれ勾配降下との関係が調べられてきたが、互いの関係は未整理だった。著者によれば OVI・CBO・DiffEvo は IGO の枠組みにも入らない。",
+      "s3": "x_{t+1}ⁱ = μ_t x_tⁱ + λ_t m_tⁱ + σ_t s(x_tⁱ−m_tⁱ)ε、mⁱ は Ψ(F(xʲ))K^{ij} で重み付けた平均。違いは適応度の集約 Ψ（期待値か log-sum-exp か＝平坦解か鋭い解か）と合意の範囲 K（大域か局所か＝単峰か多峰か）の 2 軸に集約される（Table 1）。",
+      "s4": "BBOB 23 問（2D, 10 シード）、Brax 4 タスク（d≈1000）、Mistral 7B 系 4 モデルの統合（33 次元, MGSM）で評価。OVI は Brax で CMA-ES と同等、AdaPol は他の CBO 変種より高次元で強い（Fig.4）。ES-OVI は α=0.75 がタスク横断で良く、ES と OVI の間で頑健性と性能を調整できる（Fig.6, 7）。",
+      "s5": "著者：ES の厳密な対応は対称（antithetic）サンプリングが前提。モデル統合は訓練部分集合への過学習で Akiba+ 2025 に及ばない。\n所感：統一は等方 Gaussian の範囲で、共分散適応（CMA-ES）は統一式の外に残る。理論保証より設計空間の地図として価値が高い。",
+      "s6": "・From CBO to ES: Proof of Global Convergence (Fornasier+ 2026)（既存：cbo-mean-field）\n・CBO for closed-box adversarial attacks and a connection to ES (Roith+ 2025)（参照のみ）\n・Gradient-free optimization via integration (Andrieu+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/bridge_t1.png",
+        "caption": "出典：Bridging ES/OVI/CBO (Ackermann & Peluchetti 2026) Table 1（マスター更新式の各手法での具体化。鋭さ Ψ、相互作用 K、移送 (μ,λ)、雑音の 4 要素で違いを表す）"
+      },
+      "notes": "arXiv 2606.25761v1 本文（§1–7）を読了、付録は A.5（CH≡OVI）のみ確認。"
+    },
+    {
+      "title": "Exploiting Structure with Anisotropic Consensus-Based Optimization",
+      "short": "Structure-exploiting aniso CBO (Bonandin+ 2026)",
+      "authors": "Sabrina Bonandin, Konstantin Riedl, Sara Veneruso（RWTH Aachen / Oxford / Ferrara）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2607.10205",
+      "lineage": "最新",
+      "parent": "Anisotropic CBO (Fornasier+ 2022)",
+      "s1": "目的関数が座標ブロックごとの和 E(x)=Σ E_ℓ(B_ℓᵀx) に分かれるとき、異方性 CBO の計算量が外在次元 D ではなく内在次元 d=max d_ℓ にだけ指数的に依存することを、実装可能な離散時間・有限粒子の CBO について高確率で証明した。",
+      "s2": "既存の CBO 大域収束（Fornasier+ 2022, 2024 ほか）は E 全体の扱いやすさ条件の下で α₀ が D とともに増え、次元の呪いを避けられない。一つの成分だけが難しい場合も全体の最悪定数で評価され、構造を活かせなかった。",
+      "s3": "主張（Thm 1.2/3.8）：確率 (1−δ₁)^L−δ₂ 以上で ‖(1/N)Σ X_{HΔt}ⁱ − x*‖_∞ ≤ ε_total。必要な α₀=max_ℓ α_{0,ℓ} は O(d² log d) で D に依存せず、各成分の局所幾何（η_ℓ, Λ_ℓ）だけで決まる。",
+      "s4": "Rastrigin をブロック対角回転で結合し内在次元を変えた D=4（100 試行）・D=8（50 試行）で、(α, N) ごとの成功率（|E(x_α)−E*|<0.25）を比較。異方性 CBO は d が増えるほど成功領域が縮み（Fig.5, 7）、等方性 CBO は回転の有無で差がない（Fig.6, 8）。",
+      "s5": "著者：効果は雑音の座標軸と分離構造がそろうときに限る。雑音の向きを最適化中に構造へ合わせて学習する手法が今後の課題。\n所感：これは CMA-ES の共分散適応そのものの動機で、「CBO に共分散適応を入れる」理論の入口。回転に弱い点を認めた誠実な結果。",
+      "s6": "・Strong Global Convergence of the CBO Algorithm (Bonandin+ 2025)（未調査）\n・Anisotropic CBO (Fornasier+ 2022)（本資料）\n・Consensus Based Sampling (Carrillo+ 2022)（既存：cbo-mean-field）",
+      "figure": {
+        "file": "figures/bonandin.png",
+        "caption": "出典：Structure-exploiting aniso CBO (Bonandin+ 2026) Fig.1 / Fig.7（D=8 の Rastrigin で (α, N) ごとの成功率。左：完全分離 d=1、右：内在次元 d=7。成功領域が縮む）"
+      },
+      "notes": "arXiv 2607.10205v1 の §1–3, 5, 6 を読了、§4 の補題の証明は未精読。",
+      "scope": "全文（問題提起・手法・実験・考察。証明の細部は概略）"
+    },
+    {
+      "title": "Provable Speedups From Dynamic Population Sizes in Evolutionary Algorithms for Multiobjective Optimization",
+      "short": "NSGA-II-DYN (Opris 2026)",
+      "authors": "Andre Opris（University of Passau）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2607.23800",
+      "lineage": "最新",
+      "parent": "NSGA-II runtime (Zheng & Doerr 2022)",
+      "s1": "個体数を μ_{t+1}=min{μ_t+λ_t, 4|S_t|} と動的に変える NSGA-II-DYN を提案し、新しい 2 目的問題 CLIMB で GSEMO と NSGA-II-DYN が O(n log n) 評価、固定個体数の NSGA-II が Ω(n^1.5) 評価を要することを示した。",
+      "s2": "実務では動的個体数が有効とされるが、ランタイム理論の裏づけはほぼなく、LOTZ・OneMinMax など従来ベンチマークでは GSEMO と NSGA-II の評価回数は同オーダーだった。GSEMO が NSGA-II に超定数倍勝つ例は知られていなかった。",
+      "s3": "CLIMB は前半ビットで山登り、後半で 2 目的が対立し、フロントの大きさは 2√n+1。固定 μ≥2√n+1 では低品質個体に評価を浪費する。下界（Thm 10）：Witt 2006 の family-tree 法で Ω(μn) 評価、上界（Thm 8）：ハミング距離の総和のドリフトと典型実行法。",
+      "s4": "検証は証明のみ（実験なし）。主結果は、GSEMO と NSGA-II-DYN が O(n ln n)（Thm 8）、固定 μ・λ の NSGA-II が Ω(μn)=Ω(n^1.5)（Thm 10）で、速度向上は Ω(√n/log n)。定常状態型（λ 小）と標準版（μ=λ）の両方を含む。",
+      "s5": "著者：解析は CLIMB のみで、より複雑な問題での効果や指数的な速度向上の可能性、別の個体数更新則は未検討。\n所感：「到達は難しく被覆は易しい」問題を作って差を示す手法は巧み。CBO の粒子数 N の選び方（平均場誤差と計算量）にも通じる問い。",
+      "s6": "・NSGA-II runtime (Zheng & Doerr 2022)（本資料）\n・NSGA-III tight runtime bounds (Opris 2025)（参照のみ）\n・SPEA2+ (Dang+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/opris.png",
+        "caption": "出典：NSGA-II-DYN (Opris 2026) Algorithm 1（動的個体数 NSGA-II。g_t で個体数、h_t で子数を世代ごとに決める。本論文は図なし）"
+      },
+      "notes": "arXiv 2607.23800v1 の本文（§1–5）を読了、付録の補題証明は未精読。",
+      "scope": "本文全文（問題提起・定理・証明概要・考察。付録の証明は概略、実験なし）"
+    }
+  ]
+}

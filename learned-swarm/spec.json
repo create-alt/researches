@@ -1,0 +1,216 @@
+{
+  "field": "群知能",
+  "theme": "学習型群知能と、学習器・古典的探索の役割分担",
+  "date": "2026-10-24",
+  "summary": "DE・ACO・MCTSの制御則やヒューリスティックを学習するとき、どこを学習器に任せ、どこを古典的探索に残すか。\nDEの演算子・アルゴリズム選択（DE-DDQN→RL-DAS→RLDE-AFL）と、ヒートマップ＋MCTS（Att-GCN→DIMES→DIFUSCO/UTSP）を追う。2024年以降は、SoftDist、GT-Prior、同予算の静的調整との比較で、学習の寄与が再評価されている。",
+  "papers": [
+    {
+      "title": "Deep Reinforcement Learning Based Parameter Control in Differential Evolution",
+      "short": "DE-DDQN (Sharma+ 2019)",
+      "authors": "Mudita Sharma, Alexandros Komninos, Manuel López-Ibáñez, Dimitar Kazakov（University of York）｜ GECCO 2019",
+      "year": 2019,
+      "venue": "GECCO 2019",
+      "link": "https://arxiv.org/abs/1905.08006",
+      "lineage": "原典",
+      "s1": "DEの変異戦略4種のどれを使うかを、オフライン学習したDouble DQNが世代・個体ごとに選ぶDE-DDQNを提案。未知の関数で固定戦略とランダム選択に有意に勝ち、平均順位はIPOP-CMA-ESに次ぐ2位だった。",
+      "s2": "従来のRL型の適応的演算子選択（PM-AdapSS、F-AUC、Q学習、SARSA）は、少数の特徴を使い実行中に学ぶ。本研究は多数のDE実行から方策をオフラインで学び、未知の問題に持ち込む。後のMetaBBOの原型。",
+      "s3": "状態は99次元：適応度の統計、残り予算、停滞、親と参照解の距離、演算子ごとの成功率・改善量の履歴。行動は変異戦略の選択で、F=0.5・CR=1.0は固定。報酬R2（最良更新10／親より改善1／他0）が最良。",
+      "s4": "CEC2005の16関数×{10,30}次元で学習し、未使用の5関数×2次元で試験。平均順位はIPOP 2.3、DDQN2 3.3、RecPM 4.4、Random 10.5（Table 4）。有意差は固定戦略・ランダムに対してだけ（Table 5）。学習に約6×10^8評価を使った。",
+      "s5": "著者：F16・F23の30次元では解がばらつき、高次元の多峰関数でNNが迷う。再起動の導入が課題。\n所感：既存AOSとは有意差がなく、試験は10問のみ。学習に任せたのは演算子選択だけで、F・CR・再起動は手設計のまま。",
+      "s6": "・RL-DAS (Guo+ 2024)（本資料）\n・LDE: Learning Adaptive DE (Sun+ 2021)（未調査）\n・GLEET (Ma+ 2024)（既存：deep-learning-fusion）",
+      "figure": {
+        "file": "figures/sharma2019_fig1.png",
+        "caption": "出典：DE-DDQN (Sharma+ 2019) Fig. 1（一部：F3・F9の10/30次元。25試行の誤差をDE-DDQN2・RecPM-AOS・PM-AdapSSで比較）"
+      },
+      "notes": "本文（1〜6章、Table 1〜5、Fig. 1）を読了。採録はGECCO '19（本文の ACM 表記による）。"
+    },
+    {
+      "title": "Generalize a Small Pre-trained Model to Arbitrarily Large TSP Instances",
+      "short": "Att-GCN+MCTS (Fu+ 2021)",
+      "authors": "Zhang-Hua Fu, Kai-Bin Qiu, Hongyuan Zha（CUHK-Shenzhen・AIRS）｜ AAAI 2021",
+      "year": 2021,
+      "venue": "AAAI 2021",
+      "link": "https://arxiv.org/abs/2012.10658",
+      "lineage": "原典",
+      "s1": "小規模TSPで教師あり学習したAtt-GCRNを部分グラフに繰り返し適用し、辺のヒートマップを合成する。それを事前分布にしてk-optのMCTSで巡回路を改善する「ヒートマップ＋MCTS」の起点。TSP10000でLKH3比4.39%。",
+      "s2": "教師あり学習（Joshi+ 2019のGCN＋ビームサーチ）は訓練と違う規模に汎化せず、大規模の正解ラベルも高価。AM（Kool+）などRL構築法はTSP1000でgap 85%超。学習は小規模に限り、規模の壁は探索側で越える。",
+      "s3": "kNNで部分グラフを抽出し、座標を正規化して部分ヒートマップを作り、重なり回数で平均する（P<1e-4の辺は除外）。MCTSは完全巡回路を状態とし、k-opt行動を Z=W/Ω+α√(ln(M+1)/(Q+1)) で選んで、改善時にWを強化する。",
+      "s4": "TSP20/50/100 の gap は 0.00/0.01/0.04%、TSP200〜1000 は 0.88〜3.22% で既存の学習法すべてに勝つ（Table 1–2）。TSP10000 で 4.39%（AM 系は 80% 超）。全辺等確率の MCTS 単独は gap 108〜2074%（Table 4）。",
+      "s5": "著者：学習ベースなのでLKH3に厳密に勝つことは狙わず、α-nearness・POPMUSICなどの手設計規則も避けた。\n所感：Table 4の「ヒートマップなし」は全辺を候補にしており、k近傍の候補集合という古典的前提まで外している。後のSoftDist・GT-Priorはこの比較の甘さを突いた。",
+      "s6": "・DIMES (Qiu+ 2022)（本資料）\n・Position: Rethinking Post-Hoc Search (Xia+ 2024)（本資料）\n・Targeted sampling MCTS for TSP (Fu+ 2019)（未調査）",
+      "figure": {
+        "file": "figures/fu2021_fig1.png",
+        "caption": "出典：Att-GCN+MCTS (Fu+ 2021) Fig. 1（部分グラフのサンプリング→Att-GCRN→ヒートマップ統合→MCTS）"
+      },
+      "notes": "arXiv 版（AAAI 本体、Table 1〜4）を読了。Att-GCRN の構造の詳細は full version に回されている。"
+    },
+    {
+      "title": "DIMES: A Differentiable Meta Solver for Combinatorial Optimization Problems",
+      "short": "DIMES (Qiu+ 2022)",
+      "authors": "Ruizhong Qiu, Zhiqing Sun, Yiming Yang（UIUC・Carnegie Mellon University）｜ NeurIPS 2022",
+      "year": 2022,
+      "venue": "NeurIPS 2022",
+      "link": "https://arxiv.org/abs/2210.04123",
+      "lineage": "発展",
+      "parent": "Att-GCN+MCTS (Fu+ 2021)",
+      "s1": "解の分布を辺ごとの連続パラメータθ（ヒートマップ）で表し、REINFORCEとMAML型のメタ学習でGNNを訓練するDIMESを提案。ラベルなしでTSP10000まで直接学習でき、RL+AS+MCTSでTSP500/1000/10000のgapは1.76/2.46/3.19%。",
+      "s2": "自己回帰型の構築RL（AM、POMO）は、復号コストと疎な報酬のため数百ノードが限界。Fu+ 2021は教師ありで、大規模ラベルが高価。DIMESは並列サンプリングでREINFORCEの分散を下げ、大規模グラフで直接訓練する。",
+      "s3": "p_θ(f)∝exp(Σf_iθ_i) を、一様な始点とθ_ijのsoftmaxで逐次サンプルする補助分布qで近似し、∇E_q[c]=E_q[(c−b)∇log q] で学習する。メタ学習では、事例ごとの微調整（active search）に向く初期値を学ぶ。",
+      "s4": "TSP500/1000/10000（Fu+の試験集合）のgapは、RL+Gで14.4/15.0/20.4%、RL+MCTSで1.93/2.64/3.98%（Table 1）。TSP1000でMCTSに渡すヒートマップを替えると、長さは一様乱数25.52、近傍順位1/(r+1) 24.14、Att-GCN 23.86、DIMES 23.69（Table 2d）。",
+      "s5": "著者：θを一度に生成するため推論力が限られ、MISではLwDに負ける。多値変数（MIP）への拡張は自明でない。\n所感：学習単体（G）のgapは14%台で、品質の大半はMCTSが生む。近傍順位だけのヒートマップとの差は約2%で、後のSoftDist論争の伏線になった。",
+      "s6": "・DIFUSCO (Sun & Yang 2023)（本資料）\n・UTSP (Min+ 2023)（本資料）\n・Learning TSP Requires Rethinking Generalization (Joshi+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/dimes2022_tab2.png",
+        "caption": "出典：DIMES (Qiu+ 2022) Table 2（TSP-1000のアブレーション。(d)はMCTSに渡すヒートマップの比較）"
+      },
+      "notes": "本文（1〜5章、Table 1〜3）を読了。付録（復号法・GNN構造・収束の証明）は要点のみ確認。"
+    },
+    {
+      "title": "DIFUSCO: Graph-based Diffusion Solvers for Combinatorial Optimization",
+      "short": "DIFUSCO (Sun & Yang 2023)",
+      "authors": "Zhiqing Sun, Yiming Yang（Carnegie Mellon University）｜ NeurIPS 2023",
+      "year": 2023,
+      "venue": "NeurIPS 2023（Spotlight）",
+      "link": "https://arxiv.org/abs/2302.08224",
+      "lineage": "発展",
+      "parent": "DIMES (Qiu+ 2022)",
+      "s1": "組合せ最適化の解を{0,1}ベクトルとし、異方性GNNの離散拡散モデルでヒートマップを生成するDIFUSCOを提案。MCTSと組み合わせて、TSP500/1000/10000のgapを1.76→0.46%、2.46→1.17%、3.19→2.58%に縮めた。",
+      "s2": "自己回帰型は逐次復号のため大規模化できない。従来のヒートマップ型は変数間の条件付き独立を仮定し、多峰な解分布を表せない。DIFUSCOはDIMESのRLと違い、教師ありの雑音除去で安定に学び、反復で多峰性を扱う。",
+      "s3": "Bernoulli雑音の離散拡散 q(x_t|x_{t−1})=Cat(x̃Q_t) の逆過程を、x_0を予測するGNNで学習する。推論はcosineスケジュールで約50ステップに間引き、最終確率をヒートマップとして貪欲復号＋2-optかMCTSに渡す。大規模ではk近傍に疎化。",
+      "s4": "Table 2：TSP500のgapは貪欲10.85%→＋2-opt 1.49%→MCTS 0.46%、TSP10000は36.75%→3.10%→2.58%。離散拡散は連続拡散より一貫して良い（Fig. 1）。TSP50で学習したモデルが10000都市でも機能する（Fig. 3）。MISのSATLIBでgap 0.21%。",
+      "s5": "著者：ERグラフのMISでは振るわない（辺ベースGNNの帰納バイアスのため）。今後は等変GNNと高速推論。\n所感：2-optだけでgapが1/7になる。学習と探索の寄与は分けて評価すべき。LKH-3でのラベル作成や、TSP10000で28分かかる生成時間も、後に争点になった。",
+      "s6": "・Position: Rethinking Post-Hoc Search (Xia+ 2024)（本資料）\n・Beyond the Heatmap (Pan+ 2025)（本資料）\n・HeatACO (Lin+ 2026)（既存：aco-neural）",
+      "figure": {
+        "file": "figures/difusco2023_tab2.png",
+        "caption": "出典：DIFUSCO (Sun & Yang 2023) Table 2（大規模TSP。G=貪欲、S=サンプリング、+2-OPT、MCTSで復号を変えた比較）"
+      },
+      "notes": "本文（1〜6章、Table 1〜3、Fig. 1〜3）を読了。付録の高速推論・MIPの議論は要点のみ確認。"
+    },
+    {
+      "title": "Unsupervised Learning for Solving the Travelling Salesman Problem",
+      "short": "UTSP (Min+ 2023)",
+      "authors": "Yimeng Min, Yiwei Bai, Carla P. Gomes（Cornell University）｜ NeurIPS 2023",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "link": "https://arxiv.org/abs/2303.10538",
+      "lineage": "発展",
+      "parent": "Att-GCN+MCTS (Fu+ 2021)",
+      "s1": "ラベルも報酬サンプリングも使わず、代理損失だけでGNN（SAG）を訓練してヒートマップを作り、ヒートマップ誘導の局所探索で解くUTSPを提案。パラメータ約10%、訓練事例約0.2%（2000件）で、TSP200/500/1000のgapは0.09/0.84/1.18%。",
+      "s2": "教師あり（Fu+、DIFUSCO）は大規模の最適解ラベルが高価で、RL（DIMES、AM）は疎な報酬で学習が不安定。UTSPは解を復号せず、微分可能な損失で学ぶ。低域通過のGCNは過平滑化し、区別のつかないヒートマップになることも示した。",
+      "s3": "列softmaxの行列Tから巡回置換型の H=Σ_t p_t p_{t+1}^T を作り、L=λ1Σ_i(Σ_j T_ij−1)^2+λ2Σ_i H_ii+Σ D_ij H_ij を最小化する。上位M辺に絞り、ヒートマップかM近傍を候補とするbest-first k-opt探索でHを更新する。",
+      "s4": "TSP20〜100は最適解と一致（Table 1–2）。TSP500/1000のgapは0.84/1.18%（DIFUSCO 0.46/1.17%、Att-GCN 2.54/3.22%、Table 3）。TSP100では上位10辺が最適辺の99.76%を覆い、候補は4950→583辺に減った。GCNは33.9%しか覆わない（Fig. 4）。",
+      "s5": "著者：代理損失が解の質を測るという理論保証はない。今後は辺特徴を持つGNNや別の損失を試す。\n所感：探索は候補集合をヒートマップとM近傍の間で乱数で切り替えるため、学習の寄与だけを分離できない。規模ごとの探索設定と時間計測の扱いは、Xia+とMinの論争点になった。",
+      "s6": "・On Size and Hardness Generalization in UL for TSP (Min & Gomes 2024)（未調査）\n・Position: Rethinking Post-Hoc Search (Xia+ 2024)（本資料）\n・Comment on SoftDist (Min 2024)（参照のみ）",
+      "figure": {
+        "file": "figures/min2023_fig1.png",
+        "caption": "出典：UTSP (Min+ 2023) Fig. 1（GNNが出す軟らかい指示行列Tを T→H 変換してハミルトン閉路のヒートマップにする）"
+      },
+      "notes": "本文（1〜7章、Table 1〜3、Fig. 1〜4）を読了。付録C（Fu+ との比較）・D（T→H の証明）は要点のみ確認。"
+    },
+    {
+      "title": "Deep Reinforcement Learning for Dynamic Algorithm Selection: A Proof-of-Principle Study on Differential Evolution",
+      "short": "RL-DAS (Guo+ 2024)",
+      "authors": "Hongshu Guo, Yining Ma, Zeyuan Ma, Jiacheng Chen ほか（South China University of Technology）｜ IEEE TSMC: Systems 2024",
+      "year": 2024,
+      "venue": "IEEE TSMC: Systems 2024",
+      "link": "https://arxiv.org/abs/2403.02131",
+      "lineage": "発展",
+      "parent": "DE-DDQN (Sharma+ 2019)",
+      "s1": "CEC2021上位の3つのDE（JDE21、MadDE、NL-SHADE-RSP）を部品とし、2500評価ごとにどれを走らせるかをPPOの方策が選ぶRL-DASを提案。拡張CEC2021の10D・20Dで、各単体と事例ごとの最良選択（AS*）を上回った。",
+      "s2": "静的アルゴリズム選択は1問題に1手法を割り当てるだけで、探索途中の補完性を使えない。DE-DDQN・LDEなどRL支援DEは1つのDE内の演算子や係数の制御にとどまり、試験関数も少なかった。RL-DASは熟練の手設計アルゴリズムを丸ごと選ぶ。",
+      "s3": "状態はランドスケープ特徴9個（FDC、分散差、NSCなど）と、各アルゴリズムが最良・最悪個体を動かした平均シフトベクトル。報酬はコスト減少率×(MaxFEs/終了FEs)。切替時は各DEの適応パラメータやアーカイブを文脈メモリから復元する。",
+      "s4": "CEC2021の10関数をシフト・回転で各2048事例に拡張（Table 2–3）。10Dではランダム切替に7勝4分0敗、AS*に7勝3分1敗、DE-DDQN・LDEに9勝2分0敗。ただし混合クラスC11の降下率はRL-DAS 93.94%、ランダム切替93.69%、MadDE 93.71%と僅差。",
+      "s5": "著者：状態表現は手設計で、複雑なアルゴリズムの組込みも難しい。切替は2500評価ごとが最適で、毎世代の切替は大きく悪化（Fig. 4）。\n所感：ランダム切替でも単体DEに勝つ。性能の多くは古典DEの補完性と文脈復元から来ている。学習器を指揮役に限った分担は一つの答え。",
+      "s6": "・RLDE-AFL (Guo+ 2025)（本資料）\n・ConfigX (Guo+ 2024)（未調査）\n・MetaBox-v2 (Ma+ 2025)（既存：metabbo）",
+      "figure": {
+        "file": "figures/guo2024_fig1.png",
+        "caption": "出典：RL-DAS (Guo+ 2024) Fig. 1（状態特徴から方策がアルゴリズムプールの1つを選び、区間ごとに集団を進める）"
+      },
+      "notes": "本文（1〜6章、Table 2〜8、Fig. 1〜4）を読了。補足資料（方策の分析）は未確認。"
+    },
+    {
+      "title": "Position: Rethinking Post-Hoc Search-Based Neural Approaches for Solving Large-Scale Traveling Salesman Problems",
+      "short": "SoftDist / Position (Xia+ 2024)",
+      "authors": "Yifan Xia, Xianliang Yang, Zichuan Liu, Zhihao Liu, Lei Song, Jiang Bian（Nanjing University・Microsoft Research Asia）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024（Position）",
+      "link": "https://arxiv.org/abs/2406.03503",
+      "lineage": "最新",
+      "parent": "DIFUSCO (Sun & Yang 2023)",
+      "s1": "ヒートマップ＋MCTS（Att-GCN、DIMES、UTSP、DIFUSCO）を再評価したポジション論文。距離行列にsoftmaxをかけただけのSoftDist（パラメータはτのみ）が多くの学習ヒートマップに勝ち、同じ条件ではMCTSがLKH-3に大きく劣ると示した。",
+      "s2": "既存手法は、MCTSを含まない代理損失（教師あり・教師なし・RL）でヒートマップを学ぶ。訓練と試験の目的がずれ、本当にMCTSを助けるかは未検証だった。MCTS（C++・CPU）とLKH-3を同じ条件で比べた研究もなかった。",
+      "s3": "SoftDist：Φ_ij=exp(−d_ij/τ)/Σ_k exp(−d_ik/τ)。τだけを、MCTS込みの真の目的（巡回路長）で格子探索する。評価指標 Score=Gap_LKH3/Gap_MCTS は、同じハードウェア・同じ時間でのLKH-3に対する相対効率を表す。",
+      "s4": "既定MCTS（Table 1）でのgap：SoftDist 1.44/2.20/3.13%（TSP500/1000/10000）。Att-GCN 1.64/2.37/3.80%、DIMES 1.77/2.44/3.23%に勝ち、DIFUSCO（0.51/1.18/2.77%）とはパレート上で並ぶ。Scoreは0.35〜33.8%（Table 2）。全0のヒートマップでもTSP1000で1.85%（Table 3）。",
+      "s5": "著者：MCTSのような問題特化の後処理に頼るのは、汎用・自律的な解法というMLの目的に反する。\n所感：Min 2024の反論は、同じ時間ならUTSPがSoftDistに勝つ（1.65 vs 1.73%）と時間計測の不公平を指摘した。学習器と探索器を同条件で比べるという論点を立てた点が貢献。",
+      "s6": "・Beyond the Heatmap (Pan+ 2025)（本資料）\n・Comment on SoftDist (Min 2024)（参照のみ）\n・HeatACO (Lin+ 2026)（既存：aco-neural）",
+      "figure": {
+        "file": "figures/xia2024_fig1.png",
+        "caption": "出典：Position (Xia+ 2024) Fig. 1（ヒートマップ生成時間と解コストのパレート。SoftDistを加えると前線が下がる）"
+      },
+      "notes": "本文（1〜7章、Table 1〜3、Fig. 1〜4）を読了。付録A（τの格子探索）・B（Min+ 設定での時間推移）は要点のみ。反論 arXiv:2406.09441 も全文（4頁）を確認。"
+    },
+    {
+      "title": "Reinforcement Learning-based Self-adaptive Differential Evolution through Automated Landscape Feature Learning",
+      "short": "RLDE-AFL (Guo+ 2025)",
+      "authors": "Hongshu Guo, Sijie Ma, Zechuan Huang ほか（South China University of Technology）｜ GECCO 2025",
+      "year": 2025,
+      "venue": "GECCO 2025",
+      "link": "https://arxiv.org/abs/2503.18061",
+      "lineage": "最新",
+      "parent": "RL-DAS (Guo+ 2024)",
+      "s1": "手設計の状態特徴をやめ、集団と評価値から注意機構（NeurELA）で特徴を学ぶ。そのうえで、14の変異・3の交叉演算子とそのパラメータを個体ごとにPPOで同時制御するRLDE-AFLを提案。BBOB 16関数で、従来DEとRL型DEの11手法を上回った。",
+      "s2": "既存のMetaBBO（DE-DDQNの99次元、RL-DASのランドスケープ特徴、GLEET）は状態設計に専門知識が要り、追加評価を使うものもある。演算子プールも小さく、選択か係数制御の片方だけだった。本手法は特徴設計と構成空間の両方を学習側へ移す。",
+      "s3": "観測は次元ごとの(x, 仮数, 指数)。評価値を仮数・指数で表し、問題間のスケール差を吸収する。解方向と次元方向の2段の自己注意で個体ごとの埋め込みを作り、アクターが変異・交叉の種類（カテゴリ分布）とパラメータ（正規分布）を出す。",
+      "s4": "BBOB 24関数（10D）のうち8関数で学習し、残り16関数で試験（Table 1）。勝/負/分はNL-SHADE-LBCに9/4/3、DE-DDQNに8/6/2、ランダム行動に13/2/1。20D、評価2000回、タンパク質ドッキングにもゼロショットで転移し、GLEETと同等以上（Fig. 4）。",
+      "s5": "著者：特徴抽出器と方策を同時に学ぶことが鍵。GLEETの手設計特徴に替えると性能が下がる（Table 3）。\n所感：その差は累積報酬0.9645対0.9512と小さく、NL-SHADE-LBCに4関数で負ける。ランダムに演算子を混ぜても素のDEに勝つので、学習とプール多様性の寄与を分けたい。",
+      "s6": "・Neural Exploratory Landscape Analysis (Ma+ 2024)（未調査）\n・MetaBox-v2 (Ma+ 2025)（既存：metabbo）\n・When does learning pay off? (Mencaroni+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/guo2025_fig1.png",
+        "caption": "出典：RLDE-AFL (Guo+ 2025) Fig. 1（NeurELA の特徴から方策が変異・交叉とそのパラメータを決める2層構造）"
+      },
+      "notes": "本文（1〜6章、Table 1〜3、Fig. 1〜4）を読了。付録（演算子一覧、train/test 分割、AEI）は要点のみ。"
+    },
+    {
+      "title": "Beyond the Heatmap: A Rigorous Evaluation of Component Impact in MCTS-Based TSP Solvers",
+      "short": "Beyond the Heatmap (Pan+ 2025)",
+      "authors": "Xuanhao Pan, Chenguang Wang, Chaolong Ying, Ye Xue, Tianshu Yu（CUHK-Shenzhen）｜ ICLR 2026",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2411.09238",
+      "lineage": "最新",
+      "parent": "SoftDist / Position (Xia+ 2024)",
+      "s1": "ヒートマップ＋MCTSの性能を決めるのは、ヒートマップの複雑さかMCTSの設定かを検証した評価研究。MCTSを手法ごとに調整すると、k近傍の統計だけで作るGT-Prior（パラメータ不要）が学習ヒートマップと同等以上で、規模・分布の変化にも頑健。",
+      "s2": "Fu+ 2021以降の研究はヒートマップ生成（DIMES、DIFUSCO、UTSP）の高度化に集中し、MCTSは既定設定のまま比べられてきた。SoftDist（Xia+ 2024）は単純なヒートマップの強さを示したが、MCTS側の寄与は定量化していなかった。",
+      "s3": "MCTSの6パラメータ（α、β、最大k、候補数、シミュレーション数、候補をヒートマップで作るか）をヒートマップ・規模ごとに格子探索し、SHAPで重要度を分解する。GT-Priorは最適巡回路でk番目近傍が選ばれる頻度P̂_N(k)をそのまま辺確率にする。",
+      "s4": "同じヒートマップでも、MCTS設定でgapはDIMESのTSP10000で4.86〜91.31%と変わる（Fig. 2）。調整後のTSP500/1000/10000：GT-Prior 0.50/0.85/2.13%、DIFUSCO 0.33/0.53/2.36%、Zero 0.66/1.16/3.79%（Table 1）。TSP500で学習した場合、10000でDIFUSCOは5.27%に劣化（Table 2）。",
+      "s5": "著者：最適巡回路の辺は94%超が上位5近傍に入る。重要なのは候補数と最大深さ。調整のコストは学習と同程度。\n所感：同規模ではDIFUSCOが今も最良で、学習の価値は分布内の上積みに限られる。探索器を調整してから学習器を比べる手順は標準にすべき。",
+      "s6": "・Position: Rethinking Post-Hoc Search (Xia+ 2024)（本資料）\n・HeatACO (Lin+ 2026)（既存：aco-neural）\n・Connected by Construction / C2TSP (Sun+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/pan2025_fig2.png",
+        "caption": "出典：Beyond the Heatmap (Pan+ 2025) Fig. 2（ヒートマップ別・規模別のgap分布。緑=最良調整、赤×=最悪調整、星=既定MCTS）"
+      },
+      "notes": "arXiv v2（2025-05、v1 は 2024-11 の \"Rethinking the Heatmap + MCTS Paradigm\"）の本文（1〜6章、Table 1〜3、Fig. 1〜3）を読了。付録 D〜K は要点のみ。採録先 ICLR 2026 は proceedings.iclr.cc の掲載（検索結果）で確認。"
+    },
+    {
+      "title": "When does learning pay off? A study on DRL-based dynamic algorithm configuration for carbon-aware scheduling",
+      "short": "When does learning pay off? (Mencaroni+ 2026)",
+      "authors": "Andrea Mencaroni, Robbert Reijnen, Yingqian Zhang, Dieter Claeys（Ghent University）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.01886",
+      "lineage": "最新",
+      "parent": "DE-DDQN (Sharma+ 2019)",
+      "s1": "炭素考慮フローショップ用メメティックアルゴリズムの7パラメータを、PPOで毎世代制御するDRL-DACを作った。同じ12事例・400万反復の予算で静的チューニングと比べ、学習が得になる条件を調べた。既知型では差がなく、未知の大規模型でだけ最大3.2%勝った。",
+      "s2": "DRL-DACの研究（DE-DDQN、LDEなど）はCEC関数で既存手法を上回ったという報告が多く、同じ予算の静的チューニングとの比較や、いつ効くかの分析が欠けていた。先行するReijnen+のFJSP研究では、静的GAと有意差がなかった。",
+      "s3": "状態は最良・平均適応度、変動係数、残り予算、停滞の5次元で、事例に依存しないよう正規化する。行動は交叉・変異の頻度や強さなど7次元の連続値。報酬は後半の改善を重く見る二乗正規化改善量。静的側はOptuna（TPE）とiraceで同じ予算を使って調整。",
+      "s4": "既知型4データセット（各50事例×10試行）では3手法がほぼ同じで、M1T1の差は0.04%（Table 4）。未知型6データセットでは、M5T3で+0.3%、M10T3で+3.2%、M15T3で+2.3%（Table 5）。最も易しいM5T1では既定設定が最良。学習は約55時間、調整は約3日。",
+      "s5": "著者：類似度は記述的なもので、学習が効くかを事前に予測する基準ではない。方策は最初の約20世代だけ交叉パラメータを動かし、後はほぼ静的になる（Fig. 6）。\n所感：動的制御の実体は序盤のスケジュールで、学習の価値は分布外への汎化にあった。",
+      "s6": "・Reijnen+ 2023 DRL-based DAC for FJSP（未調査）\n・Dynamic Algorithm Configuration (Biedenkapp+ 2020)（未調査）\n・MetaBox-v2 (Ma+ 2025)（既存：metabbo）",
+      "figure": {
+        "file": "figures/mencaroni2026_fig2.png",
+        "caption": "出典：When does learning pay off? (Mencaroni+ 2026) Fig. 2（メメティックアルゴリズムを環境とし、エージェントが毎世代パラメータを決める）"
+      },
+      "notes": "arXiv v2（2026-06）の本文（1〜5章、Table 1〜5、Fig. 1〜6）を読了。採録先は未確認。群知能そのものではないが、学習型制御が静的チューニングに勝つ条件を同予算で分析した数少ない研究として収録。"
+    }
+  ]
+}
