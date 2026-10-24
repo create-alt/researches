@@ -74,6 +74,8 @@ function fitSize(paragraphs, w, h, sizes, latin) {
 }
 
 const TITLE_H = 0.62;
+// 本文カードの下端に最終行が接しないよう、文字量の見積もりに使う高さを少し減らす
+const FIT_PAD = 0.08;
 const BODY_SIZES = [12, 11.5, 11, 10.5, 10, 9.5, 9];
 
 // 改行区切りの文字列を段落ごとのランに変換
@@ -206,7 +208,7 @@ function addPaperSlide(pres, paper) {
   slide.addText([{ text: paper.authors, options: { fontSize: metaFit.size } }], { placeholder: "meta" });
   SECTIONS.forEach((s) => {
     const text = String(paper[s.key] || "");
-    const { size, overflow: of } = fitSize(text.split("\n"), BODY.w, BODY.h, BODY_SIZES);
+    const { size, overflow: of } = fitSize(text.split("\n"), BODY.w, BODY.h - FIT_PAD, BODY_SIZES);
     if (of) overflow.push(s.key);
     slide.addText(paragraphRuns(text, size), { placeholder: s.key });
   });
