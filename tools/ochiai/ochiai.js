@@ -240,7 +240,9 @@ function addPaperSlide(pres, paper) {
 function addCoverSlide(pres, cover) {
   const slide = pres.addSlide({ masterName: "OCHIAI_COVER" });
   slide.addText(cover.tag, { placeholder: "tag" });
-  slide.addText(cover.title, { placeholder: "title" });
+  // 長いテーマ名は 1 行に収まるまで縮小する（プレースホルダー側の書式が優先されるため、サイズはランに指定する）
+  const coverFit = fitSize([cover.title], 12.333, 0.75, [36, 32, 28, 26, 24], 0.62);
+  slide.addText([{ text: cover.title, options: { bold: true, fontSize: coverFit.size } }], { placeholder: "title" });
   const sumFit = fitSize(cover.summary.split("\n"), 12.333, 0.9, [13, 12, 11]);
   slide.addText(paragraphRuns(cover.summary, sumFit.size).map((r) => ({ ...r, options: { ...r.options, color: COLORS.muted } })), { placeholder: "summary" });
   slide.addText(cover.footer, { placeholder: "footer" });
