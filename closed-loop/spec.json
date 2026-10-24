@@ -1,0 +1,216 @@
+{
+  "field": "イベントベース視覚とニューロモルフィック・ロボティクス",
+  "theme": "完全ニューロモルフィック閉ループ",
+  "date": "2026-10-24",
+  "summary": "センサ → SNN → アクチュエータ：イベントカメラ等から SNN・ニューロモルフィックチップを経て実機を動かす閉ループの系譜。\nLoihi に制御だけ（2021）・知覚だけ（2021）を載せた原典 → 視覚‐制御を1つの SNN にした自由飛行（2024）→ 姿勢ループ・単一チップ知覚・多部品オーケストレーション・航法へ（2025–26）。\n残る壁はチップ容量・I/O 帯域・ホスト/無線経由と、センサ（IMU・VIO）側の非ニューロモルフィック部分。",
+  "papers": [
+    {
+      "title": "Neuromorphic control for optic-flow-based landings of MAVs using the Loihi processor",
+      "short": "Loihi 着陸制御 (Dupeyroux+ 2021)",
+      "authors": "Julien Dupeyroux, Jesse J. Hagenaars, Federico Paredes-Vallés, Guido C. H. E. de Croon（TU Delft MAVLab）｜ ICRA 2021",
+      "year": 2021,
+      "venue": "ICRA 2021",
+      "link": "https://arxiv.org/abs/2011.00534",
+      "lineage": "原典",
+      "s1": "進化させた35ニューロンのSNNをLoihi（Kapoho Bay）に載せ、腹側オプティカルフローの発散から推力指令を出してクアッドロータを着陸させた。飛行ロボットにLoihiを搭載した初の例で、実機20回の着陸はすべて滑らかだった。",
+      "s2": "Loihiのロボット応用は六脚CPGやアームなどシミュレーション・オフライン試験が中心で、UAVでも1自由度リグ上のPID（Stagsted+ 2020）止まり。SNNシミュレーションとチップの差を埋め、自由飛行機体の閉ループに入れた。",
+      "s3": "発散誤差 D̂−D_sp を20個の位置符号入力に変換し、10→5個のLIFを経てスパイクトレースの加重平均で推力に復号。Loihiの整数パラメータと層ごとの1ステップ遅延をシミュレーションで再現し、変異のみの進化戦略で最適化した。",
+      "s4": "100回の模擬着陸でPySNNとLoihiのスパイク一致率は隠れ層99.8%・出力層99.7%、推力RMSE 0.005 g（Table III）。Bebop 2実機は高度4 mから20回着陸し、6〜8秒で安全に接地（Fig. 7）。SNN 1ステップは3.78 µs。",
+      "s5": "著者：実機では制動推力がシミュレーションより遅れ、ハードウェア遅延が原因と推測。\n所感：チップに載るのは制御だけで、発散推定はCMOSカメラ＋CPU、水平位置はモーションキャプチャ、符号化もROS上。閉ループの最後の一段の実証。",
+      "s6": "・Evolved Neuromorphic Control for Landings (Hagenaars+ 2020)（未調査）\n・Event-driven Vision and Control on Loihi (Vitale+ 2021)（本資料）\n・Fully neuromorphic vision and control (Paredes-Vallés+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/dupeyroux.png",
+        "caption": "出典：Loihi 着陸制御 (Dupeyroux+ 2021) Fig. 1（Kapoho Bay を制御ループに入れた着陸実験）"
+      },
+      "notes": "arXiv v1（ICRA 2021 採録版相当）を全文読了。採録先は Crossref（10.1109/ICRA48506.2021.9560937）で確認。"
+    },
+    {
+      "title": "Event-driven Vision and Control for UAVs on a Neuromorphic Chip",
+      "short": "Loihi 上の視覚＋制御 (Vitale+ 2021)",
+      "authors": "Antonio Vitale, Alpha Renner, Celine Nauer, Davide Scaramuzza, Yulia Sandamirskaya（Intel Labs / UZH・ETH）｜ ICRA 2021",
+      "year": 2021,
+      "venue": "ICRA 2021",
+      "link": "https://arxiv.org/abs/2108.03694",
+      "lineage": "原典",
+      "s1": "DAVIS 240CをAERでLoihiに直結し、イベントのHough変換をSNNで実装して1自由度デュアルコプタの水平線追従を行った。視覚の更新は20 kHzで、最大1200°/sの回転に追従。オンチップ学習による適応制御も示した。",
+      "s2": "先行の超高速イベント駆動制御（Dimitrova+ 2020）はイベントをCPUで処理し1 kHz更新、SNN PID（Stagsted+ 2020）は低速リグで状態推定もCPUだった。センサとチップを直結し、知覚をチップ内で完結させた。",
+      "s3": "画素ニューロン(x,y)から(θ,r)空間へ二値重みで結線するとHough変換になる。漏れ積分でフレーム化を不要にし、角度読出し・整理・自己興奮メモリの5層で250 µsで角度を推定。外乱補償は報酬チャネル付き可塑性で学習。",
+      "s4": "回転円盤の追従で、Loihi視覚はCPU視覚（1 kHz）より高速域でRMSEの増加が緩やか（Fig. 5）。125 gの重りを付けると固定CPU PDは約20°の定常誤差（RMSE 19.6〜22.3°）、適応SNN PDは6.9〜16.0°に抑えた（Table I）。",
+      "s5": "著者：機体の応答遅れ100〜150 msでSNNの速さを活かしきれず、低速域ではSNN推定が劣る。\n所感：知覚実験のPD制御はCPU、適応制御実験はエンコーダ入力で、知覚と制御が同時にチップに載った構成ではない。拘束リグ上の実証。",
+      "s6": "・Towards neuromorphic control: SNN PID (Stagsted+ 2020)（未調査）\n・Fully neuromorphic vision and control (Paredes-Vallés+ 2024)（本資料）\n・The More the Merrier (Eames+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/vitale.png",
+        "caption": "出典：Loihi 上の視覚＋制御 (Vitale+ 2021) Fig. 2（Loihi 上の Hough 変換 SNN）"
+      },
+      "notes": "arXiv v2（ICRA 2021 採録版）を全文読了。Fig. 4・5 の数値は図のみで本文に数値なし。"
+    },
+    {
+      "title": "Fully neuromorphic vision and control for autonomous drone flight",
+      "short": "完全ニューロモルフィック飛行 (Paredes-Vallés+ 2024)",
+      "authors": "Federico Paredes-Vallés, Jesse J. Hagenaars, Julien Dupeyroux ほか（TU Delft MAVLab）｜ Science Robotics 2024",
+      "year": 2024,
+      "venue": "Science Robotics 2024",
+      "link": "https://arxiv.org/abs/2303.08778",
+      "lineage": "発展",
+      "parent": "Loihi 着陸制御 (Dupeyroux+ 2021)",
+      "s1": "生イベントから自己運動推定・制御指令までを1つのSNNで行い、Loihi上で自由飛行ドローンを外部測位なしに制御した初の「完全ニューロモルフィック」視覚‐制御パイプライン。200 Hz・27 µJ/推論でホバリング・着陸・横移動をこなした。",
+      "s2": "組込みチップの容量不足とSNN学習の難しさから、先行例は低次元の入出力（Dupeyroux+ 2021の35ニューロン、Vitale+ 2021の拘束リグ）に限られた。高次元の生イベントから自由飛行の低レベル制御までをつないだ。",
+      "s3": "下向きカメラの四隅16×16だけを、重み共有の5層・7.2kニューロンSNN（自己再帰）で処理してコーナーフローを推定。コントラスト最大化で実イベントから自己教師あり学習し、制御の線形層はFlightmareで進化学習。両者の線形写像を1行列に合成。",
+      "s4": "実機で16種の速度設定点を追従（Fig. 5）。量子化込みSNNのEPEはConvGRU ANNより約50%悪い（Table 1）。Nahuku上の推論は274〜1637回/s・7〜27 µJ/回で、Jetson Nano（14〜26回/s・約75〜86 mJ）より3〜4桁省エネ（Table 2）。",
+      "s5": "著者：I/O帯域が律速でAER直結できず、入力スパイクを増やせないため制御は線形に限定。センサ・モータまで含む完全化は今後。\n所感：姿勢はIMU、低レベル制御はPX4、符号化はUP Squared上。「完全」は視覚‐制御区間を指す。",
+      "s6": "・Self-Supervised Event-Based Optical Flow with SNNs (Hagenaars+ 2021)（未調査）\n・Neuromorphic Attitude Estimation and Control (Stroobants+ 2025)（本資料）\n・All Eyes, no IMU (Hagenaars+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/paredes.png",
+        "caption": "出典：完全ニューロモルフィック飛行 (Paredes-Vallés+ 2024) Fig. 1（機体・HW構成・パイプライン・着陸例）"
+      },
+      "notes": "arXiv v1 の HTML 版を全文読了（Science Robotics 9(90), eadi0591 掲載）。エネルギーは Nahuku 上のメモリ読込み済みデータでの計測で、飛行時の I/O は含まない。"
+    },
+    {
+      "title": "Fully Asynchronous Neuromorphic Perception for Mobile Robot Dodging with Loihi Chips",
+      "short": "Loihi 非同期回避 (Jiang+ 2025)",
+      "authors": "Junjie Jiang, Delei Kong, Chenming Hu, Zheng Fang（東北大学〔中国・瀋陽〕）｜ IEEE T-ASE 2025",
+      "year": 2025,
+      "venue": "IEEE T-ASE 2025",
+      "link": "https://arxiv.org/abs/2410.10601",
+      "lineage": "発展",
+      "parent": "完全ニューロモルフィック飛行 (Paredes-Vallés+ 2024)",
+      "s1": "イベントをフレーム化せずタイムスタンプ順にLoihiのニューロンへ直接注入する完全非同期パラダイムを提案し、メカナム車輪ロボットが接近するボールや人を避ける閉ループを実機で示した。推論エネルギーはOrin NX上EST-ANNの4.3%。",
+      "s2": "Paredes-Vallés+ 2024やCarSNN（Viale+ 2021）は、イベントを時間窓のフレームにしてSNNの各時刻に入れていた。窓が短いと特徴不足、長いと積み重なりが起き、計算も時刻数に比例する。イベントを個別に非同期処理する点が差分。",
+      "s3": "KEPモジュールが時空間クラスタリングとKL制約でイベントを約1/3〜1/6に間引き、I/O帯域不足に対処。GPU上でTS-LIF SNNをスパイク数損失で学習し、8 bit整数化してLoihiに配置。出力スパイク数を回避方向と速度に復号する。",
+      "s4": "時間窓30〜100で成功率97.25〜98%を維持（Fig. 6）。屋内低照度のボールでEF-SNN 89.75%に対し97.25%（Table IV）。Kapoho Bayで1.39 mJ/推論・122回/s、EF-SNN（85 mJ）比98.4%減、Orin NX省電力のEST-ANN（32.31 mJ）の4.3%（Table VI）。",
+      "s5": "著者：回避から航法への拡張が今後の課題。\n所感：KEP前処理・アドレス変換・行動の復号はホストPCで行い、チップは推論だけ。左右2方向を判別する単純な課題で、実機評価も成功例の提示にとどまる。",
+      "s6": "・Fully neuromorphic vision and control (Paredes-Vallés+ 2024)（本資料）\n・ニューロモルフィック MAV 航法 (Jiang+ 2026)（本資料）\n・CarSNN (Viale+ 2021)（未調査）",
+      "figure": {
+        "file": "figures/jiang24.png",
+        "caption": "出典：Loihi 非同期回避 (Jiang+ 2025) Fig. 4（イベントカメラ・ホスト PC・Kapoho Bay からなるロボット構成）"
+      },
+      "notes": "arXiv v2 の HTML 版を全文読了。採録先は Crossref（10.1109/TASE.2025.3547338）で確認。"
+    },
+    {
+      "title": "Neuromorphic Attitude Estimation and Control",
+      "short": "SNN 姿勢推定・制御 (Stroobants+ 2025)",
+      "authors": "Stein Stroobants, Christophe De Wagter, Guido C. H. E. de Croon（TU Delft MAVLab）｜ IEEE RA-L 2025",
+      "year": 2025,
+      "venue": "IEEE RA-L 2025",
+      "link": "https://arxiv.org/abs/2411.13945",
+      "lineage": "発展",
+      "parent": "完全ニューロモルフィック飛行 (Paredes-Vallés+ 2024)",
+      "s1": "IMUの生データから姿勢推定と姿勢制御を1つのSNNで行い、トルク指令まで出して35 gのCrazyflieを500 Hzで飛ばした。センサからモータ指令までを学習済みSNNだけでつないだ初の姿勢ループ。追従誤差3.0°（従来スタック2.7°）。",
+      "s2": "Paredes-Vallés+ 2024は姿勢制御を従来計算機に頼り、線形制御では定常偏差も消せなかった。低レベルのSNN制御も手設計か、シミュレーションのみだった。推定と制御をまとめて学習し、実機で閉ループにした。",
+      "s3": "推定用（2層・再帰）と制御用（1層・再帰）を模倣学習で別々に学び、線形の出力・入力重みを掛け合わせて1つのSNNに合成。SNNの遅れを補うため約6ステップ先の目標を学習し、積分器は10ニューロンの漏れ・閾値を1に固定して実現。",
+      "s4": "ロールのステップ応答10回でRMSE 3.03°（PID 2.67°、Table I）。時間シフトとデータ拡張で3.24°→3.03°、ばらつき(SD)も1.16→0.77に減少。1 mの位置ステップも従来並みに追従（Fig. 4）。活動率15〜20%で約7,500加算/ステップ。",
+      "s5": "著者：現行チップは35 g機に載らずTeensy 4.0（Cortex-M7）で実行。単体での省エネ効果は小さく、視覚と同じチップに載せて初めて意味がある。\n所感：位置はモーションキャプチャで外部から与える。HWへの実装は未検証。",
+      "s6": "・Neuromorphic attitude estimation onboard quadrotors (Stroobants+ 2022)（未調査）\n・All Eyes, no IMU (Hagenaars+ 2026)（本資料）\n・SNN 羽ばたき機制御 (El Filali+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/stroobants.png",
+        "caption": "出典：SNN 姿勢推定・制御 (Stroobants+ 2025) Fig. 1（Crazyflie と推定・制御 SNN の合成構成）"
+      },
+      "notes": "arXiv v2（RA-L 採録版）の HTML 版を全文読了。"
+    },
+    {
+      "title": "A compact neuromorphic system for ultra-energy-efficient, on-device robot localization",
+      "short": "LENS on Speck (Hines+ 2025)",
+      "authors": "Adam D. Hines, Michael Milford, Tobias Fischer（クイーンズランド工科大学）｜ Science Robotics 2025",
+      "year": 2025,
+      "venue": "Science Robotics 2025",
+      "link": "https://arxiv.org/abs/2408.16754",
+      "lineage": "最新",
+      "parent": "Loihi 上の視覚＋制御 (Vitale+ 2021)",
+      "s1": "DVSと非同期SNNプロセッサを1チップに統合したSynSense Speck上で視覚的場所認識（VPR）を動かし、六脚ロボットに搭載した。約8 kmの経路を44kパラメータ・180 KB以下のモデルで認識し、Speckの平均電力は2.7 mW。",
+      "s2": "SNNによる自己位置推定は、生体らしさを追う複雑なモデルで実時間化が難しく、小規模か、多モーダル融合で重いものが多かった（Yu+ 2023など）。センサと処理を単一チップに収め、外部計算なしでオンボード推論した。",
+      "s3": "地図作成時は1秒分のイベント数画像を10×10に間引き、TTFS符号とSTDP（入力→特徴）・デルタ則（特徴→出力）で学習。推論時は生イベントをそのままチップ上のSNNに流し、出力ニューロンの発火数とシーケンス照合で場所を決める。",
+      "s4": "Brisbane Event VPR（約8 km・641地点）でRecall@1 0.88（SAD 0.81、Fig. 4）。六脚実機は屋内0.64（SAD 0.36）、屋外0.33（同0.29）。消費エネルギー327 mJはJetson Nano上SADの8.9%、Intel CPUの0.5%（Fig. 3）。",
+      "s5": "著者：Speckのコアあたり64 KBのメモリがモデル規模を制限。旋回時は活動が広がり精度が落ちる。\n所感：シーケンス照合はJetson Nano、ロボットは遠隔操縦で、推定結果を制御に戻していない。単一チップ知覚の到達点と限界を示す例。",
+      "s6": "・Speck (Yao+ 2024)（既存：snn/neuromorphic-hardware）\n・VPRTempo (Hines+ 2024)（未調査）\n・Event-based VPR with SNNs (Hussaini+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/lens.png",
+        "caption": "出典：LENS on Speck (Hines+ 2025) Fig. 1（六脚ロボット上の Speck と LENS の処理）"
+      },
+      "notes": "arXiv v2（Science Robotics 10(103) 掲載版）の HTML 版を全文読了。"
+    },
+    {
+      "title": "All Eyes, no IMU: Learning Flight Attitude from Vision Alone",
+      "short": "All Eyes, no IMU (Hagenaars+ 2026)",
+      "authors": "Jesse J. Hagenaars, Stein Stroobants, Sander M. Bohté, Guido C. H. E. de Croon（TU Delft / CWI）｜ npj Robotics 2026",
+      "year": 2026,
+      "venue": "npj Robotics 2026",
+      "link": "https://arxiv.org/abs/2507.11302",
+      "lineage": "最新",
+      "parent": "SNN 姿勢推定・制御 (Stroobants+ 2025)",
+      "s1": "下向きイベントカメラだけから姿勢と角速度を推定し、IMUを飛行制御ループから外してクアッドロータを飛ばした。一般的な環境で視覚のみの低レベル飛行制御を実現した初の例とする。約10分のホバリングで誤差の大半は±3°・±18°/s以内。",
+      "s2": "視覚による姿勢推定は地平線や消失点に頼るか、実飛行ではジャイロを残していた（de Croon+ 2022、Geles+ 2024）。イベントカメラの低遅延を活かし、構造のない環境でも姿勢と角速度を視覚だけで推定してIMUを置き換えた。",
+      "s3": "5 msごとのイベント数フレームを8倍縮小エンコーダ＋畳み込みGRU（425kパラメータ）に入れ、飛行制御器の推定値を教師に学習。推定値をIMUの代わりに角度・角速度のカスケード制御へ渡す。根拠はオプティカルフロー＋運動モデルによる可観測性。",
+      "s4": "未見データでRMSE 姿勢1.51°・角速度10.65°/s（Table 1）。記憶なし版は2.17°・18.65°/s、ハイブリッドSNN版は2.17°・15.03°/s。視野を中央160×120に絞ると絶対精度は落ちるが、環境間の相対的な劣化は小さい（Fig. 5）。",
+      "s5": "著者：姿勢・角速度を系統的に過小推定。Speckのようなセンサ一体型チップへの統合が今後。\n所感：計算はOrin NX（約9 W）上のANNで、SNN版は飛ばしていない。ニューロモルフィック化は未達だが、IMUを外すというセンサ側の削減を先に示した。",
+      "s6": "・Accommodating unobservability to control flight attitude (de Croon+ 2022)（未調査）\n・SNN 姿勢推定・制御 (Stroobants+ 2025)（本資料）\n・Speck (Yao+ 2024)（既存：snn/neuromorphic-hardware）",
+      "figure": {
+        "file": "figures/alleyes.png",
+        "caption": "出典：All Eyes, no IMU (Hagenaars+ 2026) Fig. 1（IMU を置き換える視覚推定と実飛行の追従）"
+      },
+      "notes": "arXiv v1 の HTML 版を全文読了。npj Robotics 掲載は Crossref（10.1038/s44182-026-00081-4）で確認。"
+    },
+    {
+      "title": "The More the Merrier: Running Multiple Neuromorphic Components On-Chip for Robotic Control",
+      "short": "The More the Merrier (Eames+ 2026)",
+      "authors": "Evan Eames, Priyadarshini Kannan, Ronan Sangouard ほか（fortiss〔独・ミュンヘン〕）｜ Neuromorphic Computing and Engineering 2026",
+      "year": 2026,
+      "venue": "NCE 2026",
+      "link": "https://arxiv.org/abs/2602.13747",
+      "lineage": "最新",
+      "parent": "Loihi 上の視覚＋制御 (Vitale+ 2021)",
+      "s1": "注意（選択的DNF）・記憶DNF・ゲーティング・分類SNN・視覚サーボ・神経状態機械（NSM）の6部品を、チップ外の管理ロジックなしにLoihi 2上で同時に動かした。イベントカメラ付きアームのプラグ挿入が題材で、88 ms/推論・動的電力0.67 W。",
+      "s2": "従来のニューロロボットは単一のSNNで1つの課題を解き、複数ネットワークの連携には従来計算機によるプロセス管理が必要だった。状態遷移をDNFで表すNSMにより、部品間の切り替えまでチップ上のニューロンで完結させた。",
+      "s3": "選択的DNFが80×80のイベント入力から1つのソケットにピークを作り、関係ネットワークでその象限だけを分類器へ通す。一致ならCoSが発火して視覚サーボへ移り、不一致ならCoDがピークを崩し、記憶DNFが同じ場所を抑制する。挿入は力覚RL-SNN。",
+      "s4": "Loihi 2で約3万ニューロン・2〜3チップ・250〜300コア、88 ms・59 mJ/推論（Table II）。模擬LAVA＋MuJoCoで正しいソケットへの視覚サーボ成功68%（250試行）。実機KUKAでは分類100%・接触誤差4 mm・挿入成功70%（Table I）。",
+      "s5": "著者：I/O制約で80×80に縮小し回転制御を断念。104個のパラメータの手調整と、コンパイラの分割の揺らぎで挙動が変わる。\n所感：実機は模擬LAVA＋Loihi 1で、チップとロボットの閉ループは未完。0.67 Wを「mW級」と呼ぶのは誇張。",
+      "s6": "・Neuromorphic force-control in an industrial task (Amaya+ 2024)（未調査）\n・Loihi 上の視覚＋制御 (Vitale+ 2021)（本資料）\n・CLANE (Hajizada+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/merrier2.png",
+        "caption": "出典：The More the Merrier (Eames+ 2026) Fig. 4（NSM で2つの行動を束ねた全体構成）"
+      },
+      "notes": "arXiv v1 の HTML 版を全文読了。NCE 掲載は Crossref（10.1088/2634-4386/ae4a47）で確認。"
+    },
+    {
+      "title": "Spiking Neural Network Control of a Flapping-Wing Robot on Resource-Constrained Hardware",
+      "short": "SNN 羽ばたき機制御 (El Filali+ 2026)",
+      "authors": "Rim El Filali, Chenrui Feng, Chao Gao, Weibin Gu（清華大学 AIR）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2605.19430",
+      "lineage": "最新",
+      "parent": "SNN 姿勢推定・制御 (Stroobants+ 2025)",
+      "s1": "尾翼のない26 gの蝶型羽ばたき機で、IMUから姿勢を推定するSNNと、CPGに補正オフセットを出す制御SNNを約5ドルのESP32-S3で動かし、紐なし自由飛行でピッチ・ヨーを追従させた。羽ばたき機の完全オンボードSNN制御は初とする。",
+      "s2": "羽ばたき機のSNN制御はシミュレーションのみ（Clawson+）で、SNNの実機飛行はクアッドロータでCortex-M7級の計算機を使っていた（Stroobants+ 2025）。より非線形で劣駆動な機体を、より非力なマイコン（SRAM 512 KB）で閉ループにした。",
+      "s3": "推定SNN（150FF＋150再帰）と制御SNN（130再帰）を、Madgwick＋PIDの行動クローンで学習（実飛行10分＋合成150分）。羽ばたきのリズムはCPGに任せ、SNNは平均ストローク角のオフセットだけを出す。Espikifyでイベント駆動Cコード化。",
+      "s4": "自由飛行5回のRMSE：推定ピッチ5.6〜7.0°・ヨー6.4°、追従ピッチ6.3°・ヨー8.9°（Table 1）。PWMを直接模倣する版は3.25 Hz以外の羽ばたき周波数で破綻（Fig. 3）。イベント駆動SNNは遅延1059→680 µs、推論電力0.033→0.027 W（Fig. 5）。",
+      "s5": "著者：ヨーはヨーレートの積分で漂流。メモリはANNより大きく、量子化ANNとの比較は未実施。\n所感：「ニューロモルフィック」はアルゴリズム側だけで、比較相手も未最適化の浮動小数点ANN。専用チップに頼らない実用路線として価値がある。",
+      "s6": "・SNN 姿勢推定・制御 (Stroobants+ 2025)（本資料）\n・SNN high-speed quadcopter control with PPO (van Breukelen Castillo+ 2025)（未調査）\n・SNN PID for UAV (Stagsted+ 2020)（未調査）",
+      "figure": {
+        "file": "figures/flapping.png",
+        "caption": "出典：SNN 羽ばたき機制御 (El Filali+ 2026) Fig. 2（推定 SNN・制御 SNN・CPG の階層構成）"
+      },
+      "notes": "arXiv v3 の HTML 版を全文読了（付録は概要のみ確認）。"
+    },
+    {
+      "title": "Towards bio-inspired visual navigation: a neuromorphic navigation paradigm for MAVs",
+      "short": "ニューロモルフィック MAV 航法 (Jiang+ 2026)",
+      "authors": "Junjie Jiang, Ankang Zhou, Zheng Fang（東北大学〔中国・瀋陽〕）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.21978",
+      "lineage": "最新",
+      "parent": "Loihi 非同期回避 (Jiang+ 2025)",
+      "s1": "イベントカメラ→スパイキング深度推定・特徴抽出→集団符号→Loihi上のスパイキング航法ネット→ウェイポイントという構成で、障害物の間を目標へ飛ぶMAV航法を実機で示した。成功率はANN版と同等で、Loihi上の航法部はOrin NX上ANNの12.37%のエネルギー。",
+      "s2": "既存のニューロモルフィック飛行は単軸制御（Vitale+ 2021）や自己運動制御（Paredes-Vallés+ 2024）などの下位タスクで、航法研究はセンサかSNNの片方だけがニューロモルフィックだった。目標指向の航法まで両者をつないだ。",
+      "s3": "スパイキングU-Net（深度、補助教師）とSEW-ResNetで幾何特徴を作り、速度・加速度・目標方向とともにガウス集団符号化。航法SNNが5次多項式軌道の終端状態を出し、滑らかさ・衝突・目標の微分可能な損失で全体を学習（guidance learning）。",
+      "s4": "6環境×8目標の48試行で、最高速0.5/1.0/2.0 m/sの成功45/46/48回（ANN 45/47/47、Table 1）。深度教師を外すと衝突が増加（Fig. 9）。実機は屋内7/10、屋外9/10。Loihi航法部0.81 mJ/推論（Orin NX 25 W時6.55 mJ、Table 2）。",
+      "s5": "著者：チップ容量と対応ニューロンモデルの制約で知覚部はJetson上の模擬SNN、無線経由の通信が残る。姿勢推定はフレームカメラ（T265）頼み。\n所感：知覚の19.57%は45 nm演算数からの推定値で実測でない。チップ上の閉ループは航法層だけ。",
+      "s6": "・Loihi 非同期回避 (Jiang+ 2025)（本資料）\n・SEW-ResNet (Fang+ 2021)（既存：snn/spiking-transformer）\n・Monocular Event-Based Vision for Obstacle Avoidance (Bhattacharya+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/jiang26.png",
+        "caption": "出典：ニューロモルフィック MAV 航法 (Jiang+ 2026) Fig. 2（パイプラインと Jetson・ホスト・Kapoho Bay の分担）"
+      },
+      "notes": "arXiv v1 の HTML 版を全文読了（補足資料は未確認）。"
+    }
+  ]
+}

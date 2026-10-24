@@ -1,0 +1,217 @@
+{
+  "field": "イベントベース視覚とニューロモルフィック・ロボティクス",
+  "theme": "イベントベース世界モデルと表現学習",
+  "date": "2026-10-24",
+  "summary": "イベントカメラの「変化だけ」の信号から制御に効く表現・予測モデルを学ぶ系譜。コントラスト最大化（自己教師）と EST などのイベント表現、サーベイを原典に、eVAE による RL 用表現、チップ上の夢見学習、機上の自己教師学習へ発展。\n2026年は表現学習と方策探索の分離（Approximate IL）、報酬のみの課題整合表現（FLEET）、自己回帰の事前学習（GEP）、未来イベントを予測する潜在世界行動モデル（ECHO）が並び立つ。",
+  "papers": [
+    {
+      "title": "A Unifying Contrast Maximization Framework for Event Cameras, with Applications to Motion, Depth, and Optical Flow Estimation",
+      "short": "CMax (Gallego+ 2018)",
+      "authors": "Guillermo Gallego, Henri Rebecq, Davide Scaramuzza（University of Zurich / ETH Zurich）｜ CVPR 2018",
+      "year": 2018,
+      "venue": "CVPR 2018",
+      "link": "https://arxiv.org/abs/1804.01306",
+      "lineage": "原典",
+      "s1": "イベントを候補の運動で基準時刻へワープし、ワープ後イベント像（IWE）のコントラストを最大化する統一枠組み「コントラスト最大化（CMax）」を提案。ラベルも輝度画像も使わずに、オプティカルフロー・深度・回転運動・平面ホモグラフィを同じ手順で推定した。",
+      "s2": "従来は、外観情報（輝度画像や地図）と照合するイベント単位のフィルタか、課題ごとのアドホックな集約法しかなかった。CMax は「動くエッジが軌跡に沿ってイベントを出す」という物理だけでデータ対応付けを暗黙に解き、多様な課題を一つの目的関数で扱う。",
+      "s3": "①運動モデルで各イベントを x′=x−(t−t_ref)θ のように基準時刻へワープ、②ワープ後のイベント数を画素に積んだ像 H を作る、③その分散 f(θ)=σ²(H) を勾配法などで最大化。正しい θ ほどエッジが揃って鮮鋭になり、副産物として動き補償済みのエッジ像が得られる。",
+      "s4": "Event Camera Dataset で評価。回転推定は 1.8 億イベント・最大 670°/s の系列で RMS 誤差約 20°/s（約3%、Fig. 9）。深度は slider_depth の 100 万イベント（3.4 s）から半密な 3D 再構成（Fig. 7）。平面シーンでは動き補償像が VIO の点群を平らにした（Fig. 11）。",
+      "s5": "著者：外観情報なしで多くの課題を解ける単純さが利点と強調。計算量はワープするイベント数に線形。\n所感：数値評価は回転推定に限られ定性的。のちに損失の崩壊（イベントが一点に集まる）が問題化し、正則化が必要になる。ただし「教師なしで運動を学ぶ損失」として以後の自己教師学習の土台になった。",
+      "s6": "・Unsupervised Event-based Learning of Optical Flow, Depth, and Egomotion (Zhu+ 2019)（未調査）\n・On-Device SSL of Monocular Depth (2025)（本資料）\n・Event-based Vision: A Survey (2020)（本資料）",
+      "figure": {
+        "file": "figures/cmax_fig3.png",
+        "caption": "出典：CMax Fig. 3（フロー候補 θ ごとのコントラスト f(θ) と、ワープ後イベント像の鮮鋭さ）"
+      },
+      "notes": "arXiv 版（CVPR 2018 採録版）を本文・図・結論まで読了。補足資料は未読。"
+    },
+    {
+      "title": "End-to-End Learning of Representations for Asynchronous Event-Based Data",
+      "short": "EST (Gehrig+ 2019)",
+      "authors": "Daniel Gehrig, Antonio Loquercio, Konstantinos G. Derpanis ほか（University of Zurich / ETH Zurich）｜ ICCV 2019",
+      "year": 2019,
+      "venue": "ICCV 2019",
+      "link": "https://arxiv.org/abs/1904.08245",
+      "lineage": "原典",
+      "parent": "Voxel grid (Zhu+ 2019)",
+      "s1": "イベント列を格子テンソルへ変換する処理を「計測関数・カーネル畳み込み・離散化・射影」の微分可能な演算列として定式化し、既存表現（event frame、voxel grid など）を統一する分類と、カーネルを MLP で課題とともに学ぶ Event Spike Tensor（EST）を提案した。",
+      "s2": "CNN 用の格子表現は手作りで固定され、どれが最適かは検証されていなかった。EST は表現を課題損失から端から端まで学べるようにし、極性と時間を捨てない4次元表現（2×B×H×W）が最も情報を保つことを、物体認識とフローで系統的に示した。",
+      "s3": "各イベントに計測値 f（極性・個数・正規化時刻）を割り当て、カーネル k と畳み込んで格子点で標本化：S±[x,y,t_n]=Σ f·k(x−x_k, y−y_k, t_n−t_k)。k を2層 MLP にして課題とともに学習し、推論時はルックアップ表に置き換える。",
+      "s4": "認識は ResNet-34 で N-Cars 0.925、N-Caltech101 0.817。HATS（0.902/0.642）や Voxel grid（0.865/0.785）を上回る（Table 3）。MVSEC のフローでは EV-FlowNet 比で AEE を約12%改善し、外れ値率を平均49%削減（Table 4）。表現生成は 0.38 ms（Table 6）。",
+      "s5": "著者：非同期処理や低電力では SNN に劣る。ただしバッチ処理なら 146 Hz（ResNet-34）で高速用途に足りる。\n所感：時間と極性を残すほど良いという指針は、のちの voxel grid の標準化を後押しした。一方で窓を区切って格子に詰める前提は残り、FLEET などの系列直接処理が批判する対象となった。",
+      "s6": "・Event-based Vision: A Survey (2020)（本資料）\n・Masked Event Modeling (Klenk+ 2024)（未調査）\n・FLEET (2026)（本資料）",
+      "figure": {
+        "file": "figures/est_fig2.png",
+        "caption": "出典：EST Fig. 2（イベント→計測→カーネル畳み込み→離散化の枠組み）"
+      },
+      "notes": "arXiv v4（ICCV 2019 採録版）を本文・Table 1〜6・結論まで読了。補足資料は未読。"
+    },
+    {
+      "title": "Event-based Vision: A Survey",
+      "short": "Event Vision Survey (Gallego+ 2020)",
+      "authors": "Guillermo Gallego, Tobi Delbrück, Garrick Orchard ほか（TU Berlin / UZH・ETH Zurich ほか）｜ IEEE TPAMI 2020",
+      "year": 2020,
+      "venue": "IEEE TPAMI 2020",
+      "link": "https://arxiv.org/abs/1904.08405",
+      "lineage": "原典",
+      "parent": "DVS (Lichtsteiner+ 2008)",
+      "s1": "イベントカメラの動作原理、主要センサ、イベント表現、処理手法（フィルタ・CMax・深層学習・SNN）、低次〜高次の視覚課題、ニューロモルフィック制御とプロセッサまでを網羅した標準サーベイ。分野の共通語彙と未解決課題を整理した。",
+      "s2": "DVS（Lichtsteiner+ 2008）以降、分野ごとに個別の手法が乱立していた。本サーベイは「イベントは動くエッジが作る、輝度の時間微分の情報」という物理的解釈を軸に、表現と手法を課題横断で体系化し、制御・能動視覚まで射程に入れた点が新しい。",
+      "s3": "イベント生成モデル ΔL(x_k,t_k)=p_k·C と、その線形化 ΔL≈−∇L·vΔt を出発点に、表現を event frame・time surface・voxel grid・3D 点集合・動き補償像・再構成画像に分類。処理法はイベント単位（フィルタ・SNN）とイベント群（CMax・DNN）に分けて整理した。",
+      "s4": "総説のため新規実験はない。センサ性能を整理：遅延 約10 µs（実環境はサブミリ秒）、ダイナミックレンジ 120 dB 超（通常 60 dB）、チップ電力 約10 mW、DVS 画素帯域 約3 kHz（明所）。主要センサの比較表（Table 1）と表現の図（Fig. 3）を示す。",
+      "s5": "著者：最良の表現・手法は課題依存で合意はない。知覚から制御・駆動まで一貫してイベント駆動の系、課題に応じた感覚の変調、速い反射系と遅い熟考系の統合が大きな課題。\n所感：「予測・世界モデル」という観点はまだ薄く、表現学習も教師ありが中心の時代の整理である。",
+      "s6": "・A 128×128 120 dB 15 µs Latency Asynchronous Temporal Contrast Vision Sensor (2008)（本文未確認）\n・EST (2019)（本資料）\n・Representation Learning for Event-based Visuomotor Policies (2021)（本資料）",
+      "figure": {
+        "file": "figures/survey_fig3.png",
+        "caption": "出典：Event Vision Survey Fig. 3（(a)時空間のイベント (b)event frame (c)time surface (d)voxel grid (e)動き補償像 (f)再構成画像）"
+      },
+      "notes": "arXiv v3（TPAMI 採録版）。1〜3章（原理・表現・処理法）、4.8 認識、4.9 ニューロモルフィック制御、7章考察・8章結論を精読し、4章の他の応用節は概観のみ。"
+    },
+    {
+      "title": "Representation Learning for Event-based Visuomotor Policies",
+      "short": "eVAE (Vemprala+ 2021)",
+      "authors": "Sai Vemprala, Sami Mian, Ashish Kapoor（Microsoft Research）｜ NeurIPS 2021",
+      "year": 2021,
+      "venue": "NeurIPS 2021",
+      "link": "https://arxiv.org/abs/2103.00806",
+      "lineage": "発展",
+      "parent": "EST",
+      "s1": "生のイベント列を PointNet 型の集合エンコーダと時刻の正弦波埋め込みで処理し、8次元の潜在へ圧縮する event VAE（eVAE）を提案。その潜在を観測として PPO で学んだドローン障害物回避方策が、イベント画像＋CNN の端から端までの学習より速く学び、頑健だと示した。",
+      "s2": "イベント RL の先行研究は、イベントを2次元画像に積んで CNN 方策を報酬だけで学んでおり、時間分解能を捨て、疎な入力に弱かった。本研究は知覚と方策を分離し、教師なしで事前学習した表現の上で RL を行う「世界モデル的」な分業をイベントに初めて持ち込んだ。",
+      "s3": "Event Context Network：(x,y,p) を共有 MLP で特徴化し、正規化時刻の正弦波埋め込みを加え、max プーリングで順序に依らない文脈ベクトルにする。VAE はこれを潜在 z に写し、時刻で重み付けしたイベント像を復元する。方策は直近3つの z を入力とする2層 MLP。",
+      "s4": "AirSim の 64×64 模擬イベントで評価。学習報酬はイベント画像方策（EIP）や RGB より速く立ち上がる（Fig. 4a）。400 Hz 制御での成功率は eVAE 方策 約9割、EIP 約3割（40試行、Fig. 4b、図から読取）。未知の質感・形状で EIP は約20 m で衝突、eVAE は約90 m 以上進んだ（Fig. 4c）。",
+      "s5": "著者：大規模・多様なデータや複雑な場面では未検証。イベント模擬の計算コストのため単純な課題に限った。背景ノイズにはやや弱い。\n所感：再構成目的なので、制御に不要な見た目まで符号化する。FLEET はこの点を批判した（ただし FLEET はランダム方策のデータで eVAE を事前学習しており、比較条件は厳しい）。",
+      "s6": "・FLEET (2026)（本資料）\n・Approximate IL (2026)（本資料）\n・PlaNet (2019)（既存：world-model/latent-planning）",
+      "figure": {
+        "file": "figures/evae_fig2.png",
+        "caption": "出典：eVAE Fig. 2（PointNet 型の Event Context Network と時刻埋め込み、VAE によるイベント像復元）"
+      },
+      "notes": "arXiv v2 を本文・Fig. 3〜4・限界まで読了。Fig. 4 は棒グラフのみで数値表がないため、本文の値は図からの読み取り（概数）。付録は未読。"
+    },
+    {
+      "title": "Neuromorphic dreaming: A pathway to efficient learning in artificial agents",
+      "short": "Neuromorphic dreaming (Blakowski+ 2025)",
+      "authors": "Ingo Blakowski, Dmitrii Zendrikov, Cristiano Capone ほか（INI, UZH・ETH Zurich）｜ Neuromorphic Comput. Eng. 2025",
+      "year": 2025,
+      "venue": "Neuromorphic Comput. Eng. 2025",
+      "link": "https://arxiv.org/abs/2405.15616",
+      "lineage": "最新",
+      "parent": "Capone & Paolucci 2022（SNN の夢見と計画）",
+      "s1": "混合信号ニューロモルフィックチップ DYNAP-SE 上で、方策 SNN と世界モデル SNN を組み、実環境との「覚醒」相と世界モデル内の「夢見」相を交互に回すモデルベース RL を実装した。Atari Pong で、夢見により必要な実プレイが半分未満になった。",
+      "s2": "SNN の RL は BPTT＋代理勾配など非局所な学習に頼り、チップ実装に向かなかった。e-prop 型の局所則で読み出しだけを学ぶ方式を、世界モデル付き（Capone & Paolucci 2022 の夢見）でアナログ実チップに載せ、サンプル効率の改善を実機で示したのが新しい。",
+      "s3": "方策・世界モデルとも、入力をガウス集団符号のスパイク生成器 40 個で与え、固定ランダム結合の LIF 510 個（チップ上）をリザバーにする。PC 上の線形読み出しを局所則で更新：方策は報酬重み付きの方策勾配、世界モデルは次状態 4 変数と報酬の二乗誤差。100 フレーム覚醒＋50 ステップ夢見。",
+      "s4": "Pong（2000 ゲーム×100 フレーム、10 シード）。夢見ありは平均リターンの立ち上がりが速く、半分未満の実フレームで高得点に達し、低リターンの方策に留まりにくい（Fig. 3）。1 ステップは 18.4 ms（夢見ありは 36.8 ms）で、学習時間は 1.02 h と 3.07 h（3.4 節）。",
+      "s5": "著者：短い時間幅のみで学習。コアごとに重みが共有され、入力も 64 本までという制約から、オンチップ学習はできず読み出しのみ PC で学習。チップ個体差・温度で再現性が揺らぐ。\n所感：入力はイベントカメラではなくゲーム状態の 4 変数。「イベント視覚の世界モデル」へはまだ距離がある。",
+      "s6": "・Towards biologically plausible Dreaming and Planning in recurrent spiking networks (2022)（未調査）\n・Training slow silicon neurons to control extremely fast robots (2026)（既存：on-chip-learning）\n・e-prop (2020)（既存：snn/training）",
+      "figure": {
+        "file": "figures/dreaming_fig1.png",
+        "caption": "出典：Neuromorphic dreaming Fig. 1（(a)覚醒相：方策と世界モデルが実環境から学ぶ (b)夢見相：世界モデル内で方策だけを学ぶ）"
+      },
+      "notes": "arXiv v1（2024-05）を本文・Fig. 1〜3・考察・限界まで読了。NCE 掲載版（2025、題名 \"Neuromorphic dreaming as a pathway to efficient learning in artificial agents\"、DOI 10.1088/2634-4386/ae0a77）は Crossref で確認したが本文は未読。"
+    },
+    {
+      "title": "On-Device Self-Supervised Learning of Low-Latency Monocular Depth from Only Events",
+      "short": "On-Device SSL Depth (Hagenaars+ 2025)",
+      "authors": "Jesse Hagenaars, Yilun Wu, Federico Paredes-Vallés ほか（TU Delft）｜ CVPR 2025",
+      "year": 2025,
+      "venue": "CVPR 2025",
+      "link": "https://arxiv.org/abs/2412.06359",
+      "lineage": "最新",
+      "parent": "CMax",
+      "s1": "コントラスト最大化による自己教師学習（深度＋自己運動→フロー→IWE の鮮鋭さ）を CUDA で約100倍高速化し、Jetson Orin NX を積んだ 800 g のドローン上で、飛行しながら単眼イベント深度をオンライン学習した。障害物回避が事前学習だけより約30%改善した。",
+      "s2": "CMax 系の自己教師学習は真値不要で、テスト環境でそのまま学べるという利点があった。しかし損失計算と逆伝播が重く、機上学習は実現していなかった。Bhattacharya+ 2024 は実データでオフライン微調整した。本研究は飛行中のオンライン微調整を実現した。",
+      "s3": "430k パラメータの ConvGRU ネットが深度 D と姿勢 P を出し、x′∼KPD(x)K⁻¹x からフローを作る。損失は多参照時刻の CMax 損失＋幾何一貫性：L=L_CM+λL_geo。イベント単位の並列ワープ・スプラットを CUDA で実装し、パディングを除いて解析勾配を与えた。",
+      "s4": "MVSEC outdoor_day1（深度上限 10 m）で MAE 2.25 m。イベントのみの自己教師法 Zhu+ 2019（2.72 m）を上回る（Table 1）。損失計算は約100倍高速・メモリ 2〜5 分の1（Fig. 2）。実飛行では約2分の学習で深度誤差が下がり、介入間距離は事前学習のみ比で約30%伸びた（Fig. 5）。",
+      "s5": "著者：解像度の4分の1しか使わず、模様を付けた環境で飛行。静的シーン仮定のため動く物体の深度は過小評価。深度から yaw を決める制御は隅に引き寄せられる。\n所感：予測誤差（ワープの整合）で表現を学ぶ点で、イベント版の自己教師世界モデルに最も近い実機例。行動条件付きの予測ではない。",
+      "s6": "・CMax (2018)（本資料）\n・Self-supervised learning of event-based optical flow with SNNs (Hagenaars+ 2021)（未調査）\n・Monocular Event-Based Vision for Obstacle Avoidance with a Quadrotor (2024)（未調査）",
+      "figure": {
+        "file": "figures/ondevice_fig1.png",
+        "caption": "出典：On-Device SSL Depth Fig. 1（CMax による自己教師の深度・自己運動学習と、機上オンライン学習による障害物回避）"
+      },
+      "notes": "arXiv v2（CVPR 2025 採録）を本文・Table 1〜2・Fig. 5〜7・限界・結論まで読了。補足資料は未読。"
+    },
+    {
+      "title": "Approximate Imitation Learning for Event-based Quadrotor Flight in Cluttered Environments",
+      "short": "Approximate IL (Messikommer+ 2026)",
+      "authors": "Nico Messikommer, Jiaxu Xing, Leonard Bauersfeld ほか（University of Zurich）｜ CoRL 2026",
+      "year": 2026,
+      "venue": "CoRL 2026",
+      "link": "https://arxiv.org/abs/2603.07578",
+      "lineage": "最新",
+      "parent": "eVAE / Bhattacharya+ 2024",
+      "s1": "イベント RL・IL のボトルネックである「オンライン学習中のイベント描画」をなくす Approximate IL を提案。オフラインで課題特化の表現空間を学び、状態から同じ特徴を出す「近似学生」で DAgger 微調整する。方策学習時間を 52.44 h から 1.86 h へ 28 倍短縮した。",
+      "s2": "イベント方策の学習は高フレームレート映像からイベントを模擬する必要があり、DAgger や RL を何百万ステップも回せなかった。Bhattacharya+ 2024 は近似描画に頼った。本研究は表現学習と方策探索を分け、方策探索では状態だけで回すことで描画を完全に不要にした。",
+      "s3": "①一度だけ描画したデータで、イベント学生のエンコーダ F_S と共有行動デコーダ A を教師行動の BC で学習。M3ED 実データで1次元距離マップの補助タスクも課す。②状態入力の近似学生を特徴 L1＋行動 MSE で F_S に合わせる。③近似学生で DAgger、オフライン整合で A を微調整。",
+      "s4": "Flightmare の森（Poisson 0.04）で成功率：Approx IL 1.00、BC 0.80、オンライン描画の DAgger 0.30、BC+DAgger 1.00（Table 1）。M3ED なしは 0.30（Table 3）。ベクトル化描画は ESIM 比でピーク GPU メモリ 4 分の1以下。実機は 5/5 成功、最高 9.8 m/s（VICON 状態使用）。",
+      "s5": "著者：高速で墜落すると高価なため、弱いベースラインは実機で比べられない。状態を使わない純視覚版（成功率 0.5）は外部状態版に劣る。\n所感：近似学生は「イベント表現の状態空間モデル」とも読める。ただし表現は BC 目的で固定され、予測（ダイナミクス）は学ばない。評価は単一シード。",
+      "s6": "・Monocular Event-Based Obstacle Avoidance (Bhattacharya+ 2024)（未調査）\n・GEP (2026)（本資料）\n・DAgger (2011)（未調査）",
+      "figure": {
+        "file": "figures/approxil_fig1.png",
+        "caption": "出典：Approximate IL Fig. 1（実・模擬イベントでの事前学習、状態入力の近似学生による微調整、単一イベントカメラでの実飛行）"
+      },
+      "notes": "arXiv v3（CoRL 2026、journal_ref による）を本文・Table 1〜5・付録（描画法・アブレーション・ハードウェア）まで読了。"
+    },
+    {
+      "title": "Generative Event Pretraining with Foundation Model Alignment",
+      "short": "GEP (Cao+ 2026)",
+      "authors": "Jianwen Cao, Jiaxu Xing, Nico Messikommer ほか（University of Zurich）｜ CVPR 2026 Findings",
+      "year": 2026,
+      "venue": "CVPR 2026 Findings",
+      "link": "https://arxiv.org/abs/2603.23032",
+      "lineage": "最新",
+      "parent": "EST / MEM",
+      "s1": "イベントエンコーダを凍結 DINOv2 に整合させたうえで、イベントと画像のトークン列を因果 Transformer で自己回帰的に「次の時間片を予測」させる事前学習 GEP を提案。認識・セグメンテーション・深度の 10 指標すべてで従来のイベント事前学習を上回った。",
+      "s2": "従来のイベント事前学習は、MEM（マスク再構成）や ECDP/ECDDP（対照学習）など静的な画像流の手法の移植で、イベント特有の長期の時間構造を学ばなかった。GEP は VFM の意味を継承しつつ、生成的な系列予測で時間ダイナミクスを学ぶ点が新しい。",
+      "s3": "段階1：イベント枠を event 側で符号化し、凍結画像特徴との cosine＋InfoNCE で整合し、画像入力での保存損失を加える。段階2：整合済みのイベント・画像トークンを交互に並べ、窓 S_{s:s+w} から次の窓を予測する二乗誤差 L_pre で因果 Transformer を学習する。",
+      "s4": "Event-1.8M で 24 エポック事前学習。N-Caltech101 top-1 93.05%（ECDP 87.66%）、DSEC セグメンテーション mIoU 65.22（ECDDP 56.38、Table 2）、MVSEC 深度 Abs 3.85（ECDDP 3.99、Table 3）。整合なしは mIoU 63.27→52.38、自己回帰は MAE 型を +0.94 上回る（Table 6）。",
+      "s5": "著者：限界の節はない。言語モデル型のトークン圧縮は密予測を損なうと指摘する。\n所感：「次の潜在を予測する」点は JEPA/世界モデルに近い。しかし行動条件がなく、制御課題では未評価。性能の多くは DINOv2 整合由来で、自己回帰の寄与は約1 mIoU と小さい。",
+      "s6": "・Masked Event Modeling (Klenk+ 2024)（未調査）\n・TESPEC (Mohammadi+ 2025)（未調査）\n・V-JEPA 2 (2025)（既存：world-model/jepa）",
+      "figure": {
+        "file": "figures/gep_fig2.png",
+        "caption": "出典：GEP Fig. 2（(a)凍結 VFM へのイベントエンコーダ整合 (b)イベント・画像トークン列の自己回帰事前学習）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜6・補足（計算効率・時間分解能）まで読了。"
+    },
+    {
+      "title": "FLEET: Token-Based Feature Extraction for Event Camera-based Reinforcement Learning",
+      "short": "FLEET (Gottwald+ 2026)",
+      "authors": "Tristan Gottwald, Maximilian Schier, Melanie Schaller ほか（Leibniz University Hannover）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.16523",
+      "lineage": "最新",
+      "parent": "eVAE",
+      "s1": "イベント列を格子に積まず、ランダムフーリエ特徴で埋め込んで Perceiver 型のクロスアテンションで固定数の潜在トークンへ圧縮する RL 用特徴抽出器 FLEET を提案。補助損失なしで報酬だけで学び、Event-CarEnv のレースで最良 CNN 系の約3.6倍の収益を得た。",
+      "s2": "格子化＋CNN は時間をぼかし、計算量が解像度に比例する。eVAE のような再構成の事前学習は、制御に要らない見た目を符号化し、分布シフトにも弱い。FLEET は系列を直接扱い、課題に整合した表現を端から端まで学ぶことで、両方の欠点を避けた。",
+      "s3": "M 個のイベントを等間隔ビンから抽出。座標と時刻を RFF で埋め込み、時刻側のシグモイドゲートで空間埋め込みを変調する。N 個の学習可能クエリでクロスアテンションし、MLP と平均プーリングを経て PPO へ渡す。特徴抽出器は critic の価値損失だけで更新する。",
+      "s4": "IQM、10 シード（Table 1）：レースで FLEET 46.96、DMRCNN 12.94、RGB NatureCNN 23.89、eVAE 1.13。倒立二重振子で 6390（他のイベント法は 1200 未満、RGB は 8981）。96×64→384×256 でもほぼ一定（Table 2）。Δt=0.025 s でも 41.92 を維持（Table 3）。",
+      "s5": "著者：今後はイベントの効率的な抽出が課題。実データは教師あり向けしかなく、sim-to-real と実機展開が次の段階。\n所感：模擬環境・低解像度のみ。eVAE はランダム方策のデータで事前学習しており、比較は eVAE に不利。予測を学ばない表現なので、世界モデルへの拡張は未着手。",
+      "s6": "・eVAE (2021)（本資料）\n・Perceiver (Jaegle+ 2021)（未調査）\n・Prediction over Reconstruction (2026)（既存：world-model/jepa）",
+      "figure": {
+        "file": "figures/fleet_fig1.png",
+        "caption": "出典：FLEET Fig. 1（FLEET の系列トークン化、格子＋CNN 方式、再構成で事前学習する eVAE の比較）"
+      },
+      "notes": "arXiv v2 を本文・Table 1〜5・結論まで読了。付録（ハイパーパラメータ・計算資源・追加アブレーション）は目次のみ確認。"
+    },
+    {
+      "title": "ECHO: Event-Augmented Context with Hindsight and Outlook for Wrist-Only Manipulation",
+      "short": "ECHO (Wang+ 2026)",
+      "authors": "Xinyue Wang, Yicheng Jiang, Zesen Gan ほか（The Hong Kong University of Science and Technology）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.34893",
+      "lineage": "最新",
+      "parent": "GEP / 潜在世界行動モデル",
+      "s1": "手首イベントカメラを、過去（軌跡メモリ）・現在（イベント潜在）・未来（行動区間のイベントを予測する foresight クエリ）にわたる方策モダリティとして π0 に組み込んだ「潜在世界行動モデル」ECHO を提案。手首のみの RLBench で成功率 69.3% を得た。",
+      "s2": "既存のイベント拡張 VLA（E-VLA、Event-VLA）は、イベントを RGB に融合するか残差で足すだけだった。ECHO はエンコーダ自体を「フレーム間の視覚特徴変化を説明する」潜在世界モデルとして事前学習し、さらに未来イベントの予測を方策の条件に入れた点が新しい。",
+      "s3": "事前学習：6ビンの voxel を 64 トークンに符号化し、凍結 DINOv3 特徴 u_t を warp＋合成で u_{t+Δ} へ写す再構成と、時間反転との対照（MDC）で学ぶ。方策：prefix にイベント・軌跡セル・foresight を並べ、未来イベント潜在への MSE を行動損失に加える。",
+      "s4": "RLBench 6 課題（各25試行）：ECHO 69.3%、π0+event 57.3%、π0 手首のみ 48.7%、前方＋手首 RGB 64.7%。−4 EV では 53.3%（同 42.0/38.7/37.3）。foresight は暗所で 42.7→53.3 に寄与（Table I）。実機2課題（各20試行）でも暗所 pick-place 80% 対 55%（Table II）。",
+      "s5": "著者：限界の節はない。foresight は軌跡文脈がないと逆効果（54.0%）で、action expert 側に置くと 46.0% に落ちる。\n所感：イベントの「変化のみ」を潜在行動とみなす設計は、世界モデルとの接続として示唆的。ただし試行数が少なく、シード数の記載もない。模擬イベントは ESIM。",
+      "s6": "・GEP (2026)（本資料）\n・FLEET (2026)（本資料）\n・Event-VLA (2026)（未調査）",
+      "figure": {
+        "file": "figures/echo_fig2.png",
+        "caption": "出典：ECHO Fig. 2（(a)DINOv3 特徴の変化を説明する潜在世界モデルとしてのイベントエンコーダ事前学習 (b)軌跡文脈と foresight を持つ方策）"
+      },
+      "notes": "arXiv v1 を本文・Table I〜II・アブレーション・実機実験・結論まで読了。"
+    }
+  ]
+}
