@@ -1,0 +1,217 @@
+{
+  "field": "オープンエンド学習・人工生命",
+  "theme": "LLM 駆動の進化的探索と自己改善エージェント",
+  "date": "2026-10-24",
+  "summary": "LLM を交叉・変異演算子、課題の生成器、自己改変器として使い、探索を止めない系の系譜。\nLMX・OMNI・Promptbreeder（2023）→ OMNI-EPIC・DGM（アーカイブ＝踏み石）→ ShinkaEvolve・HGM・Hyperagents・AI Scientist（2025–26）。\n各論文のアブレーションではアーカイブ・非貪欲な親選択・新奇性棄却が効くが、2026 年の大規模比較は「万能のハーネスはない」と示した。",
+  "papers": [
+    {
+      "title": "Language Model Crossover: Variation through Few-Shot Prompting",
+      "short": "LMX (Meyerson+ 2023)",
+      "authors": "Elliot Meyerson, Mark J. Nelson, Herbie Bradley ほか（Cognizant AI Labs ほか）｜ ACM TELO 2024",
+      "year": 2023,
+      "venue": "ACM TELO 2024",
+      "link": "https://arxiv.org/abs/2302.12170",
+      "lineage": "原典",
+      "parent": "ELM",
+      "s1": "親個体のテキストを並べた few-shot プロンプトを LLM に続けさせ、出力を子とする交叉演算子 LMX を提案。ビット列・数式・文・画像生成プロンプト・Python コードの5領域で、専用演算子なしに進化を回せた。",
+      "s2": "従来の交叉・変異は表現ごとに手設計が必要で、ELM は指示つきの1親変異だった。LMX は指示なしで複数の親の共通パターンを文脈内学習に推定させ、EDA のように親の分布から子を標本化する。",
+      "s3": "LMX(x1..xk)=ψ(LLM(φ[x1..xk]))（φ: 親の連結、ψ: 出力の分解）。親が増えるほど出力分布が UMDA 型 EDA の分布に近づき（Fig. 12）、親の並べ順で子の分布を偏らせられる（Fig. 13）。",
+      "s4": "Pythia 70M〜6.9B で大きいモデルほど有効・新規な子が増加（Fig. 2b）。記号回帰（banana）で SRBench の Pareto 前線上（Fig. 7）。画像プロンプト進化で1点交叉とゼロショット生成を上回った（Fig. 10）。",
+      "s5": "著者：無効な出力、文脈長の上限、LLM の不透明さが限界。\n所感：「親の集合＝プロンプト」は、後の AlphaEvolve 系のインスピレーション文脈や MAP-Elites からの親抽出の原型。結果は小型モデルでの概念実証にとどまる。",
+      "s6": "・ELM (2022)（既存：swarm-intelligence/ga-hybrid）\n・Promptbreeder (2023)（本資料）\n・QDAIF (Bradley+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/lmx.png",
+        "caption": "出典：LMX Fig. 1（親を並べたプロンプトから子を生成する5領域の例。2段に再配置）"
+      },
+      "notes": "本文（1〜7章、5.1 EDA との関係、5.2 普遍性、5.3 並べ順の偏り、限界）を読んだ。arXiv v3 で読み、採録先は ACM TELO 4(4), 2024（DOI 10.1145/3694791）。"
+    },
+    {
+      "title": "OMNI: Open-endedness via Models of human Notions of Interestingness",
+      "short": "OMNI (Zhang+ 2023)",
+      "authors": "Jenny Zhang, Joel Lehman, Kenneth Stanley, Jeff Clune（UBC / Vector Institute ほか）｜ ICLR 2024",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2306.01711",
+      "lineage": "原典",
+      "s1": "基盤モデルを「面白さのモデル（MoI）」とし、学習進捗（LP）で選んだ課題のうち面白いものに絞る自動カリキュラム OMNI を提案。Crafter・BabyAI・AI2-THOR で一様抽出と LP 単独を上回った。",
+      "s2": "LP 型カリキュラムは「学べるが退屈な課題」（数を変えただけの課題など）に気を取られる。新奇性などの手書き指標は Goodhart の法則で病的な解を生む。OMNI は人間の興味の判断を基盤モデルから借りる。",
+      "s3": "LP（成功率の2重 EMA の差）で重みを付け、GPT-3/4 が退屈と判定した課題の重みを 0.001 倍にする。無限の課題空間では GPT-4 が次の課題と、その成否を判定するコードを同時に生成する。",
+      "s4": "Crafter（面白い15＋退屈90＋極難1023課題）で習得課題数は一様 4／LP 55／OMNI 82、平均成功率 0.03／0.42／0.56（Fig. 3）。BabyAI 1／4／8（Fig. 4）、AI2-THOR 0／2／13（Fig. 5）。",
+      "s5": "著者：MoI も最適化の対象になれば崩れるため、人の評価で更新する OEHF を提案。\n所感：面白さの判定を LLM に任せる発想が OMNI-EPIC・DGM・AI Scientist に受け継がれた。退屈な課題は人工的に作った設定である点は割り引くべき。",
+      "s6": "・OMNI-EPIC (2024)（本資料）\n・POET (Wang+ 2019)（未調査）\n・Kanitscheider+ 2021 学習進捗カリキュラム（未調査）",
+      "figure": {
+        "file": "figures/omni.png",
+        "caption": "出典：OMNI Fig. 1（学習進捗と面白さのモデルを組み合わせた課題サンプラー）"
+      },
+      "notes": "本文（1〜6章：有限課題空間の Crafter/BabyAI、無限課題空間の AI2-THOR、考察）を読んだ。オラクル MoI との比較は付録 M。"
+    },
+    {
+      "title": "Promptbreeder: Self-Referential Self-Improvement Via Prompt Evolution",
+      "short": "Promptbreeder (Fernando+ 2023)",
+      "authors": "Chrisantha Fernando, Dylan Banarse, Henryk Michalewski, Simon Osindero, Tim Rocktäschel（Google DeepMind）｜ ICML 2024",
+      "year": 2023,
+      "venue": "ICML 2024",
+      "link": "https://arxiv.org/abs/2309.16797",
+      "lineage": "発展",
+      "parent": "LMX",
+      "s1": "タスクプロンプトと、それを書き換える変異プロンプトを同時に進化させる自己参照的なプロンプト進化 Promptbreeder を提案。PaLM 2-L で GSM8K 83.9%（ゼロショット）など、CoT・Plan-and-Solve・OPRO を上回った。",
+      "s2": "APE は反復しても3回ほどで改善が頭打ちになり、OPRO・EvoPrompt は変異の指示文が固定。Promptbreeder は変異プロンプトも LLM で変異させ（超変異）、多様性の維持で頭打ちを避ける。",
+      "s3": "P′=LLM(M+P)、M′=LLM(H+M)。二値トーナメント GA（集団50）に9種の変異（ゼロ次生成、EDA・系譜ベース、超変異、Lamarck 型、交叉）を一様に適用。EDA 変異では BERT 類似度 0.95 超を除外する。",
+      "s4": "Table 1：GSM8K 83.9（OPRO 80.2）、MultiArith 99.7、AQuA 62.2 など。ETHOS 80%→89%。改善を生んだ割合はゼロ次超変異 42%、系譜変異 26%（Table 8）。自己参照の演算子を外すとほぼ全データで低下（Fig. 4）。",
+      "s5": "著者：プロンプトの使い方（段数・構造）は固定で、内容しか適応しない。\n所感：アブレーションでは初期化の多様化の寄与が最大で、超変異そのものの効果は限定的に見える。DGM・Hyperagents の「改善手順も改善する」発想の前身。",
+      "s6": "・LMX (2023)（本資料）\n・OPRO (Yang+ 2023)（未調査）\n・Darwin Gödel Machine (2025)（本資料）",
+      "figure": {
+        "file": "figures/promptbreeder.png",
+        "caption": "出典：Promptbreeder Fig. 1（初期化・変異演算子・集団の全体像）"
+      },
+      "notes": "本文（1〜6章）と付録 J.3–J.4（変異演算子の有効率）、L（アブレーション）を読んだ。"
+    },
+    {
+      "title": "OMNI-EPIC: Open-endedness via Models of human Notions of Interestingness with Environments Programmed in Code",
+      "short": "OMNI-EPIC (Faldor+ 2024)",
+      "authors": "Maxence Faldor, Jenny Zhang, Antoine Cully, Jeff Clune（Imperial College London / UBC）｜ ICLR 2025",
+      "year": 2024,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2405.15568",
+      "lineage": "発展",
+      "parent": "OMNI",
+      "s1": "LLM が「学習可能で面白い」次の課題を自然言語で提案し、その環境と報酬関数を Python コードで生成する OMNI-EPIC を提案。PyBullet 上で課題アーカイブを広げ続け、RL エージェントに学習させた。",
+      "s2": "POET や OMNI は環境のパラメータ空間（障害物の種類・大きさ等）が手設計で狭い。OMNI-EPIC は世界・報酬・終了条件をコードで書かせ、原理上は任意の課題を作れる方向（Darwin Completeness）へ広げた。",
+      "s3": "成功・失敗課題のアーカイブから類似課題を検索して文脈に入れ（踏み石）、課題生成→環境コード生成→事後の面白さ判定（類似課題と比べて新規か）→DreamerV3 で学習→成功判定、を繰り返す。",
+      "s4": "学習を省いた長期実行（200反復、各3回）で、アーカイブなし・面白さなしより埋めたセル数が有意に多い（p<0.05, Fig. 4）。RL 付き短期実行5回でも新指標 ANNECS-OMNI が両対照を上回った。",
+      "s5": "著者：シミュレータが1つで Darwin Complete ではなく、課題ごとの専門エージェントの汎化も未検証。\n所感：アーカイブ除去の効果を定量化した点が本テーマの基準点。ただし多様性は埋め込み PCA のセル数で、実行数も少ない。",
+      "s6": "・OMNI (2023)（本資料）\n・POET / Enhanced POET (Wang+ 2019/2020)（未調査）\n・Darwin Gödel Machine (2025)（本資料）",
+      "figure": {
+        "file": "figures/omni_epic.png",
+        "caption": "出典：OMNI-EPIC Fig. 1（課題アーカイブ・課題生成・環境生成・面白さ判定・成功判定のループ）"
+      },
+      "notes": "本文（1〜7章）と付録 I（多様性・ANNECS）、J（類似課題の検索）、K（ハイパーパラメータ：課題生成と環境生成は Claude 3 Opus、面白さ判定は GPT-4o）を読んだ。"
+    },
+    {
+      "title": "Darwin Godel Machine: Open-Ended Evolution of Self-Improving Agents",
+      "short": "Darwin Gödel Machine (Zhang+ 2025)",
+      "authors": "Jenny Zhang, Shengran Hu, Cong Lu, Robert Lange, Jeff Clune（UBC / Vector Institute / Sakana AI）｜ ICLR 2026",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2505.22954",
+      "lineage": "発展",
+      "parent": "OMNI-EPIC",
+      "s1": "コーディングエージェントが自分のコードを書き換え、子孫をすべてアーカイブに残してそこから親を選び続ける DGM を提案。80反復で SWE-bench Verified 20.0%→50.0%、Polyglot（全体）14.2%→30.7%。",
+      "s2": "Gödel Machine は改善の証明が要り実現できず、ADAS はメタエージェントが固定、SICA は最良版だけを登る。DGM は証明を評価に置き換え、自己改変も課題もコーディングなので改善が自己改善能力に直結する。",
+      "s3": "親の選択確率 ∝ sigmoid(λ(α−0.5))・1/(1+n)（α: 性能、n: 機能する子の数）。高性能で子の少ない個体を優先しつつ全個体に非ゼロ確率を残す（App. C.2）。評価は 10→60→200 課題の段階制。",
+      "s4": "Table 1（SWE-bench / Polyglot）：DGM 50.0/38.0、アーカイブなし 23.0/14.0、自己改善なし 39.0/28.0、貪欲（常に最良が親）39.7/30.0。最良系譜は性能が下がった個体を2回経由（Fig. 3）。",
+      "s5": "著者：1実行に約2週間・約2.2万ドル。親選択とアーカイブは固定で自己改変できない。検出用トークンを消す目的ハッキングも観察（App. H）。\n所感：アーカイブと非貪欲な親選択の寄与を同条件で比べた貴重な例だが、各条件1実行。",
+      "s6": "・HGM (2025)（本資料）\n・Hyperagents (2026)（本資料）\n・ADAS (Hu+ 2024)（未調査）\n・SICA (Robeyns+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/dgm.png",
+        "caption": "出典：DGM Fig. 3（SWE-bench でのアーカイブ木と、最良エージェントに至る系譜の進捗）"
+      },
+      "notes": "本文（1〜6章）と付録 A.1–A.4（対照・貪欲親選択・安定性）、C.2（親選択式）、E.1（費用）、H（目的ハッキング）を読んだ。Claude 3.7 Sonnet への載せ替えで 19.0%→59.5%（Fig. 4）。Polyglot 3回実行の平均 40.7±2.3%。"
+    },
+    {
+      "title": "ShinkaEvolve: Towards Open-Ended And Sample-Efficient Program Evolution",
+      "short": "ShinkaEvolve (Lange+ 2025)",
+      "authors": "Robert Tjarko Lange, Yuki Imajuku, Edoardo Cetin（Sakana AI）｜ ICLR 2026",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2509.19349",
+      "lineage": "最新",
+      "parent": "AlphaEvolve / DGM",
+      "s1": "LLM を変異演算子とする島モデルのプログラム進化に、性能と子の数による親選択、新奇性による棄却、UCB1 による LLM 選択を加えたオープンソース枠組み。26円詰めで150評価未満で AlphaEvolve の解を上回った。",
+      "s2": "AlphaEvolve などは数千回の評価を要し、多くが非公開。ShinkaEvolve は DGM 由来の親選択と、似たプログラムを評価前に捨てる仕組みで標本効率を上げ、Apache 2.0 で公開した。",
+      "s3": "親選択 p ∝ σ(λ(F−median F))・1/(1+N)。変異は diff・全面書き換え・交叉。島内の既存プログラムとの埋め込み類似度が 0.95 を超えたら LLM に新規性を判定させ、新しくなければ棄却する。",
+      "s4": "AIME 足場は7呼び出しの構成を発見し、別年度・別モデルに転移（Fig. 6）。ALE-Bench LITE で平均約2.3%改善（Fig. 7）。円詰めのアブレーションで、重み付き親選択＞山登り＞Best-of-N、埋め込み棄却＞棄却なし（Fig. 9）。",
+      "s5": "著者：探索と活用の配分は固定設定で、目的関数は人が定義する必要がある。\n所感：アブレーションは円詰め1課題・各1本の曲線で、ばらつきが示されていない。LLM による新奇性判定の上乗せは小さいと著者も認める。",
+      "s6": "・AlphaEvolve (2025)（既存：swarm-intelligence/metabbo）\n・AdaEvolve (Cemri+ 2026)（未調査）\n・No Universal Harness (2026)（本資料）",
+      "figure": {
+        "file": "figures/shinka.png",
+        "caption": "出典：ShinkaEvolve Fig. 9（円詰めでの親選択と新奇性棄却のアブレーション。3枚中2枚を抜粋）"
+      },
+      "notes": "本文（1〜6章：円詰め、AIME、ALE-Bench、MoE 負荷分散損失、アブレーション、限界）を読んだ。MoE 損失は 556M で進化させ 2.7B でも global-batch LBL を上回った（Fig. 8）。採録は ICLR 2026 のポスターページで確認。"
+    },
+    {
+      "title": "Huxley-Gödel Machine: Human-Level Coding Agent Development by an Approximation of the Optimal Self-Improving Machine",
+      "short": "HGM (Wang+ 2025)",
+      "authors": "Wenyi Wang, Piotr Piękos, Li Nanbo ほか（KAUST）｜ ICLR 2026",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2510.21614",
+      "lineage": "最新",
+      "parent": "DGM",
+      "s1": "自己改善の木探索で、親の目先の性能ではなく子孫全体（クレード）の成績から自己改善の見込み CMP を推定して展開先を選ぶ HGM を提案。DGM・SICA を上回り、CPU 時間は DGM の 1/2.38。",
+      "s2": "DGM・SICA は性能の高いエージェントほど良い子を生むと仮定するが、実際の相関は弱い（Metaproductivity–Performance Mismatch）。HGM はクレード単位の統計で将来性を測り、展開と評価を分けて非同期化した。",
+      "s3": "CMP(a)＝クレード内の成功数 ÷ 評価数。Beta 分布の Thompson サンプリングで展開先を選び、評価と展開の切替は N^α≥|T| の規則（UCB-Air 型）で決める。真の CMP があれば Gödel Machine を模倣できる（定理1）。",
+      "s4": "経験的 CMP との加重相関は HGM 0.778／DGM 0.285／SICA 0.444（SWE-Verified-60, Table 1）。800評価で最良 56.7%（DGM 53.3、SICA 50.0）、Polyglot 30.5%（27.1、25.4）（Table 2）。",
+      "s5": "著者：理論は最終エージェントのみを目的とし、評価が反復可能という仮定に依存。\n所感：親選択の信号の選び方が結果を左右することを DGM 系で直接示した。各手法1実行で分散は不明。DGM の「子の少なさ」に当たる新奇性項は持たない。",
+      "s6": "・Darwin Gödel Machine (2025)（本資料）\n・Gödel Machine (Schmidhuber 2003)（未調査）\n・HGM-Dual (Paul+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/hgm.png",
+        "caption": "出典：HGM Fig. 1（左：選択基準と将来の自己改善の相関、右：CPU 時間あたりの最良精度）"
+      },
+      "notes": "本文（1〜6章）を読んだ。全 SWE-Verified で最適化した 61.4% のエージェントは SWE-Lite で 49.0%（GPT-5 載せ替えで 57.0%、Table 3–4）。ICLR 2026 採録（Oral）は共著者の公開投稿による情報で、公式リストは未確認。"
+    },
+    {
+      "title": "Hyperagents",
+      "short": "Hyperagents / DGM-H (Zhang+ 2026)",
+      "authors": "Jenny Zhang, Bingchen Zhao, Wannan Yang ほか（UBC / Meta ほか）｜ arXiv 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2603.19461",
+      "lineage": "最新",
+      "parent": "DGM",
+      "s1": "課題を解くタスクエージェントと、それを書き換えるメタエージェントを1つの編集可能なプログラムにまとめ、改善手順も進化させる DGM-H を提案。論文査読・報酬設計・数学採点でも自己改善が続いた。",
+      "s2": "DGM は自己改善の指示を作る部分が手作りで固定され、課題能力と自己改変能力が一致するコーディングでしか「改善の改善」が成り立たない。DGM-H はメタ部分も編集対象にして、この一致の仮定を外した。",
+      "s3": "DGM のアーカイブと親選択（性能に比例、子の数に反比例）はそのまま使い、子は過去の評価とリポジトリを読んで任意の部分を書き換える。改善能力は imp@k（固定メタで k 個生成したときの最大改善）で測る。",
+      "s4": "5実行中央値で査読 0.0→0.710（静的基準 0.630）、報酬設計 0.060→0.372。自己改善なし 0.0/0.213、アーカイブなし 0.0/0.116、元の DGM 0.0/0.0（Fig. 2）。転移 hyperagent の imp@50 は 0.630、DGM 由来は 0.0（Fig. 3）。",
+      "s5": "著者：課題分布と外側ループ（親選択・評価）は固定で、完全な自己参照ではない。\n所感：アーカイブなしの崩れ方が DGM より大きく、領域を越えるほど踏み石の価値が上がることを示唆。発見された性能追跡や永続メモリは人の実験ノートに近い。",
+      "s6": "・Darwin Gödel Machine (2025)（本資料）\n・ADAS (Hu+ 2024)（未調査）\n・OMNI-EPIC (2024)（本資料）",
+      "figure": {
+        "file": "figures/hyperagents.png",
+        "caption": "出典：Hyperagents Fig. 1（DGM と DGM-H の比較。メタエージェント自体が編集対象になる）"
+      },
+      "notes": "本文（1〜7章）を読んだ。Polyglot では 0.084→0.267（全体）で DGM と同程度。ProofAutoGrader を初期値にすると IMO-GradingBench 全体で 0.561→0.601。一部報道に ICLR 2026 採録とあるが一次情報で確認できず、arXiv プレプリントとした。"
+    },
+    {
+      "title": "Towards End-to-End Automation of AI Research",
+      "short": "The AI Scientist, Nature 版 (Yamada+ 2026)",
+      "authors": "Yutaro Yamada, Robert Tjarko Lange, Cong Lu ほか（Sakana AI ほか）｜ Nature 2026",
+      "year": 2026,
+      "venue": "Nature 2026",
+      "link": "https://arxiv.org/abs/2606.15497",
+      "lineage": "最新",
+      "parent": "AI Scientist v1/v2",
+      "s1": "アイデア生成・新規性確認・実験・作図・執筆・自動査読までを1つにした The AI Scientist の統合版（テンプレート型の v1 と木探索型の v2）。生成論文1本が ICLR 2025 ワークショップの査読で平均 6.33 を得た。",
+      "s2": "従来は仮説生成・文献レビュー・実験コード生成など工程ごとの自動化にとどまっていた。本論は研究の全工程を通し、自動査読器を人間の査読結果と照合して、系の改良を大規模に評価できるようにした。",
+      "s3": "アイデアは LLM を変異演算子として育てる MAP-Elites 型アーカイブで作り、Semantic Scholar で既存研究に似たものを捨てる。テンプレート不要型は実験を4段階（予備→ハイパラ→本実験→アブレーション）の木探索で進める。",
+      "s4": "自動査読器の balanced accuracy は 0.69（2017–24）、カットオフ後の 2025 年も 0.66 で人間間の一致（0.66）と同等（Table 1）。論文の質はモデルの公開時期（p<0.00001, Fig. 1B）と木探索のノード数（Fig. 2C）とともに上昇。",
+      "s5": "著者：本会議水準には届かず、浅いアイデア・実装誤り・引用の幻覚が残る。査読負荷の増大など倫理面の懸念も大きい。\n所感：投稿3本は人手で選別しており、完全自動の採択率ではない。アーカイブ型アイデア生成の寄与は切り分けられていない。",
+      "s6": "・The AI Scientist v1 (Lu+ 2024)（未調査）\n・The AI Scientist-v2 (Yamada+ 2025)（未調査）\n・Hyperagents (2026)（本資料）",
+      "figure": {
+        "file": "figures/ai_scientist.png",
+        "caption": "出典：AI Scientist Fig. 1（A 全体の流れ、B モデル公開時期と論文スコア、C 自動査読器の精度）"
+      },
+      "notes": "本文（1〜5章）と Methods（テンプレート型・テンプレート不要型・木探索・VLM 統合）を読んだ。arXiv 版の著者順で記載。テンプレート型は1本あたり約 10〜15 ドル。ICBINB ワークショップの採択率は約70%。"
+    },
+    {
+      "title": "Automated Discovery Has No Universally Superior Harness",
+      "short": "No Universal Harness (Gupta+ 2026)",
+      "authors": "Akshat Gupta, Jermaine Lei, Alexander Lu, Gopala Anumanchipalli, Leshem Choshen（UC Berkeley / MIT）｜ arXiv 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2607.18235",
+      "lineage": "最新",
+      "parent": "OpenEvolve / TTT-Discover",
+      "s1": "LLM 駆動の発見系のハーネスを部品（Top-K アーカイブ、ε 探索、MAP-Elites、島、UCT/PUCT など）に分解し、30構成×12のモデル・問題組を310万ロールアウトで比較。どの固定ハーネスも一貫しては勝たないと示した。",
+      "s2": "OpenEvolve や TTT-Discover は複数の設計を束ねた複合レシピで、高価なため数回の試行で比べられてきた。本論は貪欲な逐次 Best-of-N を基準に部品を1つずつ足し、100回（または30回）の基準実行を帰無分布として検定した。",
+      "s3": "5回実行の最大値を、基準実行の best-of-5 のブートストラップ分布と比べる。12組中7組以上で勝つ確率 P̂maj を全体指標にし、置換検定と Holm 補正で判定。部分実行の成績で枝刈りして予算を移す適応配分も試した。",
+      "s4": "最良の K=1・ε=20% でも P̂maj=0.914、Holm 補正後 p=0.678 で有意でない。OpenEvolve 完全版は P̂maj=0.033 で最下位（Fig. 5a）。Top-K を大きくするだけでは改善なし（Fig. 2）。適応配分で平均 84.35→85.75%（Table 1）。",
+      "s5": "著者：ハーネスは問題とモデルに依存するハイパーパラメータとして扱うべき。\n所感：対象は数学3問と 3B〜120B の公開モデルで、自己改善エージェントや課題生成は未検証。各論文の「アーカイブが効く」は条件付きの知見として読むべき。",
+      "s6": "・Simple Baselines are Competitive with Code Evolution (Gideoni+ 2026)（未調査）\n・TTT-Discover (Yuksekgonul+ 2026)（未調査）\n・ShinkaEvolve (2025)（本資料）",
+      "figure": {
+        "file": "figures/harness.png",
+        "caption": "出典：No Universal Harness Fig. 1（a 部品分解、b 部品を足したときの基準比勝率の推移）"
+      },
+      "notes": "本文（1〜7章）を読んだ。50% 時点の成績と最終成績の Spearman 相関は 12 組中 11 組で 0.70 超（Fig. 5b）。"
+    }
+  ]
+}

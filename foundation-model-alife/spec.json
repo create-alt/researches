@@ -1,0 +1,217 @@
+{
+  "field": "オープンエンド学習・人工生命",
+  "theme": "基盤モデル × 人工生命とオープンエンド性の評価",
+  "date": "2026-10-24",
+  "summary": "人工生命の基盤（Lenia→Flow-Lenia、Swarm Chemistry、NCA、Core War）と、その探索・評価を基盤モデルで行う流れを追う。\nHughes+ 2024 の「観察者にとって新奇かつ学習可能」という定義を軸に、ASAL（FM 埋め込みでの新奇性）→ ASAL++・DRQ・Picbreeder-VLM・PBT-NCA へ展開し、OEB は探索過程の評価へ広げた。",
+  "papers": [
+    {
+      "title": "Lenia — Biology of Artificial Life",
+      "short": "Lenia (Chan 2019)",
+      "authors": "Bert Wang-Chak Chan（香港・個人研究）｜ Complex Systems 2019",
+      "year": 2019,
+      "venue": "Complex Systems 2019",
+      "link": "https://arxiv.org/abs/1812.05433",
+      "lineage": "原典",
+      "s1": "Game of Life を連続な空間・時間・状態へ一般化した連続セルオートマトン Lenia を提案。カーネル畳み込みと成長関数だけの局所則から、対話型進化で400種超・18科の自律パターン（生命体）を発見し、生物学に倣って分類した。",
+      "s2": "GoL・Larger-than-Life・SmoothLife などを状態・空間・時間・近傍和の連続化で整理し（Table 1）、その最も一般的な段階に位置づけた。生命体は幾何的・体節的・頑健で、規則を少し変えても生き残る点が離散 CA と異なる。",
+      "s3": "更新則は A^{t+Δt}=clip(A^t+Δt·G_{μ,σ}(K_β*A^t), 0, 1)。リング状カーネル K（ピーク β）で周囲を畳み込み、単峰の成長写像 G で増減を決める。FFT で高速化でき、R,T→∞ で連続極限に近づく。",
+      "s4": "ランダム生成・パラメータ調整・手動変異の対話型進化で種を収集し、自動走査で12億超の統計量を取得。μ-σ 平面に計142,338点のニッチ地図を描き、CA の4クラスとの対応を示した（Fig. 9）。Orbium の計量は解像度によらず一定（Fig. 7）。",
+      "s5": "著者：自己複製は未発見。自動探索は AI によるパターン認識なしでは非効率で、新奇性・好奇心駆動の探索が課題（4.4節）。\n所感：「何が面白いか」の判定が人手に依存しており、後の ASAL はこの判定を基盤モデルに置き換えた。",
+      "s6": "・Flow-Lenia (Plantec+ 2025)（本資料）\n・ASAL (Kumar+ 2025)（本資料）\n・Lenia and Expanded Universe (Chan 2020)（未調査）\n・SmoothLife (Rafler 2011)（未調査）",
+      "figure": {
+        "file": "figures/lenia_fig8.png",
+        "caption": "出典：Lenia (Chan 2019) Fig. 8（18科の生命体の例）"
+      },
+      "notes": "PDF 全49頁のうち、定義・実装・進化戦略・物理・分類・生態・考察（4章）を通読。形態・行動・生理の詳細節は流し読み。"
+    },
+    {
+      "title": "Open-Endedness is Essential for Artificial Superhuman Intelligence",
+      "short": "Hughes+ 2024（定義）",
+      "authors": "Edward Hughes, Michael Dennis, Jack Parker-Holder ほか（Google DeepMind）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024（Position, oral）",
+      "link": "https://arxiv.org/abs/2406.04268",
+      "lineage": "原典",
+      "s1": "オープンエンド性を「観察者から見て、生成物の系列が新奇（novel）かつ学習可能（learnable）であること」と形式的に定義した立場論文。基盤モデルに開放端アルゴリズムを組み合わせることが人間超えの AI（ASI）への道だと主張した。",
+      "s2": "Soros & Stanley (2014) の必要条件や Sigaud+ (2023) の「観察者にとって新しいトークンが出続ける」という定義を、予測モデルと損失で精密化した。ノイズ TV のような「新しいが無意味」な系を定義上排除できる点が差分。",
+      "s3": "観察者は過去の生成物 X_{1:t} で予測モデルを学び損失 ℓ(t,T) で評価。新奇性：∀t,T ∃T'>T で E[ℓ(t,T')]>E[ℓ(t,T)]。学習可能性：履歴を長くすると損失が下がる。「面白さ」は損失 ℓ の選び方に宿る。",
+      "s4": "実験はなく事例で定義を検証（2.4節）。AlphaGo・POET は人間にとって開放端だが領域が狭い、AdA は約1か月の学習で新奇性が頭打ち（有限の開放端）、固定データで学習した基盤モデルはデータ分布を学べる観察者には開放端でない、と分類。",
+      "s5": "著者：観察者の選び方が自由パラメータで、ASI は人間に理解できないまま開放端になりうるため、説明可能性と人間の誘導が安全上必須（4章）。\n所感：観察者モデルを具体化しないと測れず、実装では FM 埋め込みが代理観察者になる。",
+      "s6": "・ASAL (Kumar+ 2025)（本資料）\n・OMNI (Zhang+ 2023)（未調査）\n・Why Open-Endedness Matters (Stanley 2019)（未調査）\n・Information-Theoretic Definition for Open-Ended Learning (Xu+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/hughes_fig1.png",
+        "caption": "出典：Hughes+ 2024 Fig. 1（観察者ごとの新奇性と学習可能性）"
+      },
+      "scope": "全文（定義・関連定義・事例・4つの研究方向・安全性）。実験を含まない立場論文",
+      "notes": "付録 A（例示）と B（圧縮による別定義）は概観のみ。"
+    },
+    {
+      "title": "Flow-Lenia: Emergent evolutionary dynamics in mass conservative continuous cellular automata",
+      "short": "Flow-Lenia (Plantec+ 2025)",
+      "authors": "Erwan Plantec, Gautier Hamon, Mayalen Etcheverry ほか（IT University of Copenhagen / Inria）｜ Artificial Life 2025",
+      "year": 2025,
+      "venue": "Artificial Life 31(2) 2025",
+      "link": "https://arxiv.org/abs/2506.08569",
+      "lineage": "発展",
+      "parent": "Lenia (Chan 2019)",
+      "s1": "Lenia に質量保存を入れた Flow-Lenia を提案。成長量を「親和度」と読み替え、その勾配に沿って物質を移流させる。ランダムな規則でも大半が局在パターンになり、規則パラメータを物質と一緒に運ぶことで多種の共存・競争による内在的進化を実現した。",
+      "s2": "Lenia は規則ごとに生物が異なり同じ世界で相互作用できず、ランダム規則の多くは消滅か爆発で、探索にカリキュラム学習などの工夫（Hamon+ 2024）が要った。Flow-Lenia は局在性を系に内在化し、素朴な ES で最適化できる。",
+      "s3": "流れ F=(1−α)∇U−α∇A_Σ（α は局所質量で決まる）で物質を動かし、reintegration tracking で総質量を厳密に保存。規則パラメータの写像 P(x) を物質に載せ、同じセルへの流入時は流入量の softmax で1つを確率的に選ぶ。",
+      "s4": "同じ105個のランダム規則で、Flow-Lenia はほぼすべて局在パターン、Lenia は空か爆発が大半（Fig. 3）。OpenES で直進・旋回・障害物・走化性を獲得（Fig. 5）。50万ステップの多種実験で進化活性度は変異率にべき則で減少（γ=−0.5, Fig. 9）。",
+      "s5": "著者：種を「パラメータ空間の1点」とする定義に限界があり、散逸・餌条件の進化活性度は総質量で補正すると大小が逆転する（Fig. 10）。\n所感：Bedau 流の進化活性度という開放端性の測り方自体の脆さが見え、FM 埋め込み指標との比較が欲しい。",
+      "s6": "・Lenia (Chan 2019)（本資料）\n・Exploring Flow-Lenia Universes with a Curiosity-driven AI Scientist (Michel+ 2025)（未調査）\n・Expedition & Expansion (Khajehabdollahi+ 2025)（readme 参照）",
+      "figure": {
+        "file": "figures/flowlenia_fig1.png",
+        "caption": "出典：Flow-Lenia Fig. 1（Lenia との比較と実験の全体像）"
+      },
+      "notes": "Artificial Life 誌版（arXiv:2506.08569）を通読。初出は arXiv:2212.07906（2022）。"
+    },
+    {
+      "title": "Swarm Systems as a Platform for Open-Ended Evolutionary Dynamics",
+      "short": "Swarm Chemistry レビュー (Sayama 2025)",
+      "authors": "Hiroki Sayama（Binghamton University / 早稲田大学）｜ Phil. Trans. R. Soc. A 2025",
+      "year": 2025,
+      "venue": "Phil. Trans. R. Soc. A 383 (2025)",
+      "link": "https://arxiv.org/abs/2409.01469",
+      "lineage": "発展",
+      "parent": "Swarm Chemistry (Sayama 2009)",
+      "s1": "Boids を拡張した異種粒子群モデル Swarm Chemistry と、その形態形成版・進化版をレビューし、異種スウォームがオープンエンド進化の基盤（substrate）として優れる理由を整理した。群知能を最適化ではなく発散的な創造に使う視点を示した。",
+      "s2": "従来の群システムは最適化・探索・ロボット制御など既定目標への収束が主目的だった。本論文は異種性による設計空間の濃度の跳躍（cardinality leap）、多スケール性、摂動への頑健性を開放端の駆動力として位置づけ直した。",
+      "s3": "粒子の「レシピ」（行動パラメータと粒子数の組）が群の型を決める。進化版では衝突時に競争関数でレシピを伝達（変異あり）し、適応度関数なしで自然選択を起こす。周囲に同型が多い側が勝つ多数決関数が最も開放端的だった。",
+      "s4": "レビューのため新規実験はない。既報の成果として、対話型進化で多様な自己組織パターンを発見（Fig. 1）、形態形成版4クラスを24特徴の行動多様性（被覆体積・平均距離・エントロピー）で比較（Fig. 3）、進化版で捕食・分裂が出現（Fig. 4）。",
+      "s5": "著者：実用の「キラーアプリ」、ミクロとマクロの数理的接続、出現した「個体」や系統を自動で同定・解釈する方法が未解決（4章）。\n所感：最後の課題は VLM 埋め込みで個体を捉える ASAL 系の出番で、群知能分野との接点になる。",
+      "s6": "・Swarm Chemistry (Sayama 2009)（未調査）\n・Seeking OEE in Swarm Chemistry II (Sayama 2018)（未調査）\n・Vicsek model (Vicsek+ 1995)（既存：swarm-intelligence/foundations）\n・ASAL (Kumar+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/sayama_fig4.png",
+        "caption": "出典：Sayama 2025 Fig. 4（進化版 Swarm Chemistry、1万粒子）"
+      },
+      "scope": "全文（レビュー：原版・形態形成版・進化版・応用・展望）",
+      "notes": "原典 Swarm Chemistry（Artificial Life 15(1), 2009）は OA 版が見つからず本文未確認。"
+    },
+    {
+      "title": "Automating the Search for Artificial Life with Foundation Models",
+      "short": "ASAL (Kumar+ 2025)",
+      "authors": "Akarsh Kumar, Chris Lu, Louis Kirsch ほか（MIT / Sakana AI）｜ Artificial Life 2025",
+      "year": 2025,
+      "venue": "Artificial Life 31(3) 2025",
+      "link": "https://arxiv.org/abs/2412.17799",
+      "lineage": "発展",
+      "parent": "Lenia / Hughes+ 2024",
+      "s1": "視覚言語基盤モデル（CLIP / DINOv2）の埋め込み空間で ALife シミュレーションを評価・探索する枠組み ASAL を提案。目標一致・オープンエンド性・イルミネーションの3探索を Boids・Particle Life・Life-like CA・Lenia・NCA で実証した。",
+      "s2": "従来は複雑性や面白さの手設計指標（Kolmogorov 複雑性、assembly theory など）や基盤固有の目的（Leniabreeder の質量・速度）に頼り、人間の感覚とずれていた。FM の表現を人間の観察者の代理とし、基盤を問わず使える。",
+      "s3": "開放端スコアは各時刻の画像埋め込みと過去の最近傍との類似度の期待値（小さいほど新奇）：θ*=argmin_θ E_T[max_{T'<T}⟨z_T, z_{T'}⟩]。目標一致はテキスト埋め込みとの内積、照明は集団内の最近傍類似度を最小化する。",
+      "s4": "Life-like CA の全262,144規則を総当たりし、Conway のライフゲームは開放端スコア上位5%（Fig. 5）。Particle Life の「a caterpillar」は粒子1,000個以上でのみ出現（Fig. 7b）。照明では CLIP≳DINOv2≫画素表現（Fig. 8）。",
+      "s5": "著者：Lenia・Boids では新奇性を持続させにくく開放端探索は CA でのみ実施、NCA は表現力が過剰。\n所感：評価は主に定性的で、開放端性の判定を FM（＝観察者）に外注した形。FM の偏りがそのまま「面白さ」になる点は要検証。",
+      "s6": "・ASAL++ (Baid+ 2025)（本資料）\n・PBT-NCA (Berdica+ 2026)（本資料）\n・Leniabreeder (Faldor & Cully 2024)（未調査）\n・Expedition & Expansion (Khajehabdollahi+ 2025)（readme 参照）",
+      "figure": {
+        "file": "figures/asal_fig2.png",
+        "caption": "出典：ASAL Fig. 2（目標・開放端・照明の3探索）"
+      },
+      "notes": "最適化は Sep-CMA-ES（目標）、カスタム GA（照明, 集団8,192）、BPTT（NCA の時間目標）。付録 A, B も参照。"
+    },
+    {
+      "title": "Guiding Evolution of Artificial Life Using Vision-Language Models",
+      "short": "ASAL++ (Baid+ 2025)",
+      "authors": "Nikhil Baid, Hannah Erlebach, Paul Hellegouarch ほか（University College London）｜ ALIFE 2025",
+      "year": 2025,
+      "venue": "ALIFE 2025",
+      "link": "https://arxiv.org/abs/2509.22447",
+      "lineage": "最新",
+      "parent": "ASAL",
+      "s1": "ASAL の目標プロンプトを固定せず、第2の基盤モデル（Gemma-3 = Evolver）がシミュレーション動画を見て次の目標を提案し続ける ASAL++ を提案。単一目標を追う EST と、目標列全体に合わせる ETT を Lenia で比較した。",
+      "s2": "ASAL の教師あり目標は事前に決めた単一または系列のプロンプトで、探索中に現れる踏み石を活かせなかった。Leniabreeder（QD）は統計量の記述子に縛られる。ASAL++ は目標そのものを FM に進化させ、開放端的な軌跡を作る。",
+      "s3": "外側で Evolver が「過去の目標は探索済みのニッチ。大胆に新しい次の目標を出せ」という指示で目標を提案し、内側で ASAL（CLIP 類似度＋CMA-ES, 2,000 ステップ）が前回の最良解から最適化。OE スコアは 1−過去フレームとの最大類似度。",
+      "s4": "初期プロンプト9種×8反復。EST は最終と初期の OE 差が 0.009±0.004 で増加、平均 OE 0.052（Table 1）。ETT は差 0.002±0.004 で横ばい・平均 0.049 だが、系列の一貫性が高い（Table 2, Fig. 4）。目標の再標本化で系統樹も描いた（Fig. 5）。",
+      "s5": "著者：Gemma-3 は生物系の語彙に偏る（ピザから発光生物へ）。ETT は局所解・活性消失に陥り、Flow-Lenia では面白い挙動が出なかった。\n所感：OE スコアの差は小さく評価は主に定性的。目標列の多様性を測る指標が別に要る。",
+      "s6": "・ASAL (Kumar+ 2025)（本資料）\n・PBT-NCA (Berdica+ 2026)（本資料）\n・OMNI-EPIC (Faldor+ 2024)（未調査）\n・Expedition & Expansion (Khajehabdollahi+ 2025)（readme 参照）",
+      "figure": {
+        "file": "figures/asalpp_fig5.png",
+        "caption": "出典：ASAL++ Fig. 5（Lenia の系統樹、初期目標 a caterpillar）"
+      }
+    },
+    {
+      "title": "Digital Red Queen: Adversarial Program Evolution in Core War with LLMs",
+      "short": "Digital Red Queen (Kumar+ 2026)",
+      "authors": "Akarsh Kumar, Ryan Bahlous-Boldi, Prafull Sharma ほか（MIT / Sakana AI）｜ GECCO 2026",
+      "year": 2026,
+      "venue": "GECCO 2026",
+      "link": "https://arxiv.org/abs/2601.03335",
+      "lineage": "最新",
+      "parent": "ASAL",
+      "s1": "チューリング完全な ALife 環境 Core War で、各ラウンドに「過去の全チャンピオンに勝つ」warrior を LLM で進化させる最小の自己対戦 Digital Red Queen（DRQ）を提案。ラウンドを重ねるほど汎用性が上がり、独立実行間で行動が収斂した。",
+      "s2": "AlphaEvolve などの LLM 進化は静的な目的の最適化で、生物や技術の進化の本質である敵対的な軍拡競争（Red Queen 動力学）を扱っていなかった。Tierra・Avida 系のプログラム生態系と FSP / PSRO 型の自己対戦を LLM でつないだ。",
+      "s3": "ラウンド t で w_t=argmax_w E[Fitness(w; w_0…w_{t−1})]。ラウンド内は MAP-Elites（記述子＝生成スレッド数×メモリ被覆）、変異は GPT-4.1 mini。適応度は各時刻の生存者で按分した報酬の和。過去の warrior は更新しない。",
+      "s4": "静的最適化では人間製294体の89.1%に勝つ専門家集合を得たが、単体は平均27.9%（Fig. 2）。96実行で汎用性はラウンドとともに上昇し、表現型の分散は減り、遺伝子型（コード埋め込み）の分散は不変（Fig. 3）。K=1→10 でサイクル77%減。",
+      "s5": "著者：収斂圧は弱く、完全な収斂には指数的なラウンド数が要る。系譜は一本道で、多数の同時共進化は今後の課題。\n所感：汎用性の上昇は開放端よりも収束の証拠とも読め、Hughes の新奇性・学習可能性の両面で測ると面白い。",
+      "s6": "・Open-Endedness is Essential for ASI (Hughes+ 2024)（本資料）\n・Foundation Model Self-Play (Dharna+ 2025)（未調査）\n・AlphaEvolve (Novikov+ 2025)（既存：swarm-intelligence/metabbo）",
+      "figure": {
+        "file": "figures/drq_fig1.png",
+        "caption": "出典：DRQ Fig. 1 の一部（Core War のメモリ可視化）"
+      },
+      "notes": "採録先は researchr の GECCO 2026 書誌（pp. 691–700）による。arXiv コメント欄には記載なし。"
+    },
+    {
+      "title": "In Search of the Ingredients of Open-Endedness: Replicating Picbreeder with Large Vision-Language Models",
+      "short": "Picbreeder-VLM (Earle+ 2026)",
+      "authors": "Sam Earle, Kai Arulkumaran, Andrew Dai ほか（New York University / Sakana AI）｜ GECCO 2026",
+      "year": 2026,
+      "venue": "GECCO 2026",
+      "link": "https://arxiv.org/abs/2605.23908",
+      "lineage": "最新",
+      "parent": "Picbreeder (Secretan+ 2011)",
+      "s1": "人間の協調的な対話型進化で開放端的に画像を生んだ Picbreeder を、人間の代わりに VLM（Gemini 2.5 Pro）が操作する形で再現。履歴長・探索ノイズ・エージェント数を変え、開放端性の「成分」を因果的に調べた。",
+      "s2": "Picbreeder の人間ログ（公開画像9,758枚と系譜）を基準に比較する。Innovation Engine など目的付きの探索と異なり、明示的な目的なしに VLM の選好だけが探索を駆動し、人間にあって VLM に欠けるものを指標で特徴づけた。",
+      "s3": "CPPN＋NEAT で原版の操作（分岐・選択・色/構造変異・公開）を忠実に再現し、10体の VLM が共有アーカイブを育てる。評価は意味的再現率（THINGS 1,824語との SigLIP2 距離）、視覚・意味的被覆半径（k=100）、系統樹バランス J¹。",
+      "s4": "各設定2,000セッション×6シード。人間は再現率0.089・視覚被覆0.681で既定 VLM（0.087, 0.614）を上回る（Table 1）。ε ノイズは多様性を上げ質を下げ、履歴は CL=1 が最良。1,000人格のエージェントで意味的被覆0.734・J¹ 0.476。",
+      "s5": "著者：VLM は同じ画像から分岐し続け系統樹が偏る。多人格では意味不明な高周波画像（敵対的例）が意味的被覆を水増しする。\n所感：FM 埋め込みの新奇性指標が敵対的に騙されうると示した点が、評価研究として重要。",
+      "s6": "・Picbreeder (Secretan+ 2011)（未調査）\n・Innovation Engine (Nguyen+ 2016)（未調査）\n・ASAL (Kumar+ 2025)（本資料）\n・Open-Endedness Bench (Shi+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/picbreeder_fig4.png",
+        "caption": "出典：Picbreeder-VLM Fig. 4（人間と VLM の「車」の系譜）"
+      },
+      "notes": "図番号は arXiv PDF 版（v2）に従う。(a)(b) を横に並べ替えて掲載。"
+    },
+    {
+      "title": "Evolving Many Worlds: Towards Open-Ended Discovery in Petri Dish NCA via Population-Based Training",
+      "short": "PBT-NCA (Berdica+ 2026)",
+      "authors": "Uljad Berdica, Jakob Foerster, Frank Hutter ほか（University of Oxford, FLAIR）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.11248",
+      "lineage": "最新",
+      "parent": "PD-NCA / ASAL",
+      "s1": "複数の NCA が領土を奪い合う Petri Dish NCA（PD-NCA）の「世界」30個を、過去の行動との新奇性と同時代の世界との DINOv2 視覚多様性で選抜する集団ベース学習 PBT-NCA で進化。周期波・胞子状の拡散・移動する巨視構造が出現した。",
+      "s2": "PD-NCA はハイパーパラメータに敏感で、凍結平衡・ノイズ・単一種支配に崩れやすい。ASAL / ASAL++ は凍結した設定の外側探索だが、本手法はエージェントが勾配で適応し続ける世界の集団に直接選択圧をかける。",
+      "s3": "適応度 F_i=N_i+D_i。N_i は占有率の平均・変動・交代率・勝者エントロピーなどの記述子の、FIFO アーカイブ内 k=8 近傍との平均距離。D_i は他世界との DINOv2 コサイン距離の中央値。下位25%を上位の丸ごと複製＋変異で置換。",
+      "s4": "P=30・500メタ反復、NCA 3/5/7体×3実行。複合スコアは初期の低下後に上昇（Fig. 2, 9）。7体で生態的持続 EP≈1.0、種エントロピー≈2.3 bit（最大の約82%）、有効複雑性 0.21±0.05（Fig. 12）。固定設定はノイズ、ランダム探索は周期パターン止まり。",
+      "s5": "著者：2D 格子は熱力学的制約を単純化しすぎ、DINOv2 は人間中心の自然画像バイアスを持ち込む。\n所感：ベースラインとの比較は定性的な図のみ。開放端性を主張するには ASAL 型の OE スコアなど共通指標での比較が欲しい。",
+      "s6": "・Petri Dish NCA (Zhang+ 2025)（未調査）\n・ASAL (Kumar+ 2025)（本資料）\n・Population Based Training (Jaderberg+ 2017)（未調査）\n・Novelty Search (Lehman & Stanley 2011)（未調査）",
+      "figure": {
+        "file": "figures/pbtnca_fig2.png",
+        "caption": "出典：PBT-NCA Fig. 2（複合スコアの推移と出現パターン）"
+      },
+      "notes": "PD-NCA 原典（Zhang, Risi, Darlow 2025, Sakana AI）は arXiv 版がなく本文未確認。"
+    },
+    {
+      "title": "Open-Endedness Bench: Measuring Epistemic Process from Agent Records",
+      "short": "Open-Endedness Bench (Shi+ 2026)",
+      "authors": "Chengyang Shi, Xianglin Ji, Jintao Huang ほか（University of Michigan / ARA Lab）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.02588",
+      "lineage": "最新",
+      "parent": "Hughes+ 2024",
+      "s1": "AI エージェントの研究実行ログだけから「認識的プロセス」を測る Open-Endedness Bench（OEB）を提案。主張と実行した行為を結ぶ認識イベントグラフを作り、証拠・実験・修正・報酬ハッキング回避の4軸と6つの研究スタイルを採点する。",
+      "s2": "開放端的な研究課題（法則発見・最適解が不明な改善・記録更新）には参照解がなく、成果スコアだけでは主張が実験に裏付けられているか分からない。PaperBench のようなタスク別ルーブリックも不要で、ベンチマークを問わず適用できる。",
+      "s3": "原理は「意味が提案し、行為が裁く」：命題は実行された行為の結果でのみ支持・反証される。LLM は引用の抜き出しと閉じた質問（3票多数決）だけを担い、引用はコードで記録と照合。スコアは「機会のうち取った割合」。",
+      "s4": "3ベンチマーク12タスクの既存119実行を採点。再採点の差は中央値0.04（別ジャッジで0.08）。主張された改善のうち実際に改善だったのは16〜29%（Table 4）。勝ち実行は後半に新アイデアを多く試す（10タスク中9）。研究スタイルは課題よりモデルで決まる（43% vs 7%）。",
+      "s5": "著者：数値だけで推論する探索では命題が取れず、記録外の推論は測れない。1実行に中央値652回のジャッジ呼び出しが要る。\n所感：ALife の「生成物の新奇性」ではなく探索過程の健全性を測る別系統の評価で、両者の統合が次の課題。",
+      "s6": "・Open-Endedness is Essential for ASI (Hughes+ 2024)（本資料）\n・Picbreeder-VLM (Earle+ 2026)（本資料）\n・The AI Scientist (Lu+ 2024)（未調査）\n・PaperBench (Starace+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/oeb_fig1.png",
+        "caption": "出典：OEB Fig. 1（ログ→記録→グラフ→スコア）"
+      },
+      "notes": "付録（変換規則・プロンプト・信頼性詳細）は概観のみ。"
+    }
+  ]
+}

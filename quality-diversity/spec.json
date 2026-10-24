@@ -1,0 +1,210 @@
+{
+  "field": "オープンエンド学習・人工生命",
+  "theme": "Quality-Diversity の基礎と DL・群知能との融合",
+  "date": "2026-10-24",
+  "summary": "QD は多様で高性能な解の集合を一度に照らす進化計算。新奇性探索（2011）と MAP-Elites（2015）を原典に、\nCVT・AURORA で記述子を高次元化・自動化し、CMA-MAE・DCRL-ME で ES・深層 RL と融合。\n2025〜26年は QD を「局所競争つき GA」と捉え直す DNS・LQD、割引モデル DMS、BFM 潜在空間での探索へ。",
+  "papers": [
+    {
+      "title": "Abandoning Objectives: Evolution Through the Search for Novelty Alone",
+      "short": "Novelty Search (Lehman & Stanley 2011)",
+      "authors": "Joel Lehman, Kenneth O. Stanley（University of Central Florida）｜ Evolutionary Computation 19(2) 2011",
+      "year": 2011,
+      "venue": "Evolutionary Computation 2011",
+      "link": "https://doi.org/10.1162/EVCO_a_00025",
+      "lineage": "原典",
+      "s1": "目的関数を捨て、行動の新しさ（新奇性）だけを報酬にする「新奇性探索」を提案。欺瞞的な迷路で、目的関数で進化させた NEAT より速く確実にゴールへ到達する解を見つけた。",
+      "s2": "欺瞞的な問題では、適応度が中間の「踏み石」を評価できず局所解に陥る。fitness sharing などの多様性維持も最終的には適応度に従うため欺瞞される。本論は目的そのものを外し、ALife のオープンエンド進化を一般の問題へ持ち込んだ。",
+      "s3": "行動記述子 x の新奇性を、集団と過去アーカイブ中の k 近傍への平均距離 ρ(x)=(1/k)Σdist(x, μ_i) で測り、適応度の代わりに最大化する。ρ が閾値 ρ_min を超えた個体はアーカイブに永続保存する。",
+      "s4": "難しい迷路で、目的指向 NEAT は40回中3回しか解けず（ランダム選択は4回）、新奇性探索は39回解いた（平均 35,109 評価, Fig. 3）。2足歩行の平均到達距離は 4.04m 対 2.88m（p<0.01, Fig. 10）。",
+      "s5": "著者：壁のない迷路では新奇性探索も 5/100 回しか解けず、行動空間の制約が重要。見つけた解を磨く圧力もない。\n所感：成否が記述子の設計に依存する点が、のちの QD・AURORA の課題設定になった。",
+      "s6": "・NSLC (Lehman & Stanley 2011)（未調査）\n・MAP-Elites (2015)（本資料）\n・ICM (Pathak+ 2017)（既存：world-model/intrinsic-reward）",
+      "figure": {
+        "file": "figures/ns_fig4.png",
+        "caption": "出典：Novelty Search Fig. 4（迷路で評価した個体の最終位置。上：新奇性探索、下：目的関数）"
+      },
+      "notes": "本文は Semantic Scholar が OA 版として示す Swarthmore 大学サイト掲載の著者版 PDF（全39頁）で読んだ。"
+    },
+    {
+      "title": "Illuminating search spaces by mapping elites",
+      "short": "MAP-Elites (Mouret & Clune 2015)",
+      "authors": "Jean-Baptiste Mouret, Jeff Clune（Université Pierre et Marie Curie / University of Wyoming）｜ arXiv 2015",
+      "year": 2015,
+      "venue": "arXiv プレプリント 2015",
+      "link": "https://arxiv.org/abs/1504.04909",
+      "lineage": "原典",
+      "parent": "Novelty Search",
+      "s1": "ユーザーが選んだ低次元の特徴空間を格子に分け、各セルで最良の解（エリート）を1つずつ保持する MAP-Elites を提案。性能が特徴空間にどう分布するかを1回の実行で示す「照明アルゴリズム」という枠組みを打ち出した。",
+      "s2": "先行する NS+LC や MOLE は近傍計算と大域的な性能競争のせいで動態が複雑で、低性能領域での改善を見逃した。MAP-Elites はセル内でだけ競わせ、親をアーカイブから一様に選ぶだけの単純な仕組みでこれを置き換えた。",
+      "s3": "親をアーカイブから一様に選び、変異・交叉した子の特徴 b(x) と性能 f(x) を評価する。対応するセルが空か、子のほうが高性能なら置き換える。集団とアーカイブの区別をなくしたことが要点。",
+      "s4": "網膜課題の NN（512×512 マップ）で、従来 EA・NS+LC・ランダムを全4指標で上回った（p<1e-7, Fig. 3）。ソフトロボットでは信頼度・被覆率で優位（p<0.002）だが、精度は対照に劣った（Fig. 5）。",
+      "s5": "著者：特徴空間が固定なので新しいニッチは生まれず、オープンエンドではない。データは予備的と明記。\n所感：エリートの系統が特徴空間を大きく横断する分析（Fig. 4）が「踏み石」仮説を裏づけ、QD の基本形になった。",
+      "s6": "・CVT-MAP-Elites (2018)（本資料）\n・Robots that can adapt like animals (Cully+ 2015)（未調査）\n・ELM (Lehman+ 2022)（既存：swarm-intelligence/ga-hybrid）",
+      "figure": {
+        "file": "figures/me_fig5.png",
+        "caption": "出典：MAP-Elites Fig. 5（ソフトロボット課題の指標と、EA／EA+D／MAP-Elites が埋めた特徴マップ）"
+      }
+    },
+    {
+      "title": "Using Centroidal Voronoi Tessellations to Scale Up the Multi-dimensional Archive of Phenotypic Elites Algorithm",
+      "short": "CVT-MAP-Elites (Vassiliades+ 2018)",
+      "authors": "Vassilis Vassiliades, Konstantinos Chatzilygeroudis, Jean-Baptiste Mouret（Inria）｜ IEEE TEVC 2018",
+      "year": 2018,
+      "venue": "IEEE TEVC 2018",
+      "link": "https://arxiv.org/abs/1610.05729",
+      "lineage": "発展",
+      "parent": "MAP-Elites",
+      "s1": "特徴空間を重心ボロノイ分割（CVT）で k 個の領域に分け、次元によらずニッチ数を一定にする CVT-MAP-Elites を提案。1000次元の記述子でも MAP-Elites と同等の解を得た。",
+      "s2": "格子型の MAP-Elites はセル数が次元に対して指数的に増え、50次元ではポインタ行列だけで 4096TB を要する。セルが多すぎると性能への選択圧も薄まり、2〜6次元でしか使えなかった。",
+      "s3": "特徴空間に一様に打った多数の点を k-means で k 個に集約して重心を求め（実行前に1回だけ）、各個体を最も近い重心の領域に入れる。それ以外は MAP-Elites と同じで、差し替えるだけで使える。",
+      "s4": "迷路で埋まったニッチの割合は、MAP-Elites が 2D 0.72→20D 0.005 と急落し、CVT は 0.73→1000D 0.36 を保った（Fig. 5）。6脚歩行の24D 記述子では最良歩行速度 0.16 対 0.44 m/s（Fig. 7）。",
+      "s5": "著者：ニッチを減らすと各ニッチが広がり、性能への選択圧が増える。k の調整は今後の課題。\n所感：分割には実現可能な記述子のサンプリングが必要で、この事前知識への依存を AURORA が問題にした。",
+      "s6": "・AURORA (Cully 2019)（本資料）\n・Dominated Novelty Search (2025)（本資料）\n・QD: A Unifying Modular Framework (Cully & Demiris 2018)（未調査）",
+      "figure": {
+        "file": "figures/cvt_fig1.png",
+        "caption": "出典：CVT-MAP-Elites Fig. 1（格子による分割とボロノイ分割の比較）"
+      },
+      "notes": "IEEE TEVC 早期公開は 2017 年（DOI 10.1109/TEVC.2017.2735550）。arXiv v2（2017-07）で読んだ。"
+    },
+    {
+      "title": "Autonomous skill discovery with Quality-Diversity and Unsupervised Descriptors",
+      "short": "AURORA (Cully 2019)",
+      "authors": "Antoine Cully（Imperial College London）｜ GECCO 2019",
+      "year": 2019,
+      "venue": "GECCO 2019",
+      "link": "https://arxiv.org/abs/1905.11874",
+      "lineage": "発展",
+      "parent": "CVT-MAP-Elites",
+      "s1": "QD の行動記述子を、オートエンコーダ（AE）や PCA による次元削減で自動的に学習する AURORA を提案。ロボットが自ら生成した感覚データだけから、手作り記述子に匹敵する多様な行動レパートリーを得た。",
+      "s2": "QD は記述子の手設計に依存し、CVT-MAP-Elites も実現可能な軌道を事前にサンプルする知識を要した。AURORA は QD が集めた解をそのまま次元削減の学習データにし、事前知識を不要にした。",
+      "s3": "QD の反復（選択・変異・評価・追加）と、アーカイブ内の全軌道（100次元）による AE の再学習を交互に行い、潜在2次元を記述子とする。再学習は 0, 50, 150, … 3150 世代と指数的に間引く。",
+      "s4": "弾道課題で真の分布との KL 被覆（低いほど良い）は AURORA-PCA 0.051、AE 0.097、遺伝子型 0.686、事前知識つき CVT 0.704、事前なし CVT 3.2（Fig. 4）。エアホッケーで AE は手作りと有意差なし（p=0.561）。",
+      "s5": "著者：AE の潜在空間を構造化する仕組みがなく、潜在次元の大きさが選択圧に与える影響も未解決。\n所感：学習で記述子空間の形と範囲が動くため格子の境界設定が難しくなり、これが DNS の動機の一つになった。",
+      "s6": "・Unsupervised Behaviour Discovery with QD (Grillotti & Cully 2022)（未調査）\n・Dominated Novelty Search (2025)（本資料）\n・AutoQD (Hedayatian & Nikolaidis 2026)（未調査）",
+      "figure": {
+        "file": "figures/aurora_fig1.png",
+        "caption": "出典：AURORA Fig. 1（QD と次元削減を交互に回す全体像）"
+      }
+    },
+    {
+      "title": "Covariance Matrix Adaptation MAP-Annealing",
+      "short": "CMA-MAE (Fontaine & Nikolaidis 2023)",
+      "authors": "Matthew C. Fontaine, Stefanos Nikolaidis（University of Southern California）｜ GECCO 2023",
+      "year": 2023,
+      "venue": "GECCO 2023",
+      "link": "https://arxiv.org/abs/2205.10752",
+      "lineage": "発展",
+      "parent": "CMA-ME",
+      "s1": "CMA-ES と MAP-Elites を融合した CMA-ME の改善量の基準を、セルごとの受理閾値として学習率 α でゆっくり上げる CMA-MAE を提案。CMA-ES（α=0）と CMA-ME（α=1）を連続的につなぎ、全ベンチマークで最良となった。",
+      "s2": "CMA-ME（2020）は改善が小さいとすぐ別の領域へ移り、目的の最適化を早く諦めた。平坦な目的関数では探索信号を失い、低解像度のアーカイブにも弱かった。本論はこの3つの限界を1つの変更で解いた。",
+      "s3": "改善量 Δ=f(θ)−t_e で候補を順位づけして CMA-ES を更新し、受理時に閾値を t_e←(1−α)t_e+αf(θ) と更新する。0<α<1 なら、平坦な目的では密度降下と等価になる（定理5.4）。",
+      "s4": "線形射影 Sphere で QD スコア 64.86（CMA-ME 36.50、MAP-Elites 41.64）、被覆率 83.31%。plateau では 79.27 対 34.54（Table 1）。0<α<1 の範囲では α に頑健で、解像度にも不変だった。",
+      "s5": "著者：α の初期値は依然として人が決める。DQD 版の利点は難しい StyleGAN2 課題でしか見えなかった。\n所感：「アーカイブ＝割引関数」という見方は、DMS や DNS と同じ設計空間にある。",
+      "s6": "・CMA-ME (Fontaine+ 2020)（未調査）\n・Discount Model Search (2026)（本資料）\n・Density Descent Search (Lee+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/cmamae_fig2.png",
+        "caption": "出典：CMA-MAE Fig. 2（学習率 α による CMA-ES〜CMA-ME 間のアーカイブの変化）"
+      }
+    },
+    {
+      "title": "Synergizing Quality-Diversity with Descriptor-Conditioned Reinforcement Learning",
+      "short": "DCRL-MAP-Elites (Faldor+ 2024)",
+      "authors": "Maxence Faldor, Félix Chalumeau, Manon Flageat, Antoine Cully（Imperial College London ほか）｜ ACM TELO 2024",
+      "year": 2024,
+      "venue": "ACM TELO 2024",
+      "link": "https://arxiv.org/abs/2401.08632",
+      "lineage": "発展",
+      "parent": "PGA-MAP-Elites",
+      "s1": "MAP-Elites に記述子条件付きの actor-critic（TD3）を組み込み、critic で方策勾配変異を、actor で新しい方策の生成・注入を行う DCRL-MAP-Elites を提案。7つの Brax 歩行課題で既存の QD-RL と同等以上の QD スコアを得た。",
+      "s2": "PGA-MAP-Elites は critic で GA 変異を補ったが、RL が単一の最適解へ収束するため全方位移動課題では PG 変異が効かなかった。前身の DCG-ME は記述子条件付き critic でこれを解いたが、actor を活かせていなかった。",
+      "s3": "critic Q(s,a|d) は、軌道の記述子と目標記述子の類似度 S(d,d')=exp(−‖d−d'‖/L) で報酬を縮めて学習する。actor π(a|s,d) は d を固定すると第1層のバイアスに畳み込め、アーカイブと同形の方策として注入できる。",
+      "s4": "7課題・20シード・100万評価。DCG-ME に対し、Ant Uni を除く全課題で QD スコアが有意に高い（p<0.01, Fig. 3）。被覆率は全課題で QD-PG を上回った（p<0.05）。アブレーションで各要素の寄与を確認した（Fig. 5）。",
+      "s5": "著者：記述子が軌道全体に依存するためマルコフ性が崩れ、微分可能な方策にしか使えない。蒸留した actor は Ant Uni で劣る。\n所感：RL の「収束」と QD の「発散」の緊張を、記述子での条件付けで両立させた点が DL 融合の要。",
+      "s6": "・PGA-MAP-Elites (Nilsson & Cully 2021)（未調査）\n・BFM-QD (2026)（本資料）\n・ASCII-ME (Mitsides+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/dcrl_fig1.png",
+        "caption": "出典：DCRL-MAP-Elites Fig. 1（QD ループと記述子条件付き RL の結合）"
+      }
+    },
+    {
+      "title": "Dominated Novelty Search: Rethinking Local Competition in Quality-Diversity",
+      "short": "Dominated Novelty Search (Bahlous-Boldi+ 2025)",
+      "authors": "Ryan Bahlous-Boldi, Maxence Faldor, Luca Grillotti ほか（UMass Amherst / Imperial College London）｜ GECCO 2025",
+      "year": 2025,
+      "venue": "GECCO 2025",
+      "link": "https://arxiv.org/abs/2502.00593",
+      "lineage": "最新",
+      "parent": "MAP-Elites / AURORA",
+      "s1": "QD を「選択の前に適応度を変換する競争関数を挟んだ GA」と定式化し直し、MAP-Elites の格子も閾値型アーカイブもその特殊例だと示した。そのうえで境界も距離閾値も要らない競争関数 DNS を提案した。",
+      "s2": "QD の改良は再生や頑健性に集中し、核の局所競争は格子（事前に境界が要る）か距離閾値 l（調整が難しい）のままだった。fitness sharing・NSGA-II・lexicase など GA の多様性維持の系譜にも QD を位置づけた。",
+      "s3": "各個体について自分より適応度の高い個体だけを取り出し、その k 近傍までの平均距離を競争適応度 f̃ とする。より良い解がない個体は f̃=∞ で必ず残る。「性能を上げるか、上位解と違う行動をとるか」の圧力が生じる。",
+      "s4": "Walker・Ant・Ant Blocks で Threshold-Elites と Cluster-Elites を QD スコア・被覆率とも上回り（p<1e-9）、到達不能域のある Walker と Ant Blocks では MAP-Elites も上回った（p<1e-3, Fig. 4）。Ant は同等。",
+      "s5": "著者：競争関数は差し替え可能な部品であり、NN で学習させる方向がある。\n所感：計算は集団内の距離だけで済み、群知能の近傍相互作用に近い。ただし記述子が高次元になると距離そのものが効きにくくなる問題は残る。",
+      "s6": "・LQD (Faldor+ 2025)（本資料）\n・NSLC (Lehman & Stanley 2011)（未調査）\n・QDHUAC (Koohy & Bayne 2026)（未調査）",
+      "figure": {
+        "file": "figures/dns_fig1.png",
+        "caption": "出典：DNS Fig. 1（MAP-Elites 格子の落とし穴と、DNS の競争適応度の計算手順）"
+      },
+      "notes": "高次元記述子の Kheperax（軌道 n 点）でも n=2, 10 を除き全手法に有意に勝った（Fig. 5）。AURORA 型の教師なし記述子でも最良（Fig. 6）。"
+    },
+    {
+      "title": "Discovering Quality-Diversity Algorithms via Meta-Black-Box Optimization",
+      "short": "LQD (Faldor+ 2025)",
+      "authors": "Maxence Faldor, Robert Tjarko Lange, Antoine Cully（Imperial College London / Sakana AI）｜ arXiv 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2502.02190",
+      "lineage": "最新",
+      "parent": "Dominated Novelty Search",
+      "s1": "QD の競争関数を Transformer でパラメータ化し、メタ進化（Sep-CMA-ES）で学習する Learned QD（LQD）を提案。BBOB だけで学習した競争則が、未経験のロボット制御課題でも既存の QD・GA に匹敵または上回った。",
+      "s2": "MAP-Elites の格子や近傍型アーカイブの競争則は人手の経験則だった。DNS の「QD＝競争関数つき GA」を出発点に、競争関数そのものをデータから発見する。LES・LGA の自己注意によるメタ学習を QD に広げた。",
+      "s3": "集団の（適応度, 記述子）を標準化して埋め込み、4層の Transformer で各個体の競争適応度 f̃ を出す。自己注意により個体の並べ替えに同変となる。メタ目的は適応度・新奇性・両方の3種を使い分ける。",
+      "s4": "22の BBOB 関数（2〜12次元、記述子はランダム射影）でメタ学習。LQD(N) は新奇性で NS を（p<1e-9）、LQD(F) は適応度で GA を上回った（Fig. 3）。ロボット制御の集計では GA 以外の全手法に有意に勝った（p<0.005）。",
+      "s5": "著者：適応度だけで学習した LQD(F) も多様性を保った（Walker2d で ME の約40%、GA は10%未満）。両立版 F+N は DNS に届かない。\n所感：多様性が最適化の手段として再発見された点が興味深い。",
+      "s6": "・LES (Lange+ 2023)（既存：swarm-intelligence/metabbo）\n・Dominated Novelty Search (2025)（本資料）\n・Learned Genetic Algorithm (Lange+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/lqd_fig1.png",
+        "caption": "出典：LQD Fig. 1（メタ BBO の外側ループ、学習した競争関数の内側ループ、ロボット制御での集計）"
+      }
+    },
+    {
+      "title": "Discount Model Search for Quality Diversity Optimization in High-Dimensional Measure Spaces",
+      "short": "DMS (Tjanaka+ 2026)",
+      "authors": "Bryon Tjanaka, Henry Chen, Matthew C. Fontaine, Stefanos Nikolaidis（University of Southern California）｜ ICLR 2026（Oral）",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2601.01082",
+      "lineage": "最新",
+      "parent": "CMA-MAE",
+      "s1": "CMA-MAE のセルごとの割引値（ヒストグラム）を、測度を入力とする NN の「割引モデル」に置き換えた DMS を提案。高次元の測度空間でも探索が停滞せず、画像データセットで多様性の軸を指定する QDDM という使い方を開いた。",
+      "s2": "高次元の測度空間では多くの解が同じセルに落ち（歪み）、CMA-MAE は同じ割引値を与えて改善方向を見失う。10次元 LP では解が落ちる固有セル数が約30まで減った（Fig. 1c）。解像度を上げるとメモリが指数的に増える。",
+      "s3": "改善量 Δ=f(θ)−f̂_A(m(θ)) を割引モデルで計算して CMA-ES エミッタを更新する。教師は CMA-MAE の閾値更新則を再現した値で、未探索セルの中心には f_min を与えてモデルを抑え込む（empty points）。",
+      "s4": "10D LP(Sphere) で QD スコア 6,409 対 CMA-MAE 609、被覆率 89% 対 7%（Table 1）。50D でも 6,991 対 2,327。StyleGAN3 で風景画像ごとにハイカーの顔を探す LSI(Hiker) では 214.9 対 14.6。",
+      "s5": "著者：割引モデルの学習に計算コストがかかり、モデル誤差が細かい最適化（TA-MNIST）を妨げうる。\n所感：アーカイブを関数近似へ置き換える流れは DNS・Soft QD と同じ向き。データで多様性を指定する点は基盤モデル時代向き。",
+      "s6": "・CMA-MAE (2023)（本資料）\n・Soft QD (Hedayatian & Nikolaidis 2026)（未調査）\n・Density Descent Search (Lee+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/dms_fig2.png",
+        "caption": "出典：DMS Fig. 2（LSI(Hiker)：風景画像を測度として見つけたハイカーの顔）"
+      }
+    },
+    {
+      "title": "Behavioral Foundation Models for Quality Diversity",
+      "short": "BFM-QD (Bendib+ 2026)",
+      "authors": "Nazim Bendib, Nicolas Perrin-Gilbert, Olivier Sigaud（Sorbonne Université, ISIR）｜ NeurIPS 2026",
+      "year": 2026,
+      "venue": "NeurIPS 2026",
+      "link": "https://arxiv.org/abs/2609.35615",
+      "lineage": "最新",
+      "parent": "DCRL-MAP-Elites / AURORA",
+      "s1": "方策の重み空間ではなく、事前学習した行動基盤モデル（BFM）の50次元潜在空間 z で QD を行う BFM-QD を提案。疎報酬の迷路・把持課題で、重み空間の QD がほぼ0に崩れる中、高い QD スコアを保った。",
+      "s2": "従来の QD（ME、CMA-ME、PGA-ME、DCRL-ME）は約2万次元の重み空間を探索し、ランダムな摂動はほぼ無意味な行動しか生まない。critic に頼る PG 系は疎・欺瞞的な報酬で崩れ、AE で潜在空間を学ぶ DDE-Elites も届かない。",
+      "s3": "アーカイブには z を保存し、変異・補間も z に施す。報酬を学習済み特徴へ射影して最適潜在 z* を閉形式で求め、各親を z'←(1−α)z+αz* と少しずつ寄せる Backward Inference を、critic も逆伝播も要らない方向付き変異として使う。",
+      "s4": "AntMaze-medium（Energy Eff.）の QD スコアは FB-CMA-ME 3657、DCRL-ME 61、DDE-Elites 509（Table 19）。Cube-single でも 5368 対 DCRL-ME 0。BI 変異は PG 変異と同等だった（Fig. 4）。",
+      "s5": "著者：凍結した BFM の潜在空間の外には到達できず、データの多様性が上限を決める。BFM は環境ごとに必要。\n所感：AURORA の「学習した表現で探す」を事前学習へ移した形。潜在空間の外の新しい行動をどう生むかが次の論点。",
+      "s6": "・Forward-Backward representations (Touati & Ollivier 2021)（未調査）\n・DDE-Elites (Gaier+ 2020)（未調査）\n・DCRL-MAP-Elites (2024)（本資料）",
+      "figure": {
+        "file": "figures/bfmqd_fig2.png",
+        "caption": "出典：BFM-QD Fig. 2（4環境での正規化 QD スコア・被覆率・最大適応度の推移）"
+      }
+    }
+  ]
+}
