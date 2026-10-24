@@ -1,0 +1,195 @@
+{
+  "field": "ニューラルセルオートマトン・自己組織化",
+  "theme": "離散・非同期 NCA のハードウェア化",
+  "date": "2026-10-24",
+  "summary": "NCA の局所・並列・非同期という性質を、論理回路・光・SNN・マイコンなどの実ハードウェアに写す研究の流れ。\n量子化 μNCA と DiffLogic（2022）を起点に Spiking NCA・Photonic NCA を経て、DiffLogic CA（2025）で NCA が純粋な論理回路になり、2026 年には回路そのものを NCA 的に自己修復させる段階に入った。",
+  "papers": [
+    {
+      "title": "μNCA: Texture Generation with Ultra-Compact Neural Cellular Automata",
+      "short": "μNCA (Mordvintsev+ 2021)",
+      "authors": "Alexander Mordvintsev, Eyvind Niklasson（Google Research）｜ arXiv プレプリント 2021",
+      "year": 2021,
+      "venue": "arXiv プレプリント 2021",
+      "link": "https://arxiv.org/abs/2111.13545",
+      "lineage": "原典",
+      "parent": "Texture NCA (Niklasson+ 2021)",
+      "s1": "テクスチャ生成 NCA を極限まで小さくした μNCA を提案。68〜588 パラメータの更新則で多様なテクスチャを生成し、1 パラメータ 1 バイトに量子化しても品質が落ちず、68〜588 バイトの GLSL シェーダとして動く。",
+      "s2": "従来の Texture NCA（Niklasson+ 2021）は 5,856 パラメータ、フィードフォワード型の生成器は 10^5〜10^6 パラメータ。本研究はフィルタを 1 チャネル 1 個に絞り潜在層も除いて、手書きの手続き的テクスチャ並みの小ささに縮めた。",
+      "s3": "更新は s_next = s + [p, |p|]W + b の行列積 1 回だけ（p は固定フィルタ出力と自状態）。|p| の連結で非線形性を得る。損失は画像パッチ分布の最適輸送（OTT-Loss）。状態を [-1,1] に保つ overflow 損失が量子化を助ける。",
+      "s4": "68/150/264/588 パラメータ版を多様なテクスチャで比較（冒頭図）。最大 588 パラメータは約 2,352 バイトで、1 バイト量子化でも品質劣化は見られなかった（§4）。量子化 264 バイト版は約 500 バイトの JPEG より忠実（Fig.5）。",
+      "s5": "著者：強いパラメータ制約が丸暗記を防ぎ、学習結果は「最小の手続き的プログラム」とみなせる。勾配正規化と overflow 損失がないと発散。\n所感：量子化の評価は定性的のみ。整数・固定小数点演算で反復したときの誤差蓄積は未検証。",
+      "s6": "・Self-Organising Textures (Niklasson+ 2021)（未調査）\n・DiffLogic CA (2025)（本資料）\n・eNCApsulate (2025)（本資料）",
+      "figure": {
+        "file": "figures/munca_fig0.png",
+        "caption": "出典：μNCA (Mordvintsev+ 2021) 冒頭図（上段が目標、下へ 588→68 パラメータの μNCA の生成結果）"
+      },
+      "notes": "全文（導入・モデル・損失・訓練手順・定性評価・考察）を読んだ。定量指標はなく、量子化の結論は本文の記述による。"
+    },
+    {
+      "title": "Deep Differentiable Logic Gate Networks",
+      "short": "DiffLogic (Petersen+ 2022)",
+      "authors": "Felix Petersen, Christian Borgelt, Hilde Kuehne, Oliver Deussen（Stanford University / University of Konstanz）｜ NeurIPS 2022",
+      "year": 2022,
+      "venue": "NeurIPS 2022",
+      "link": "https://arxiv.org/abs/2210.08277",
+      "lineage": "原典",
+      "s1": "2 入力論理ゲートの網そのものを勾配降下で学習する微分可能論理ゲート網（DiffLogic）を提案。推論時は AND・XOR などだけの離散回路になり、MNIST を単一 CPU コアで毎秒 100 万枚超（精度 97.5% 超）分類する。",
+      "s2": "BNN は重み付き行列積を 2 値で近似するだけで、スパース NN も浮動小数演算が残る。進化的な回路探索は大規模化できない。本手法は重みを持たず各ノードの「ゲートの種類」を学習し、FINN（FPGA 上の BNN）の 1/10 未満の演算で同等精度。",
+      "s3": "値を [0,1] に緩和し、16 種のゲートを確率論理（AND→ab、XOR→a+b−2ab）で表す。各ノードは 16 ゲート上の softmax 分布 a' = Σ p_i f_i(a1, a2) を学習し、推論時は最頻ゲートに離散化。接続は乱数で固定し、出力は群ごとの 1 の数で集計。",
+      "s4": "MNIST（Table 4）: 384K ゲートで 98.47%、CPU 7µs/枚、A6000 GPU 上で FINN（FPGA）より 12 倍速。CIFAR-10（Table 5）: 5.12M ゲートで 62.14%（同じ入力条件の MLP は 50.79%）。離散化による精度低下は MNIST で 0.1% 未満。",
+      "s5": "著者：学習は 1 ノードで 16 演算を評価するため高コスト。畳み込み・残差は今後の課題。組込み用途なら学習コストは問題にならない。\n所感：再帰・時間発展は扱わない。これを CA の局所則として使う道を DiffLogic CA が開いた。",
+      "s6": "・Convolutional DiffLogic (2024)（本資料）\n・DiffLogic CA (2025)（本資料）\n・FINN (Umuroglu+ 2017)（未調査）",
+      "figure": {
+        "file": "figures/difflogic_fig1.png",
+        "caption": "出典：DiffLogic (Petersen+ 2022) Fig. 1（入力ビットを 2 入力ゲートの層で処理。各ノードは 16 ゲート上の分布を学習）"
+      },
+      "notes": "全文（導入・関連研究・手法・訓練上の注意・限界・MONK/Adult/Breast Cancer/MNIST/CIFAR-10 の実験・ゲート分布の分析）を読んだ。"
+    },
+    {
+      "title": "Collective control of modular soft robots via embodied Spiking Neural Cellular Automata",
+      "short": "Spiking NCA (Nadizar+ 2022)",
+      "authors": "Giorgia Nadizar, Eric Medvet, Stefano Nichele, Sidney Pontes-Filho（University of Trieste）｜ Cells2Societies Workshop @ ICLR 2022",
+      "year": 2022,
+      "venue": "ICLR 2022 Workshop",
+      "link": "https://arxiv.org/abs/2204.02099",
+      "lineage": "原典",
+      "s1": "ボクセル型ソフトロボット（VSR）の各ボクセルを NCA のセルとし、その更新則を LIF スパイキングニューロン網にした embodied Spiking NCA（SNCA）を提案。歩行速度は既存の分散制御と同等以上で、未知の地形への適応性が有意に高い。",
+      "s2": "VSR の制御は知的でない正弦波制御か、全ボクセルを見る中央制御に偏っていた。Medvet+ 2020 の分散制御（MLP・方向別メッセージ）に対し、全セル共有・無方向メッセージの NCA 構造に SNN を組み合わせ、ニューロモルフィック HW での実装を見据えた。",
+      "s3": "各ボクセルが局所センサ（面積・接触・速度）と隣接 4 方向からのスパイク列を受け、作動量とメッセージを出す。LIF にしきい値ホメオスタシス（発火率の自己調整）を加え、レート符号で実数とスパイクを変換。微分できないので ES で最適化。",
+      "s4": "2D-VSR-Sim で biped・comb・worm を各 10 試行（Fig.1）。未知 16 地形での速度中央値（Table 1）は biped で SNCA 5.5 vs MLP 2.2、comb で 5.1 vs 4.7。進化終了時も biped で 13.1 vs 9.3。worm だけは MLP が上回った。",
+      "s5": "著者：MLP-NCA は高周波の振動歩容に陥りやすく、ホメオスタシスがそれを抑えて現実ギャップを減らす。worm は振動以外に有効な歩容がない。\n所感：SNN はシミュレータ上だけで、ニューロモルフィック HW 上の電力・遅延は測っていない。",
+      "s6": "・Medvet+ 2020 VSR の分散制御（未調査）\n・Pontes-Filho & Nichele 2019 SNN（未調査）\n・Loihi 等の実機（既存：snn/neuromorphic-hardware）",
+      "figure": {
+        "file": "figures/snca_fig1.png",
+        "caption": "出典：Spiking NCA (Nadizar+ 2022) Fig. 1（3 形態での速度 v_x。濃色が進化終了時、淡色が未知地形での再評価）"
+      },
+      "notes": "全文（VSR とセンサ、NCA の 3 変種、LIF とホメオスタシス、符号化、ES、2 段階の実験と Table 1）を読んだ。Table 1 の行は UD̄-NCA（非一様・方向）、UD-NCA、UD̄（一様・無方向）の順で、数値は 3 行目（提案構造）を引用。"
+    },
+    {
+      "title": "Deep Learning with Photonic Neural Cellular Automata",
+      "short": "Photonic NCA (Li+ 2024)",
+      "authors": "Gordon H. Y. Li, Christian R. Leefmans, James Williams ほか（Caltech）｜ Light: Science & Applications 2024",
+      "year": 2024,
+      "venue": "Light Sci. Appl. 2024",
+      "link": "https://arxiv.org/abs/2309.13186",
+      "lineage": "発展",
+      "parent": "Self-classifying MNIST (Randazzo+ 2020)",
+      "s1": "NCA の局所更新則を光回路で実装した Photonic NCA（PNCA）を提案・実証。時間多重のファイバ光学系で、プログラム可能な光学パラメータわずか 3 個により、Fashion-MNIST の 2 クラス分類で実験精度 98.0% を得た。",
+      "s2": "光ニューラルネットは密結合の MLP/CNN を前提とし、多数のパラメータ、アナログ雑音への弱さ、重み固定が障害だった。PNCA は全セル共有の局所則だけを光で実装するので必要なパラメータが桁違いに少なく、集団の合意によって雑音に強い。",
+      "s3": "画素を光パルスの振幅に符号化し、遅延線（+1T_R, +28T_R）で 3 セル近傍を作る。3 本の光の干渉で内積（重みは可変減衰器）、PPLN 導波路の第 2 高調波発生でシグモイド型の非線形を全光学で計算し、FPGA 経由で再注入して 21 回反復。",
+      "s4": "スニーカー/ズボン分類（Fig.4）: 理想シミュレーション 99.4%、雑音入りシミュレーション 97.7%、実機 98.0%。各演算の誤差の標準偏差は 0.02〜0.03 程度（Fig.3）。未学習のバッグ画像は生存セル平均 0.568 で合意せず、分布外として検出できた（Fig.5）。",
+      "s5": "著者：雑音を考慮した特別な学習なしで雑音に耐える。多クラス化や浅い NN への拡張は容易。\n所感：課題は 2 クラス・パーセプトロン 1 個と最小限。反復ごとの光電変換と FPGA 往復が律速で、全光学ループの速度・電力は未評価。",
+      "s6": "・Photonic Elementary CA (Li+ 2023)（未調査）\n・Self-classifying MNIST (Randazzo+ 2020)（未調査）\n・Deep physical NN (Wright+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/photonic_fig2.png",
+        "caption": "出典：Photonic NCA (Li+ 2024) Fig. 2（a 時間多重ファイバ系、b 3 セル近傍、c パーセプトロン則、d PPLN の非線形、e 画素の時間ビン符号化）"
+      },
+      "notes": "arXiv 版（2023-09）の全文（導入・構成・実験系・雑音特性・分類・OOD・Methods）を読んだ。採録先は Crossref（DOI 10.1038/s41377-024-01651-7）で確認。"
+    },
+    {
+      "title": "Convolutional Differentiable Logic Gate Networks",
+      "short": "Convolutional DiffLogic (Petersen+ 2024)",
+      "authors": "Felix Petersen, Hilde Kuehne, Christian Borgelt ほか（Stanford University）｜ NeurIPS 2024 (Oral)",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2411.04732",
+      "lineage": "発展",
+      "parent": "DiffLogic (Petersen+ 2022)",
+      "s1": "DiffLogic に論理ゲート木の畳み込み・OR プーリング・残差初期化を導入した LogicTreeNet を提案。CIFAR-10 で 6,100 万ゲートにより 86.29% を達成し、同程度の精度の既存手法より 29 倍以上少ないゲート数で済む。",
+      "s2": "DiffLogic（2022）は接続がランダムで空間構造を学べず、CIFAR-10 で 62% 止まり、6 層より深くできなかった。本研究は畳み込み化と深層化でこれを解消し、FINN・LUTNet・TTNet など FPGA 向け BNN/LUT 網とゲート数で比べた。",
+      "s3": "カーネルを深さ d の完全 2 分木の論理ゲートにする（葉は受容野からランダムに選び、全位置で共有）。プーリングは論理 OR（max で緩和）。各ゲートを「A をそのまま通す」確率 90% で初期化して微分可能な残差とし、勾配消失を防ぐ。",
+      "s4": "CIFAR-10（Table 1）: 3.08M ゲートで TTNet と同等精度をその 1.6% のゲート数で、16M ゲートで FINN（901M）と同等。FPGA（Table 2）: 80.17% を 24ns/枚（FINN は 45.6µs）。MNIST は最高 99.35%。残差初期化を外すと約 9% 低下（Table 5）。",
+      "s5": "著者：FPGA 実装は入力転送が律速。ASIC にすればさらに高速・省電力。\n所感：ゲート木カーネルは DiffLogic CA の知覚カーネルの直接の原型。一方、再帰的に繰り返し使うときの学習の不安定さは本論文の範囲外。",
+      "s6": "・DiffLogic (2022)（本資料）\n・DiffLogic CA (2025)（本資料）\n・DWN (Bacellar+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/convdiff_fig1.png",
+        "caption": "出典：Convolutional DiffLogic (Petersen+ 2024) Fig. 1（CIFAR-10 のゲート数と精度。★が LogicTreeNet）"
+      },
+      "notes": "本文（背景・畳み込みゲート木・OR プーリング・残差初期化・計算上の工夫・LogicTreeNet・CIFAR-10/MNIST・FPGA 実装・アブレーション・結論）を読んだ。"
+    },
+    {
+      "title": "eNCApsulate: Neural Cellular Automata for Precision Diagnosis on Capsule Endoscopes",
+      "short": "eNCApsulate (Krumb+ 2025)",
+      "authors": "Henry John Krumb, Anirban Mukhopadhyay（TU Darmstadt）｜ IJCARS 2025",
+      "year": 2025,
+      "venue": "IJCARS 2025",
+      "link": "https://arxiv.org/abs/2504.21562",
+      "lineage": "最新",
+      "parent": "Med-NCA (Kalkhof+ 2023)",
+      "s1": "カプセル内視鏡に収まるマイコン ESP32-S3 上で NCA を動かし、出血のセグメンテーションと単眼深度推定を行う eNCApsulate を提案。約 47KB のモデルで、小型 U-Net 系より Dice が高く、nnU-Net に迫る。",
+      "s2": "カプセル内視鏡は画像の確認に 30〜120 分かかり位置推定も難しいが、CNN や Transformer は大きすぎて載らない。Med-NCA（Raspberry Pi）などの先行例をさらに小さいマイコンへ移し、深度の基盤モデルを NCA に蒸留した点が新しい。",
+      "s3": "3×3 の学習フィルタと MLP からなる NCA を、各セル確率 50% の非同期更新で反復。Depth Anything V2 の出力を擬似正解に深度 NCA を学習。推論は ANSI C でゼロから実装して SIMD・FPU を使い、隠れチャネルの変化が小さくなれば打ち切る。",
+      "s4": "KID2 の出血（Table 1）: Dice 0.576（47,152 B）、EfficientNet-B2 系 U-Net 0.509（約 40MB）、nnU-Net 0.582（約 268MB）。SIMD で 1 推論 9 秒→3 秒。早期打ち切りで総ステップ 699 万→122 万、1 枚 1 秒未満（撮影 2〜3 FPS に追いつく）。",
+      "s5": "著者：深度は正解データがなく擬似正解頼み。今後は絶対深度とビジュアルオドメトリへ。\n所感：重みは浮動小数のままで量子化は未検討。消費電力や電池寿命の測定がなく、実際のカプセル搭載の可否はまだ分からない。",
+      "s6": "・Med-NCA (Kalkhof+ 2023)（未調査）\n・NCA のスマホ上学習 (Kalkhof+ 2024)（参照のみ）\n・μNCA (2021)（本資料）",
+      "figure": {
+        "file": "figures/encapsulate_fig1.png",
+        "caption": "出典：eNCApsulate (Krumb+ 2025) Fig. 1（ESP32-S3 と表示器による実験系。硬貨は大きさの比較用）"
+      },
+      "notes": "arXiv 版の全文（導入・関連研究・NCA 構成・学習・マイコン移植・高速化・実験・結論）を読んだ。採録先は Crossref（IJCARS, DOI 10.1007/s11548-025-03425-x）で確認。"
+    },
+    {
+      "title": "Differentiable Logic Cellular Automata: From Game of Life to Pattern Generation",
+      "short": "DiffLogic CA (Miotti+ 2025)",
+      "authors": "Pietro Miotti, Eyvind Niklasson, Ettore Randazzo, Alexander Mordvintsev（Google, Paradigms of Intelligence Team）｜ ALIFE 2025",
+      "year": 2025,
+      "venue": "ALIFE 2025",
+      "link": "https://arxiv.org/abs/2506.04912",
+      "lineage": "最新",
+      "parent": "DiffLogic (Petersen+ 2022)",
+      "s1": "NCA の知覚と更新を微分可能論理ゲート網に置き換えた DiffLogic CA を提案。学習時は微分可能、推論時は完全な 2 値回路になる。Game of Life の規則を完全に学習し、市松模様・トカゲ・多色パターンを再帰的な論理回路で生成した。",
+      "s2": "NCA は行列積に頼り解釈しにくい。離散 CA の規則探索は進化計算や 1 次元の近似（Mitchell+ 1994, Martin 2017）に頼っていた。DLGN（Petersen+ 2022）を時間・空間の両方で再帰的に学習した初の例で、得た回路は FPGA や ASIC にそのまま写せる。",
+      "s3": "セル状態は n ビット。知覚は中心セルと近傍を比べる小さな論理ゲート網（知覚カーネル）を複数並べ、更新網（DLGN）が旧状態と知覚出力から新状態を直接出力する。損失は最終ステップの格子と目標の二乗誤差だけ。",
+      "s4": "GoL: 512 通りの 3×3 遷移で学習し全規則を獲得（有効ゲート 336）。市松: 22 ゲート、剪定後 5 ゲートで、4 倍の格子・時間でも再現。非同期（60%）: 同期学習でも回復し、非同期学習は局所破壊下の誤差が低い（Fig.10）。トカゲ 577、多色 465 ゲート。",
+      "s5": "著者：複雑な課題では数値的に不安定で、ハイパラ調整が大変。階層化・ゲーティング・FPGA 化が今後。\n所感：定量評価は誤差曲線程度。Fig.10 は副題と凡例で同期/非同期の色が逆で、本文の記述（非同期学習が良い）を採った。",
+      "s6": "・Asynchronicity in NCA (Niklasson+ 2021)（本文未確認）\n・Self-Organising Digital Circuits (2026)（本資料）\n・Convolutional DiffLogic (2024)（本資料）",
+      "figure": {
+        "file": "figures/difflogicca_fig10.png",
+        "caption": "出典：DiffLogic CA (Miotti+ 2025) Fig. 10（左：毎ステップ局所破壊下の生成、右：非同期更新での誤差。凡例では青が非同期学習）"
+      },
+      "notes": "全文（導入・関連研究・構成・4 実験・非同期性・考察）を読んだ。採録先は Crossref（ALIFE 2025, DOI 10.1162/isal.a.882）で確認。"
+    },
+    {
+      "title": "A Rotation-Invariant Embedded Platform for (Neural) Cellular Automata",
+      "short": "Embedded NCA Platform (Woiwode+ 2025)",
+      "authors": "Dominik Woiwode, Jakob Marten, Bodo Rosenhahn（Leibniz University Hannover）｜ ALIFE 2025",
+      "year": 2025,
+      "venue": "ALIFE 2025",
+      "link": "https://arxiv.org/abs/2510.07440",
+      "lineage": "最新",
+      "parent": "Physical NCA (Walker+ 2022)",
+      "s1": "NCA を物理的に動かす回転不変の組込みプラットフォームを開発。49mm 角・電池駆動・RP2350 マイコン・5×5 LED のセルを、どの向きでも磁石で連結できる。回転不変 NCA を学習し、数字やポリオミノの形をセル同士で自己分類する。",
+      "s2": "Physical NCA（Walker+ 2022）はピンヘッダで向きが固定され、電源もケーブルで共有するため配置を変えると状態が消えた。本研究は 4 辺対称のコネクタと電池でこれを解消し、各セルの向き θ を学習に組み込んだ回転不変 NCA を提案した。",
+      "s3": "4 近傍用の Identity・勾配 X/Y・Von Neumann カーネルで知覚し、2 層 MLP で加算更新。勾配知覚をセルごとの向き θ（0/90/180/270°）で回転させて学習。非同期を模すドロップアウトマスク、ノイズ、プール内の目標差し替えを併用する。",
+      "s4": "分類精度（Table 2、50/100/150 ステップ）: digits-sym 0.96、polyomino-4 0.84、polyomino-5 0.40。1000 ステップごとに形を変えても差し替え率 0.1 なら安定（Fig.12）。手作りの蛍同期則で 29 セルが約 2 分で位相同期（Fig.9）。",
+      "s5": "著者：教育用ツールとして有用。出力ヘッドで LED に構造的な出力を描く拡張ができる。\n所感：状態は 32 ビット浮動小数を UART で送るだけで、量子化や省電力の工夫はない。実機の定量評価が少なくシミュレーション中心。",
+      "s6": "・Physical NCA (Walker+ 2022)（learned-collective）\n・Growing Isotropic NCA (2022)（未調査）\n・Smart Cellular Bricks (2025)（learned-collective）",
+      "figure": {
+        "file": "figures/woiwode_fig8.png",
+        "caption": "出典：Embedded NCA Platform (Woiwode+ 2025) Fig. 8（セルを付け外し・回転させながら形を自己分類する様子の連続写真）"
+      },
+      "notes": "全文（導入・関連研究・ハードウェア・ファームウェア・シミュレータ・学習・蛍同期・形状分類）を読んだ。採録先は Crossref（ALIFE 2025, DOI 10.1162/isal.a.907）で確認。"
+    },
+    {
+      "title": "Self-Organising Digital Circuits",
+      "short": "Self-Organising Digital Circuits (Barylli+ 2026)",
+      "authors": "Marcello Barylli, Gabriel Béna, Alexander Mordvintsev, Eleni Nisioti, Sebastian Risi（IT University of Copenhagen）｜ ALIFE 2026",
+      "year": 2026,
+      "venue": "ALIFE 2026",
+      "link": "https://arxiv.org/abs/2608.02606",
+      "lineage": "最新",
+      "parent": "DiffLogic CA (Miotti+ 2025)",
+      "s1": "NCA を「形の生成」から「回路機能の生成」へ広げ、LUT ゲートの真理値表を局所方策で設定・修復する Self-Organising Digital Circuits を提案。ソフトエラーからは、学習時の 5 倍の損傷でも 99.99% 超の精度で回復した。",
+      "s2": "FPGA の耐故障は冗長化や ECC、大域監視による再構成に頼り、想定外の故障に弱い。進化ハードウェアは回路ごとに高コストな探索が要る。本手法は学習済み局所方策の順伝播だけで組立・修復し、DiffLogic CA と逆に NCA でゲート自体を最適化する。",
+      "s3": "回路を DAG とし、各ゲートの状態を LUT ロジット・潜在記憶・深さの位置符号・出力誤差とする。配線マスクで 1 ホップに制限した共有重みの Transformer（TMT）を再帰的に適用して差分更新。LUT は多線形補間で緩和し BPTT でメタ学習。",
+      "s4": "12 ビットの加算・乗算・ビット反転（Fig.3）: 無損傷なら大域 BP と同等（反転 100%、加算 0.96、乗算 0.84）。ゲート 10% 破壊後も約 0.97 に回復（Fig.4）。ランダム配線で学習すると幅 264→450 ノード超に汎化（Fig.10）。修復解は複数の構造に分かれる（Fig.8）。",
+      "s5": "著者：回路は数百ゲートで、数百万 LUT の実 FPGA とは桁が違う。深さ方向のスケールやランダム配線での算術は未解決。\n所感：方策自体は浮動小数の Transformer で、それをどこで動かすかの HW コストが論じられていない。",
+      "s6": "・DiffLogic CA (2025)（本資料）\n・A Path to Universal NCA (Béna+ 2025)（未調査）\n・進化ハードウェア (Thompson 1997)（未調査）",
+      "figure": {
+        "file": "figures/sodc_fig1.png",
+        "caption": "出典：Self-Organising Digital Circuits (Barylli+ 2026) Fig. 1（A LUT 回路の故障、B 画像の NCA、C 回路への拡張、D 学習済み方策による自己修復）"
+      },
+      "notes": "arXiv v2 の全文（導入・関連研究・手法・学習・4 つの実験領域・考察・限界）を読んだ。採録先は Crossref（ALIFE 2026, DOI 10.1162/isal.a.967）で確認。"
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "field": "ニューラルセルオートマトン・自己組織化",
+  "theme": "学習される群知能：NCA から物理モジュール・ロボット群へ",
+  "date": "2026-10-24",
+  "summary": "局所則を学習で得る集団システムを、手設計則（Boids・Tanner の群れ則・Kilobot の行動表）との対比で追う。\n①格子 NCA の物理化：ソフトロボット再生 → 物理タイル → 物理ブロック（Smart Cellular Bricks）。②動く近傍：GNN 群制御 → GNCA → 同変 GNN・DiffeoMorph・NPA。\n③強化学習・社会学習：自己組立する肢、Kilobot 実機での分散学習。",
+  "papers": [
+    {
+      "title": "Learning Decentralized Controllers for Robot Swarms with Graph Neural Networks",
+      "short": "GNN 群制御 (Tolstaya+ 2019)",
+      "authors": "Ekaterina Tolstaya, Fernando Gama, James Paulos ほか（University of Pennsylvania）｜ CoRL 2019",
+      "year": 2019,
+      "venue": "CoRL 2019",
+      "link": "https://arxiv.org/abs/1903.10527",
+      "lineage": "原典",
+      "s1": "大域情報を使う集中型の群れ制御（flocking）を模倣学習し、局所通信だけで動く共有の分散コントローラを集約型 GNN で得た。K-hop の遅延集約で遠くの仲間の情報も使い、手設計の局所則より速く速度が揃い、群れも保った。",
+      "s2": "Tanner らの手設計の局所則（近傍との速度差＋衝突回避ポテンシャル）は1-hop しか見ず、初速が大きいと群れが散る。最適な分散制御は一般に解けない。本研究は通信制約を守ったまま集中型の専門家を模倣し、多 hop の情報を学習で使う。",
+      "s3": "各ロボットは近傍から受け取った集約値をさらに転送し、z_i = [x_i; (S_n x_{n−1})_i; …] と k-hop 前の平均を積む。これを全個体で共有する小さな NN（2層×32）に入れて加速度を出す。DAgger で専門家との MSE を最小化。",
+      "s4": "100体・通信半径1m の点質量で、K=3 の GNN は速度差がほぼ0に収束し、手設計の局所則は群れが散って通信が切れた（Fig. 1）。K=1 は K≥2 より1桁悪い（Fig. 2a）。150体へそのまま汎化し、AirSim の最大50機でも局所則と集中則の間に入った（Fig. 5）。",
+      "s5": "著者：通信半径が大きいと局所則が GNN を上回る。速すぎる小集団が離脱して戻れない失敗がある。\n所感：「手設計則を教師にして局所性を保ったまま模倣する」型の原点。教師の質が上限になり、教師のない課題には使えない。",
+      "s6": "・Mean-Embedding DRL (Hüttenrauch+ 2019)（既存：swarm-intelligence/deep-learning-fusion）\n・Equivariant TDAGNN (Transue & Wang 2025)（本資料）\n・LPAC (Agarwal+ 2025)（参照のみ）",
+      "figure": {
+        "file": "figures/tolstaya.png",
+        "caption": "出典：GNN 群制御 (Tolstaya+ 2019) Fig. 1（GNN と手設計の局所則の比較。速度差・最小距離と群れの軌跡）"
+      },
+      "notes": "本文（1〜6章）と付録（集約GNNのアルゴリズム、AirSim 実験）を読了。数値は図からの読み取りのみで、表はない。"
+    },
+    {
+      "title": "Learning to Control Self-Assembling Morphologies: A Study of Generalization via Modularity",
+      "short": "Self-Assembling Agents (Pathak+ 2019)",
+      "authors": "Deepak Pathak, Chris Lu, Trevor Darrell, Phillip Isola, Alexei A. Efros（UC Berkeley）｜ NeurIPS 2019",
+      "year": 2019,
+      "venue": "NeurIPS 2019",
+      "link": "https://arxiv.org/abs/1902.05546",
+      "lineage": "原典",
+      "s1": "磁石で連結・分離できる「肢」モジュールが、共有方策で自ら組み上がりながら起立・移動を学ぶ。方策は物理的な連結と同じ形のグラフ NN（Dynamic Graph Network）で、肢の数や地形を変えても再学習なしで動いた。",
+      "s2": "自己再構成モジュラーロボットの制御は従来手設計で、NerveNet などのグラフ方策も形態は人が固定で与えていた。本研究は連結・分離を行動として強化学習に含め、形態と制御を同時に学ぶ。固定形態・単一方策のベースラインと比べる。",
+      "s3": "全肢が同じ方策 π_θ を持ち、子から届いたメッセージの和と自分の局所センサを入力に、トルク・連結/分離・親へのメッセージを出す。連結が変わるたびにグラフが変わる。報酬は連結体全体の高さや移動距離で、PPO で学ぶ。",
+      "s4": "6肢で学習。起立は DGN 17518 に対し単一方策 4104/5351（Table 1）。12肢で19796（113%）、4肢で10839（62%）を再学習なしで保った。移動は8.71 対 0.96/2.96 で、階段では単一方策が−912% に崩れ、DGN は76% を保った（Table 2）。",
+      "s5": "著者：汎化の一部は学習しやすさで説明でき、起立では単一方策も新環境で90%超を保つ。閉路のある形態は扱わない。\n所感：局所則を RL で学ぶ群の原型。Unity のシミュレーションのみで、実機の連結機構や通信遅延は扱っていない。",
+      "s6": "・Shared Modular Policies (Huang+ 2020)（参照のみ）\n・Local self-attention VSR (Pigozzi+ 2022)（参照のみ）\n・Smart Cellular Bricks (Moreno+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/pathak.png",
+        "caption": "出典：Self-Assembling Agents (Pathak+ 2019) Fig. 1（環境、磁石で連結する肢、形態と同じ形のモジュラー方策）"
+      },
+      "notes": "本文（1〜6章）を読了。付録の学習曲線・実装詳細は概観のみ。"
+    },
+    {
+      "title": "Regenerating Soft Robots through Neural Cellular Automata",
+      "short": "Regenerating Soft Robots (Horibe+ 2021)",
+      "authors": "Kazuya Horibe, Kathryn Walker, Sebastian Risi（IT University of Copenhagen）｜ EuroGP 2021",
+      "year": 2021,
+      "venue": "EuroGP 2021",
+      "link": "https://arxiv.org/abs/2102.02579",
+      "lineage": "発展",
+      "parent": "Growing NCA（既存：nca-world-models）",
+      "s1": "ボクセル型ソフトロボットの体を、1個のセルから局所則だけで成長させる NCA を遺伝的アルゴリズムで進化させた。損傷後は別の NCA が局所相互作用だけで体を再生し、失われた歩行能力の一部を取り戻した。",
+      "s2": "CPPN による進化ロボットは大域座標を使い、体は生涯固定だった。損傷からの回復も行動での補償が主で、体の再生はほぼ未開拓だった。本研究は Growing NCA の再生を、物理シミュレーション上で歩くロボットの体へ広げた。",
+      "s3": "セルは5種（空、柔/硬の受動、逆位相の筋肉2種）の離散状態を持つ。Moore 近傍の状態と α を MLP/LSTM（隠れ64）に入れ、次状態と α を出す。10 ステップ成長させ Voxelyze で歩かせ、移動距離−ボクセル数を適応度に GA で進化。",
+      "s4": "7×7 の2D と 9×9×9 の3D で、二足・跳躍・転がりなど多様な歩容が出た（Fig. 2, 3）。半身を消した後の再生は形の一致率 98%（Biped）、99%（Tripod）、91%（Multiped）。移動能力は損傷時の 67/3.6/12% から再生後 86/45/22% に戻った（Table 1）。",
+      "s5": "著者：成長用の NCA では再生できず、再生専用の NCA が要った。単純な GA が局所解に捕まると推測。\n所感：1セル欠けただけで歩けない例があり、形の一致と機能の回復は別物。続報（GPEM 2022）は勾配学習と組み合わせ機能回復80%超へ。",
+      "s6": "・Severe Damage Recovery (Horibe+ 2022)（参照のみ）\n・Spiking NCA (Nadizar+ 2022)（既存：nca-hardware）\n・Smart Cellular Bricks (Moreno+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/horibe.png",
+        "caption": "出典：Regenerating Soft Robots (Horibe+ 2021) Fig. 4(a)–(d)（元の形・損傷・再生後と、再生の時間経過）"
+      },
+      "notes": "本文（1〜5章）を読了。採録先は Crossref（LNCS, Genetic Programming, DOI 10.1007/978-3-030-72812-0_3）で確認。"
+    },
+    {
+      "title": "Learning Graph Cellular Automata",
+      "short": "GNCA (Grattarola+ 2021)",
+      "authors": "Daniele Grattarola, Lorenzo Livi, Cesare Alippi（Università della Svizzera italiana）｜ NeurIPS 2021",
+      "year": 2021,
+      "venue": "NeurIPS 2021",
+      "link": "https://arxiv.org/abs/2110.14237",
+      "lineage": "発展",
+      "parent": "Growing NCA（既存：nca-world-models）",
+      "s1": "CA を格子から任意のグラフへ一般化し、メッセージパッシング GNN で遷移則を学ぶ Graph NCA を提案。有限状態の任意の GCA を表現できると示し、Voronoi 上の CA、Boids の群れ、点群の目標形への収束を学習した。",
+      "s2": "Gilpin（2019）や Growing NCA は規則格子・固定近傍に限られ、近傍が動く群には使えない。GNCA は近傍が毎ステップ変わる動的グラフも扱い、Reynolds の手設計則（Boids）を観測データから学び直せることを示した。",
+      "s3": "h'_i = h_i ‖ Σ_{j∈N(i)} ReLU(W h_j + b) の前後に MLP を置く。目標への収束は BPTT と、到達状態を貯めるキャッシュ（Growing NCA のプール相当）で学ぶ。Voronoi の規則は2ニューロンの XOR で厳密に書ける。",
+      "s4": "Voronoi GCA（1000セル）は検証精度100% に達した（Fig. 2c）。Boids（100体×500ステップ）は1ステップ誤差 約10⁻⁷ で、自律ロールアウトの SampEn 0.0302 対 真値0.0369、相関次元 1.30 対 1.31（Table 1）。点群の収束誤差は10⁻⁶〜10⁻⁴（Table 2）。",
+      "s5": "著者：連続状態では誤差が積み重なり、軌道は正確に再現できない。解釈性がなく、大きなグラフでの BPTT は高コスト。\n所感：手設計則の学び直しはできても、一致するのは統計量まで。課題から新しい群行動を作る方向は後続（DiffeoMorph 等）が担う。",
+      "s6": "・E(n)-equivariant GNCA (Gala+ 2024)（参照のみ）\n・DiffeoMorph (Pahng+ 2025)（本資料）\n・Neural Particle Automata (Kim+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/gnca.png",
+        "caption": "出典：GNCA (Grattarola+ 2021) Fig. 4（Boids 学習の損失、SampEn・相関次元の推移、真の Boids（紫）と GNCA（黄）の群れ）"
+      },
+      "notes": "本文（1〜5章）を読了。付録の詳細設定は概観のみ。"
+    },
+    {
+      "title": "Physical Neural Cellular Automata for 2D Shape Classification",
+      "short": "Physical NCA (Walker+ 2022)",
+      "authors": "Kathryn Walker, Rasmus Berg Palm, Rodrigo Moreno, Andres Faina, Kasper Stoy, Sebastian Risi（IT University of Copenhagen）｜ IROS 2022",
+      "year": 2022,
+      "venue": "IROS 2022",
+      "link": "https://arxiv.org/abs/2203.07548",
+      "lineage": "発展",
+      "parent": "Self-classifying MNIST（既存：nca-world-models）",
+      "s1": "Arduino を載せた正方形タイル（4辺に UART コネクタ）を並べ、各タイルが同じ NCA を実行して、隣接タイルとの通信だけで全体が0〜9のどの数字の形かに合意する。シミュレーションで学習した NCA を実機へ移し、10形状すべてで合意できた。",
+      "s2": "モジュラーロボットの自己認識は、外部の計算機が地図を作るか、目標形を1つだけ与える分散則で、「椅子という種類」のような形のクラスは扱えなかった。NCA による自己分類（Self-classifying MNIST）はシミュレーションのみだった。",
+      "s3": "状態21次元、3×3畳み込み40ch→1×1→1×1 の小さな NN（フラッシュの18%）。実機に合わせ、斜めの重みを0にし（4近傍のみ通信）、空セルを0に固定し、更新の半分をランダムに落として学習。損失は最後の10ch と one-hot の二乗誤差。",
+      "s4": "4×5 格子の10形状で学習し、実機（タイル20枚）で全数字を正しく分類。「4」は実機6回・シミュレーション5回の更新で合意（Fig. 3）。学習していない 3×3 に縮めた 1・4・7 も実機で正解（Fig. 4）、6×7 に拡大した形もシミュレーションで全て正解した。",
+      "s5": "著者：タイルが20枚と少なく、形が変わると全セルを初期化してやり直す必要があり、損傷への追従はできない。\n所感：定量評価は形状ごとの成否のみで、通信の欠落率や故障率は振っていない。これらは後継の Smart Cellular Bricks で検証された。",
+      "s6": "・Self-classifying MNIST Digits (Randazzo+ 2020)（既存：nca-world-models）\n・Embedded NCA Platform (Woiwode+ 2025)（既存：nca-hardware）\n・Smart Cellular Bricks (Moreno+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/walker.png",
+        "caption": "出典：Physical NCA (Walker+ 2022) Fig. 4（学習していない縮小版「7」「4」「1」でも実機タイルが正しい数字に合意する様子）"
+      },
+      "notes": "本文（I〜VIII章）を読了。採録先は Crossref（IROS 2022, DOI 10.1109/IROS47612.2022.9981214）で確認。"
+    },
+    {
+      "title": "Morphological computation and decentralized learning in a swarm of sterically interacting robots",
+      "short": "Morphobots (Ben Zion+ 2023)",
+      "authors": "Matan Yah Ben Zion, Jeremy Fersula, Nicolas Bredeche, Olivier Dauchot（ESPCI Paris / Sorbonne Université）｜ Science Robotics 2023",
+      "year": 2023,
+      "venue": "Science Robotics 2023",
+      "link": "https://arxiv.org/abs/2111.06953",
+      "lineage": "発展",
+      "s1": "Kilobot に3D プリントの外骨格を付けた Morphobots で、衝突を許す密な群を作った。外骨格の形で衝突時の向きの変わり方を設計し、各ロボットが方策と報酬を近くの仲間とだけ交換する分散オンライン学習で、実機64台が走光性を獲得した。",
+      "s2": "従来の群ロボットは衝突を避ける希薄な群か常時接触の密集群で、学習も中央の計算機が選択する進化計算だった。本研究は衝突でよく混ざる「流体的」な群なら、疎で途切れがちな通信でも選択をロボット内に埋め込めると示した。",
+      "s3": "方策は光センサ入力のパーセプトロン（重み w）。各ロボットは明所にいた時間の平均 ρ = (1/M)Σ P_k を報酬とし、出会った相手の ρ が高ければその w を受け継ぐ（社会学習）。よく混ざる群では時間平均≈集団平均となることを使う。",
+      "s4": "直径150cm・明所6% の実験場で、ランダムに初期化した64台が明所比率 F≈0.4 に達した（ランダム配置の約8倍、Fig. 7G）。閾値を事前に調整した手設計の群にはわずかに及ばない。シミュレーション（最大512体）では fronter 型が後期に F≈0.55（Fig. 7H）。",
+      "s5": "著者：素の Kilobot は10倍遅く、収束に約100倍かかるため学習は事実上不可能。報酬が偶然高い個体が悪い方策を広める「フェイクニュース」問題がある。\n所感：学習する群を実機で閉じた貴重な例。ただし学ぶのは数個の重みだけで、体の形が多くを担う。",
+      "s6": "・Kilobot self-assembly (Rubenstein+ 2014)（本文未確認）\n・Morphogenesis in robot swarms (Slavkov+ 2018)（本文未確認）\n・Minimal Surprise self-assembly (Kaiser & Hamann 2019)（参照のみ）",
+      "figure": {
+        "file": "figures/benzion.png",
+        "caption": "出典：Morphobots (Ben Zion+ 2023) Fig. 7（分散オンライン学習の仕組みと、実機（G）・シミュレーション（H）の明所比率）"
+      },
+      "notes": "arXiv v3（Science Robotics 採録稿）の本文と補足（学習の収束条件の導出）を読了。"
+    },
+    {
+      "title": "Learning Decentralized Swarms Using Rotation Equivariant Graph Neural Networks",
+      "short": "Equivariant TDAGNN (Transue & Wang 2025)",
+      "authors": "Taos Transue, Bao Wang（University of Utah）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2502.17612",
+      "lineage": "最新",
+      "parent": "GNN 群制御 (Tolstaya+ 2019)",
+      "s1": "Tolstaya らの群れ制御 GNN（TDAGNN）に回転同変性と並進不変性を組み込んだ ETDAGNN を提案。訓練データ70%減・重み75%減（416 対 1,730）で同等の群れ制御を達成し、汎化誤差の上界も約半分になった。",
+      "s2": "Tanner や Cucker–Smale の手設計則は回転に同変だが、学習した TDAGNN はこの対称性を失い、データ効率と汎化が悪い。一方、手設計の分散則は通信グラフが常に連結だと仮定し、仮定が破れると群れが割れる（Fig. 1）。",
+      "s3": "入力の2次元ベクトル特徴に、バイアスなしで2成分の重みを共有する O(2) 同変畳み込みをかける。活性化は σ(x) = x·σ̃(‖x‖) の形に限る。さらに近傍メッセージを和でなく平均で集約し、過補正を防ぐ。",
+      "s4": "100体の RandomDisk で DAgger 400 エポック学習。ETDAGNN は120エポックで非同変版に追いついた（Fig. 3）。50〜400体の試験で、N=50 では学習した分散則が集中型の専門家より速度分散が小さく、N=100 でも ETDAGNN が最終的に専門家を下回った（Fig. 4）。",
+      "s5": "著者：最良の制御器は群の大きさで変わり、N≥200 では非同変版が勝つ。リーダー追従も非同変の平均集約版が最良。\n所感：手設計則が持つ対称性を学習則に戻すと効率が上がる、という結果は本テーマの比較軸に合う。実機評価はない。",
+      "s6": "・GNN 群制御 (Tolstaya+ 2019)（本資料）\n・LPAC (Agarwal+ 2025)（参照のみ）\n・DiffeoMorph (Pahng+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/transue.png",
+        "caption": "出典：Equivariant TDAGNN (Transue & Wang 2025) Fig. 1（上：手設計の分散則で通信グラフが分断、下：学習した GNN は連結を保つ）"
+      },
+      "notes": "本文（1〜7章）を読了。汎化誤差の証明（付録）は概観のみ。"
+    },
+    {
+      "title": "Smart Cellular Bricks for Decentralized Shape Classification and Damage Recovery",
+      "short": "Smart Cellular Bricks (Moreno+ 2025)",
+      "authors": "Rodrigo Moreno, Andres Faina, Shyam Sudhakaran ほか（IT University of Copenhagen）｜ Nature Communications 2026",
+      "year": 2025,
+      "venue": "Nature Communications 2026",
+      "link": "https://arxiv.org/abs/2509.18659",
+      "lineage": "最新",
+      "parent": "Physical NCA (Walker+ 2022)",
+      "s1": "6面にコネクタを持つ立方体 PCB モジュール約200個が同じ 3D-NCA を実行し、隣接面とのシリアル通信だけで「自分たちが何の形か」を推定する。実機の4形状で全ブロックが正解に合意し、損傷方向の検出と再生の誘導にも広げた。",
+      "s2": "モジュラーロボットの自己組立は中央計算・手設計の行動表・重い通信に頼り、新しい形や損傷に弱い。Kilobot の合意は2次元で見通し通信が要った。先行の物理 NCA（Walker+ 2022）は20枚の2次元タイルに留まった。",
+      "s3": "状態は28次元（α1・隠れ20・クラス7）。十字形マスクの 3×3×3 畳み込みで近傍を知覚し、2層の 1×1×1 畳み込みで差分を足す。ShapeNet 由来の7クラス487形状で、60〜120ステップ後の交差エントロピーで学習。実機は通信を5回再送。",
+      "s4": "シミュレーション精度98.97%（家85%〜椅子99.7%、Fig. 3A）。実機はギター26個〜丸テーブル197個で、各3回とも全ブロックが合意（100%）し、約23反復（70秒）で収束（Fig. 2）。15% を故障させても飛行機・船は頑健、ギターは首で分断され弱い。損傷方向の検出は90%超。",
+      "s5": "著者：自己修復には駆動機構が要り、現状は認識まで。小型化と、ブロックが自ら仲間を呼び込む閉ループの成長が今後の課題。\n所感：縮小したテーブルを椅子と誤る例があり、スケール不変性は弱い。学習はすべてシミュレーションで、実機での追加学習はない。",
+      "s6": "・Physical NCA (Walker+ 2022)（本資料）\n・Self-classifying MNIST Digits (Randazzo+ 2020)（既存：nca-world-models）\n・Growing NCA (Mordvintsev+ 2020)（既存：nca-world-models）",
+      "figure": {
+        "file": "figures/bricks.png",
+        "caption": "出典：Smart Cellular Bricks (Moreno+ 2025) Fig. 1(A)–(C)（ブロックの構造、組み上げた4形状、局所相互作用から大域合意へ）"
+      },
+      "notes": "arXiv v2 の本文と補足（学習データ・ネットワーク・電子回路・通信プロトコル）を読了。採録先は Crossref で確認（Nature Communications, 2026-07, DOI 10.1038/s41467-026-75166-7）。採録版の本文は未確認で、数値は arXiv v2 による。"
+    },
+    {
+      "title": "DiffeoMorph: Learning to Morph 3D Shapes Using Differentiable Agent-Based Simulations",
+      "short": "DiffeoMorph (Pahng+ 2025)",
+      "authors": "Seong Ho Pahng, Guoye Guan, Benjamin Fefferman, Sahand Hormoz（Harvard Medical School）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2512.17129",
+      "lineage": "最新",
+      "parent": "GNCA",
+      "s1": "同じ SE(3) 同変 GNN を共有するエージェント群が、位置と「遺伝子発現」ベクトルを更新して目標の3次元形状へ変形する形態形成則を、微分可能なシミュレーションで end-to-end に学習した。球からウサギまで作れる。",
+      "s2": "強化学習による形作りは微分できず効率が悪い。NCA・GNCA・NPA は形の比較に点の対応・同数・同じ向きを要し、情報の多い初期条件に頼る。本研究は順序・個数・回転に不変で鏡像は区別する損失で、最小限の手がかりから学ぶ。",
+      "s3": "形を3D Zernike 多項式の係数 C で表し、四元数 q で回転を揃えて L = ‖C_target − D(q*)Ĉ(w)‖² を最小化する二段最適化。包絡線定理により q* を通る勾配は不要。極に置いた「オーガナイザ」細胞だけが空間の手がかり。",
+      "s4": "楕円体・三日月・ヒトデ・らせん・ウサギを学習。ウサギの損失はオーガナイザを回転させたとき本手法0.46、NPA 5.93、GNCA は学習に失敗し12.66（Table S1）。初期ノイズ0.2 でも形を回復。鏡像の固定には直交する3組のオーガナイザが要った。",
+      "s5": "著者：全対通信で計算量は O(N²)。細かい形では回転合わせが局所解に陥る。\n所感：学習した遺伝子発現が少数のラプラス固有モードと揃い、体内の座標系として働くという分析が面白い。実機やセンサ制約はなく、ロボット群への移植は未検証。",
+      "s6": "・GNCA (Grattarola+ 2021)（本資料）\n・Neural Particle Automata (Kim+ 2026)（本資料）\n・Learning Developmental Scaffoldings (Montero+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/diffeomorph.png",
+        "caption": "出典：DiffeoMorph (Pahng+ 2025) Fig. 1（Zernike 展開、共有 GNN による形態形成、スペクトル整列の二段最適化）"
+      },
+      "notes": "arXiv v2（2026-05）の本文と付録（GNCA・NPA との比較 Table S1、実験設定、限界）を読了。"
+    },
+    {
+      "title": "Neural Particle Automata: Learning Self-Organizing Particle Dynamics",
+      "short": "Neural Particle Automata (Kim+ 2026)",
+      "authors": "Hyunsoo Kim, Ehsan Pajouheshgar, Sabine Süsstrunk, Wenzel Jakob, Jinah Park（KAIST / EPFL）｜ SIGGRAPH 2026",
+      "year": 2026,
+      "venue": "SIGGRAPH 2026",
+      "link": "https://arxiv.org/abs/2601.16096",
+      "lineage": "最新",
+      "parent": "Growing NCA（既存：nca-world-models）",
+      "s1": "格子に固定された NCA のセルを、連続な位置と内部状態を持つ粒子に置き換えた NPA を提案。位置と状態を共有の学習則で更新し、形態形成・粒子テクスチャ・点群 MNIST の分散分類（98.42%）を約1〜4万パラメータで実現した。",
+      "s2": "NCA は格子上の固定近傍に縛られ、空の領域の計算が無駄になる。GNCA もグラフは固定。Particle Lenia などの粒子系は近傍が動くが規則は手設計だった。NPA は動く近傍を微分可能に扱い、粒子の局所則を学習する。",
+      "s3": "近傍の知覚に微分可能な SPH 演算子（密度、平滑化、状態勾配、密度勾配）を使い、2層 MLP が状態と位置の増分を出す。更新は確率 p=0.5 で間引く。全対計算を避けるハッシュグリッドの CUDA カーネルを実装した。",
+      "s4": "2D 形態形成は4096粒子・11K パラメータ、3D は16384粒子・38K（Table 3）。点群 MNIST の試験精度98.42%。粒子数や SPH 半径を変えても安定で、p→0 の完全非同期でも動く（Fig. 9, 10）。同規模の Growing NCA よりメモリは6.2GB 対 11.4GB と少ないが、学習は約2倍遅い。",
+      "s5": "著者：粒子の分裂・融合ができず細部を表しにくい。勾配の知覚が大域座標系に依存し、回転に汎化しない。ハイパーパラメータに敏感。\n所感：切断や凝集など未学習の損傷からも再生し、ドローン群ディスプレイへの応用を挙げる。実機の動力学や通信遅延は未考慮。",
+      "s6": "・Growing NCA (Mordvintsev+ 2020)（既存：nca-world-models）\n・GNCA (Grattarola+ 2021)（本資料）\n・DiffeoMorph (Pahng+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/npa.png",
+        "caption": "出典：Neural Particle Automata (Kim+ 2026) Fig. 1（卵型の種からの形態形成、粒子テクスチャ、点群の数字の自己分類）"
+      },
+      "notes": "arXiv v3 の本文と付録（Growing NCA との比較、計算量、アブレーション）を読了。採録先 SIGGRAPH 2026 は KAIST CGV 研究室の告知（2026-03-31）による。ACM DL の掲載ページは未確認。"
+    }
+  ]
+}
