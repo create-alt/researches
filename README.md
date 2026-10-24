@@ -17,7 +17,7 @@
 | ニューラルセルオートマトン・自己組織化 | [`neural-cellular-automata`](https://github.com/create-alt/researches/tree/neural-cellular-automata) | 局所則の世界モデル・推論器としての NCA、学習される群知能、離散・非同期 NCA のハードウェア化 | 29 / 91 本 | 第1回 | 2026-10-24 |
 | イベントベース視覚とニューロモルフィック・ロボティクス | [`neuromorphic-robotics`](https://github.com/create-alt/researches/tree/neuromorphic-robotics) | イベントベース世界モデルと表現学習、完全ニューロモルフィック閉ループ、チップ上の局所学習による身体の適応 | 32 / 110 本 | 第1回 | 2026-10-24 |
 
-合計：スライド化 393 本（7 分野・33 テーマ）。
+合計：スライド化 393 本（7 分野・38 テーマ）。
 
 > 分野ブランチを作成・更新したら、この表にも追記します。各ブランチの README に、調査履歴・系譜・引用論文一覧・次の推奨テーマがあります。
 
