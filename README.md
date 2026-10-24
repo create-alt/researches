@@ -13,28 +13,32 @@
 | 第2回 | [JEPA 系の非生成型潜在世界モデル](#jepa) | VICReg・I-JEPA から DINO-WM・PLDM・V-JEPA 2・LeJEPA・LeWM まで、画素を再構成しない潜在世界モデルの基盤 | [pptx](jepa/jepa.pptx) / [pdf](jepa/jepa.pdf) | 10 本 | 38 本 | 2026-10-23 |
 | 第2回 | [潜在空間での計画と分布外への逸脱](#latent-planning) | PETS・PlaNet・TD-MPC・Diffuser から、学習済み世界モデル上の勾配計画・モデル誤差の悪用対策まで | [pptx](latent-planning/latent-planning.pptx) / [pdf](latent-planning/latent-planning.pdf) | 10 本 | 32 本 | 2026-10-23 |
 | 第2回 | [動画・基盤世界モデルの能動データ収集と意味的好奇心](#foundation-world-model) | LLM による好奇心（ELLM, Motif）と、Genie・Dreamer 4・Ctrl-World などの基盤世界モデルの訓練データ設計 | [pptx](foundation-world-model/foundation-world-model.pptx) / [pdf](foundation-world-model/foundation-world-model.pdf) | 10 本 | 31 本 | 2026-10-23 |
+| 第3回 | [世界モデルの評価・診断指標](#wm-evaluation) | FVD・objective mismatch から、物理・制御性のベンチマーク、閉ループ評価、楽観バイアス、再現性の揺れまで | [pptx](wm-evaluation/wm-evaluation.pptx) / [pdf](wm-evaluation/wm-evaluation.pdf) | 10 本 | 36 本 | 2026-10-24 |
+| 第3回 | [確率的・多峰な未来を扱う潜在世界モデル](#stochastic-latent) | SV2P・SVG・DreamerV2・IRIS から、潜在拡散／flow matching 世界モデル、確率的 JEPA、較正評価まで | [pptx](stochastic-latent/stochastic-latent.pptx) / [pdf](stochastic-latent/stochastic-latent.pdf) | 10 本 | 42 本 | 2026-10-24 |
+| 第3回 | [行動ラベルのない動画からの潜在行動学習と、世界モデル内での方策学習](#latent-action) | ILPO・LAPO・LAPA から distractor 問題、世界モデル内 RL（WMPO など）と報酬ハッキング、保守的 MBRL まで | [pptx](latent-action/latent-action.pptx) / [pdf](latent-action/latent-action.pdf) | 11 本 | 38 本 | 2026-10-24 |
 
-合計：スライド化 50 本、引用論文一覧 170 本（テーマ間の重複を含む）。
+合計：スライド化 81 本、引用論文一覧 286 本（テーマ間の重複を含む）。
 
 ## 調査履歴
 
 | 日付 | 内容 |
 | --- | --- |
-| 2026-10-23 | 第1回調査。「内発的報酬」、「階層化」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
-| 2026-10-23 | 第2回調査。第1回の推奨テーマ 「JEPA 系の非生成型潜在世界モデル」、「潜在空間での計画と分布外への逸脱」、「動画・基盤世界モデルの能動データ収集と意味的好奇心」 を追加調査。既存デッキでスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
+| 2026-10-23 | 第1回調査。「内発的報酬」、「階層化」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌・著者公開版など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 |
+| 2026-10-23 | 第2回調査。第1回の推奨テーマ 「JEPA 系の非生成型潜在世界モデル」、「潜在空間での計画と分布外への逸脱」、「動画・基盤世界モデルの能動データ収集と意味的好奇心」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
+| 2026-10-24 | 第3回調査。第2回の推奨テーマ 「世界モデルの評価・診断指標」、「確率的・多峰な未来を扱う潜在世界モデル」、「行動ラベルのない動画からの潜在行動学習と、世界モデル内での方策学習」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。 |
 
 ## 追加調査を推奨するテーマ
 
-第2回までの全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾（next themes）にはテーマ単位の候補もある。
+これまでの全テーマの調査を通して見えた、この分野で次に調べるべきテーマ。各テーマ節の末尾（next themes）にはテーマ単位の候補もある。
 
-1. **世界モデルの評価・診断指標（予測誤差と計画成功率・制御性のずれ）**  
-   第2回の3テーマすべてで「予測誤差や画素忠実度が良くても計画に効かない」「評価条件で成功率が大きく変わる（LeWM の再現研究）」「生成的世界モデルの幻覚・制御性の測り方が定まらない」という同じ問題が出た。計画を見据えた診断指標、幻覚検出、ベンチマークの設計を横断して調べる価値が最も高い。
+1. **決定に効く誤差を学習目的に戻す（価値等価・decision-aware なモデル学習）**  
+   評価テーマでは予測誤差と計画性能のずれ（objective mismatch）が繰り返し確認され、潜在行動テーマでも方策改善に効く世界モデルの学び方が課題として残った。Value Equivalence → IterVAML → 2026 年の潜在世界モデルまでを、評価指標ではなく学習目的の側から整理する。
 
-2. **確率的・多峰な未来を扱う潜在世界モデル**  
-   JEPA 系の多くは決定論的な予測器で、多峰な未来を平均化してしまう。潜在変数付き JEPA、潜在拡散・flow matching による予測（LeFlow など）、不確実性を計画に使う手法を、生成型（Dreamer 系）との比較を含めて整理するとよい。
+2. **世界モデルを方策評価器・シミュレータとして使う信頼性と、不確実性の計画への利用**  
+   MiraBench の楽観バイアス、WorldGym・WorldEval・Ctrl-World での方策評価、確率的世界モデルの不確実性（偶然的／認識的の分離と較正）を、計画（偶然ノード探索・リスク考慮 MPC）でどう使うかと合わせて調べる。
 
-3. **行動ラベルのない動画からの潜在行動学習と、世界モデル内での方策後学習**  
-   Genie 以来の潜在行動学習、基盤世界モデルの中での RL・合成データによる方策学習、そこで起こる報酬ハッキングと保守性（オフライン MBRL の不確実性罰則）を、データ収集テーマの続きとして追う。
+3. **World Action Model（動画生成と行動予測の統合）と潜在行動の識別可能性**  
+   動画生成モデルと行動予測を一体で学ぶ WAM 系が 2026 年に増えている。潜在行動が本当に行動を表すのか（識別可能性・distractor）、離散トークンか連続表現かという表現の選択と合わせて追う。
 
 <details><summary>第1回の推奨テーマ（第2回で調査済み）</summary>
 
@@ -44,9 +48,17 @@
 
 </details>
 
+<details><summary>第2回の推奨テーマ（第3回で調査済み）</summary>
+
+- 世界モデルの評価・診断指標（予測誤差と計画成功率・制御性のずれ） → [世界モデルの評価・診断指標](#wm-evaluation)
+- 確率的・多峰な未来を扱う潜在世界モデル → [確率的・多峰な未来を扱う潜在世界モデル](#stochastic-latent)
+- 行動ラベルのない動画からの潜在行動学習と、世界モデル内での方策後学習 → [行動ラベルのない動画からの潜在行動学習と、世界モデル内での方策学習](#latent-action)
+
+</details>
+
 ## 凡例
 
-- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`↪ 既存：<theme> p.N` は同じ分野の既存デッキでスライド化済み、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
+- 「スライド」列：`✅ p.N` はデッキの N ページ目（表紙が p.1）、`↪ 既存：<theme> p.N` は既存デッキ（他分野の場合は `<field>/<theme>`）でスライド化済み、`⚠️ 本文未確認` は影響が大きいが本文にアクセスできなかった論文（概要は書誌・検索情報に基づく）、`— 参照のみ` は調査過程で参照したがスライド化しなかった論文。
 - 「系譜」列：原典（系譜の起点）／発展／最新（主に 2025〜2026 年）。
 
 ---
@@ -419,3 +431,257 @@ World Models (2018) ─> Genie (2024, 動画のみ・潜在行動・ΔtPSNR)    
 | 29 | [World Models](https://arxiv.org/abs/1803.10122) | 2018 | arXiv（NeurIPS 2018 版は別題） | 原典 | VAE+RNN の世界モデル。ランダム方策のロールアウトで VizDoom を学習した（GameNGen が対比） | — 参照のみ |
 | 30 | [Video PreTraining (VPT): Learning to Act by Watching Unlabeled Online Videos](https://arxiv.org/abs/2206.11795) | 2022 | NeurIPS | 発展 | 逆動力学モデルで Web 動画に行動ラベルを付ける。Dreamer 4 のデータセットと比較対象 | — 参照のみ |
 | 31 | Genie 3: A new frontier for world models（DeepMind 技術ブログ） | 2025 | ブログ | 最新 | 実時間で多様な場面を生成する基盤世界モデル。論文の本文がない | ⚠️ 本文未確認 |
+
+---
+
+<a id="wm-evaluation"></a>
+
+## 世界モデルの評価・診断指標（wm-evaluation/）
+
+資料：[wm-evaluation.pptx](wm-evaluation/wm-evaluation.pptx) ／ [wm-evaluation.pdf](wm-evaluation/wm-evaluation.pdf) ／ 生成元 [spec.json](wm-evaluation/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: 第3回調査。既存テーマ（jepa・foundation-world-model）の next_themes で挙がった「予測誤差・画素忠実度と計画成功率のずれ」「生成的世界モデルの評価指標の乱立」を起点にした。arXiv API で `ti:"world model(s)" AND (evaluat|benchmark|diagnos|metric|proxy)`、`abs:"prediction error" AND abs:"world model" AND abs:planning`、`abs:"optimism bias" AND abs:"world model"` などを新着順に検索し、2026年に急増している診断指標・ベンチマーク論文から現在地を把握した。
+- そこから (a) 予測精度と制御性能の不一致の系譜（Objective Mismatch → Value Equivalence → 2026年の JEPA/潜在世界モデルでの再検証）と、(b) 生成動画の評価の系譜（FVD → 物理遵守の Physics-IQ・WorldModelBench、制御性の WorldScore → 閉ループで測る World-in-World → 行動条件付き信頼性の MiraBench）を原典まで遡った。
+- スライド化した10本は arXiv 版で本文を全文読んだ（付録は必要箇所のみ）。採録先は arXiv コメントと検索（CVF Open Access・NeurIPS サイト）で確認した。既存デッキでスライド化済みの LeWM・JEPA-WMs・Prediction over Reconstruction（jepa）、Hallucination in WMs（foundation-world-model）、PETS・Exploitable WM（latent-planning）は再掲していない。VIScore（2608.11174）は v2 が arXiv 管理者により取り下げ扱いとなっていたため採用を見送った。
+
+### 系譜
+```
+[予測精度と意思決定のずれ（objective mismatch）の系譜]
+システム同定の伝統 ─→ Objective Mismatch (Lambert+ 2020, L4DC: 1ステップ尤度と報酬の相関が弱い)
+                        ├→ Value Equivalence (Grimm+ 2020) / VAML ─→ Unified View (Wei+ 2023, 解法の分類)
+                        └→ 2026年の潜在世界モデルでの再検証
+                              ├→ LeWM 再現研究 (Singh 2026: 評価条件で 14%↔84%、1ステップ誤差は長期計画を予測しない)
+                              ├→ DRPE (Wang+ 2026: 決定に関わる次元の誤差だけが計画を予測)
+                              ├→ One-Step Proxy (Cheung & He 2026: 1エポック以降 r≈0、評価シードだけで ±26pt)
+                              └→ 周辺: Low Prediction Error Misleads / Decision-Metric Alignment / Operator-on-F / ACPC (2026)
+
+[生成的（動画）世界モデルの評価の系譜]
+PSNR・SSIM ─→ FID (2017) ─→ FVD (Unterthiner+ 2018: 分布の忠実度、人間の判断に整合)
+   └→ VBench (2024, 画質の多次元評価)
+         ├→ 物理遵守: Physics-IQ (Motamed+ 2025, 実写・リアルさ≠物理) / WorldModelBench (Li+ 2025, 物理5法則+人手判定器)
+         ├→ 制御性:   WorldScore (Duan+ 2025, カメラ軌道による次シーン生成)
+         └→ 閉ループ: World-in-World (Zhang+ 2025/ICLR 2026, 課題成功で評価、画質より制御性)
+                         ├→ WorldArena / WorldArena 2.0 (2026, 知覚と機能の差)
+                         └→ 行動条件付き信頼性: MiraBench (Yang+ 2026, 楽観バイアス) ─→ CureWM (Xu+ 2026, 失敗で修復)
+                                 （関連: Hallucination in WMs, 既存: foundation-world-model）
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Towards Accurate Generative Models of Video: A New Metric & Challenges](https://arxiv.org/abs/1812.01717) | 2018 | arXiv | 原典 | I3D 特徴の Fréchet 距離で動画生成を評価する FVD を提案。PSNR・SSIM より人間の判断に一致。 | ✅ p.2 |
+| 2 | [Objective Mismatch in Model-based Reinforcement Learning](https://arxiv.org/abs/2002.04523) | 2020 | L4DC 2020 | 原典 | ダイナミクスモデルの1ステップ尤度と制御報酬の相関が弱いことを数千モデルで示し、objective mismatch と命名。 | ✅ p.3 |
+| 3 | [Do generative video models understand physical principles?](https://arxiv.org/abs/2501.09038) | 2025 | WACV 2026 | 発展 | 実写396本の Physics-IQ。最良モデルでも 29.5%、見た目のリアルさと物理理解は相関しない。 | ✅ p.4 |
+| 4 | [WorldModelBench: Judging Video Generation Models As World Models](https://arxiv.org/abs/2502.20694) | 2025 | NeurIPS 2025 D&B | 発展 | 指示追従・物理5法則・常識で動画生成モデルを採点。6.7万件の人手ラベルと2B 判定器。 | ✅ p.5 |
+| 5 | [WorldScore: A Unified Evaluation Benchmark for World Generation](https://arxiv.org/abs/2504.00983) | 2025 | ICCV 2025 | 発展 | 次シーン生成の連鎖として動画・3D・4D 生成を統一評価。制御性・品質・ダイナミクスの10指標。 | ✅ p.6 |
+| 6 | [World-in-World: World Models in a Closed-Loop World](https://arxiv.org/abs/2510.18135) | 2025 | ICLR 2026 (Oral) | 発展 | 閉ループの身体性課題の成功率で世界モデルを評価。画質は成功を保証せず制御性が効く。 | ✅ p.7 |
+| 7 | [MiraBench: Evaluating Action-Conditioned Reliability in Robotic World Models](https://arxiv.org/abs/2605.29360) | 2026 | arXiv | 最新 | 物理遵守・行動追従・楽観バイアスの3階層。失敗行動でも成功映像を生成する楽観バイアスが広く存在。 | ✅ p.8 |
+| 8 | [The Evaluation Protocol Determines the Result: An Independent Reproduction of LeWorldModel on TwoRoom](https://arxiv.org/abs/2608.10145) | 2026 | arXiv | 最新 | LeWM の独立再現。設定にない4つの前処理慣行と評価条件の食い違いで同じ重みが 14%/84%。1ステップ誤差は長期計画を予測しない。 | ✅ p.9 |
+| 9 | [Not All Errors Matter: Decision-Relevant Prediction Error Predicts Planning Quality](https://arxiv.org/abs/2609.32322) | 2026 | arXiv | 最新 | 決定に関わる次元の多段誤差 DRPE と iso-error 評価法。総誤差 ρ=−0.25 に対し DRPE ρ=−0.84。 | ✅ p.10 |
+| 10 | [One-Step Prediction Fidelity Is a Poor Proxy for Planning Performance in JEPA World Models](https://arxiv.org/abs/2610.19375) | 2026 | NeurIPS 2026 WS (WM-PAI) | 最新 | 凍結デコーダで1ステップ誤差を物理単位化。LeWM で誤差を下げても計画は伸びず（r=−0.010）。 | ✅ p.11 |
+| 11 | [LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels](https://arxiv.org/abs/2603.19312) | 2026 | arXiv | 最新 | 予測損失と SIGReg の2項で画素から学ぶ JEPA 世界モデル。#8・#10 の評価対象。 | ↪ 既存：world-model/jepa p.10 |
+| 12 | [What Drives Success in Physical Planning with Joint-Embedding Predictive World Models? (JEPA-WMs)](https://arxiv.org/abs/2512.24497) | 2025 | TMLR 2026 | 発展 | 凍結表現上の JEPA 世界モデルの設計要因を計画成功率で体系比較。 | ↪ 既存：world-model/jepa p.8 |
+| 13 | [What Makes Video World Model Latents Action-Relevant: Prediction over Reconstruction](https://arxiv.org/abs/2606.07687) | 2026 | arXiv | 最新 | 画素忠実度（PSNR）と行動情報が無関係であることを示す。#1 の系譜への反証的な位置づけ。 | ↪ 既存：world-model/jepa p.11 |
+| 14 | [Hallucination in World Models Is Predictable and Preventable](https://arxiv.org/abs/2606.27326) | 2026 | arXiv | 最新 | 世界モデルの幻覚を指標化・予測。#7 MiraBench の楽観バイアスと相補的。 | ↪ 既存：world-model/foundation-world-model p.10 |
+| 15 | [Imperfect World Models Are Exploitable](https://arxiv.org/abs/2605.15960) | 2026 | arXiv | 最新 | 不完全な世界モデルが計画器に悪用される条件の分析。 | ↪ 既存：world-model/latent-planning p.10 |
+| 16 | [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models (PETS)](https://arxiv.org/abs/1805.12114) | 2018 | NeurIPS 2018 | 原典 | 確率的アンサンブル＋CEM の MBRL。#2 の実験基盤。 | ↪ 既存：world-model/latent-planning p.2 |
+| 17 | [The Value Equivalence Principle for Model-Based Reinforcement Learning](https://arxiv.org/abs/2011.03506) | 2020 | NeurIPS 2020 | 発展 | ベルマン更新が一致すればよいとする価値等価原理。予測の正確さより計画に効くモデルを目指す（要旨に基づく）。 | — 参照のみ（要旨のみ確認。#2 の対になる「学習側」の応答で、評価指標そのものではないため） |
+| 18 | [A Unified View on Solving Objective Mismatch in Model-Based Reinforcement Learning](https://arxiv.org/abs/2310.06253) | 2023 | arXiv | 発展 | objective mismatch の解法（価値等価・微分可能計画など）を分類するサーベイ（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 19 | [Fréchet Inception Distance (GANs Trained by a Two Time-Scale Update Rule…)](https://arxiv.org/abs/1706.08500) | 2017 | NeurIPS 2017 | 原典 | 画像生成の FID。FVD の直接の前身。 | — 参照のみ（画像生成の指標で本テーマの外） |
+| 20 | [VBench: Comprehensive Benchmark Suite for Video Generative Models](https://arxiv.org/abs/2311.17982) | 2023 | CVPR 2024 | 発展 | 動画生成を16次元で評価。#4・#5 が「物理・制御性を測れない」比較対象とする（検索情報に基づく）。 | — 参照のみ（タイトル・他論文での記述のみ） |
+| 21 | [VideoPhy: Evaluating Physical Commonsense for Video Generation](https://arxiv.org/abs/2406.03520) | 2024 | arXiv | 発展 | 物理常識の0/1人手判定。#4 の前身（他論文での記述に基づく）。 | — 参照のみ（タイトルのみ） |
+| 22 | [How Far is Video Generation from World Model: A Physical Law Perspective](https://arxiv.org/abs/2411.02385) | 2024 | ICML 2025 | 発展 | 2D 物理シミュレーションで動画生成の汎化を検証。分布内は完全、分布外で失敗（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 23 | [WorldGym: World Model as An Environment for Policy Evaluation](https://arxiv.org/abs/2506.00613) | 2025 | arXiv | 発展 | 動画世界モデル内での方策評価が実機成功率と高相関（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 24 | [WorldEval: World Model as Real-World Robot Policies Evaluator](https://arxiv.org/abs/2505.19017) | 2025 | arXiv | 発展 | 世界モデルによる実機方策評価。 | — 参照のみ（タイトルのみ） |
+| 25 | [WorldArena: A Unified Benchmark for Evaluating Perception and Functional Utility of Embodied World Models](https://arxiv.org/abs/2602.08971) | 2026 | arXiv | 最新 | 知覚品質16指標と、データ生成・方策評価・計画の機能を統合した EWMScore。知覚と機能の差を報告（要旨に基づく）。 | — 参照のみ（要旨のみ確認。World-in-World と趣旨が重なるため） |
+| 26 | [WorldArena 2.0](https://arxiv.org/abs/2605.17912) | 2026 | arXiv | 最新 | 視触覚・RL 環境としての機能・実機プラットフォームへ評価を拡張（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 27 | [World Models Dream of Success: Diagnosing and Repairing Failure Insensitivity in Robot World Models (CureWM)](https://arxiv.org/abs/2610.09134) | 2026 | arXiv | 最新 | 実行で検証した反事実の失敗で公開チェックポイントを修復。LIBERO で楽観率 80%→38%、ただし誤警報も増える。 | — 参照のみ（本文を読んだが評価より修復手法が主のため、MiraBench を優先） |
+| 28 | [When Low Prediction Error Misleads Planning: Diagnosing Representation, Dynamics, and Decision Failures in Latent World Models](https://arxiv.org/abs/2610.05550) | 2026 | arXiv | 最新 | 誤差の大半を占める成分と、直すと行動選択が良くなる成分が一致しないことを4系統・4課題で示す（要旨に基づく）。 | — 参照のみ（要旨のみ確認。DRPE と主張が重なるため） |
+| 29 | [Decision-Metric Alignment in Latent World Models](https://arxiv.org/abs/2608.18746) | 2026 | arXiv | 最新 | 潜在距離コストが実コストの順位を保つかを Plan-Real Spearman で測り、逆動力学ヘッド付き DA-LeWM を提案（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 30 | [Operator-on-F complements value-equivalence: a planning-time diagnostic for latent world models](https://arxiv.org/abs/2607.04464) | 2026 | RLC 2026 WS | 最新 | TD-MPC2 で報酬誤差は性能を区別できないが、k ステップ潜在押し出しの誤差は計画性能の崩壊と ρ=−0.90（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 31 | [Diagnosing JEPA World Models with Action-Conditioned Predictive Consistency](https://arxiv.org/abs/2608.12939) | 2026 | arXiv | 最新 | 視覚摂動下の行動条件付きロールアウトの乖離（ACPC）で頑健性を診断（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 32 | [Do Better Imagined Rollouts Mean Better Robot Control? A Controlled Study of World-Model Evaluation Under Feedback](https://arxiv.org/abs/2609.02811) | 2026 | arXiv | 最新 | 開ループのロールアウト誤差より、観測補正を含むリプレイ誤差の方が閉ループ性能を予測（ρ=0.923 vs 0.774、要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 33 | [VIScore: Diagnosing Planning-Relevant Quality in Latent World Models](https://arxiv.org/abs/2608.11174) | 2026 | arXiv | 最新 | エンコーダ・予測器・計画器を通した品質スコアが成功率と Spearman 0.75 超（要旨に基づく）。 | — 参照のみ（v2 が arXiv 管理者により取り下げ扱いのため不採用） |
+| 34 | [Frozen in a Frame: The Velocity Blind Spot in JEPA World Models](https://arxiv.org/abs/2610.04585) | 2026 | arXiv | 最新 | 1フレーム埋め込みは速度を含みえないと指摘。 | — 参照のみ（既存 jepa の readme で言及済み） |
+| 35 | [WorldOracle: Benchmarking Action-Conditioned World Models against Real-World Executions](https://arxiv.org/abs/2610.18826) | 2026 | arXiv | 最新 | 同じ初期観測・行動列での実機実行と予測を4観点で比較するベンチマーク（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+| 36 | [Do World Models Make Better Robots? A Survey of Evaluation Benchmarks for Predictive Embodied Intelligence](https://arxiv.org/abs/2609.29669) | 2026 | arXiv | 最新 | 160ベンチマークを分類し、世界モデルと VLA を閉ループで比べるものは 7% のみと指摘（要旨に基づく）。 | — 参照のみ（要旨のみ確認） |
+
+---
+
+<a id="stochastic-latent"></a>
+
+## 確率的・多峰な未来を扱う潜在世界モデル（stochastic-latent/）
+
+資料：[stochastic-latent.pptx](stochastic-latent/stochastic-latent.pptx) ／ [stochastic-latent.pdf](stochastic-latent/stochastic-latent.pdf) ／ 生成元 [spec.json](stochastic-latent/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: 第3回調査（jepa テーマの推奨テーマ3）。arXiv API で "world model" AND (stochastic / multimodal / "latent diffusion" / "flow matching" / "latent variable")、JEPA AND stochastic などを新着順に検索した。2026年に増えている確率的な JEPA・特徴空間の生成モデル（FlowWM、JEDI、Branch-JEPA、Flow-JEPA、MDN-VJEPA など）と、生成型の動画世界モデルの確率の較正を問う評価（CaliBench、PAWBench）から現在地を把握した。
+- そこから、(a) 確率的潜在変数による動画予測（SV2P → SVG → PlaNet の RSSM）、(b) 離散潜在・トークン化（DreamerV2 → VQM → IRIS → Δ-IRIS/STORM）、(c) 拡散・flow matching の世界モデル（DIAMOND → NWM → JEDI/FlowWM）、(d) 不確実性を使った計画（VQM の偶然ノード → Stochastic MuZero、NWM のサンプル平均評価）の4つの系譜を遡った。軸は「生成型（画素・VAE 潜在を生成）か、非生成型（JEPA・凍結特徴の予測）か」。
+- 本文は arXiv 版で全文を読んだ（付録は必要な箇所のみ）。Stochastic MuZero は OpenReview がチャレンジ認証（403）で取得できず、本文未確認。DIAMOND は指示により対象外（潜在空間版を優先）とし、参照のみ。既存テーマでスライド化済みの PlaNet・PETS・Diffuser・LeFlow・DINO-WM・V-JEPA 2・LeWM・Dreamer 4 などは再掲していない。
+
+### 系譜
+```
+[確率的潜在変数（変分推論）]
+Finn+ 2016 CDNA（決定論・MSE → 平均化してぼやける）
+   └→ SV2P (2017, 動画全体の潜在 z・3段階学習)
+          └→ SVG (2018, 時刻ごとの z_t と学習事前分布)
+                 └→ PlaNet RSSM (2019, 既存：latent-planning) → Dreamer 系
+                        └→ DreamerV2 (2021, ガウス → 32×32 カテゴリカル潜在, KL バランシング)
+
+[離散符号・トークン化 ＋ 自己回帰]
+VQ-VAE (2017) ─┬→ VQM (2021, 環境の応答を離散符号にし MCTS で分岐) → Stochastic MuZero (2022, ※本文未確認)
+               └→ IRIS (2023, 16 トークン/フレーム ＋ GPT 型 Transformer)
+                      ├→ STORM (2023), TWM, Δ-IRIS (2024)
+                      └→ Orbis (2025, 離散トークン vs flow matching の比較)
+
+[拡散・flow matching（生成型）]
+DIAMOND (2024, 画素拡散) ─→ NWM (2024/CVPR 2025, SD-VAE 潜在の CDiT, CEM 計画)
+                         ─→ JEDI (2026, JEPA 型の潜在をノイズ除去損失で end-to-end 学習)
+Frozen Forecasting / Walker+ (2025, 凍結特徴上の潜在拡散) ─→ FlowWM (2026, DINOv3 特徴上の flow matching)
+
+[非生成型（JEPA）の確率化]
+LeCun 2022 / 潜在変数 EBM（既存：hierarchical）─→ DINO-WM・V-JEPA 2・LeWM（既存：jepa, いずれも決定論的）
+   ├→ VJEPA / MDN-VJEPA (2026, 変分・混合密度)
+   ├→ Branch-JEPA (2026, K 個の重みつき後続状態, エネルギースコア)
+   ├→ Flow-JEPA (2026, LeWM の予測器を flow matching に)
+   └→ UWM-JEPA (2026, 密度行列による信念の保持)
+
+[評価：確率は正しいか]
+SV2P/SVG の best-of-N 評価 → Quantifying Multimodality (2021) → CaliBench (2026, 解析解のある場面で較正を検定), PAWBench (2026)
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Stochastic Variational Video Prediction (SV2P)](https://arxiv.org/abs/1710.11252) | 2017 | ICLR 2018 | 原典 | 動画予測に潜在変数を入れ、サンプルごとに異なる未来を出す。決定論モデルの平均化を実データで示した | ✅ p.2 |
+| 2 | [Stochastic Video Generation with a Learned Prior (SVG)](https://arxiv.org/abs/1802.07687) | 2018 | ICML 2018 | 発展 | 時刻ごとの潜在変数と学習事前分布。衝突時だけ分散が立ち上がる。RSSM の原型 | ✅ p.3 |
+| 3 | [Mastering Atari with Discrete World Models (DreamerV2)](https://arxiv.org/abs/2010.02193) | 2020 | ICLR 2021 | 発展 | RSSM の確率的状態を 32×32 カテゴリカルにし、Atari 55 で人間並み。離散潜在の効果をアブレーション | ✅ p.4 |
+| 4 | [Vector Quantized Models for Planning (VQM)](https://arxiv.org/abs/2106.04615) | 2021 | ICML 2021 | 発展 | 環境の応答を VQ 符号にし、MCTS で行動と符号の両方を分岐させる。1人チェスで MuZero の崩壊を回復 | ✅ p.5 |
+| 5 | [Transformers are Sample-Efficient World Models (IRIS)](https://arxiv.org/abs/2209.00588) | 2022 | ICLR 2023 | 発展 | 離散トークン＋自己回帰 Transformer の世界モデル。Atari 100k 平均 1.046、多様な未来を生成 | ✅ p.6 |
+| 6 | [Navigation World Models (NWM)](https://arxiv.org/abs/2412.03572) | 2024 | CVPR 2025 | 発展 | SD-VAE 潜在の条件付き拡散 Transformer で航行の未来を生成し、CEM で計画。ATE 1.13（NoMaD 1.93） | ✅ p.7 |
+| 7 | [JEDI: Joint Embedding Diffusion World Model for Online Model-Based Reinforcement Learning](https://arxiv.org/abs/2605.13013) | 2026 | arXiv | 最新 | JEPA 型の潜在をノイズ除去損失だけで end-to-end 学習する潜在拡散世界モデル。Atari 100k IQM 0.688 | ✅ p.8 |
+| 8 | [Flow Matching in Feature Space for Stochastic World Modeling (FlowWM)](https://arxiv.org/abs/2606.29059) | 2026 | arXiv | 最新 | 凍結 DINOv3 特徴上の flow matching。決定論予測が平均に潰れることを証明し、Waymo の将来知覚で上回る | ✅ p.9 |
+| 9 | [Branch-JEPA: Finite-Support Predictive Distributions for JEPA World Models](https://arxiv.org/abs/2607.05238) | 2026 | arXiv | 最新 | JEPA の点予測を K 個の重みつき後続状態に置き換え、エネルギースコアで学習。AV2・OGBench で検証 | ✅ p.10 |
+| 10 | [CaliBench: Are the Stochastic Dynamics of Video World Models Physically Calibrated?](https://arxiv.org/abs/2608.16829) | 2026 | TMLR 2026 | 最新 | 解析解のある9場面で動画世界モデルの結果分布の較正を検定。主要6モデルの多くが過集中・モード崩壊 | ✅ p.11 |
+| 11 | [Learning Latent Dynamics for Planning from Pixels (PlaNet)](https://arxiv.org/abs/1811.04551) | 2019 | ICML | 原典 | RSSM（決定論部＋確率的状態）の原典。SVG と DreamerV2 をつなぐ | ↪ 既存：world-model/latent-planning p.3 |
+| 12 | [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models (PETS)](https://arxiv.org/abs/1805.12114) | 2018 | NeurIPS | 原典 | 確率的アンサンブルで偶然・認識の不確実性を分けて計画に使う | ↪ 既存：world-model/latent-planning p.2 |
+| 13 | [Planning with Diffusion for Flexible Behavior Synthesis (Diffuser)](https://arxiv.org/abs/2205.09991) | 2022 | ICML | 原典 | 軌道全体の拡散による計画 | ↪ 既存：world-model/latent-planning p.6 |
+| 14 | [LeFlow: Generative Latent Flow Planning for World Models](https://arxiv.org/abs/2608.24855) | 2026 | arXiv | 最新 | 潜在空間の flow による計画 | ↪ 既存：world-model/latent-planning p.11 |
+| 15 | [DINO-WM: World Models on Pre-trained Visual Features enable Zero-shot Planning](https://arxiv.org/abs/2411.04983) | 2024 | ICML 2025 | 発展 | 凍結 DINOv2 特徴上の決定論的予測器。FlowWM の比較対象 | ↪ 既存：world-model/jepa p.4 |
+| 16 | [V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning](https://arxiv.org/abs/2506.09985) | 2025 | arXiv | 発展 | 決定論的な JEPA 予測器による計画 | ↪ 既存：world-model/jepa p.6 |
+| 17 | [LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels](https://arxiv.org/abs/2603.19312) | 2026 | arXiv | 最新 | SIGReg による end-to-end JEPA 世界モデル。Flow-JEPA の土台 | ↪ 既存：world-model/jepa p.10 |
+| 18 | [What Drives Success in Physical Planning with Joint-Embedding Predictive World Models? (JEPA-WMs)](https://arxiv.org/abs/2512.24497) | 2025 | TMLR 2026 | 最新 | 決定論的予測器は未来の平均しか学べないと限界に挙げた（本テーマの起点） | ↪ 既存：world-model/jepa p.8 |
+| 19 | [Dreamer-CDP: Improving Reconstruction-free World Models Via Continuous Deterministic Representation Prediction](https://arxiv.org/abs/2603.07083) | 2026 | ICLR 2026 WS | 最新 | Dreamer の再構成を JEPA 型予測に置き換えた | ↪ 既存：world-model/jepa p.9 |
+| 20 | [Introduction to Latent Variable Energy-Based Models (Dawid & LeCun)](https://arxiv.org/abs/2306.02572) | 2023 | J. Stat. Mech. 2024 | 原典 | 潜在変数 EBM で多峰な予測を扱う構想 | ↪ 既存：world-model/hierarchical p.4 |
+| 21 | [Training Agents Inside of Scalable World Models (Dreamer 4)](https://arxiv.org/abs/2509.24527) | 2025 | arXiv | 最新 | 潜在空間の shortcut forcing による生成型世界モデル | ↪ 既存：world-model/foundation-world-model p.7 |
+| 22 | [Hallucination in World Models is Predictable and Preventable](https://arxiv.org/abs/2606.27326) | 2026 | arXiv | 最新 | 生成型世界モデルの幻覚の評価 | ↪ 既存：world-model/foundation-world-model p.10 |
+| 23 | Planning in Stochastic Environments with a Learned Model (Stochastic MuZero) ([OpenReview](https://openreview.net/forum?id=X6D9bAHhBQ1)) | 2022 | ICLR 2022 | 発展 | Antonoglou, Schrittwieser, Ozair, Hubert, Silver。afterstate と偶然ノードの VQ 符号で MuZero を確率的環境へ広げ、2048・バックギャモンで SOTA 相当、囲碁は MuZero 並み（検索情報に基づく） | ⚠️ 本文未確認（OpenReview が 403） |
+| 24 | A Path Towards Autonomous Machine Intelligence (LeCun) ([OpenReview](https://openreview.net/forum?id=BZ5a1r-kVsf)) | 2022 | ポジションペーパー | 原典 | JEPA と潜在変数による多峰な予測の構想 | ⚠️ 本文未確認 |
+| 25 | [Diffusion for World Modeling: Visual Details Matter in Atari (DIAMOND)](https://arxiv.org/abs/2405.12399) | 2024 | NeurIPS | 発展 | 画素空間の拡散世界モデル。NWM・JEDI の比較対象 | — 参照のみ（指示により潜在空間版を優先） |
+| 26 | [Decoupled Drift-Diffusion World Models for Consistent Future Frame Prediction (D3WM)](https://arxiv.org/abs/2610.19212) | 2026 | arXiv | 最新 | ガウス NLL で決定論的な平均と空間的な不確実性マップを回帰し、不確実な領域だけ拡散で生成する。Push-T・BridgeData V2・DL3DV で検証。本文1〜4章を読んだ | — 参照のみ（VAE 潜在の画像生成寄りで、枠の都合） |
+| 27 | [Flow-JEPA: Robust Latent Dynamics for JEPA World Models via Flow Matching](https://arxiv.org/abs/2608.29029) | 2026 | arXiv | 最新 | LeWM の点予測を軌道全体の条件付き flow matching に替え、成功率 86→92%、ノイズ下 67→86%（抄録） | — 参照のみ（抄録のみ確認） |
+| 28 | [Reconstruction or Semantics? What Makes a Latent Space Useful for Robotic World Models](https://arxiv.org/abs/2605.06388) | 2026 | arXiv | 最新 | 行動条件付き潜在拡散世界モデルの潜在として、再構成型 VAE と意味型エンコーダ6種を比較（抄録） | — 参照のみ（抄録のみ確認） |
+| 29 | [Frozen Forecasting: A Unified Evaluation (Walker+)](https://arxiv.org/abs/2507.13942) | 2025 | arXiv | 発展 | 凍結した視覚表現の上で潜在拡散により未来の特徴を予測し、分布的な指標で評価。FlowWM の直接の先行研究（抄録と FlowWM の記述） | — 参照のみ |
+| 30 | [MDN-VJEPA: Multimodal Probabilistic Joint-Embedding World Models](https://arxiv.org/abs/2610.13956) | 2026 | arXiv | 最新 | JEPA の予測器を混合密度ネットにし、平均ではなく多峰な信念全体で計画すると決定が変わると示す（抄録） | — 参照のみ（単著 69 頁、抄録のみ） |
+| 31 | [VJEPA: Variational Joint Embedding Predictive Architectures as Probabilistic World Models](https://arxiv.org/abs/2601.14354) | 2026 | arXiv（ICML 2026 と Branch-JEPA が引用） | 最新 | JEPA の変分化。予測状態表現・ベイズフィルタとの統一を主張（抄録） | — 参照のみ |
+| 32 | [UWM-JEPA: Predictive World Models That Imagine in Belief Space](https://arxiv.org/abs/2605.25313) | 2026 | arXiv | 最新 | 密度行列の潜在とユニタリ予測器で、ブラインドロールアウト中も不確実性を保つ（抄録） | — 参照のみ |
+| 33 | [STORM: Efficient Stochastic Transformer based World Models for Reinforcement Learning](https://arxiv.org/abs/2310.09615) | 2023 | NeurIPS 2023 | 発展 | カテゴリカル確率潜在＋Transformer の Atari 100k 世界モデル（抄録） | — 参照のみ |
+| 34 | [Efficient World Models with Context-Aware Tokenization (Δ-IRIS)](https://arxiv.org/abs/2406.19320) | 2024 | ICML 2024 | 発展 | 時刻間の確率的な差分だけを離散符号化し、IRIS を効率化（抄録） | — 参照のみ |
+| 35 | [Orbis: Overcoming Challenges of Long-Horizon Prediction in Driving World Models](https://arxiv.org/abs/2507.13162) | 2025 | arXiv | 発展 | 離散トークンと flow matching の連続モデルを同じトークナイザで比較（抄録）。後継 Orbis 2 は既存：world-model/hierarchical | — 参照のみ |
+| 36 | [PAWBench: How Far Are We from Probabilistically Aligned World Modeling?](https://arxiv.org/abs/2608.27345) | 2026 | arXiv | 最新 | 50 場面・11 モデルで、繰り返し生成が正しい行動分布を再現するか（確率的整合）を評価（抄録） | — 参照のみ（CaliBench で代表） |
+| 37 | [World Models That Know When They Don't Know (C3)](https://arxiv.org/abs/2512.05927) | 2025 | arXiv | 最新 | 適正スコアリング規則で潜在空間の不確実性を較正し、画素単位の不確実性マップを出す（抄録） | — 参照のみ |
+| 38 | [Quantifying Multimodality in World Models](https://arxiv.org/abs/2112.07263) | 2021 | arXiv | 発展 | 世界モデルの多峰な不確実性を検出・定量化する指標の提案（抄録） | — 参照のみ |
+| 39 | [Mastering Diverse Domains through World Models (DreamerV3)](https://arxiv.org/abs/2301.04104) | 2023 | Nature 2025 | 発展 | DreamerV2 の後継。JEDI が確率的フレームスキップ Atari で比較 | — 参照のみ |
+| 40 | [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model (MuZero)](https://arxiv.org/abs/1911.08265) | 2019 | Nature 2020 | 原典 | 決定論的な学習モデルによる MCTS。VQM・Stochastic MuZero の出発点 | — 参照のみ |
+| 41 | [Model-Based Reinforcement Learning for Atari (SimPLe)](https://arxiv.org/abs/1903.00374) | 2019 | ICLR 2020 | 発展 | 離散潜在つきの画素予測モデルで PPO を学習 | — 参照のみ |
+| 42 | Var-JEPA: A Variational Formulation of the Joint-Embedding Predictive Architecture (Gögl & Yau) | 2026 | ICML 2026 | 最新 | Branch-JEPA の関連研究に挙がる JEPA の変分定式化（引用情報のみ） | — 参照のみ（本文未取得） |
+
+---
+
+<a id="latent-action"></a>
+
+## 動画からの潜在行動学習と世界モデル内の方策学習（latent-action/）
+
+資料：[latent-action.pptx](latent-action/latent-action.pptx) ／ [latent-action.pdf](latent-action/latent-action.pdf) ／ 生成元 [spec.json](latent-action/spec.json)
+
+
+### 調査履歴
+- 2026-10-24: 第3回調査。foundation-world-model と latent-planning の推奨テーマ（潜在行動学習、基盤世界モデル内での方策の後学習と報酬ハッキング、オフライン MBRL の保守性）をまとめて1テーマとした。arXiv API で "latent action" × video / actionless / unlabeled（2025〜2026年で約90件）、"world model" × "reinforcement learning" × VLA、"world model" × "reward hacking"、offline × model-based × pessimism/conservative を新着順に検索した。
+- 最新動向は4つに分かれる。(a) 潜在行動の汚染（distractor）と、その理論・対策（LAOM、What Do LAMs Actually Learn?、Why Latent Actions Fail、MaskLAM）。(b) 自然動画への拡大と大規模比較（In-the-Wild LAM、What Matters、OneLA、SkeLAM）。(c) 動画世界モデルの中で VLA を GRPO で学習する流れ（WMPO → WoVR → HaWMPO / WoVR+ / DRILL）。(d) モデル悪用の修復（RENEW）。
+- 系譜は、潜在行動側を LAOM・LAPA が引く LAPO → ILPO まで遡った。方策学習側は、WMPO・HaWMPO・RENEW が共通に引く MOPO / MOReL（不確実性罰則によるオフライン MBRL）まで遡った。両者が合流する例として LAWM（潜在行動世界モデル内のオフライン RL）を加えた。
+- 既存デッキとの重複を避けるため、Genie・GameNGen・Dreamer 4・Ctrl-World・PlayWorld・Hallucination in WMs（foundation-world-model）、Exploitable WM・AWM（latent-planning）、V-JEPA 2（jepa）は再掲しなかった。
+- 本文はすべて arXiv 版で読んだ。ILPO・MOPO・WMPO・LAOM の図は PDF から切り出し、その他は arXiv HTML 版の図を使った。採録先は arXiv のコメント、PDF のヘッダ・脚注、検索結果（WMPO：ICLR 2026、In-the-Wild LAM：ICML 2026 / PMLR 306）で確認した。
+
+### 系譜
+```
+[潜在行動学習：行動ラベルのない動画から「行動」を取り出す]
+ILPO (2019, 離散潜在行動 + 少数の環境操作で実行動に対応付け)
+  └→ LAPO (2024, IDM-FDM の予測整合 + VQ ボトルネック、Procgen)
+        ├→ Genie (2024, 潜在行動で操作できる基盤世界モデル)              ［既存：foundation-world-model］
+        ├→ LAPA (2025, 潜在行動で 7B VLA を事前学習 → 実行動ヘッドを微調整)
+        │     └→ UniVLA / CoMo / LAOF (2025)                              ※参照のみ
+        ├→ LAOM (2025, distractor で LAPO が壊れる → 潜在空間予測 + 少数ラベル監督)
+        │     ├→ What Do LAMs Actually Learn? (2025) → Why Latent Actions Fail (2026)   ※理論、参照のみ
+        │     └→ MaskLAM (2026, エージェント領域だけ再構成)                ※参照のみ
+        ├→ In-the-Wild LAM (2026, 自然動画 + V-JEPA 2 表現、連続潜在、コントローラで計画)
+        │     └→ OneLA / SkeLAM (2026, 共通潜在行動空間・骨格で実行動に接地)  ※参照のみ
+        └→ What Matters (2026, 41 設計の大規模比較：LAPO は依然強い、d_z=32)
+
+[世界モデル内での方策学習と保守性]
+MBPO (2019) ─→ MOPO (2020, 報酬 − λ·不確実性) / MOReL (2020, 不確実領域を吸収状態に)
+                 ├→ C-LAP (2024) ─→ LAWM (2025, 潜在行動世界モデル内のオフライン RL)  ← LAPO と合流
+                 ├→ Exploitable WM (2026, 悪用の理論)                       ［既存：latent-planning］
+                 │     └→ RENEW (2026, 物理的妥当性の選好でモデルを修復)
+                 └→（動画世界モデル × VLA）
+                       Ctrl-World (2025) / PlayWorld (2026)                 ［既存：foundation-world-model］
+                       WMPO (2025, 画素の動画世界モデル内で GRPO、結果ベース報酬)
+                         ├→ WoVR (2026, キーフレーム初期化 + 共進化で幻覚を抑制)  ※参照のみ
+                         │     └→ WoVR+ (2026)                                  ※参照のみ
+                         ├→ HaWMPO (2026, 幻覚スコアで報酬を割り引く = MOPO 型罰則の動画版)
+                         └→ DRILL (2026, 方策改善に効くよう世界モデルを二段階最適化)  ※参照のみ
+```
+
+### 引用論文一覧
+| # | 論文 | 年 | 発表 | 系譜 | 概要 | スライド |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | [Imitating Latent Policies from Observation (ILPO)](https://arxiv.org/abs/1805.07914) | 2019 | ICML | 原典 | 状態系列だけから離散潜在行動と潜在方策を学び、少数の環境操作で実行動に対応付ける。CartPole・Acrobot で100ステップ未満の操作で専門家並み | ✅ p.2 |
+| 2 | [MOPO: Model-based Offline Policy Optimization](https://arxiv.org/abs/2005.13239) | 2020 | NeurIPS | 原典 | 学習モデルの不確実性を報酬から引く保守的なオフライン MBRL。真の収益の下界を最大化し、データ外への汎化課題でバッチ内最大を超える | ✅ p.3 |
+| 3 | [Learning to Act without Actions (LAPO)](https://arxiv.org/abs/2312.10812) | 2024 | ICLR | 発展 | IDM と FDM の予測整合と VQ ボトルネックで、動画だけから潜在行動を学ぶ。Procgen 16ゲームで真の行動構造を再現し、4M ステップで専門家性能を回復 | ✅ p.4 |
+| 4 | [Latent Action Pretraining from Videos (LAPA)](https://arxiv.org/abs/2410.11758) | 2025 | ICLR | 発展 | 動画の離散潜在行動で 7B VLA を事前学習し、少量の軌跡で実行動ヘッドを微調整する。実機で OpenVLA を上回り、人の動画だけでも有効 | ✅ p.5 |
+| 5 | [Latent Action Learning Requires Supervision in the Presence of Distractors (LAOM)](https://arxiv.org/abs/2502.00379) | 2025 | ICML | 発展 | 行動と相関する妨害で LAPO が壊れることを示し、潜在空間での予測と 2.5% のラベルによる監督で下流性能を平均 4.2 倍にする | ✅ p.6 |
+| 6 | [WMPO: World Model-based Policy Optimization for Vision-Language-Action Models](https://arxiv.org/abs/2511.09515) | 2025 | ICLR 2026 | 最新 | 画素の行動条件付き動画世界モデルの中で VLA を GRPO で学習する。結果ベースの報酬モデルで報酬ハッキングを避け、Mimicgen で 33.6→57.6% | ✅ p.7 |
+| 7 | [Latent Action World Models for Control with Unlabeled Trajectories (LAWM)](https://arxiv.org/abs/2512.10016) | 2025 | arXiv | 最新 | 行動付き・行動なしの軌跡を共通の潜在行動で1つの世界モデルに学ばせ、その中でオフライン RL を行う。行動ラベル5%で全ラベル時並み（状態入力のみ） | ✅ p.8 |
+| 8 | [Learning Latent Action World Models In The Wild](https://arxiv.org/abs/2601.05230) | 2026 | ICML | 最新 | 自然動画と凍結 V-JEPA 2 表現で潜在行動世界モデルを学ぶ。連続でスパース／ノイズ付きの潜在行動が VQ より有効で、コントローラ経由で DROID・RECON の計画に使える | ✅ p.9 |
+| 9 | [RENEW: Towards Learning World Models and Repairing Model Exploitation from Preferences](https://arxiv.org/abs/2607.14180) | 2026 | RLC 2026 ワークショップ | 最新 | 想像軌跡の物理的妥当性に関する選好で、世界モデルの遷移を直接学ぶ（DLHF）。不確実性で問い合わせ先を選び、悪用されやすい領域を修復する（合成オラクル） | ✅ p.10 |
+| 10 | [What Matters for Latent Actions in Robot Learning](https://arxiv.org/abs/2608.19613) | 2026 | arXiv | 最新 | 41通りの LAM 設計を LIBERO・LIBERO-Plus・RoboTwin2.0 で比較した。LAPO が依然強い基準で、潜在次元は32、代理指標は再構成系がよい | ✅ p.11 |
+| 11 | [HaWMPO: Hallucination-Aware World Model-based Policy Optimization for Generalist Robot Policy](https://arxiv.org/abs/2609.09941) | 2026 | arXiv | 最新 | 行動条件付きの幻覚推定器のスコアで GRPO の報酬を割り引く。LIBERO で WMPO を 6.9pt 上回り、G1 実機で 67.5→80.0% | ✅ p.12 |
+| 12 | [MOReL: Model-Based Offline Reinforcement Learning](https://arxiv.org/abs/2005.05951) | 2020 | NeurIPS | 原典 | 不確実性が高い遷移を吸収状態にした悲観的 MDP で学ぶ。PDF は取得したが要旨と関連の節の確認にとどめ、MOPO を代表とした | — 参照のみ |
+| 13 | [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391) | 2024 | ICML | 発展 | 動画だけから潜在行動で操作できる基盤世界モデル。LAPA の潜在行動モデルの土台 | ↪ 既存：world-model/foundation-world-model p.4 |
+| 14 | [Training Agents Inside of Scalable World Models (Dreamer 4)](https://arxiv.org/abs/2509.24527) | 2025 | arXiv | 発展 | 少量の行動ラベルで世界モデルを学び、想像内 RL で Minecraft を解く | ↪ 既存：world-model/foundation-world-model p.7 |
+| 15 | [Ctrl-World: A Controllable Generative World Model for Robot Manipulation](https://arxiv.org/abs/2510.10125) | 2025 | ICLR 2026 | 発展 | 世界モデルで VLA の方策評価と合成データによる改善を行う。WMPO と並ぶ「世界モデル＝シミュレータ」の例 | ↪ 既存：world-model/foundation-world-model p.8 |
+| 16 | [PlayWorld: Learning Robot World Models from Autonomous Play](https://arxiv.org/abs/2603.09030) | 2026 | arXiv | 最新 | 自律的な遊びのデータで学んだ世界モデル内で RL を行い、デモだけで学んだモデルでは方策がモデルをハックすると報告 | ↪ 既存：world-model/foundation-world-model p.9 |
+| 17 | [Hallucination in World Models is Predictable and Preventable](https://arxiv.org/abs/2606.27326) | 2026 | arXiv | 最新 | 世界モデルの幻覚を予測する指標。HaWMPO の幻覚推定と問題意識が近い | ↪ 既存：world-model/foundation-world-model p.10 |
+| 18 | [Imperfect World Models are Exploitable](https://arxiv.org/abs/2605.15960) | 2026 | arXiv | 最新 | モデル悪用を方策順序の逆転として理論化。RENEW と同じグループ | ↪ 既存：world-model/latent-planning p.10 |
+| 19 | [V-JEPA 2: Self-Supervised Video Models Enable Understanding, Prediction and Planning](https://arxiv.org/abs/2506.09985) | 2025 | arXiv | 発展 | In-the-Wild LAM が凍結エンコーダと比較対象（V-JEPA 2-AC）に使う | ↪ 既存：world-model/jepa p.6 |
+| 20 | [Video PreTraining (VPT)](https://arxiv.org/abs/2206.11795) | 2022 | NeurIPS | 発展 | 少量の行動付きデータで学んだ IDM で Web 動画に疑似ラベルを付ける。LAPO・LAPA・LAOM の比較対象 | — 参照のみ |
+| 21 | [Behavioral Cloning from Observation (BCO)](https://arxiv.org/abs/1805.01954) | 2018 | IJCAI | 発展 | 環境との相互作用で IDM を学び、観察だけの実演に行動を付ける。ILPO の比較対象 | — 参照のみ |
+| 22 | [UniVLA: Learning to Act Anywhere with Task-centric Latent Actions](https://arxiv.org/abs/2505.06111) | 2025 | arXiv | 発展 | 課題中心の潜在行動で VLA を学ぶ。LAPA の後続として In-the-Wild LAM・What Matters が引用（検索情報のみ） | — 参照のみ |
+| 23 | [CoMo: Learning Continuous Latent Motion from Internet Videos for Scalable Robot Learning](https://arxiv.org/abs/2505.17006) | 2025 | arXiv | 発展 | 連続潜在運動を学ぶ LAM。What Matters の比較で LAPO に劣る（What Matters 経由の情報） | — 参照のみ |
+| 24 | [LAOF: Robust Latent Action Learning with Optical Flow Constraints](https://arxiv.org/abs/2511.16407) | 2025 | arXiv | 発展 | 光学流の制約を加えた LAPO。What Matters では性能を下げると報告（要旨と What Matters 経由） | — 参照のみ |
+| 25 | [AdaWorld: Learning Adaptable World Models with Latent Actions](https://arxiv.org/abs/2503.18938) | 2025 | arXiv | 発展 | 連続潜在行動（VAE 型）で適応可能な世界モデルを学ぶ。In-the-Wild LAM のノイズ型正則化の先行例（検索情報のみ） | — 参照のみ |
+| 26 | [What Do Latent Action Models Actually Learn?](https://arxiv.org/abs/2506.15691) | 2025 | NeurIPS | 発展 | 線形 LAM で、潜在行動が行動ではなく外因性ノイズを捉える条件を解析し、PCA との関係を示す（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 27 | [Why Latent Actions Fail, and How to Prevent It](https://arxiv.org/abs/2605.20223) | 2026 | arXiv | 最新 | 線形 LAM に外因性状態を加え、再構成目的が外因情報を符号化すること、行動監督が有効な理由を理論的に示す（要旨に基づく。PDF は取得済み） | — 参照のみ（要旨のみ） |
+| 28 | [Segment to Focus: Guiding Latent Action Models in the Presence of Distractors (MaskLAM)](https://arxiv.org/abs/2602.02259) | 2026 | arXiv | 最新 | SAM でエージェント領域を取り出し、そこだけを再構成させて distractor を排除する。LAPO 比で正規化リターン最大 4.97 倍（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 29 | [Skeleton-Grounded Latent Action Model for Robot World Models (SkeLAM)](https://arxiv.org/abs/2610.31474) | 2026 | arXiv | 最新 | 潜在行動をロボット骨格で接地した運動成分と残差に分け、実行動からの写像を容易にする。DROID で DreamDojo より ADE −19.5%（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 30 | [OneLA: Learning Many Worlds from Latent Actions](https://arxiv.org/abs/2610.20160) | 2026 | arXiv | 最新 | 共有の直交辞書で領域をまたぐ連続潜在行動を学び、アダプタで各領域の操作を写像する（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 31 | [Constrained Latent Action Policies for Model-Based Offline Reinforcement Learning (C-LAP)](https://arxiv.org/abs/2411.04562) | 2024 | NeurIPS | 発展 | 行動付きデータで潜在行動世界モデルを学び、方策を潜在行動の事前分布内に制約する。LAWM の土台 | — 参照のみ（LAWM 経由） |
+| 32 | [WoVR: World Models as Reliable Simulators for Post-Training VLA Policies with RL](https://arxiv.org/abs/2602.13977) | 2026 | arXiv | 最新 | 幻覚を「想像と現実の系統的なずれ」と定義し、キーフレーム初期化と方策・世界モデルの共進化で抑える。導入と実験設定の一部を確認 | — 参照のみ（HaWMPO を代表とした） |
+| 33 | [WoVR+: World Model as Reliable Simulator for Versatile VLA Policy Optimization with RL](https://arxiv.org/abs/2610.17922) | 2026 | arXiv | 最新 | WoVR を多視点・長期課題に拡張。RoboTwin で SFT 比 +21.09%（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 34 | [World-Gymnast: Training Robots with Reinforcement Learning in a World Model](https://arxiv.org/abs/2602.02454) | 2026 | arXiv | 最新 | 動画世界モデル内で VLM を報酬に VLA を RL する。Bridge で SFT 比最大 18 倍（要旨に基づく。PDF は取得済み） | — 参照のみ（要旨のみ） |
+| 35 | [DRILL: Training World Models to Improve Policies, Not Predict Pixels](https://arxiv.org/abs/2610.30814) | 2026 | NeurIPS 2026 | 最新 | 方策の内側 GRPO 更新後の収益を最大化するよう世界モデルを二段階最適化する。WMPO 比 +13.1pt（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 36 | [Reinforcing VLAs in Task-Agnostic World Models (RAW-Dream)](https://arxiv.org/abs/2605.12334) | 2026 | arXiv | 最新 | 課題非依存の世界モデルと既製 VLM 報酬で VLA を RL し、二重ノイズ検証で幻覚ロールアウトを除く（要旨に基づく） | — 参照のみ（要旨のみ） |
+| 37 | [OpenVLA: An Open-Source Vision-Language-Action Model](https://arxiv.org/abs/2406.09246) | 2024 | CoRL | 発展 | 行動ラベル付きデータで事前学習した 7B VLA。LAPA の比較対象、WMPO・HaWMPO の基本方策（OFT 版） | — 参照のみ |
+| 38 | [Deep Reinforcement Learning from Human Preferences](https://arxiv.org/abs/1706.03741) | 2017 | NeurIPS | 原典 | Bradley–Terry 選好による報酬学習。RENEW の DLHF はこの報酬を遷移の対数尤度に置き換える | — 参照のみ |

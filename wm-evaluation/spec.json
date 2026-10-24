@@ -1,0 +1,216 @@
+{
+  "field": "世界モデル",
+  "theme": "世界モデルの評価・診断指標",
+  "date": "2026-10-24",
+  "summary": "世界モデルの「良さ」を何で測るかの系譜。分布の忠実度を測る FVD と、予測尤度と制御性能のずれを示した Objective Mismatch を原典に、物理・制御性を測る生成的世界モデルのベンチマーク、閉ループの課題成功で測る World-in-World へ発展。\n2026年は失敗の保存（MiraBench）、決定に効く誤差（DRPE）、1ステップ誤差の代理性の否定、評価条件で結果が変わる再現研究が相次ぐ。",
+  "papers": [
+    {
+      "title": "Towards Accurate Generative Models of Video: A New Metric & Challenges",
+      "short": "FVD (Unterthiner+ 2018)",
+      "authors": "Thomas Unterthiner, Sjoerd van Steenkiste, Karol Kurach ほか（Google Brain / JKU Linz・IDSIA）｜ arXiv プレプリント 2018",
+      "year": 2018,
+      "venue": "arXiv プレプリント 2018",
+      "link": "https://arxiv.org/abs/1812.01717",
+      "lineage": "原典",
+      "s1": "動画生成モデルの評価指標 Fréchet Video Distance（FVD）を提案。行動認識用 I3D の特徴で実動画と生成動画の分布間距離を測り、フレーム単位の PSNR・SSIM より人間の判断に合うことを大規模な人手比較で示した。StarCraft 2 動画データ SCV も公開。",
+      "s2": "従来の PSNR・SSIM は正解フレームとの画素差を1枚ずつ測るだけで、時間的一貫性や生成の多様性を捉えず、無条件生成には使えなかった。画像の FID（Heusel+ 2017）を動画に拡張し、フレームの入れ替えなど時間方向の乱れにも反応する分布指標にした。",
+      "s3": "実・生成動画を Kinetics-400 で学習した I3D に通し、ロジット層特徴をガウス近似して Fréchet 距離 |μR−μG|²+Tr(ΣR+ΣG−2(ΣRΣG)^½) を計算。カーネル版 KVD も比較。推定値は標本数で偏るため、同じ標本数での比較を必須とする。",
+      "s4": "BAIR で学習した3000超のモデルを人手比較。SSIM が同等なモデル群を FVD は人間と 74.9%、PSNR 同等群では 81.0% 一致して区別（Table 1）。FVD 差が50未満だと人間との一致はほぼ偶然（Fig. 5）。FVD と PSNR の相関は r=−0.278。",
+      "s5": "著者：FVD は分布しか見ず、特定の文脈からの逸脱は測れない。SCV では全モデルが長期記憶・関係推論に失敗。\n所感：「見た目の分布の近さ」の標準となったが、物理の正しさや行動への応答は測らない。以後の世界モデル評価はこの限界への応答として読める。",
+      "s6": "・FID (Heusel+ 2017)（未調査）\n・VBench (Huang+ 2024)（未調査）\n・Physics-IQ (2025)（本資料）\n・WorldModelBench (2025)（本資料）",
+      "figure": {
+        "file": "figures/fvd_fig5.png",
+        "caption": "出典：FVD Fig. 5（FVD 差の大きさと人間評価との一致率）"
+      },
+      "notes": "arXiv v2 を本文・Table 1〜2・Fig. 3〜5・結論まで読了。付録は未読。ICLR 2019 ワークショップ版があるとされるが未確認のため arXiv と表記。"
+    },
+    {
+      "title": "Objective Mismatch in Model-based Reinforcement Learning",
+      "short": "Objective Mismatch (Lambert+ 2020)",
+      "authors": "Nathan Lambert, Brandon Amos, Omry Yadan, Roberto Calandra（UC Berkeley / Facebook AI Research）｜ L4DC 2020",
+      "year": 2020,
+      "venue": "L4DC 2020",
+      "link": "https://arxiv.org/abs/2002.04523",
+      "lineage": "原典",
+      "s1": "モデルベース強化学習で、ダイナミクスモデルの1ステップ予測尤度の最大化と、制御タスクの報酬最大化がずれる問題を「objective mismatch」と名付けて定式化。尤度と報酬の相関が弱いことを数千モデルで示し、最適軌道近傍を重み付けする学習で緩和を試みた。",
+      "s2": "PETS など当時の MBRL は、システム同定の「状態空間全体を覆うデータで大域的に正確なモデルを作る」前提を暗黙に引き継いでいた。課題に有効なモデルは大域的に正確でなくてよく、逆も成り立たないと指摘し、モデル精度を性能の代理とする慣行を問うた。",
+      "s3": "学習 argmax_θ Σ log p_θ(s′|s,a) と制御 argmax_a Σ r(s,a) が別々に最適化されることが原因と整理。(1) 多数モデルの尤度–報酬の散布、(2) 学習エポックごとの再評価、(3) 尤度を保ったまま報酬を下げる敵対的摂動、の3通りで確かめた。",
+      "s4": "PETS の cartpole 1000・half cheetah 2400 モデルで尤度と報酬の相関は ρ=0.59〜−0.06（Fig. 3）。CMA-ES で最終層を摂動すると尤度は 4.83→4.85 とほぼ不変のまま報酬が 176→98 に低下（Fig. 6, 7）。軌道単位の検証で相関はやや改善（付録 C）。",
+      "s5": "著者：重み付けは最適軌道が既知でないと使えず、実験も単純な環境に限られる初期検討。\n所感：2026年の JEPA 世界モデルでも1ステップ誤差でモデルを選ぶ慣行が残り、同じ問題が再発見されている。問題提起は広く引用された一方、評価指標の提案は少なかった。",
+      "s6": "・Value Equivalence (Grimm+ 2020)（未調査）\n・Unified View on Objective Mismatch (Wei+ 2023)（未調査）\n・One-Step Proxy (2026)（本資料）",
+      "figure": {
+        "file": "figures/objmismatch_fig3.png",
+        "caption": "出典：Objective Mismatch Fig. 3（データセット別の対数尤度とエピソード報酬の散布と相関 ρ）"
+      },
+      "notes": "arXiv v3（PMLR vol.120 版）を本文・付録 A〜G まで読了。"
+    },
+    {
+      "title": "Do generative video models understand physical principles?",
+      "short": "Physics-IQ (Motamed+ 2025)",
+      "authors": "Saman Motamed, Laura Culp, Kevin Swersky, Priyank Jaini, Robert Geirhos（Google DeepMind / INSAIT）｜ WACV 2026",
+      "year": 2025,
+      "venue": "WACV 2026",
+      "link": "https://arxiv.org/abs/2501.09038",
+      "lineage": "発展",
+      "parent": "FVD",
+      "s1": "実写の物理実験動画396本（固体・流体・光学・熱・磁気の66シナリオ×3視点×2テイク）で動画生成モデルに続きを予測させる Physics-IQ を構築。Sora など8モデルの物理理解は最良でも 29.5% と低く、見た目のリアルさとは相関しないと示した。",
+      "s2": "PSNR・SSIM・FVD・LPIPS は見た目や統計の近さを測るが、物理的に不可能な動きを罰しない。Physion・IntPhys・PhyWorld などは合成データで、実写で学んだモデルには分布ずれがある。実写かつ分布外の状況（ドミノ列の途中にアヒル等）で評価した。",
+      "s3": "8秒の動画を3秒の条件部と5秒の正解に分け、動きのマスクから「どこで」「いつ」「どれだけ」（3種の IoU）と「どのように」（MSE）を比較。同じシナリオの2テイク間の差（物理的ばらつき）を 100% として正規化し合算する。",
+      "s4": "最良は VideoPoet（multiframe）29.5%、Sora は 10.0%（Table 1, Fig. 4）。Gemini 1.5 Pro に本物と生成を見分けさせると Sora が 55.6% で最も見破られにくいが、リアルさと Physics-IQ の相関は r=−0.46（p=0.249、Fig. 5）。",
+      "s5": "著者：どの指標も物理の代理にすぎず、Sora のカット挿入やカメラ移動を強く罰する保守的な設計。\n所感：「リアルさ≠物理理解」を実写で定量化した転換点。ただし行動条件付けがなく、制御や計画への有用性は別に測る必要がある。",
+      "s6": "・How Far is Video Generation from World Model (Kang+ 2024)（未調査）\n・WorldModelBench (2025)（本資料）\n・World-in-World (2025)（本資料）",
+      "figure": {
+        "file": "figures/physicsiq_fig5.png",
+        "caption": "出典：Physics-IQ Fig. 5 右（MLLM によるリアルさ評価と物理理解スコアの散布）"
+      },
+      "notes": "arXiv v3 を本文・Table 1・Fig. 4〜7・Discussion まで読了。採録先は WACV 2026（CVF Open Access で確認）。"
+    },
+    {
+      "title": "WorldModelBench: Judging Video Generation Models As World Models",
+      "short": "WorldModelBench (Li+ 2025)",
+      "authors": "Dacheng Li, Yunhao Fang, Yukang Chen ほか（UC Berkeley / UC San Diego / NVIDIA / MIT）｜ NeurIPS 2025 Datasets & Benchmarks",
+      "year": 2025,
+      "venue": "NeurIPS 2025 (D&B)",
+      "link": "https://arxiv.org/abs/2502.20694",
+      "lineage": "発展",
+      "parent": "FVD",
+      "s1": "ロボット・運転・ゲームなど7領域56サブ領域の350条件で、動画生成モデルを世界モデルとして採点する WorldModelBench を構築。指示追従・物理遵守・常識の10点満点で14モデルを6.7万件の人手ラベルで評価し、2B の自動審査モデルも公開した。",
+      "s2": "VBench などは画質と時間的一貫性が中心で、物体の大きさが勝手に変わる（質量保存違反）ような誤りを見逃す。VideoPhy は日常物体に限られ0/1の粗い判定だった。応用領域・I2V 対応・指示追従4段階・物理5法則の細かな判定に広げた。",
+      "s3": "指示追従 0–3点、物理遵守は慣性・質量保存・流体・不可入性・重力の5法則を各0/1、常識はフレーム品質と時間品質を各0/1で計10点。人手ラベルで VLM（2B）を微調整して審査器とし、その出力を報酬に生成モデルを勾配で改善する応用も示す。",
+      "s4": "首位 KLING でも課題を完遂した動画は 61%、質量保存違反は 12%（Table 3）。Luma は常識スコアで Mochi を上回るが指示追従は劣る。VBench との勝率相関は画質で 0.69、物理遵守では 0.28（Fig. 9）。審査器は GPT-4o より誤り率が低い（Table 5）。",
+      "s5": "著者：プロンプトは350と少なく、物理判定は5法則の2値に限られる。\n所感：物理遵守を人手ラベルで校正した点が大きい。一方で評価は開ループの映像判定で、行動を入れたときの反応や計画への寄与は測っていない。",
+      "s6": "・VideoPhy (Bansal+ 2024)（未調査）\n・WorldScore (2025)（本資料）\n・MiraBench (2026)（本資料）",
+      "figure": {
+        "file": "figures/wmb_fig2.png",
+        "caption": "出典：WorldModelBench Fig. 2（7領域の例と、3観点の採点・審査器の流れ）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜5・Fig. 9・Discussion まで読了。付録は Table 6 のみ参照。採録先は NeurIPS 2025 Datasets and Benchmarks Track。"
+    },
+    {
+      "title": "WorldScore: A Unified Evaluation Benchmark for World Generation",
+      "short": "WorldScore (Duan+ 2025)",
+      "authors": "Haoyi Duan, Hong-Xing Yu, Sirui Chen, Li Fei-Fei, Jiajun Wu（Stanford University）｜ ICCV 2025",
+      "year": 2025,
+      "venue": "ICCV 2025",
+      "link": "https://arxiv.org/abs/2504.00983",
+      "lineage": "発展",
+      "parent": "FVD",
+      "s1": "世界生成を「現在シーン＋次シーンの文＋カメラ軌道」による次シーン生成の連鎖に分け、動画・3D・4D 生成モデルを同じ土俵で比べる WorldScore を提案。3000例で20モデルを制御性・品質・ダイナミクスの10指標で評価した。",
+      "s2": "VBench や WorldModelBench は単一シーンの動画品質を測り、カメラ指定や参照画像がないため 3D/4D シーン生成法を評価できなかった。VBench では同程度の2モデルが、新シーンを作れたか・カメラ指示に従ったかで大差になることを示した（Fig. 1）。",
+      "s3": "制御性（カメラ誤差・物体検出の成功率・CLIPScore）、品質（DROID-SLAM 再投影誤差による3D一貫性、光学フローによる測光一貫性、スタイル、主観品質）、ダイナミクス（動きの位置精度・大きさ・滑らかさ）を正規化し平均する。",
+      "s4": "静的世界では 3D 法 WonderWorld 72.69 が最良の動画モデル CogVideoX-I2V 62.15 を上回る（Table 2）。動画モデルのカメラ制御は最良でも 40.22。動きの大きさと位置精度の相関は弱い。400人の2肢強制選択で指標は人の選好と整合（付録 Table S6）。",
+      "s5": "著者：動画モデルの課題は制御性・長い系列・屋外シーン。3D 法は動的な世界を作れない。\n所感：「制御性」を独立した指標にした点が、World-in-World の「画質より制御性」という知見に先行する。ただし制御は行動ではなくカメラ軌道に限られる。",
+      "s6": "・VBench (Huang+ 2024)（未調査）\n・World-in-World (2025)（本資料）\n・WorldArena (Shang+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/worldscore_fig1.png",
+        "caption": "出典：WorldScore Fig. 1（VBench では同等の2モデルを WorldScore は区別する）"
+      },
+      "notes": "arXiv v2（ICCV 2025 版）を本文・Table 1〜2・Fig. 7・結論と付録 D（人手検証）まで読了。"
+    },
+    {
+      "title": "World-in-World: World Models in a Closed-Loop World",
+      "short": "World-in-World (Zhang+ 2025)",
+      "authors": "Jiahan Zhang, Muqing Jiang, Nanru Dai ほか（Johns Hopkins University ほか）｜ ICLR 2026 Oral",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2510.18135",
+      "lineage": "発展",
+      "parent": "WorldScore・Objective Mismatch",
+      "s1": "生成的世界モデルを閉ループの身体性課題の成功率で評価する初の公開ベンチマーク World-in-World を構築。提案・模擬・修正の統一計画手順と統一行動 API で多様な世界モデルを4課題に載せ、画質は成功を保証せず制御性が効くことを示した。",
+      "s2": "VBench・WorldModelBench・WorldScore はいずれも開ループで映像を採点し、世界モデルがエージェントの意思決定を本当に助けるかは未検証だった。入力形式（文・カメラ軌道・低次行動）が異なるモデルを、同じ計画ループで比較できるようにした。",
+      "s3": "提案方策が M 個の行動計画を出し、行動 API が各モデルの入力形式に変換、世界モデルが未来の観測を生成し、修正方策が採点して最良計画を実行する方策誘導ビームサーチ。行動–観測データで動画生成器を後学習する手順も用意した。",
+      "s4": "能動認識で VLM 単体 50.27% → Runway Gen4 併用 64.79%（Table 1）。画質と成功率は対応せず、制御性（1−LPIPS）とは正の相関（Fig. 2, 5）。後学習で Wan2.1 の ImageNav 成功率 38.19→45.14%。操作課題の改善は 44.5→46.5% と小さい（Table 3）。",
+      "s5": "著者：未知環境への汎化、長期計画、接触を伴う動力学が未解決で、提案・修正方策の強さが下限を決める。\n所感：評価の対象を「映像」から「意思決定への寄与」へ移した転換点。ただし成功率は方策・計画器込みの値で、世界モデル単体の寄与は分けにくい。",
+      "s6": "・WorldGym (Quevedo+ 2025)（参照のみ）\n・WorldArena (Shang+ 2026)（参照のみ）\n・MiraBench (2026)（本資料）",
+      "figure": {
+        "file": "figures/wiw_fig2.png",
+        "caption": "出典：World-in-World Fig. 2（生成画質と課題成功率の関係、†は後学習モデル）"
+      },
+      "notes": "arXiv v2（ICLR 2026 Oral 版）を本文・Table 1〜4・Fig. 5〜7・Discussion まで読了。付録は未読。"
+    },
+    {
+      "title": "MiraBench: Evaluating Action-Conditioned Reliability in Robotic World Models",
+      "short": "MiraBench (Yang+ 2026)",
+      "authors": "Tianzhuo Yang, Zihan Shen, Zirui Mi ほか（北京大学 人工知能研究院 / Physis Lab）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2605.29360",
+      "lineage": "最新",
+      "parent": "WorldModelBench",
+      "s1": "ロボット世界モデルの「行動条件付きの信頼性」を物理遵守・行動追従・楽観バイアス検出の3階層で測る MiraBench を提案。失敗するはずの行動を入れても成功の映像を生成する「楽観バイアス」を定式化し、評価した12構成すべてに広く見られると示した。",
+      "s2": "WorldModelBench・WorldScore・WorldArena などは生成物の見た目や物理を測るが、条件とした行動に忠実かは測らない。成功デモ中心で学んだモデルでは、成功の事前分布が行動の証拠を上書きしうる。結果が失敗と分かる対照入力を設計した。",
+      "s3": "成功行動 a+ を握力不足・早すぎる解放・運搬中の滑りなど6種で摂動した a− を与え、OB = E[生成映像が成功 | 実環境では失敗] を測る。人手注釈1.67万件で検証した VLM 判定器（人手一致 85% 超）と運動学ルールで自動採点する。",
+      "s4": "DreamDojo-2B は GR1 後学習でタスク完遂 14.0→92.0% だが失敗の保存は 48.7→23.1% に低下（Table 2, Fig. 4）。14B に拡大しても 48.7→12.8%。物理・追従が高い Happy Horse も失敗保存は 56.4%、最良は Wan2.1-14B の 87.2%。",
+      "s5": "著者：机上操作の短期的な接触に限られ、摂動の分類も網羅的ではない。対策には失敗を含むデータと行動を対比する目的関数が要る。\n所感：幻覚の診断を行動条件付きの成功判定に絞った点が実用的。VLM 判定器への依存と、閉ループ性能との対応は未検証。",
+      "s6": "・Hallucination in WMs (2026)（既存：foundation-world-model）\n・CureWM (Xu+ 2026)（参照のみ）\n・WorldArena (Shang+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/mirabench_fig3.png",
+        "caption": "出典：MiraBench Fig. 3（3階層の評価と VLM 判定の全体像）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜2・Fig. 4・結論と限界まで読了。付録（注釈手順・判定器の詳細）は未読。"
+    },
+    {
+      "title": "The Evaluation Protocol Determines the Result: An Independent Reproduction of LeWorldModel on TwoRoom",
+      "short": "LeWM 再現研究 (Singh 2026)",
+      "authors": "Joyjeet Singh（独立研究者）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.10145",
+      "lineage": "最新",
+      "parent": "Objective Mismatch",
+      "s1": "JEPA 型世界モデル LeWM の TwoRoom での結果を約25ドルの計算資源で独立に再実装・再現。報告値 87% を超える 94.0% を得た一方、論文付録とリポジトリ設定の評価条件が食い違い、同じ公開重みが 14.0% と 84.0% に分かれることを示した。",
+      "s2": "世界モデル論文の計画成功率は単一の数値で報告され、ゴールの作り方や手数の予算は明記されないことが多い。本研究は設定ファイルに現れない4つの前処理慣行と評価条件の差を特定し、1ステップ予測精度が長期の計画を予測しないことも示した。",
+      "s3": "参照実装のソースと40項目を照合し（Table 1）、行動の密な集約・行動エンコーダ幅・ImageNet 正規化・行動の標準化の4点を補正。公開重みを自前の評価器に通す差分テストで評価手順を検証し、評価画像と学習分布の距離を前提条件として検査する。",
+      "s4": "同じ50エピソードでゴールの作り方だけを変えると公開重みは 84.0%→8.0%（§4.2）。1ステップ誤差 0.829/0.410/0.116 の3モデルは近いゴールで 78/84/94% と単調だが、遠いゴールでは 54/12/20%。精度の高い2モデルはランダム行動より遠くで終わる（Fig. 2）。",
+      "s5": "著者：単一シード・10エポック・TwoRoom のみ。BatchNorm の統計ずれで検証損失が最大300倍に膨らみ、事前登録した効果も別チェックポイントで消えた。\n所感：評価条件の明記なしに数値比較は成立しないことを示す好例。",
+      "s6": "・LeWM (Maes+ 2026)（既存：jepa）\n・One-Step Proxy (2026)（本資料）\n・Low Prediction Error Misleads (2026)（参照のみ）",
+      "figure": {
+        "file": "figures/lewmrepro_fig2.png",
+        "caption": "出典：LeWM 再現研究 Figure 2(a)（1ステップ誤差と近/遠ゴールでの到達率）"
+      },
+      "notes": "arXiv v1 を §1〜§7（再現範囲・手法・評価・発見・議論・限界）まで読了。付録は未読。"
+    },
+    {
+      "title": "Not All Errors Matter: Decision-Relevant Prediction Error Predicts Planning Quality",
+      "short": "DRPE (Wang+ 2026)",
+      "authors": "Linhao Wang, Yiyan Fan, Dongjin Huang（上海大学 上海電影学院）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.32322",
+      "lineage": "最新",
+      "parent": "Objective Mismatch",
+      "s1": "決定に影響する状態次元だけで多段予測誤差を測る Decision-Relevant Prediction Error（DRPE）と、総誤差を固定して誤差の配分だけを変える iso-error 評価法を提案。総誤差が1%しか違わない2モデルで計画成功率が 97% と 37% に分かれることを示した。",
+      "s2": "Value Equivalence（Grimm+ 2020）など決定を意識したモデル学習は「どう学習するか」を扱い、任意の世界モデルで誤差がどこに乗っているかを測る指標はなかった。関連性が既知の格子世界で誤差の配分を因果的に操作し、測定の層を補った。",
+      "s3": "DRPE = E[(1/H)Σ‖π_R ŝ_t − π_R s_t‖²_w]。π_R は決定に関わる次元への射影、w は最適価値の感度（0/1マスクでも可）。関連次元と無関係次元に別々の雑音 σR, σI を入れたモデル族で、総誤差一定のまま配分を変える。",
+      "s4": "55モデルで計画成功率との Spearman 相関は総誤差 −0.25、DRPE −0.84（制御群では −0.98、Table 1）。σI のみと σR 主体の雑音モデルは総誤差 0.151 と 0.152 で成功率 0.97 と 0.37（Table 2）。同じモデルでも課題を変えると順位が逆転する。",
+      "s5": "著者：12次元の格子世界に限られ、画素モデルへの移植は未検証。関連性の重みのデータ推定は失敗し、学習モデル7種では DRPE も順位付けに失敗。\n所感：何が「関連」かを事前に知る必要があり、潜在世界モデルでの定義が課題。",
+      "s6": "・Value Equivalence (Grimm+ 2020)（未調査）\n・Exploitable WM (2026)（既存：latent-planning）\n・Low Prediction Error Misleads (2026)（参照のみ）",
+      "figure": {
+        "file": "figures/drpe_fig4.png",
+        "caption": "出典：DRPE Figure 4（総誤差と DRPE に対する計画成功率、色は関連次元の雑音 σR）"
+      },
+      "notes": "arXiv v2 を本文・Table 1〜3・Fig. 1〜7・結論と限界まで読了。付録（証明）は未読。"
+    },
+    {
+      "title": "One-Step Prediction Fidelity Is a Poor Proxy for Planning Performance in JEPA World Models",
+      "short": "One-Step Proxy (Cheung & He 2026)",
+      "authors": "Joshua Cheung, Zhang He（所属記載なし）｜ NeurIPS 2026 Workshop on World Models in Physical AI",
+      "year": 2026,
+      "venue": "NeurIPS 2026 WS",
+      "link": "https://arxiv.org/abs/2610.19375",
+      "lineage": "最新",
+      "parent": "Objective Mismatch",
+      "s1": "JEPA 型世界モデル LeWM で、1ステップ予測誤差を物理単位で測る凍結デコーダ法を提案し、追加学習で誤差を下げても計画成功率が伴わないことを示した。PushT では最初の1エポック以降、誤差と成功率の相関が r=−0.010 だった。",
+      "s2": "Objective Mismatch（Lambert+ 2020）は尤度と制御の不一致を示したが、自分の埋め込みを予測する JEPA では損失の単位すら解釈できず未検証だった。誤差を物理単位にし、介入で動かし、同じチェックポイントで計画を測る因果的な設計にした。",
+      "s3": "実観測の埋め込みから物理状態を読む復号器 D を学習して凍結し、E_repr（エンコーダ由来）と E_pred（予測器出力）の差 E_excess を予測器の寄与として報告。デコーダを通さない潜在ドリフトでも結果を確かめる。",
+      "s4": "PushT でエポック1→5に誤差はさらに 15% 改善しても計画は +0.22pt（Table 1）。データの薄い領域でも成功率 80% から伸びず、天井効果ではない。TwoRoom は誤差 93% 減で計画 −0.7pt、PushT は 40% 減で +4.9pt（Table 2, Fig. 2）。",
+      "s5": "著者：無介入のベースラインでも評価シードだけで最大 26pt 揺れ、単発の比較は無意味。補助損失の効果は同量の追加学習で完全に説明された。\n所感：1ステップ・教師強制の指標の限界を明確にした。多段ロールアウトでの検証が次の課題。",
+      "s6": "・Objective Mismatch (2020)（本資料）\n・LeWM 再現研究 (2026)（本資料）\n・Decision-Metric Alignment (Wang+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/onestep_fig2.png",
+        "caption": "出典：One-Step Proxy Figure 2（予測誤差の変化と計画成功率の変化、帯は無介入時のばらつき）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜2・Fig. 2・Discussion・Limitations まで読了（9ページの短報）。"
+    }
+  ]
+}

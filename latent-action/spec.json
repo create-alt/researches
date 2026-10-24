@@ -1,0 +1,237 @@
+{
+  "field": "世界モデル",
+  "theme": "動画からの潜在行動学習と世界モデル内の方策学習",
+  "date": "2026-10-24",
+  "summary": "行動ラベルのない動画から潜在行動を学ぶ系譜（ILPO → LAPO → LAPA・LAOM → 自然動画・大規模比較）と、世界モデルの中で方策を学ぶ系譜（MOPO の不確実性罰則 → 動画世界モデル内 RL の WMPO → 幻覚を罰する HaWMPO、選好でモデルを直す RENEW）を追う。\n両者は、潜在行動世界モデル内でのオフライン RL（LAWM）で合流する。",
+  "papers": [
+    {
+      "title": "Imitating Latent Policies from Observation",
+      "short": "ILPO (Edwards+ 2019)",
+      "authors": "Ashley D. Edwards, Himanshu Sahni, Yannick Schroecker ほか（Georgia Institute of Technology）｜ ICML 2019",
+      "year": 2019,
+      "venue": "ICML 2019",
+      "link": "https://arxiv.org/abs/1805.07914",
+      "lineage": "原典",
+      "s1": "行動ラベルのない専門家の状態系列から「潜在行動」と潜在方策を先に学び、少数の環境操作で実行動に対応付ける模倣学習 ILPO を提案。CartPole・Acrobot では100ステップ未満の操作で専門家並みになった。",
+      "s2": "BCO（Torabi+ 2018）など観察からの模倣は、逆動力学モデルを環境との大量の相互作用で学ぶ必要があった。ILPO は動力学全体ではなく「潜在行動→実行動」の対応だけを環境で学ぶので、必要な相互作用が少ない。",
+      "s3": "離散潜在行動 z ごとに次状態の差分を出す生成器 G を、最も近い予測だけ罰する L_min = min_z‖Δ_t − G(s_t, z)‖² で学び、方策 π(z|s) は期待次状態の誤差で学ぶ。次に観測遷移に最も近い z を推定し、π(a|s, z) を分類で学ぶ。",
+      "s4": "古典制御3種と CoinRun（128×128 画像、7行動）で BC（行動あり）・BCO と比較（Fig. 2, 5）。CartPole・Acrobot は100ステップ未満で専門家・BC 並み。Mountain Car と CoinRun は専門家に届かないが、どちらも BCO を上回る。",
+      "s5": "著者：離散行動・決定的遷移の仮定、確率的な実演が必要などの限界を挙げる。\n所感：「潜在行動を学び、後で実行動に対応付ける」という後続全体の骨格を作った原典。ただし LAPO は手続き生成の多レベル環境で ILPO が崩壊すると報告している。",
+      "s6": "・LAPO (2024)（本資料）\n・BCO (2018)（未調査）\n・Genie (2024)（既存：foundation-world-model）",
+      "figure": {
+        "file": "figures/ilpo_fig1.png",
+        "caption": "出典：ILPO Fig. 1（潜在方策ネットワークと行動再対応ネットワーク）"
+      },
+      "notes": "arXiv v3（ICML 2019 版）を付録まで読了。結果は学習曲線のみで数値表はない。"
+    },
+    {
+      "title": "MOPO: Model-based Offline Policy Optimization",
+      "short": "MOPO (Yu+ 2020)",
+      "authors": "Tianhe Yu, Garrett Thomas, Lantao Yu ほか（Stanford University / UC Berkeley）｜ NeurIPS 2020",
+      "year": 2020,
+      "venue": "NeurIPS 2020",
+      "link": "https://arxiv.org/abs/2005.13239",
+      "lineage": "原典",
+      "s1": "オフライン MBRL で、学習モデルの不確実性 u(s,a) を報酬から差し引く MOPO を提案。真の MDP での収益の下界を最大化することを示し、D4RL と、データの外への汎化が必要な課題で既存手法を上回った。",
+      "s2": "BEAR・BRAC などモデルフリーのオフライン RL は方策をデータの支持内に縛るため、データ外の状態へ汎化できない。素の MBPO はオフラインでも強いが、モデル誤差を方策が悪用するのを防ぐ機構がなかった。",
+      "s3": "罰則つき報酬 r̃(s,a) = r(s,a) − λu(s,a) の MDP で MBPO（Dyna 型の短いロールアウト）を回す。u はガウス出力アンサンブルの最大標準偏差。η_M(π̂) ≥ sup_π {η_M(π) − 2λ ε_u(π)} を保証する。",
+      "s4": "D4RL 12データセット（Table 1）で mixed 全部と medium-expert の多くで最良（hopper-mixed 67.5、MBPO 49.8）。データ外の課題（Table 2）で halfcheetah-jump 4016.6、ant-angle 2530.9 とバッチ内の最大値を超えた。",
+      "s5": "著者：行動の多様性が乏しい medium データでは弱い。u は理論保証のない発見的推定で、λ は手で決める。\n所感：「世界モデルの中で方策を学ぶときの保守性」の原点。動画世界モデルでは u を何で測るかが、本テーマの最新論文の争点になっている。",
+      "s6": "・MOReL (2020)（未調査）\n・RENEW (2026)（本資料）\n・HaWMPO (2026)（本資料）\n・Exploitable WM (2026)（既存：latent-planning）",
+      "figure": {
+        "file": "figures/mopo_fig2.png",
+        "caption": "出典：MOPO Fig. 2（ant-angle と halfcheetah-jump。データの外へ出る必要がある課題）"
+      },
+      "notes": "arXiv v6 を本文・付録 A〜D の一部まで読了。"
+    },
+    {
+      "title": "Learning to Act without Actions",
+      "short": "LAPO (Schmidt & Jiang 2024)",
+      "authors": "Dominik Schmidt, Minqi Jiang（Weco AI / FAIR at Meta）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2312.10812",
+      "lineage": "発展",
+      "parent": "ILPO",
+      "s1": "行動ラベルのない動画だけから、IDM と FDM の予測の整合で潜在行動を学ぶ LAPO を提案。Procgen 16ゲームで潜在行動空間が真の行動構造を再現し、潜在方策は 4M ステップの微調整で専門家性能を回復した。",
+      "s2": "VPT（Baker+ 2022）など IDM で疑似ラベルを付ける手法は、行動ラベル付きデータが必要だった。ILPO は離散潜在を列挙するため崩壊しやすい。LAPO はラベル不要で、連続潜在と VQ の情報ボトルネックを使う。",
+      "s3": "IDM が (o_t, o_{t+1}) から z_t を出し、FDM が (o_t, z_t) から o_{t+1} を予測する誤差 ‖ô_{t+1} − o_{t+1}‖² を同時に最小化。z_t を VQ で量子化して次フレームの丸写しを防ぐ。その後 z を BC し、デコーダで実行動へ戻す。",
+      "s4": "Procgen 16ゲーム、約8M フレームの専門家動画（Fig. 3）。PPO 単独は 4M ステップで専門家の 44% にとどまるが、LAPO は専門家性能を回復し、9/16 で上回る。256 未満のラベル付き遷移によるオフライン復号で PPO 4M ステップに並ぶ（Fig. 4）。",
+      "s5": "著者：遅れて効く行動、強い確率性、Web 規模への拡大が課題。VQ を外すと性能が落ちる。\n所感：部分観測のゲームでは潜在行動が画面外の情報まで符号化している（Fig. 5）。これは後の「汚染（distractor）」問題の予兆といえる。",
+      "s6": "・LAPA (2025)（本資料）\n・LAOM (2025)（本資料）\n・Genie (2024)（既存：foundation-world-model）\n・VPT (2022)（未調査）",
+      "figure": {
+        "file": "figures/lapo_fig1.png",
+        "caption": "出典：LAPO Fig. 1（Miner の潜在行動の UMAP。色は真の行動で、学習には使っていない）"
+      },
+      "notes": "arXiv v2（ICLR 2024 版）を付録 A.5（ILPO の再現）まで読了。"
+    },
+    {
+      "title": "Latent Action Pretraining from Videos",
+      "short": "LAPA (Ye+ 2025)",
+      "authors": "Seonghyeon Ye, Joel Jang, Byeongguk Jeon ほか（KAIST / University of Washington / Microsoft Research / NVIDIA）｜ ICLR 2025",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2410.11758",
+      "lineage": "発展",
+      "parent": "LAPO / Genie",
+      "s1": "人やロボットの動画から VQ-VAE で離散潜在行動を学び、7B の VLM に予測させて事前学習し、少量のロボット軌跡で実行動に対応付ける LAPA を提案。行動ラベルで事前学習した OpenVLA を実機で上回った。",
+      "s2": "OpenVLA など既存の VLA はテレオペの行動ラベル付きデータで事前学習するため、規模が限られる。UniPi（動画生成＋IDM）や VPT（IDM の疑似ラベル）と比べ、ラベル不要で、環境や身体の違いにも強い。",
+      "s3": "①Genie 型の潜在行動量子化モデル（C-ViViT 系、NSVQ）で (x_t, x_{t+H}) から離散 z_t を得る。②LWM-7B に指示文と画像から z_t を予測させる（BC）。③潜在ヘッドを捨て、課題あたり150軌跡程度で実行動ヘッドを微調整。",
+      "s4": "Language Table（Table 1）で VPT・UniPi を上回る（cross-env 33.6%、VPT 18.0%）。Franka 実機3課題（Table 2）で Open-X 事前学習時 50.1%、OpenVLA 43.9%。人の動画（SSv2）だけでも 34.0% と、Bridge 版 OpenVLA の 30.8% を上回る。",
+      "s5": "著者：把持など細かい動作で劣る（早すぎる把持）。推論遅延がある。カメラの動きも潜在行動に入る。\n所感：「潜在→実行動」を小さなヘッドの微調整で済ませる設計が VLA 系の定番になった。ただし把持の失敗は、潜在行動の粒度が足りないことを示している。",
+      "s6": "・LAOM (2025)（本資料）\n・What Matters (2026)（本資料）\n・UniVLA (2025)（未調査）\n・OpenVLA (2024)（未調査）",
+      "figure": {
+        "file": "figures/lapa_fig2.png",
+        "caption": "出典：LAPA Fig. 2（潜在行動の量子化 → 潜在事前学習 → 実行動での微調整）"
+      },
+      "notes": "arXiv v2（ICLR 2025 版）を本文と付録の結果部分まで読了。"
+    },
+    {
+      "title": "Latent Action Learning Requires Supervision in the Presence of Distractors",
+      "short": "LAOM (Nikulin+ 2025)",
+      "authors": "Alexander Nikulin, Ilya Zisman, Denis Tarasov ほか（AIRI / dunnolab.ai）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2502.00379",
+      "lineage": "発展",
+      "parent": "LAPO",
+      "s1": "背景動画やカメラの揺れなど、行動と相関する妨害（distractor）があると LAPO の潜在行動が壊れることを示した。改良版 LAOM で潜在行動の質を8倍にし、全体の2.5%の行動ラベルで監督すると下流性能が平均4.2倍になると報告。",
+      "s2": "LAPO・LAPA・Genie は、背景が静的で妨害のないデータで評価してきた。Web 動画では行動と無関係な変化の方が次フレームをよく説明するため、再構成目的は妨害を潜在行動に符号化してしまう（Misra+ 2024 の指摘を実証）。",
+      "s3": "LAOM：量子化を外す、多段 IDM（o_t と o_{t+k}、k≤10）、潜在次元を 8192 に拡大、画素の再構成をやめ潜在空間で次状態を予測、データ拡張。さらに少数の真の行動を潜在から線形予測する損失を同時に課す（LAOM+supervision）。",
+      "s4": "Distracting Control Suite 4課題、各5000軌跡。線形プローブ MSE は LAPO 22.09 → LAOM 2.74（Fig. 6）。ラベル付き軌跡 2〜128本の全条件で LAOM+supervision が全基準を上回り、正規化スコア 0.44（Fig. 1, 8）。IDM より未知の妨害に汎化（Fig. 9a）。",
+      "s5": "著者：妨害がなくても量子化は質を下げる。身体をまたぐ事前学習では、監督つきでも少数ラベルの BC と同程度にとどまる。\n所感：「LAM を先に学び、後で復号する」という定番の3段階手順への反証。完全にラベルなしという前提を緩める現実解を示した。",
+      "s6": "・MaskLAM (2026)（未調査）\n・What Do LAMs Actually Learn? (2025)（未調査）\n・Why Latent Actions Fail (2026)（未調査）\n・In-the-Wild LAM (2026)（本資料）",
+      "figure": {
+        "file": "figures/laom_fig4.png",
+        "caption": "出典：LAOM Fig. 4（LAPO と LAOM の構造。LAOM は潜在空間で予測し、少数の行動で監督する）"
+      },
+      "notes": "arXiv v5（ICML 2025 版）を本文と付録の主要部分まで読了。"
+    },
+    {
+      "title": "WMPO: World Model-based Policy Optimization for Vision-Language-Action Models",
+      "short": "WMPO (Zhu+ 2025)",
+      "authors": "Fangqi Zhu, Zhengyang Yan, Zicong Hong ほか（HKUST / ByteDance Seed）｜ ICLR 2026",
+      "year": 2025,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2511.09515",
+      "lineage": "最新",
+      "parent": "Ctrl-World（既存）",
+      "s1": "画素空間の行動条件付き動画世界モデルの中だけで、VLA（OpenVLA-OFT）を on-policy の GRPO で強化学習する WMPO を提案。実ロールアウト128本の予算で、実環境で直接 GRPO・DPO するより成功率を大きく上げた。",
+      "s2": "実機での RL は試行が高価で、従来の MBRL（Dreamer 系）は抽象的な潜在空間で学ぶため、Web 画像で事前学習された VLA の視覚特徴と合わない。WMPO は画素を生成し、VLA をそのまま想像の中で動かす。",
+      "s3": "OXE で事前学習した拡散動画世界モデルを、方策自身の実ロールアウト（失敗を含む）で微調整する（Policy Behavior Alignment）。ノイズ付き条件フレームとフレーム単位の行動条件を加え、VideoMAE の成否判定器で軌跡全体に 0/1 報酬を与える。",
+      "s4": "Mimicgen 4課題（Table 1）。平均成功率は基本方策 33.6% → P=128 で 47.1%（GRPO 33.2%、DPO 37.3%）、P=1280 で 57.6%。報酬モデルの F1 は 0.95 超。未知の配置・背景・質感で平均 29.6%（Table 2）。実機の挿入課題で 53→70%。",
+      "s5": "著者：短い地平線の報酬は報酬ハッキングを招くため、試行全体を生成して結果で判定する。離散化行動の VLA に限定。\n所感：幻覚で「成功」が生成された場合の誤報酬は F1 だけでは測れない。後続の WoVR・HaWMPO がこの問題を正面から扱う。",
+      "s6": "・HaWMPO (2026)（本資料）\n・WoVR (2026)（未調査）\n・Ctrl-World (2025)（既存：foundation-world-model）",
+      "figure": {
+        "file": "figures/wmpo_fig2.png",
+        "caption": "出典：WMPO Fig. 2（想像軌跡の生成、報酬モデルによる判定、GRPO による更新）"
+      },
+      "notes": "arXiv v1 を付録 D（限界）まで読了。採録先は ICLR 2026 の公式ページを検索で確認。"
+    },
+    {
+      "title": "Latent Action World Models for Control with Unlabeled Trajectories",
+      "short": "LAWM (Alles+ 2025)",
+      "authors": "Marvin Alles, Xingyuan Zhang, Patrick van der Smagt ほか（Technical University of Munich / Volkswagen Group）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2512.10016",
+      "lineage": "最新",
+      "parent": "LAPO / MOPO",
+      "s1": "少数の行動付き軌跡と大量の行動なし軌跡を、共通の潜在行動空間で1つの世界モデルに学習させ、その中でオフライン RL により潜在行動方策を学ぶ LAWM を提案。行動ラベル5%で、全ラベル時並みの成績を出した。",
+      "s2": "潜在行動の研究（LAPO・LAPA）は BC に使うだけで RL と結びつかず、オフライン RL（TD3+BC・C-LAP）は行動付きデータに依存していた。両者を潜在行動世界モデルで橋渡しする。",
+      "s3": "潜在状態 s_t と潜在行動 u_t を持つ生成モデル p(o_t|s_t)p(a_t|s_t,u_t)p(u_t|s_t)p(s_t|s_{t−1},a_{t−1}) を変分推論で学ぶ。行動ありは q(u_t|s_t,a_t)、なしは q(u_t|s_t,o_{t+1})（IDM）で推論。方策は潜在行動の事前分布内に制約する。",
+      "s4": "DMC 3環境×4データセット（Table 1、状態入力）。行動5%で平均 62.4（TD3+BC 33.5、C-LAP 45.9、IDM-TD3+BC 43.8）。全ラベルを使う C-LAP Oracle の 63.3 に匹敵する。walker の plan2explore データでは 81.9（Oracle 69.2）。",
+      "s5": "著者：多様な挙動を1つの IDM と潜在行動表現に統合するのが今後の課題。\n所感：潜在行動の事前分布が、MOPO の不確実性罰則に代わる「支持制約」として働く点が本テーマの結節点。ただし実験は状態入力のみで、画像・動画は未検証の短い予稿。",
+      "s6": "・C-LAP (2024)（未調査）\n・MOPO (2020)（本資料）\n・LAPO (2024)（本資料）\n・AdaWorld (2025)（未調査）",
+      "figure": {
+        "file": "figures/alles_fig1.png",
+        "caption": "出典：LAWM Fig. 1（行動付き・行動なしのデータを潜在行動で統合し、オフライン RL へ）"
+      },
+      "notes": "arXiv v1（本文4ページ＋付録）を全文読了。採録先は確認できず。"
+    },
+    {
+      "title": "Learning Latent Action World Models In The Wild",
+      "short": "In-the-Wild LAM (Garrido+ 2026)",
+      "authors": "Quentin Garrido, Tushar Nagarajan, Basile Terver ほか（FAIR at Meta）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2601.05230",
+      "lineage": "最新",
+      "parent": "LAPO / Genie",
+      "s1": "YouTube などの自然動画（YT-Temporal-1B）だけで、凍結した V-JEPA 2 の表現空間上に潜在行動世界モデルを学習。連続でスパースまたはノイズ付きの潜在行動が複雑な行動を捉え、軽量コントローラで既知の行動に対応付けて計画できることを示した。",
+      "s2": "従来の LAM はゲーム（Genie）や机上操作（LAPA・UniVLA）など狭い領域で学び、自然動画は全体の約5%にとどまっていた。自然動画では環境ノイズに加え、動画間で共通の身体がないことが問題になる。",
+      "s3": "IDM g_φ(s_t, s_{t+1}) で z_t を推論し、予測器 p_ψ（ViT-L、AdaLN-zero）で s_{t+1} を予測する L1 損失で学ぶ。z の情報量をスパース性（VICReg 型の正則化）、VAE 型のノイズ、VQ の3通りで制限して比較。既知の行動 → z のコントローラは後から学ぶ。",
+      "s4": "VQ は容量を上げても予測誤差がほぼ下がらない（Fig. 4）。場面転換で誤差が2倍以上になり、次フレームの丸写しは起きていない（Table 1）。DROID での計画は Δxyz 0.10 m（ノイズ・高容量）で V-JEPA 2-AC の 0.15 m 以上。RECON では RPE 0.40 で NoMaD 0.52 を上回る（Table S1, S2）。",
+      "s5": "著者：共通の身体がないため、潜在行動はカメラ相対で空間的に局在した変換になる。情報制約の係数は固定。\n所感：DROID を少し混ぜるだけで計画が大きく改善する（Table S3）。自然動画だけで十分かどうかには、まだ疑問が残る。",
+      "s6": "・V-JEPA 2 (2025)（既存：jepa）\n・AdaWorld (2025)（未調査）\n・OneLA (2026)（未調査）\n・LAOM (2025)（本資料）",
+      "figure": {
+        "file": "figures/wild_fig2.png",
+        "caption": "出典：In-the-Wild LAM Fig. 2（潜在行動世界モデルと3種類の情報量制限）"
+      },
+      "notes": "arXiv v2 を本文と付録 A〜D まで読了。採録先は PMLR vol. 306（ICML 2026）を検索で確認。"
+    },
+    {
+      "title": "RENEW: Towards Learning World Models and Repairing Model Exploitation from Preferences",
+      "short": "RENEW (Bhamidipaty+ 2026)",
+      "authors": "Logan Mondal Bhamidipaty, Mykel Kochenderfer, Subramanian Ramamoorthy（Univ. of Edinburgh / Stanford）｜ RLC 2026 WS",
+      "year": 2026,
+      "venue": "RLC 2026 ワークショップ",
+      "link": "https://arxiv.org/abs/2607.14180",
+      "lineage": "最新",
+      "parent": "MOPO",
+      "s1": "オフライン MBRL のモデル悪用を、保守的な罰則ではなく「どちらの想像軌跡が物理的にもっともらしいか」という選好でモデル自体を直す DLHF として定式化した。認識的不確実性で問い合わせ先を選ぶ RENEW で効率化した。",
+      "s2": "従来は MOPO・MOReL の不確実性罰則（汎化を損なう）か、追加の実演収集（高価で危険）で対処していた。RLHF 型の「課題の良さ」の選好は、壁を抜けて速くゴールする軌跡を好み、悪用をかえって強める。",
+      "s3": "軌跡区間の対数尤度 ℓ_θ(σ) = Σ log T̂_θ(s_{t+1}|s_t, a_t) を Bradley–Terry の報酬の代わりに使い、P(σ⁰≻σ¹) = logistic(ℓ_θ(σ⁰) − ℓ_θ(σ¹)) を交差エントロピーで学ぶ。アンサンブルの不一致に比例して開始状態を選び、選好を集める。",
+      "s4": "Jumanji 等の小環境（合成オラクル）。素の DLHF は 1M 選好で 1K 教師遷移並み（Table 1）。100K 選好で Sliding 3×3 の誤差 0.419 → 0.207（Table 2）。1600 選好で 10×10 迷路の遷移正解率 87.6 → 97.2%（素の微調整は 93.2%、Table 3）。",
+      "s5": "著者：本物の人間ではなく合成オラクルを使い、小さな離散環境でのみ評価。素の DLHF は事前学習の正しい遷移を忘れる。\n所感：動画世界モデルの幻覚に人の直観で対処する発想は魅力的だが、画素レベルの大規模モデルへの拡張は未検証。",
+      "s6": "・Exploitable WM (2026)（既存：latent-planning）\n・MOPO (2020)（本資料）\n・Deep RL from Human Preferences (2017)（未調査）",
+      "figure": {
+        "file": "figures/renew_fig4.png",
+        "caption": "出典：RENEW Fig. 4（10×10 迷路の遷移誤差と不確実性。RENEW は両方を減らす）"
+      },
+      "notes": "arXiv v1 を本文と付録の一部まで読了。RLC 2026 の Finding the Frame Workshop 論文（PDF 脚注で確認）。"
+    },
+    {
+      "title": "What Matters for Latent Actions in Robot Learning",
+      "short": "What Matters (Bu+ 2026)",
+      "authors": "Xizhou Bu, Qingda Hu, Lei Zhou ほか（Fudan University / Xiaomi EV）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.19613",
+      "lineage": "最新",
+      "parent": "LAPO / LAOM",
+      "s1": "潜在行動モデル（LAM）の設計を共通の自己符号化の枠組みに統一し、41通りの設計を LIBERO・LIBERO-Plus・RoboTwin2.0 で比較した初の大規模実証研究。原典の LAPO が依然強い基準で、潜在次元は32が最良と結論した。",
+      "s2": "LAM 研究は手法ごとに設定がばらばらで、どの設計が下流の操作性能を決めるのか不明だった。線形プローブなどの代理指標（LAPO・LAOM が使用）が下流性能を予測できるかも検証されていなかった。",
+      "s3": "①潜在行動の作り方（IDM-FDM 型：LAPO・LAOF・CoMo／差分の自己符号化：ΔRGB・ΔDINO・光学流）、②正則化（AE・VAE・VQ・スパース・SIGReg）とその強度、③VLM への統合（DAP・LAP・JAP ほか）を、700M の LAM と Qwen3-VL-4B で比較。",
+      "s4": "3ベンチ平均で LAPO 0.733、ΔDINO 0.728、CoMo 0.717 の順で、光学流は最下位（Table 1）。VQ は LIBERO-Plus のゼロショットで 0.517 と最良。FDM 再構成系の代理指標がプローブより下流性能と相関（Fig. 4）。Franka 実機で 64.75 → 79.25%（Fig. 7）。",
+      "s5": "著者：代理指標は粗い選別向きで、最終的な選択には下流評価が必要。正則化は種類より強度が効く。\n所感：評価は妨害の少ないシミュレータが中心で、LAOM が示した妨害下の結論とは単純に比べられない。VQ の評価も先行研究と食い違う。",
+      "s6": "・LAPO (2024)（本資料）\n・LAOF (2025)（未調査）\n・CoMo (2026)（未調査）\n・In-the-Wild LAM (2026)（本資料）",
+      "figure": {
+        "file": "figures/matters_fig1.png",
+        "caption": "出典：What Matters Fig. 1（3段階の学習手順と、比較した3つの設計軸）"
+      },
+      "notes": "arXiv v2 を本文と付録 C の主要部分まで読了。"
+    },
+    {
+      "title": "HaWMPO: Hallucination-Aware World Model-based Policy Optimization for Generalist Robot Policy",
+      "short": "HaWMPO (Chen+ 2026)",
+      "authors": "Zengjue Chen, Peidong Liu, Jiawei Li, Qi Wang（JD Joy Future Academy / Jilin University）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.09941",
+      "lineage": "最新",
+      "parent": "WMPO / MOPO",
+      "s1": "動画世界モデルの中で VLA を GRPO で学習するとき、生成の幻覚が偽の報酬を生む問題に対し、行動条件付きの幻覚推定器 HAM のスコアで報酬を割り引く HaWMPO を提案。LIBERO で WMPO を 6.9pt 上回った。",
+      "s2": "WMPO は世界モデルの軌跡をすべて同等に扱い、WoVR は初期化の工夫と共進化で幻覚を減らす。HaWMPO は幻覚を明示的に推定して報酬に反映する。MOPO の不確実性罰則を動画世界モデルに移した形といえる。",
+      "s3": "HAM は生成8フレーム・行動・現フレーム・初期画像を DINOv3 と融合 Transformer で処理し、DINO 類似度・深度・光学流軌跡・MUSIQ の合成指標を回帰する。Reward-Soft：R̂ = (1 − αH)·R で割り引いた報酬からグループ相対アドバンテージを計算。",
+      "s4": "LIBERO（1軌跡 SFT の OpenVLA-OFT から）で平均 48.7 → 63.7%（WMPO 56.8%、WoVR* 60.9%、Table 1）。人手ラベルに対する HAM の AUROC 0.94（Table 3）。HAM を外すと Spatial で −8.0pt（Table 4）。G1 実機2課題で 67.5 → 80.0%（Table 2）。",
+      "s5": "著者：幻覚の教師信号は手作りの指標で、短い課題でのみ評価。HAM と世界モデルは別々に学習している。\n所感：最適な α が課題で異なり、Goal では統一 α だと HAM なしに劣る。WoVR* は共進化を省いた再現で、比較の公平性に注意が必要。",
+      "s6": "・WoVR (2026)（未調査）\n・MOPO (2020)（本資料）\n・Hallucination in WMs (2026)（既存：foundation-world-model）",
+      "figure": {
+        "file": "figures/hawmpo_fig1.png",
+        "caption": "出典：HaWMPO Fig. 1（世界モデル内 RL、幻覚推定モデル、Reward-Soft による GRPO）"
+      },
+      "notes": "arXiv v1 を全文読了。"
+    }
+  ]
+}
