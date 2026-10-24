@@ -1,0 +1,195 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "入力依存（選択的）スパイキングニューロンと多値スパイク×低ビット LLM",
+  "date": "2026-10-24",
+  "summary": "Mamba は「時不変（LTI）なモデルは内容を選べない」と示し、BitNet b1.58 は3値重みの LLM を示した。\nSNN 側では、多値・3値スパイクで低ビット量子化 LLM に近づく流れ（SpikeLM→SpikingMamba→SDLLM→QuantaSpike）と、\n閾値・減衰を入力依存にしてニューロン自体に選択性を持たせる流れ（NeuronSpark, TV-MCN）が並走している。",
+  "papers": [
+    {
+      "title": "Mamba: Linear-Time Sequence Modeling with Selective State Spaces",
+      "short": "Mamba (Gu & Dao 2023)",
+      "authors": "Albert Gu, Tri Dao（Carnegie Mellon University / Princeton University）｜ COLM 2024",
+      "year": 2023,
+      "venue": "COLM 2024",
+      "link": "https://arxiv.org/abs/2312.00752",
+      "lineage": "原典",
+      "s1": "SSM のパラメータ Δ・B・C を入力の関数にする「選択機構」を加えた選択的 SSM（S6）と、それを積み重ねた注意機構なしの Mamba を提案した。Mamba-3B は同規模の Transformer を上回り、2倍の規模の Transformer に並ぶ。",
+      "s2": "S4・H3・Hyena・RWKV などの線形時不変（LTI）モデルは全時刻に同じ遷移を使うため、内容に応じた取捨選択ができず、言語では注意機構に及ばなかった。時変化で畳み込みは使えなくなるが、GPU のメモリ階層を意識した並列スキャンで効率を保った。",
+      "s3": "N=1 では h_t=(1−g_t)h_{t−1}+g_t x_t、g_t=σ(Linear(x_t)) というゲート付き RNN と一致する（Thm. 1）。Δ は「今の入力に注目するか、状態を保つか」を決めるゲートとして働く。展開した状態は SRAM 上だけで計算し、逆伝播では再計算する。",
+      "s4": "Selective Copying で S4 18.3% → S6 97.0%（Table 1）。Induction Heads は学習長の4000倍まで外挿（Table 2）。Pile で Transformer++ に並ぶスケーリング（Fig. 4）。常識推論平均は Mamba-2.8B 63.3、Pythia-2.8B 59.1（Table 3）。推論スループットは5倍。",
+      "s5": "著者：選択機構は離散データには効くが、音声のような連続信号では LTI に劣る場合がある。評価は数B規模まで。\n所感：「LTI のニューロンは内容を選べない」という診断が、NeuronSpark や TV-MCN など2026年の選択的スパイキングニューロンの出発点になった。",
+      "s6": "・S4 (Gu+ 2021)（既存：parallel-training）\n・Mamba-2 / SSD (Dao & Gu 2024)（未調査）\n・SpikingMamba (Huang+ 2025)（本資料）\n・NeuronSpark (Tang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/mamba.png",
+        "caption": "出典：Mamba (Gu & Dao 2023) Fig. 1（入力から Δ・B・C を射影する選択機構と、SRAM 上で状態を展開するハードウェアを意識した実装）"
+      },
+      "notes": "arXiv v2 の本文 1〜5 章（選択機構、実装、合成課題・言語・DNA・音声の実験、アブレーション、Discussion）を確認した。"
+    },
+    {
+      "title": "The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits",
+      "short": "BitNet b1.58 (Ma+ 2024)",
+      "authors": "Shuming Ma, Hongyu Wang, Lingxiao Ma ほか（Microsoft Research / University of Chinese Academy of Sciences）｜ arXiv プレプリント 2024",
+      "year": 2024,
+      "venue": "arXiv プレプリント 2024",
+      "link": "https://arxiv.org/abs/2402.17764",
+      "lineage": "原典",
+      "s1": "Transformer の全線形層を BitLinear に置き換え、重みを {−1,0,+1} の3値（1.58ビット）、活性化を8ビットにして事前学習から行う BitNet b1.58 を提案した。3B 規模で FP16 の LLaMA と同等のパープレキシティと下流性能に達した。",
+      "s2": "主流の事後量子化（GPTQ, AWQ など）は4ビット程度が限界で、最適ではない。前作 BitNet は重みを ±1 の2値にした。b1.58 は 0 を加えて特徴を落とす能力を持たせ、行列積を乗算なしの加減算だけで計算できるようにした。",
+      "s3": "重みは行列の平均絶対値 γ で割って丸める absmean 量子化 W̃=RoundClip(W/(γ+ε),−1,1)。活性化はトークンごとに [−Q_b,Q_b] へスケールする。RMSNorm・SwiGLU・RoPE など LLaMA 型の部品を使う。",
+      "s4": "RedPajama 100B トークンで学習。3B で PPL 9.91（LLaMA 10.04）、ゼロショット平均 50.2（49.7）、メモリ3.55分の1、遅延2.71分の1（Table 1, 2）。70B のスループットは8.9倍（Table 3）。行列積の演算エネルギーは7nm 換算で71.4分の1（Fig. 3）。",
+      "s5": "著者：活性化は8ビットのまま。KV キャッシュの低ビット化と、1ビット LLM 専用ハードウェアを今後の課題に挙げる。\n所感：比較相手は自前で再現した LLaMA だけの短い技術報告。3値という表現は、SNN の3値重み（Bal+ 2024）や3値スパイク（SDLLM）に持ち込まれた。",
+      "s6": "・BitNet (Wang+ 2023)（未調査）\n・MatMul-free LLM on Loihi 2 (Abreu+ 2025)（既存：neuromorphic-hardware）\n・Extreme Quantization in Spiking LMs (Bal+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/bitnet158.png",
+        "caption": "出典：BitNet b1.58 (Ma+ 2024) Fig. 1（3値重みによる性能とコストのパレート改善と、乗算を加算に置き換える新しい計算パラダイム）"
+      },
+      "notes": "arXiv v1 の本文全章（手法、Table 1〜4、Fig. 2〜3、Discussion）を確認した。"
+    },
+    {
+      "title": "Exploring Extreme Quantization in Spiking Language Models",
+      "short": "Extreme Quantization in Spiking LMs (Bal+ 2024)",
+      "authors": "Malyaban Bal, Yi Jiang, Abhronil Sengupta（The Pennsylvania State University）｜ ICONS 2024",
+      "year": 2024,
+      "venue": "ICONS 2024",
+      "link": "https://arxiv.org/abs/2405.02543",
+      "lineage": "発展",
+      "parent": "BitNet b1.58",
+      "s1": "重みを1ビット（±1）または1.58ビット（3値）に、活性化を二値スパイクにした BERT 型のスパイキング言語モデルを、全精度の非スパイク教師からの知識蒸留で学習した。重みと活性化の両方を極端に量子化した初めての spiking LM と主張する。",
+      "s2": "先行研究は活性化（SpikingBERT）か重み（BitNet, BiT）の一方だけを2ビット未満にしていた。本研究は両方を同時に量子化し、失われた精度を T ステップにわたる発火、つまり時間方向で補う。",
+      "s3": "平衡状態の平均発火率（ASR）a*=σ((W a*_{i−1}+b)/V_th) を使い、陰関数微分で勾配を求める（BPTT もサロゲート勾配も使わない）。教師の中間層出力と生徒の ASR を MSE で合わせる層ごとの蒸留を行う。重みの量子化式は BitNet 系に従う。",
+      "s4": "4層の SpikingBERT で GLUE を評価した（Table I）。全精度版 QQP 86.8・MNLI 78.1・SST-2 88.2 に対し、1.58ビット版 85.4・77.1・87.1、1ビット版 83.8・75.4・86.7。中間層蒸留を外すと6〜8pt 下がる。",
+      "s5": "著者：デコーダ型（GPT 型）への拡張と、全精度版との差を詰めることを今後の課題とする。\n所感：4ページの短報で、対象は分類課題と4層 BERT のみ。時間ステップ数やエネルギーの実測はなく、3値重み×二値スパイクの組合せを示した概念実証にとどまる。",
+      "s6": "・SpikingBERT (Bal & Sengupta 2024)（未調査）\n・P-SpikeSSM (Bal & Sengupta 2024)（既存：parallel-training）\n・BitNet b1.58 (Ma+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/bal.png",
+        "caption": "出典：Extreme Quantization in Spiking LMs (Bal+ 2024) Fig. 1（スパイク生成器 S と1ビット重みの量子化線形層からなるスパイキング・エンコーダ層）"
+      },
+      "notes": "arXiv v3 の本文全体（4ページ、手法・Table I・エネルギー議論・結論）を確認した。採録先は Crossref で ICONS 2024（DOI: 10.1109/ICONS62911.2024.00047）と確認。"
+    },
+    {
+      "title": "SpikeLM: Towards General Spike-Driven Language Modeling via Elastic Bi-Spiking Mechanisms",
+      "short": "SpikeLM (Xing+ 2024)",
+      "authors": "Xingrun Xing, Zheng Zhang, Ziyi Ni ほか（Institute of Automation, CAS / BAAI）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024",
+      "link": "https://arxiv.org/abs/2406.03287",
+      "lineage": "発展",
+      "parent": "Ternary Spike / BitNet",
+      "s1": "二値 {0,1} の代わりに方向（±）・振幅（α）・頻度を持つ「弾性双方向スパイク」{−α,0,α} を提案し、行列積をすべて加算に置き換えた言語モデル SpikeLM を作った。識別（GLUE）と生成（要約・翻訳）の両方で、完全スパイク駆動として初めて実用的な精度を出した。",
+      "s2": "SpikeBERT・SpikeGPT などの二値スパイクは意味情報を運びきれず、LIF-BERT は BERT より平均19.7pt 低い。発火率を上げれば精度は上がるが疎性が失われる。本手法は1ステップあたりの情報量を増やし、発火率を入力分布に合わせて制御する。",
+      "s3": "膜電位 m を層ごとの尺度 α=k·mean|m| で正規化し、|m|>α なら ±α のスパイクを出す。α は最初のバッチの入力分布で決めて固定し、k で発火率を調整する。振幅 α は学習後に重みへ畳み込めるので推論は加減算だけ。逆伝播は ±1 間の STE。",
+      "s4": "GLUE 平均（Table 3）：BERT-base 83.2、LIF-BERT 54.9、SpikeBERT 59.7 に対し SpikeLM（T=4）76.5。エネルギーは BERT の3.7分の1（T=1 で12.9分の1）。k=2→4 で発火率33%→17%（Table 7）。XSUM の ROUGE-L 32.9（BART 34.7、Table 8）。",
+      "s5": "著者：活性化のスパイク化は重み量子化より難しく、規模も小さい（最大 mBART 680M）。\n所感：α は学習初期に固定され、トークンごとには変わらない。この「層単位の静的な閾値」と NeuronSpark の「トークン単位の動的な閾値」の対比が本テーマの軸。",
+      "s6": "・Ternary Spike (Guo+ 2024)（未調査）\n・SpikeLLM (Xing+ 2024)（既存：spiking-transformer）\n・SDLLM (Xu+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/spikelm.png",
+        "caption": "出典：SpikeLM (Xing+ 2024) Fig. 1（(a) 従来の {0,1} スパイク、(b) 双方向スパイク、(c) 分布に応じた頻度符号化、(d) 振幅符号化）"
+      },
+      "notes": "arXiv v1（ICML 2024 版）の本文全章（問題設定、弾性双方向スパイク、動的等長性の定理、GLUE・要約・翻訳の実験、Limitations）を確認した。"
+    },
+    {
+      "title": "SpikingMamba: Towards Energy-Efficient Large Language Models via Knowledge Distillation from Mamba",
+      "short": "SpikingMamba (Huang+ 2025)",
+      "authors": "Yulong Huang, Jianxiong Tang, Chao Wang ほか（HKUST (Guangzhou) / City University of Hong Kong / Huawei ACSLab）｜ TMLR 2026",
+      "year": 2025,
+      "venue": "TMLR 2026",
+      "link": "https://arxiv.org/abs/2510.04595",
+      "lineage": "発展",
+      "parent": "Mamba / I-LIF",
+      "s1": "学習済み Mamba2 を教師に、入出力の線形射影の手前へ符号付き整数スパイクニューロン SI-LIF を挿入した SpikingMamba を、70億トークンの1段階蒸留で作った。1.3B で Mamba2 比4.76倍の省エネ、精度低下4.78pt。DPO/KTO で差を2.23pt まで縮めた。",
+      "s2": "変換型（SpikeLLM）は多ステップで遅く、直接学習型（SpikeGPT, SpikingSSMs）は大規模化の学習コストが高い。I-LIF は非負の [0,D] で極性を失い、3値スパイクは振幅が粗い。SI-LIF は [−D,D] の符号付き整数で両方を保つ。",
+      "s3": "学習時は s_t=Clip(Round(x_t),−D,D)（矩形サロゲート）。推論時は |x_t| を β=1 の IF ニューロンで D マイクロステップの0/1スパイクに展開し、符号ビットで加減を切り替える。学習専用の平滑勾配補償（SGC）経路 D·tanh(x) で量子化誤差を補う。",
+      "s4": "1.3B のゼロショット平均（Table 2）：Mamba2 59.40、SpikingMamba 54.62、Bi-Mamba（1260B トークン）49.38。WikiText-103 PPL 26.32（SpikingSSMs 33.94、Table 3）。ニューロン別では LIF 48.35 < I-LIF 53.21 < SI-LIF 54.62（Table 5）。",
+      "s5": "著者：D を広げると精度は上がるが、推論の遅延が増える（Fig. 3）。\n所感：スパイク化したのは射影の入力だけで、選択的 SSM の再帰（Δ, B, C）は実数のまま。エネルギー表でも SSM 部分は Mamba2 と同じ値で、選択性はスパイクの外に置かれている。",
+      "s6": "・I-LIF / SpikeYOLO (Luo+ 2024)（既存：spike-coding）\n・Bi-Mamba (Tang+ 2024)（未調査）\n・NeuronSpark (Tang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/spikingmamba.png",
+        "caption": "出典：SpikingMamba (Huang+ 2025) Fig. 1（(a) Mamba2 教師からの蒸留、(b) 射影の前に SI-LIF を置いたブロック、(c) 学習専用の平滑勾配補償経路）"
+      },
+      "notes": "arXiv v2（TMLR 2026 版）の本文全章と付録 A〜C（Mamba2 ブロック、活性化統計、エネルギー内訳 Table 8〜9）を確認した。"
+    },
+    {
+      "title": "NeuronSpark: Selective Spiking State Space Models with Adaptive Computation for Language Modeling",
+      "short": "NeuronSpark (Tang+ 2026)",
+      "authors": "Zhengzheng Tang, Hao Zhu, Zhewei Chen, Dajiang Tao（所属記載なし）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2603.16148",
+      "lineage": "最新",
+      "parent": "Mamba / PLIF",
+      "s1": "膜電位の減衰 β・入力ゲイン α・発火閾値 V_th をすべて現在のトークンから計算する SelectivePLIF を核に、自己注意なしの言語モデル NeuronSpark を作った。1.1B を変換・蒸留なしで初期値から2.1B トークン事前学習し、8課題平均40.0に達した。",
+      "s2": "SpikingMamba は学習済み Mamba から選択性を借り、SpikingSSMs は代理ネットワーク SDN で LIF の学習を迂回する。著者は、固定パラメータの LIF では発火が「全発火」か「沈黙」に崩れる（firing-regime rigidity）と診断し、選択性をニューロン自体に持たせた。",
+      "s3": "β_t=σ(W_β h_t)、α_t=softplus(W_α h_t)、V_th(t)=V_min+W_th h_t とし、V_t=β_t V_{t−1}+α_t I_t、発火後はソフトリセット。W=0 で PLIF、V_th→∞ で LTI SSM に帰着する（Prop. 1）。4層ごとに PLIF ゲート付き線形注意メモリを置き、1トークンを K=12 フレームで処理する。",
+      "s4": "8課題平均40.0（Table 1）で、同程度のトークン数の Pythia-1B（33.2）と Mamba-1.6B（33.7）を上回り、300B 学習版の95.2%・93.2%。入力依存 PLIF を外すと学習が反転・停滞した（Fig. 4）。β は深い層ほど大きく（r=0.86）、遅い時定数が自然に生じた（Fig. 6）。",
+      "s5": "著者：単一シードでデータを揃えない比較。エネルギーは VHDL の演算量推定で、FPGA 測定は短い文脈に限る。\n所感：層間を流れるのは二値スパイクではなくリセット後の連続な膜電位で（Fig. 5a）、K=12 の時間展開も重い。発火率の報告が欲しい。",
+      "s6": "・PLIF (Fang+ 2021)（未調査）\n・SpikingSSMs (Shen+ 2024)（既存：spiking-transformer）\n・DSN (Huang+ 2026)（既存：parallel-training）",
+      "figure": {
+        "file": "figures/neuronspark.png",
+        "caption": "出典：NeuronSpark (Tang+ 2026) Fig. 1（K フレームに展開したトークンを SNNDecoderLayer と PLIF ゲート付き連想メモリ層で処理する全体構成）"
+      },
+      "notes": "arXiv v2（2026-10-09 版）の本文全章と付録 A〜G（学習レシピ、新規性の分解、VHDL/FPGA 計測、時間ダイナミクスの統計）を確認した。"
+    },
+    {
+      "title": "Spike-driven Large Language Model",
+      "short": "SDLLM (Xu+ 2026)",
+      "authors": "Han Xu, Xuerui Qiu, Baiyu Chen ほか（Institute of Automation, CAS / BAAI）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.16475",
+      "lineage": "最新",
+      "parent": "SpikeLLM / SpikeLM",
+      "s1": "学習済み LLM（LLaMA2/3, Qwen2.5）を再学習せずに、行列積を3値スパイクの疎な加算に置き換える後処理型の SDLLM を提案した。膜電位をまず整数のスパイク数に量子化し、それを時間方向の0/±1スパイク列に展開する2段階の符号化を使う。",
+      "s2": "SpikeLLM は多ステップの整数活性化に頼り、ニューロモルフィック向けの純粋なスパイク符号になっていなかった。SDLLM は QuaRot の回転を RMSNorm の γ が示す意味空間に合わせて量子化誤差を減らし、双方向符号化と膜電位クリップで発火率を下げる。",
+      "s3": "γ-SQP：γ を重みに吸収せず X·Diag(γ)·Q の空間で量子化し、意味的に重要な次元に誤差が集中しないようにする。整数 k を ±1 スパイク k 個に展開し、対称量子化で展開長を D→D/2 にする。分位点 ReLU で膜電位を切り、0スパイクの割合を増やす。",
+      "s4": "LLaMA2-7B、W4・展開 1×8 で平均66.43（SpikeLLM 60.74、QuaRot W4A4 59.71）、発火率0.216、推定エネルギー0.67J（SpikeLLM 4.77J、Table 2）。クリップで QKV の発火率 0.22→0.10（Table 3）。一方 LLaMA3-8B の GSM8K は 48.6→18.8 に落ちる（Table 7）。",
+      "s5": "著者：展開長 D が大きいと、非同期チップ上の消費電力と通信帯域が増える。\n所感：「スパイク」は4ビット相当の量子化値を時間展開したもので、表現力は低ビット量子化と等価。エネルギーは単価による推定で、数学推論の劣化が大きい。",
+      "s6": "・QuaRot (Ashkboos+ 2024)（未調査）\n・SpikeLLM (Xing+ 2024)（既存：spiking-transformer）\n・QuantaSpike (Hu+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/sdllm.png",
+        "caption": "出典：SDLLM (Xu+ 2026) Fig. 1（a 行列積をスパイク駆動の疎な加算に置き換えた構成、b γ-SQP 2段階符号化と双方向符号化・膜電位クリップによる発火率削減）"
+      },
+      "notes": "arXiv v1 の本文全章（γ-SQP の定理、発火率の解析、Table 2〜14、Discussion）と付録の一部を確認した。"
+    },
+    {
+      "title": "QuantaSpike: Short-Window Spike-Driven Quantization for Large Language Models",
+      "short": "QuantaSpike (Hu+ 2026)",
+      "authors": "Bang Hu, Guowei Zhu, Changze Lv ほか（Fudan University）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.34259",
+      "lineage": "最新",
+      "parent": "SDLLM / SpikeQuant",
+      "s1": "3値の発火と2のべき乗の応答量子を組み合わせた LTIF（Logarithmic Ternary Integrate-and-Fire）ニューロンを核に、LLM の活性化を最大4ステップの3値スパイクで表す後処理量子化 QuantaSpike を提案した。Llama-2-7B で FP16 との差を0.68pt に抑えた。",
+      "s2": "SpikeQuant・SpikeLLM は外れ値を表すため16〜256ステップの長い発火窓を要し、Kirin は整数の非スパイク経路を併用していた。本手法は短い窓のまま、外れ値だけに追加の「開始スパイク」を許すことで純粋なスパイク経路を保つ。",
+      "s3": "トークンごとに中央値と MAD を求め、統計的に外れていて絶対値も大きい値だけを外れ値として「入場」させる（入力依存の選別）。各ステップで膜電位を段階的な閾値と比べ、±2^e の応答で残差を削る。線形層は符号付きシフトと累算だけで計算できる。",
+      "s4": "W4A4(4&5)・4ステップ。Llama-2-7B の WikiText-2 PPL 5.78（SpikeQuant 32ステップ 5.80、Table 1）、ゼロショット平均63.01（FP16 63.69、SpikeLLM 48.13、Table 2）。線形層エネルギーは SpikeQuant 比67.1%減。大きさゲートを外すと PPL 39.47（Table 4）。",
+      "s5": "著者：評価は密な decoder-only LLM のみで、MoE は小規模な診断、VLM は未評価。\n所感：トークンごとのゲインは重みに畳み込めず実行時の再スケールが要るが、その費用はエネルギー推定に含まれない。外れ値の選択的な入場は、選択性を符号化側に置く別解と読める。",
+      "s6": "・SpikeQuant (Wang+ 2026)（未調査）\n・Kirin (Wang+ 2026)（未調査）\n・SDLLM (Xu+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/quantaspike.png",
+        "caption": "出典：QuantaSpike (Hu+ 2026) Fig. 2（01 外れ値の選択的入場を含む活性化の写像、02 LTIF の膜電位ダイナミクス、03 シフト＋累算による線形層）"
+      },
+      "notes": "arXiv v1 の本文全章と付録 F（Limitations）を確認した。"
+    },
+    {
+      "title": "A Time-Variant Spiking Neuron from a Unified State-Dynamics Perspective",
+      "short": "TV-MCN (Yang+ 2026)",
+      "authors": "Jing Yang, Qianhui Liu, Gang Pan, Zhanglu Yan（Shandong University / Zhejiang University / NUS）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.23981",
+      "lineage": "最新",
+      "parent": "Mamba / PMSN",
+      "s1": "既存のスパイキングニューロンを状態空間 (A,B,C) の統一枠組みで整理し、どれも規則が時不変だと指摘した。そのうえで、入力依存の「内部時間」Δ_t と入力依存の B_t・C_t を持つ多区画ニューロン TV-MCN を提案し、選択的な記憶・想起課題で大差をつけた。",
+      "s2": "異種時定数（DH-LIF, HetSyn）、多区画（TC-LIF, PMSN）、共振（D-RF）などは状態を豊かにしたが、入力の統合・状態の更新・読み出しの規則は入力によらず一定だった。本研究は Mamba の選択機構をニューロン内部の区画ダイナミクスに持ち込んだ。",
+      "s3": "内部時間を dτ=Δ_t dt で進め、Δ_t=softplus(b+W_Δ SiLU(W_q x_t))。複素対角 A を ZOH で離散化して h_t=Ā_t h_{t−1}+B̄_t x_t とし、u_t=C_t h_t の実部が閾値を超えたら発火してソフトリセットする。B_t=W_B x_t、C_t=W_C x_t。",
+      "s4": "同じ2層網で9種のニューロンを比較（Table 3）。Selective Copying 93.46%（PMSN 9.58%、D-RF 19.24%）、Induction 97.71%、MAD Noisy ICR 99.99%（HetSyn 85.43%）。SSC 70.98%（Table 2）。Δ_t を固定すると Selective Copying は7.20%に落ちる（Table 5）。",
+      "s5": "著者：FLOPs は密な演算の解析的推定で、スパイクの疎性も実機の遅延・エネルギーも含まない。\n所感：発火率の報告がなく、Selective Copying の完全一致率は37.7%にとどまる。小さな合成課題が中心で、言語モデル規模での検証が次の論点。",
+      "s6": "・PMSN (Chen+ 2024)（既存：parallel-training）\n・D-RF (Zhang+ 2025)（未調査）\n・NeuronSpark (Tang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/tvmcn.png",
+        "caption": "出典：TV-MCN (Yang+ 2026) Fig. 2（入力に応じて Δ_t が内部時間の進みを遅く/速くし、B_t・C_t が書き込みと読み出しの強さを変える）"
+      },
+      "notes": "arXiv v1 の本文全章と付録（各ニューロンの統一表現、実験設定、FLOPs の数え方、完全一致率 Table 12）を確認した。"
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "field": "SNN（スパイキングニューラルネットワーク）",
+  "theme": "SNN 専用加速器のデータフローと時間符号の時刻分解能",
+  "date": "2026-10-24",
+  "summary": "SNN 加速器の効率は加算器より、時刻ループが生む膜電位・重みの反復移動とスパイク通信で決まる。\n時刻順スパイクの SpinalFlow と時間圧縮を原典に、時間窓の並列化（PTB→SpikeX）、全時刻並列（LoAS）、膜電位の定常化（FlexSpIM）、通信の束ね（UniSpike・ELSA）へ進んだ。\n時間符号の時刻分解能（TTFS の T/τ、DSTD の M）と、SSM を逐次で推論する専用エンジン（HEMERA）も扱う。",
+  "papers": [
+    {
+      "title": "Boosting Throughput and Efficiency of Hardware Spiking Neural Accelerators using Time Compression Supporting Multiple Spike Codes",
+      "short": "時間圧縮 TC-SNN (Xu+ 2020)",
+      "authors": "Changqing Xu, Wenrui Zhang, Yu Liu, Peng Li（UC Santa Barbara）｜ Frontiers in Neuroscience 2020",
+      "year": 2020,
+      "venue": "Frontiers in Neuroscience 2020",
+      "link": "https://arxiv.org/abs/1909.04757",
+      "lineage": "原典",
+      "s1": "スパイク列の時間長そのものを圧縮し、既存のデジタル SNN 加速器のスループットとエネルギーを改善する一般手法 TC-SNN / PTC-SNN を提案した。FPGA 上で最大 16 倍の時間圧縮を行い、スループット 15.93 倍・エネルギー 13.88 倍の改善を示した。",
+      "s2": "TTFS や位相符号は符号そのものを変えてスパイク数を減らすが、最適な符号はタスクに依存する。本論文は符号と直交する「時間方向の圧縮」を初めて扱い、レート・時間・バースト符号のいずれにも後付けで適用できる。スパイク列の長さが静的電力の効率も縛る、という問題設定が特徴。",
+      "s3": "γ 個の時刻を 1 時刻に畳み、複数スパイクを整数の重み付きスパイクで表す（入力圧縮 ISCU）。ニューロンは入出力とも重み付き（IOW-LIF）で、膜電位が閾値の k 倍なら重み k のスパイクを出す。時定数は τ_c=1/(1−(1−1/τ)^γ) で再設定し、2 の冪の時間平均でシフト演算に収める。",
+      "s4": "Zynq-7000 FPGA 上の LSM で TI46・CityScape・N-TIDIGITS18 を評価。TI46 では 2:1 圧縮で精度 96.15% を保ったまま実行時間 2 倍・エネルギー 1.69 倍改善。16:1 では 80.77%（2 値出力の IW-LIF は 69.23%）。総合指標 ATEL は 100%→4.12%（Table 1）。",
+      "s5": "著者：4:1 程度までは精度劣化が小さく、16:1 も応用次第で許容できる。\n所感：時刻分解能を下げて多値スパイクに置き換える操作は、後の PTB の時間窓や「整数で学習しスパイクで推論」と同じ発想。時間符号と量子化の交換関係を HW 側から示した原点といえる。評価は小規模 LSM のみ。",
+      "s6": "・PTB (Lee+ 2022)（本文未確認）\n・SpikeX (Xu+ 2025)（本資料）\n・バースト/位相符号 (Park+ 2019)（既存：spike-coding）",
+      "figure": {
+        "file": "figures/xu2019_fig6.png",
+        "caption": "出典：時間圧縮 TC-SNN (Xu+ 2020) Fig. 6（圧縮率を変えられる PTC-SNN の構成。入力圧縮 ISCU・重み付きニューロン IOW-NE・時定数 LUT）"
+      },
+      "notes": "arXiv v1（2019）を通読。採録先 Frontiers in Neuroscience 14:104（DOI 10.3389/fnins.2020.00104）は Crossref で確認。"
+    },
+    {
+      "title": "SpinalFlow: An Architecture and Dataflow Tailored for Spiking Neural Networks",
+      "short": "SpinalFlow (Narayanan+ 2020)",
+      "authors": "Surya Narayanan, Karl Taht, Rajeev Balasubramonian ほか（University of Utah）｜ ISCA 2020",
+      "year": 2020,
+      "venue": "ISCA 2020",
+      "link": "https://doi.org/10.1109/ISCA45697.2020.00038",
+      "lineage": "原典",
+      "s1": "時間符号 SNN 専用の加速器 SpinalFlow を提案した。入力スパイクを「時刻付きで時刻順に並べた圧縮リスト」として処理し、出力も同じ形式で作ることで、膜電位を保存する必要をなくした。4bit・スパース率 90% で 4bit Eyeriss 比 1.8 倍の省エネを示した。",
+      "s2": "Eyeriss 型の SNN ベースライン（Spiking-Eyeriss）は膜電位を全 tick 保持して毎回読み書きするため、ANN の 2 倍のエネルギーを使い、2^分解能 倍遅い。TrueNorth は 1ms tick で並列性がない。時刻ループが膜電位という新しいデータ構造と再利用の次元を生む、と初めて問題化した。",
+      "s3": "出力定常：128 PE がそれぞれ 1 出力ニューロン（同じ位置の 128ch＝spine）を担当する。Min Finder（比較器の木）が受容野内のスパイクを時刻順にマージし、1 件ずつ重み行を配る。各ニューロンは高々 1 回しか発火しないので、発火後は膜電位を捨てられ、出力も自然に時刻順になる。",
+      "s4": "28nm 合成＋CACTI のモデルで ResNet・MobileNet・STDP-Net と合成層を評価。4bit・90% で 8bit Eyeriss 比 5 倍省エネ・5.4 倍高速（Fig. 13, 16）。Spiking-Eyeriss 比は 8bit で平均 35 倍省エネ（Fig. 17）。SCNN 比 1.16 倍。DW 畳み込みは PE が遊ぶため不利。",
+      "s5": "著者：重みアクセスが不規則なので大きな Filter Buffer（576KB）が要り、面積あたり性能は Eyeriss に劣る場合がある。\n所感：TTFS（1 ニューロン 1 スパイク）専用という前提が強い。直接学習のレート符号 SNN が主流になると、LoAS などから「時刻逐次」型として整理された。",
+      "s6": "・Lew+ 2022 TTFS 対数計算プロセッサ（本資料）\n・LoAS (Yin+ 2024)（本資料）\n・Comsa+ 2020 α シナプスの時間符号（未調査）\n・TTFS≡ReLU (Stanojevic+ 2024)（既存：spike-coding）",
+      "figure": {
+        "file": "figures/spinalflow_fig9.png",
+        "caption": "出典：SpinalFlow (Narayanan+ 2020) Fig. 9（(a) Min Finder と 4 分割 Filter Buffer の全体構成、(b) 膜電位 1 語だけを持つ PE。(c) 疑似コードは省略）"
+      },
+      "notes": "著者公開 PDF（users.cs.utah.edu/~rajeev/pubs/isca20s.pdf）で全文を読んだ。"
+    },
+    {
+      "title": "A Time-to-first-spike Coding and Conversion Aware Training for Energy-Efficient Deep Spiking Neural Network Processor Design",
+      "short": "TTFS 対数計算プロセッサ (Lew+ 2022)",
+      "authors": "Dongwoo Lew, Kyungchul Lee, Jongsun Park（Korea University）｜ DAC 2022",
+      "year": 2022,
+      "venue": "DAC 2022",
+      "link": "https://arxiv.org/abs/2208.04494",
+      "lineage": "発展",
+      "parent": "SpinalFlow",
+      "s1": "SpinalFlow を土台に、深い TTFS 変換 SNN を動かす 28nm プロセッサを設計した。SNN の符号化を模した活性化で ANN を学習する CAT と、底 2 のカーネルで乗算をシフトに置き換える TTFS 対数計算を組み合わせ、VGG-16 で CIFAR-10 91.7%・486.7µJ/画像を得た。",
+      "s2": "T2FSNN（Park+ 2020）は層ごとに異なる時定数と遅延のカーネルを変換後に最適化するため、HW に層ごとの符号器・復号器が要る。本論文は変換前の学習で誤差を潰して全層で同じカーネルを使い、精度向上と HW 削減を両立した。発火時刻を量子化値とみなす見方が鍵。",
+      "s3": "発火時刻 t=⌈τ log2(u/θ0)⌉ は膜電位の対数量子化そのもの。これを模す活性 φ_TTFS で ANN を学習する（ReLU→clip→φ_TTFS の順に切替）。重みも対数量子化（a_w=2^−1/2, 5bit）し、時刻と重みの対数を足して LUT＋シフトで積を作る。",
+      "s4": "VGG-16 で T/τ=24/4 のとき CIFAR-10 92.45%（変換損失 +0.04pt）、CIFAR-100 70.30%（−0.13pt）。T/τ=12/2 に縮めると CAT なしは −30.69pt、CAT ありは −0.05pt（Table 1）。PE の面積 20.8%・電力 23.3% を削減（Fig. 6）、TPU 型比 2 倍省エネ（Table 4）。",
+      "s5": "著者：精度不足は事後量子化を量子化考慮学習に替えれば改善できる。DRAM を使うので Tianjic よりエネルギーは大きい。\n所感：時刻窓 T と時定数 τ が「時刻分解能＝ビット幅」を決めることを示した点が本テーマの要。ただ層ごとに積分→発火の 2 相を待つので、遅延は T×層数（408 step）に積み上がる。",
+      "s6": "・T2FSNN (Park+ 2020)（未調査）\n・TTFS≡ReLU (Stanojevic+ 2024)（既存：spike-coding）\n・DSTD / Syn-SNN (Sakemi+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/lew2022_fig5.png",
+        "caption": "出典：TTFS 対数計算プロセッサ (Lew+ 2022) Fig. 5（SpinalFlow 型の全体構成と、閾値 LUT で発火時刻を決めるスパイク符号器・対数 PE）"
+      },
+      "notes": "arXiv 版（DAC 2022 採録版）を通読。表の数値は Table 1, 2, 4 から。"
+    },
+    {
+      "title": "LoAS: Fully Temporal-Parallel Dataflow for Dual-Sparse Spiking Neural Networks",
+      "short": "LoAS (Yin+ 2024)",
+      "authors": "Ruokai Yin, Youngeun Kim, Di Wu, Priyadarshini Panda（Yale University）｜ MICRO 2024",
+      "year": 2024,
+      "venue": "MICRO 2024",
+      "link": "https://arxiv.org/abs/2407.14073",
+      "lineage": "発展",
+      "parent": "SpinalFlow / PTB",
+      "s1": "重みもスパイクも疎な dual-sparse SNN の中核演算（疎行列×疎行列, spMspM）を、時刻ループを最内に置いて全時刻を並列に処理する FTP データフローで高速化した。加速器 LoAS は、ANN 用疎行列加速器を SNN 向けにした基準に対し最大 8.51 倍高速・3.68 倍省エネ。",
+      "s2": "SpinalFlow は時刻逐次（tick batch）で TTFS 専用、PTB は時間窓単位の部分並列で窓内は逐次、Stellar は Few-Spikes ニューロン専用。SparTen・GoSPA・Gamma などの spMspM 加速器に SNN を載せると、時刻ループで再読み出し・部分和・逐次遅延が T 倍に増える。",
+      "s3": "内積データフローの最内に t を置いて並列化する（再読み出しと部分和が増えない）。全時刻のスパイクを 1 ニューロン 1 語に詰め、一度も発火しない沈黙ニューロン（60〜70%）を省くビットマスク圧縮を使う。全 1 と仮定して先に累積し、遅い prefix-sum で後から補正する inner-join で回路を半減。",
+      "s4": "LTH で枝刈りした AlexNet・VGG16・ResNet19（T=4、重みスパース約 98%）を 32nm・800MHz で評価。平均 6.79 / 5.99 / 3.25 倍高速（対 SparTen / GoSPA / Gamma-SNN, Fig. 12）。密 SNN 加速器 PTB 比 6 倍省エネ・46.9 倍高速、Stellar 比 2.5 倍省エネ（Fig. 19）。",
+      "s5": "著者：時刻が 8 を超えると沈黙ニューロンが減り圧縮が効きにくい。TPPE は T=16 でも面積 1.37 倍に収まる。\n所感：直接学習 SNN の短い時刻（T≤4）を前提にした最適化で、DVS の長い時系列や TTFS とは前提が逆。膜電位の逐次依存は LIF ユニットの展開で吸収しており、T が長いと割に合わない。",
+      "s6": "・PTB (Lee+ 2022)（本文未確認）\n・Stellar (Mao+ 2024)（本文未確認）\n・Prosperity (Wei+ 2025)（未調査）\n・SATA (Yin+ 2022)（既存：energy-evaluation）",
+      "figure": {
+        "file": "figures/loas_fig1.png",
+        "caption": "出典：LoAS (Yin+ 2024) Fig. 1（時刻逐次の SpinalFlow、部分並列の PTB、全時刻並列の FTP の比較と LoAS の構成）"
+      },
+      "notes": "arXiv v3 を通読。PTB と Stellar の比較（Sec. II-E, Fig. 19）は本論文経由の情報。"
+    },
+    {
+      "title": "SpikeX: Exploring Accelerator Architecture and Network-Hardware Co-Optimization for Sparse Spiking Neural Networks",
+      "short": "SpikeX (Xu+ 2025)",
+      "authors": "Boxun Xu, Richard Boone, Peng Li（UC Santa Barbara）｜ IEEE TCAD 2025",
+      "year": 2025,
+      "venue": "IEEE TCAD 2025",
+      "link": "https://arxiv.org/abs/2505.12292",
+      "lineage": "発展",
+      "parent": "PTB",
+      "s1": "PTB の時間窓バッチを発展させたシストリックアレイ SNN 加速器 SpikeX を提案した。時間窓と空間をまたぐ 3 段の重み共有と、発火のない時間窓の重みを読まない仕組みに、HW 損失つき学習と時間窓長の探索を組み合わせ、PTB 比で EDP を 15.1〜150.87 倍改善した。",
+      "s2": "SNN は活性が 1bit、重みは多ビットなので、重みの移動を減らすことが要。PTB は時間窓内の時刻で重みを共有したが、窓をまたぐ共有はなく、時間スパース性が高いと PE が遊ぶ。また学習と加速器設計を切り離しており、発火率と HW 効率の相互依存を使えていなかった。",
+      "s3": "「ニューロン×時間窓」の作業単位 NTWU を、時間密度が高ければ同じニューロンの別の窓を同じ行に、低ければ同じ重みを使う別ニューロンを同じ行に詰める。活動タグが 0 のブロックの重みは各階層で読まない。損失 L=L_acc+β·EDP(S_p(W)) で発火を抑える。",
+      "s4": "DVS-Gesture（中・大）と N-MNIST を、8×8 アレイ・GLB 54KB の解析シミュレータで PTB と比較。発火率 0.01% では配置の工夫だけで 7.11 倍低遅延（Fig. 10）。学習込みで省エネ 24.38 / 4.91 / 2.07 倍、低遅延 10.29 / 5.19 / 7.25 倍（Fig. 13）。最適な窓長は発火率で変わる（Fig. 9）。",
+      "s5": "著者：最適な時間窓長は層と入力スパース性に強く依存する。エネルギーの 62% はメモリ（Fig. 12）。\n所感：時刻分解能（窓長）を HW パラメータとして学習で選ぶ発想は時間圧縮 TC-SNN と地続き。評価は解析モデルのみで RTL や実チップがなく、比較対象が同グループの PTB だけなのは弱い。",
+      "s6": "・PTB (Lee+ 2022)（本文未確認）\n・Bishop (Xu+ 2025) トークン×時刻の束（未調査）\n・LoAS (Yin+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/spikex_fig3.png",
+        "caption": "出典：SpikeX (Xu+ 2025) Fig. 3（時間密度が高いときは時間窓を、低いときは別ニューロンを同じ行に詰める Agile Spatiotemporal Dispatch）"
+      },
+      "notes": "arXiv v1（TCAD 採録）を通読。"
+    },
+    {
+      "title": "FlexSpIM: An Event-Based Digital Compute-In-Memory Accelerator with Flexible Operand Resolution and Layer-Wise Hybrid Stationarity",
+      "short": "FlexSpIM (Chauvaux+ 2026)",
+      "authors": "Nicolas Chauvaux, Adrian Kneip, Charlotte Frenkel（TU Delft）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.08446",
+      "lineage": "最新",
+      "parent": "IMPULSE / SpiDR",
+      "s1": "重みと膜電位を同じ SRAM に任意のビット幅と形で置ける列内デジタル CIM マクロ FlexSpIM を 40nm で試作した。層ごとに重み定常（WS）か膜電位定常（OS）を選ぶハイブリッド定常化で、DVS Gesture 95.8% のまま系全体で最大 45% 省エネ・52% 低遅延を示した。",
+      "s2": "SCNN の膜電位は時刻をまたいで保持する必要があり、メモリは同等の CNN より 25〜67% 増える。先行の IMPULSE・SpiDR は重みと膜電位の領域とビット幅が固定で、WS しか使えず、膜電位の移動が支配的な初段の層に弱い。マクロ単体の効率より系全体のデータ移動が効く。",
+      "s3": "膜電位を 6×2 などの形に折り畳み、隣の列とキャリーを双方向に受け渡して任意ビット幅の加算を数サイクルで行う。符号拡張・オーバーフロー補正・閾値の横配信を周辺回路が担う。ZigZag を時刻・膜電位の持続・スパース性に拡張し、層ごとの WS/OS と配置を矩形詰め込みで決める。",
+      "s4": "DVS128 Gesture の 6 層 SCNN（8bit 重み・16bit 膜電位、10ms/timestep）で評価。可変精度でモデルを最大 30% 縮小。マクロ 32 個で WS のみの場合より −45% エネルギー・−52% 遅延（105µs・6.4µJ/timestep, Fig. 16）。WS ではマクロ外転送がマクロの 4.3 倍のエネルギー。",
+      "s5": "著者：柔軟性の代償でマクロ単体の効率は最良のデジタル CIM の約半分だが、系全体では無視できる。\n所感：膜電位を「どこに定常させるか」を層単位で切り替える発想は、SpinalFlow の膜電位破棄や ELSA の Gustavson 積と同じ問題への別解。解析モデルは一様なスパイク分布を仮定し、評価は 1 データセットのみ。",
+      "s6": "・SpiDR (2024) 再構成可能デジタル CIM（未調査）\n・ZigZag 設計空間探索（未調査）\n・ELSA (You+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/flexspim_fig16.png",
+        "caption": "出典：FlexSpIM (Chauvaux+ 2026) Fig. 16（CIM マクロ数に対する timestep あたりのエネルギー・遅延と、WS/OS/HS のメモリ別エネルギー内訳）"
+      },
+      "notes": "arXiv v1（2026-09）を通読。前身の会議版は arXiv 2410.23082（ISCAS 2025 投稿と記載、採録は未確認）。"
+    },
+    {
+      "title": "UniSpike: Accelerating Spiking Neural Networks on Neuromorphic Systems via Eliminating Address Redundancy",
+      "short": "UniSpike (Xing+ 2026)",
+      "authors": "Qinghui Xing, Zhuo Chen, Xin Du ほか（Zhejiang University）｜ DAC 2026",
+      "year": 2026,
+      "venue": "DAC 2026",
+      "link": "https://arxiv.org/abs/2605.23796",
+      "lineage": "最新",
+      "parent": "NoC マルチキャスト",
+      "s1": "多コア型ニューロモルフィック系の NoC で、同じ宛先コアのアドレスが何度も送られる「アドレス冗長」を特定し、宛先ごとにスパイクを束ねて 1 パケットで送る UniSpike を提案した。平均でトラフィック 1.93 倍削減、1.77 倍高速、1.50 倍省エネ。",
+      "s2": "スパイクパケットの中身は発火ニューロンの ID だけと小さく、重複アドレスが全トラフィックの最大 49% を占める（Fig. 2）。従来のマルチキャスト（1 ニューロン→多宛先の重複）やパケット圧縮（中身の冗長）では、別々のニューロンが同じ宛先へ送る冗長を取り除けない。",
+      "s3": "宛先中心のスケジューリング：各宛先に必要な最後のニューロン（バリアニューロン）を Checking Table にコンパイル時に記録する。更新がそこまで進んだら、発火ビットマップと接続ビットマップの AND で ID を列挙し、1 つの宛先ヘッダの下に並べる。Hilbert 曲線と区間入れ替えで宛先の重なりを増やす。",
+      "s4": "512 コアの 2D メッシュ（HeteroGarnet, 32nm）で、Brunel/Vogels 網（LIF・Izhikevich・AdEx）と ResNet18・VGG11・Spikformer・SDT・SpikingBERT などを評価。HamDP・HamMP・HamK・FlitZip を上回り、スケジューリング単独で 1.58 倍、分割込みで 1.77 倍高速（Fig. 8, 9）。面積増 10.6%。",
+      "s5": "著者：実行時間の短縮で静的エネルギーが減り、ヘッダの削減で動的エネルギーも減る。Brian2 とスパイク列が一致し損失はない。\n所感：時刻内の発火がそろうまで送信を待つ設計で、時刻ごとの同期が前提。非同期・連続時間の系や、遅延が性能に効く閉ループでの影響は評価されていない。",
+      "s6": "・ELSA (You+ 2026) 束ね AER（本資料）\n・Jin+ 2023 大規模 SNN のマッピング（未調査）\n・M-HySMap (2026) マルチキャスト超グラフ配置（未調査）",
+      "figure": {
+        "file": "figures/unispike_fig3.png",
+        "caption": "出典：UniSpike (Xing+ 2026) Fig. 3（従来のニューロン中心の送信（上）と宛先中心の送信（下）。同じ宛先への ID を 1 パケットに束ねる）"
+      },
+      "notes": "arXiv v1（DAC 2026 採録）を通読。5 ページの短報。"
+    },
+    {
+      "title": "ELSA: An ELastic SNN Inference Architecture for Efficient Neuromorphic Computing",
+      "short": "ELSA (You+ 2026)",
+      "authors": "Kang You, Chen Nie, Lee Jun Yan ほか（Shanghai Jiao Tong University）｜ ISCA 2026",
+      "year": 2026,
+      "venue": "ISCA 2026",
+      "link": "https://arxiv.org/abs/2605.20802",
+      "lineage": "最新",
+      "parent": "LBL / TBT 型加速器",
+      "s1": "SNN の出力が時刻とともに少しずつ確定する「弾性推論」を活かす近 SRAM データフロー加速器 ELSA を提案した。spine/トークン単位の細粒度パイプライン、束ね AER、ミニバッチ Gustavson 積により、4bit ResNet-50 で QANN 加速器 ANT 比 3.4 倍高速・13.6 倍省エネ。",
+      "s2": "層ごとに全時刻を処理する LBL 型（SpinalFlow・PTB・LoAS）は全層が終わるまで出力が出ない。時刻ごとに全層を回す TBT 型（TrueNorth・Darwin・PAICORE）も層内 N 個の spine/トークンの同期を待つため、最初の応答に O(L×N) かかる。1 スパイク 1 パケットの AER も通信を膨らませる。",
+      "s3": "完成した spine/トークンをすぐ次の層へ流し、最初の応答を O(L) にする。同じ行のスパイクを 1 flit に束ねる BAER（25bit×17→256bit）がミニバッチを作り、膜電位の行を 1 回読み書きするだけで複数の重み行を加算する。ST-BIF ニューロンで量子化 ANN と等価にし、信頼度で早期終了する。",
+      "s4": "28nm 合成で ResNet18〜101・VGG16・ViT-S・YOLOv2 を評価。PAICORE 比 27.4 倍省エネ・1.65 倍高速（Fig. 16）。細粒度パイプラインで ViT-S が 15.2 倍高速（Fig. 22）。早期終了で平均 21.9% 低遅延・精度低下 0.2% 未満（Table VII）。COCO で最初の正答まで 1.19ms。",
+      "s5": "著者：全重みと膜電位をオンチップに置くので面積効率は LBL 型に劣る。膜電位 SRAM を持たない C-DNN 比の省エネは僅差（25.6 vs 24.5 TOPS/W）。\n所感：LoAS の時刻並列とは逆に、時刻は逐次のまま層間パイプラインで遅延を縮める設計。変換 SNN 前提で時刻数が大きい点は割り引いて読む必要がある。",
+      "s6": "・GustavSNN (Hwang+ 2026)（未調査）\n・Darwin3 (Ma+ 2024)（既存：neuromorphic-hardware）\n・UniSpike (Xing+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/elsa_fig5.png",
+        "caption": "出典：ELSA (You+ 2026) Fig. 5（層単位のパイプラインでは最初の応答が O(L×N)、spine/トークン単位では O(L) になる）"
+      },
+      "notes": "arXiv v1（ISCA 2026 採録）を通読。"
+    },
+    {
+      "title": "Scalable Training of Continuous-Time Spiking Neural Networks with Differentiable Spike-Time Discretization",
+      "short": "DSTD / Syn-SNN (Sakemi+ 2026)",
+      "authors": "Yusuke Sakemi, Tomoya Takeuchi, Takeo Hosomi, Kazuyuki Aihara（千葉工業大学・東京大学 IRCN・NEC）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2607.14672",
+      "lineage": "最新",
+      "parent": "TTFS 解析勾配",
+      "s1": "連続時間 LIF の TTFS-SNN を、入力スパイクを固定時刻点上の重み付きイベントへ微分可能に写す DSTD で学習し、ピークメモリを最大約 1/100、学習時間を約 1/20 にした。層ごとに発火時間窓をずらす synfire 正則化で、9 層 CNN（CIFAR-10 90.36%）と 20 層を学習した。",
+      "s2": "厳密な発火時刻の計算は前段スパイクの順序に依存し、候補時刻が入力数だけ増える（メモリ O(N_out·N_in)）。深い TTFS 網では発火しない死にニューロンで勾配が止まり、層を重ねるほど時刻の伝搬遅延でスループットも落ちる。代理勾配の離散時間 SNN は正確な時刻を制御できない。",
+      "s3": "スパイクを隣り合う 2 つの固定時刻点へ重み付きで振り分けるカーネル K_DSTD を、時刻点上で膜電位が厳密解と一致するよう任意の (τv, τI) について導いた。候補数は M 個に固定（O(N_out·M)）。各層の発火を幅 τ_width の窓に収める罰則で、前の入力の処理中に次を流せる。",
+      "s4": "時刻点数 M=5 では発火時刻に誤差が見え、M=20 でほぼ消える（Fig. 2）。学習精度は M≈10 で飽和する（Fig. 3e）。窓幅 τ_width を縮めると精度が下がるトレードオフがある（Fig. 3d）。Syn-SNN-9 は CIFAR-10 90.36%、Syn-SNN-20 は Fashion-MNIST 92.33%（Table 8）。",
+      "s5": "著者：ハイパーパラメータ探索が重く、近似勾配による学習の理論は今後の課題。アナログ連続時間 HW への直接写像を想定。\n所感：HW から見ると「層あたり何段の時刻分解能で足りるか（M≈10〜20）」と「層あたりの遅延窓」を学習で同時に決められる点が有益。デジタル実装での量子化誤差や電力は未評価。",
+      "s6": "・Mostafa 2017 TTFS 直接学習（既存：spike-coding）\n・Göltz+ 2021 BrainScaleS-2 上の TTFS（未調査）\n・Lew+ 2022 TTFS 対数計算プロセッサ（本資料）",
+      "figure": {
+        "file": "figures/dstd_fig1.png",
+        "caption": "出典：DSTD / Syn-SNN (Sakemi+ 2026) Fig. 1（(d) 入力スパイクを固定時刻点へ写す DSTD、(e) 膜電位の補間、(f)(g) 層ごとの発火時間窓とパイプライン推論）"
+      },
+      "notes": "arXiv v1 を通読（付録の DSTD カーネル導出・計算量表 Table 5・既存モデル比較 Table 8 を含む）。"
+    },
+    {
+      "title": "HEMERA: A Heterogeneous Memory-Centric Accelerator with Recursive Dataflow for Edge-Constrained State-Space-Duality Models Inference",
+      "short": "HEMERA (Ding+ 2026)",
+      "authors": "Hao Ding, Ling Liang, Ruitong Qiao ほか（Peking University）｜ ICCAD 2026",
+      "year": 2026,
+      "venue": "ICCAD 2026",
+      "link": "https://arxiv.org/abs/2607.22022",
+      "lineage": "最新",
+      "parent": "Mamba-2 / SSD",
+      "s1": "Mamba-2 の SSD を、学習時の行列（チャンク並列）形式ではなく、代数的に等価な逐次再帰 S_t=d_t S_{t−1}+B_t⊗X_t に組み替えて実行するエッジ向け加速器 HEMERA を提案した。A100 の最適化カーネル比で 1.4〜3.6 倍高速・12.2〜27.0 倍省エネ。",
+      "s2": "SSD はチャンク内のトークン間相互作用を明示的に作るため、中間テンソルがチャンク長の 2 乗で増え（2.8B で最大 160MB）、状態伝播の逐次依存で帯域律速になる。MambaOPU・HLX・MARCA など先行の加速器は、行列形式の SSD 実行を保ったまま融合や局所化をしていた。",
+      "s3": "注入 inj_t=B_t⊗X_t、減衰 d_t=e^{a_t}、状態更新の 3 つに分解し、2 乗の中間を作らず中間量を O(cs·p+n·p) に抑える。密な射影は SRAM デジタル CIM、再帰は prefix-sum とシストリックの専用エンジン SRE に割り当て、チャンク間の状態は隣の PE へ直接渡す。",
+      "s4": "Mamba-2 130M〜2.8B、系列長 128〜16384 を 22nm 合成＋トレース駆動で A100・CPU と比較（Fig. 9）。2.8B・4096 で 31.7µs/token・0.95mJ/token。SSD の実行時間比率を A100 の 71.5% から 14.1% へ下げ（Fig. 11）、利用率 75.3%（Fig. 12）。アナログ CIM は精度が最大 5.22pt 落ちる。",
+      "s5": "著者：射影はデジタル CIM、精度に敏感な再帰は専用エンジンに分けるのが要点。\n所感：SNN ではないが、「学習は並列（行列形式）・推論は逐次（再帰）」をハードの形で示した好例。S4D on Loihi 2 やスパイキング SSM の専用化に直結する。評価はシミュレーションのみで、比較対象は GPU が中心。",
+      "s6": "・S4D on Loihi 2 (Meyer+ 2024)（既存：parallel-training）\n・S5 (Smith+ 2022)（既存：parallel-training）\n・MARCA (2024) Mamba 再構成加速器（未調査）",
+      "figure": {
+        "file": "figures/hemera_fig4.png",
+        "caption": "出典：HEMERA (Ding+ 2026) Fig. 4（SSD の Y_diag を、行列形式ではなく注入の生成と状態の逐次再帰で計算する組み替え）"
+      },
+      "notes": "arXiv v1（ICCAD 2026 採録）を通読。SNN ではなく SSM の加速器だが、テーマ範囲の「SSM を推論は逐次で載せる設計」の代表として採用。"
+    }
+  ]
+}
