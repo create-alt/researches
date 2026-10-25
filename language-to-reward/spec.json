@@ -1,0 +1,217 @@
+{
+  "field": "言語と行動の接地・汎化",
+  "theme": "言語から報酬・目標を生成する行動獲得",
+  "date": "2026-10-25",
+  "summary": "言語で書かれた課題を報酬・成功判定に変え、行動デモなしに新しい行動を強化学習で獲得する研究の系譜。\nLEARN（言語→形状報酬）から、LLM が報酬コードを書く系（L2R→Eureka→RDA・BIRD）と、VLM が観測を採点する系（VLM-RMs→RL-VLM-F→RoboReward・SOLE-R1・Demo2Reward）に分かれた。\n2026年は未学習課題への汎化と報酬ハッキングの評価が焦点。",
+  "papers": [
+    {
+      "title": "Using Natural Language for Reward Shaping in Reinforcement Learning",
+      "short": "LEARN (Goyal+ 2019)",
+      "authors": "Prasoon Goyal, Scott Niekum, Raymond J. Mooney（The University of Texas at Austin）｜ IJCAI 2019",
+      "year": 2019,
+      "venue": "IJCAI 2019",
+      "link": "https://arxiv.org/abs/1903.02020",
+      "lineage": "原典",
+      "s1": "自然言語の指示と過去の行動列から「指示に沿っているか」を判定する LEARN を学習し、その確率を形状報酬として RL に加える。Montezuma's Revenge の15課題で、同じ相互作用数での成功回数が言語なしより平均60%増えた。",
+      "s2": "報酬整形（Ng+ 1999）は効くが設計が難しい。Williams+ 2017 らの言語→報酬は事前定義の物体・関係に依存し、AGILE（Bahdanau+ 2018）は RL 中に報酬モデルを同時学習する。LEARN は (軌跡, 言語) 対からオフラインで対応を学ぶ。",
+      "s3": "行動頻度ベクトル f と指示 l から RELATED/UNRELATED を分類（負例は言語の差し替えとランダムな f）。ポテンシャル φ=p_R−p_U から R_lang=γφ(f_t)−φ(f_{t−1}) を作り、最適方策を変えずに外的報酬に足す。",
+      "s4": "人のプレイ20軌跡を3秒クリップに切り、AMT で6,870文を収集。PPO 50万ステップで成功回数は Ext+Lang 1529 vs ExtOnly 903（Fig. 4）。AUC は15課題中11で有意に改善、1課題で悪化した。",
+      "s5": "著者：行動頻度だけを見るため、物体を指す指示・時間順序・複数段の指示は扱えない。「jump」を含む指示の接地は雑音が多い。\n所感：外的報酬は別途必要で、言語は探索の補助に留まる。本テーマの出発点。",
+      "s6": "・AGILE (Bahdanau+ 2018)（未調査）\n・Language to Rewards (Yu+ 2023)（本資料）\n・VLM-RMs (Rocamonde+ 2023)（本資料）",
+      "figure": {
+        "file": "figures/learn.png",
+        "caption": "出典：LEARN Fig. 2（行動頻度ベクトルと指示から言語報酬を出し、環境報酬に加える枠組み）"
+      },
+      "notes": "arXiv v2（IJCAI 2019 版＋補遺）を本文・付録（注釈例、方策不変性の証明）まで読んだ。"
+    },
+    {
+      "title": "Language to Rewards for Robotic Skill Synthesis",
+      "short": "Language to Rewards (Yu+ 2023)",
+      "authors": "Wenhao Yu, Nimrod Gileadi, Chuyuan Fu ほか（Google DeepMind）｜ CoRL 2023",
+      "year": 2023,
+      "venue": "CoRL 2023",
+      "link": "https://arxiv.org/abs/2306.08647",
+      "lineage": "発展",
+      "parent": "LEARN (Goyal+ 2019)",
+      "s1": "GPT-4 に言語指示から報酬関数のパラメータを書かせ、MuJoCo MPC で実時間に最適化して動作を合成する。四脚ロボットと器用な手の17課題の90%を解き、プリミティブを呼び出す Code-as-Policies（50%）を上回った。",
+      "s2": "SayCan や Code-as-Policies は LLM を既存プリミティブの組合せ役に留め、新しい低レベル技能は作れない。LLM は関節指令を直接出せない。LEARN など言語→報酬の先行研究は対応付けの学習データを要した。",
+      "s3": "2段の Reward Translator：Motion Descriptor が指示を定型テンプレートの動作記述に展開し、Reward Coder が報酬 API 呼び出しのコードに変える。報酬は R=−Σ w_i n_i(r_i(s,a,ψ_i)) で、LLM が重み w と目標値 ψ を決める。",
+      "s4": "四脚9課題、Franka＋Shadow Hand 8課題。各課題10回生成×50回試行。17中11課題で有意に高く、Motion Descriptor を外すと引出し開けなどで失敗（Fig. 4）。対話修正でムーンウォーク、実機で押し・把持も示した。",
+      "s5": "著者：ロボットごとのテンプレートは手作業。「優雅に歩く」など言語化しにくい課題は苦手で、事前定義の報酬項に縛られ時変報酬も書けない。\n所感：学習なしで即座に結果が見えるのが強み。報酬項の設計が実質の事前知識。",
+      "s6": "・Eureka (Ma+ 2023)（本資料）\n・Text2Reward (Xie+ 2023)（未調査）\n・Code as Policies (Liang+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/l2r.png",
+        "caption": "出典：Language to Rewards Fig. 1（LLM は動作記述や関節指令を直接実行できないが、報酬コードを介せば MPC が動作を合成できる）"
+      },
+      "notes": "arXiv v2 の本文（1〜5章）と付録の報酬項・プロンプト例を確認。CoRL 2023（PMLR 229）採録。"
+    },
+    {
+      "title": "Eureka: Human-Level Reward Design via Coding Large Language Models",
+      "short": "Eureka (Ma+ 2023)",
+      "authors": "Yecheng Jason Ma, William Liang, Guanzhi Wang ほか（NVIDIA / University of Pennsylvania）｜ ICLR 2024",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2310.12931",
+      "lineage": "発展",
+      "parent": "Language to Rewards (Yu+ 2023)",
+      "s1": "環境のソースコードと課題文だけを GPT-4 に渡して報酬コードを書かせ、RL の結果で進化的に改良する Eureka。10種のロボット・29課題の83%で専門家の報酬を上回り（平均正規化改善52%）、Shadow Hand のペン回しを初めて実現した。",
+      "s2": "L2R は課題別テンプレートと報酬 API に縛られ、高次元の器用な操作で伸びない。従来の進化的報酬探索（Niekum+ 2010 など）もテンプレート内のパラメータ探索だった。Eureka は自由形式の報酬プログラムを一から書く。",
+      "s3": "①環境コードを文脈に入れ、実行可能な報酬を零ショット生成。②各反復 K=16 個を IsaacGym で並列に RL 評価し、最良を変異させる進化探索。③報酬の各成分と適合度の学習中の推移を文章化した reward reflection を次のプロンプトに渡す。",
+      "s4": "Isaac 9課題・Dexterity 20課題で、Isaac 全課題と Dexterity 15課題で人の報酬以上、L2R は高次元で大差（Fig. 4）。reflection を外すと正規化スコア28.6%減。人の文章フィードバックで、より安定な走りを20人中15人が選んだ（Fig. 9）。",
+      "s5": "著者：適合度関数 F（成否判定）を人が定義できる前提で、「安定した歩き方」のような課題は書けない。動画を VLM に見せるフィードバックを今後の方向とする。\n所感：成否は人の書いた F が支える。ここが RDA・BIRD の論点になる。",
+      "s6": "・DrEureka (Ma+ 2024)（未調査）\n・RDA (Lee+ 2026)（本資料）\n・BIRD (Bhamidipaty+ 2026)（本資料）\n・ReEvo (Ye+ 2024)（既存：swarm-intelligence/metabbo）",
+      "figure": {
+        "file": "figures/eureka.png",
+        "caption": "出典：Eureka Fig. 2（環境コードと課題文から報酬候補を生成→GPU 並列 RL で評価→reward reflection で改良）"
+      },
+      "notes": "arXiv v2（ICLR 2024 版）の本文と付録 H（Limitations）を読んだ。"
+    },
+    {
+      "title": "Vision-Language Models are Zero-Shot Reward Models for Reinforcement Learning",
+      "short": "VLM-RMs (Rocamonde+ 2023)",
+      "authors": "Juan Rocamonde, Victoriano Montesinos, Elvis Nava, Ethan Perez, David Lindner（FAR AI / ETH Zurich ほか）｜ ICLR 2024",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2310.12921",
+      "lineage": "発展",
+      "parent": "LEARN (Goyal+ 2019)",
+      "s1": "CLIP の画像埋め込みと一文の課題文の cos 類似度をそのまま報酬にする VLM-RM。MuJoCo の人型に「ひざまずく」「蓮華座」「開脚」などを報酬設計なしで学ばせ、8課題中5課題で成功率100%（人手評価）を得た。",
+      "s2": "VLM で報酬を作る先行研究は CLIP の微調整（Mahmoudieh+ 2022）や成功判定器の学習（Du+ 2023）など、課題固有のデータや複雑な手順を要した。本研究は微調整なしで、正解報酬のない姿勢課題まで学習できると示した。",
+      "s3": "報酬 R=cos(CLIP_L(l), CLIP_I(ψ(s)))。任意で「a humanoid robot」のような基準文 b を与え、状態埋め込みを b→g 方向へ射影する Goal-Baseline 正則化（強さ α）で無関係な成分を除く。SAC/DQN の報酬だけを差し替える。",
+      "s4": "CartPole と質感付き MountainCar は成功率100%、質感なしでは失敗（Fig. 2）。人型は100軌跡の人手評価（Table 1）。CLIP が大きいほど EPIC 距離が対数線形に改善し、ひざまずきは最大の ViT-bigG-14 だけが成功、他は0%（Fig. 4）。",
+      "s5": "著者：一文で意図を伝えきれない複雑な課題では報酬が誤指定になりやすく、独立した監視が要る。腕組みなどの微妙な姿勢は区別できない。\n所感：背景の質感やカメラ位置の調整が成否を分けた。報酬ハッキングへの耐性は未検証。",
+      "s6": "・RoboCLIP (Sontakke+ 2023)（未調査）\n・LAMP (Adeniji+ 2023)（未調査）\n・RL-VLM-F (Wang+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/vlmrm.png",
+        "caption": "出典：VLM-RMs Fig. 1（CLIP 報酬だけで学んだ人型：腕上げ・蓮華座・開脚・ひざまずき）"
+      },
+      "notes": "arXiv v2（ICLR 2024 版）の本文・Limitations を読んだ。付録は人手評価手順を確認。"
+    },
+    {
+      "title": "RL-VLM-F: Reinforcement Learning from Vision Language Foundation Model Feedback",
+      "short": "RL-VLM-F (Wang+ 2024)",
+      "authors": "Yufei Wang, Zhanyi Sun, Jesse Zhang ほか（Carnegie Mellon University / USC）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024",
+      "link": "https://arxiv.org/abs/2402.03681",
+      "lineage": "発展",
+      "parent": "VLM-RMs (Rocamonde+ 2023)",
+      "s1": "課題の一文と画像観測だけで、VLM（Gemini-Pro・GPT-4V）に「どちらの画像が目標に近いか」を答えさせ、その選好から報酬モデルを学ぶ RL-VLM-F。布の対角折りなど7課題で全ベースラインを上回り、6課題で正解報酬由来の選好と同等以上だった。",
+      "s2": "Eureka や Text2Reward は環境コードと低次元の真の状態を前提とし、変形物体には書きにくい。Motif は状態の文章記述が要る。CLIP 類似度（VLM-RMs）や RoboCLIP の生スコアは分散が大きく雑音が多い。",
+      "s3": "生スコアを出させず、画像の対比較で選好ラベル y∈{0,1,−1} を得て Bradley-Terry 損失で報酬 r_ψ を学ぶ（PEBBLE 上で SAC と交互更新）。VLM には「分析→ラベル付け」の2段プロンプトを全課題共通で与える。",
+      "s4": "CartPole、MetaWorld 3課題、SoftGym 3課題（布・ロープ・水運び）、5 seeds。CLIP/BLIP-2 スコアは CartPole しか解けず、VLM の直接スコアも全課題で劣る（Fig. 4）。画像間の進捗差が大きいほど選好の正答率が上がる（Fig. 6）。",
+      "s5": "著者：1枚の画像で成否が分かる課題が前提。長期課題は部分課題への分解が要る。VLM の偏りは方策に引き継がれる。\n所感：MetaWorld ではロボットを透明にして描画しており、実機には工夫が要る。ハッキング耐性も直接は評価していない。",
+      "s6": "・RoboReward (Lee+ 2026)（本資料）\n・Motif (Klissarov+ 2023)（既存：world-model/foundation-world-model）",
+      "figure": {
+        "file": "figures/rlvlmf.png",
+        "caption": "出典：RL-VLM-F Fig. 1（観測画像の対を VLM が課題文に照らして比較し、選好ラベルから報酬モデルを学ぶ）"
+      },
+      "notes": "arXiv v4（ICML 2024 版）の本文（1〜7章）を読んだ。"
+    },
+    {
+      "title": "RoboReward: General-Purpose Vision-Language Reward Models for Robotics",
+      "short": "RoboReward (Lee+ 2026)",
+      "authors": "Tony Lee, Andrew Wagenmaker, Karl Pertsch, Percy Liang, Sergey Levine, Chelsea Finn（Stanford / UC Berkeley）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2601.00675",
+      "lineage": "最新",
+      "parent": "RL-VLM-F (Wang+ 2024)",
+      "s1": "実ロボット動画と指示から終端の進捗（1〜5）を出す汎用報酬 VLM（RoboReward 4B/8B）と、人手検証済みの RoboRewardBench を構築。8B は22モデル中で MAE 最小（0.665）で、実機 RL では Gemini Robotics-ER 1.5 より大きく方策を改善した。",
+      "s2": "VLM-RMs や RL-VLM-F などの VLM 報酬は主にシミュレーションで評価され、実機で十分な精度かは不明だった。OXE などの大規模データは成功デモに偏り、失敗を見分ける報酬モデルの学習・評価に向かない。",
+      "s3": "「逆 HER」型の負例拡張：成功動画はそのままに、VLM・LLM で「部分成功／失敗になる別の指示」を作る反実仮想ラベル付けと、動画を途中で切る clipping。5段階ルーブリックで VLM が検証。課題文が分割間で重ならないよう分けて Qwen3-VL を微調整。",
+      "s4": "Robomimic で進捗型報酬は二値より速く収束し、報酬精度と RL 性能の相関 r=0.83（Fig. 3）。2,831件の Bench で 8B は GPT-5 mini 0.691、GPT-5 0.811 を上回る（Table 1）。WidowX の未学習2課題で成功率 5→50%、10→80%（人手報酬 75%・90%, Table 2）。",
+      "s5": "著者：最先端 VLM も機体・視点ごとに精度がばらつく。長期・多段課題が今後の課題。\n所感：負例拡張を外すと MAE 0.845→1.45 と大きく悪化し、データ設計が鍵。終端1回の評価で密な報酬ではなく、実機 RL も BC 方策の改善に限られる。",
+      "s6": "・GVL (Ma+ 2024)（未調査）\n・Robometer (Liang+ 2026)（未調査）\n・SOLE-R1 (Schroeder+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/roboreward.png",
+        "caption": "出典：RoboReward Fig. 1（4.5万件の学習データ、2,800件の人手検証テスト、MAE によるリーダーボードと採点例）"
+      },
+      "notes": "arXiv v2 の本文（1〜6章）を読んだ。採録先は確認できず、arXiv プレプリントとした。"
+    },
+    {
+      "title": "SOLE-R1: Video-Language Reasoning as the Sole Reward for On-Robot Reinforcement Learning",
+      "short": "SOLE-R1 (Schroeder+ 2026)",
+      "authors": "Philip Schroeder, Thomas Weng, Karl Schmeckpeper ほか（MIT / RAI Institute）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2603.28730",
+      "lineage": "最新",
+      "parent": "RoboReward (Lee+ 2026)",
+      "s1": "動画と言語の目標だけから、時刻ごとに思考連鎖（CoT）で進捗を推論して密な報酬を出す SOLE-R1（Qwen3-VL-8B）。デモも正解報酬もなしに乱数方策から RL し、40課題中24の未学習課題で成功率50%以上（GPT-5 は7、Gemini は5）。",
+      "s2": "GPT-5 などの汎用 VLM を報酬にすると、部分観測と分布シフトのもとで方策が知覚の誤りを突き、「成功に見える」行動を学ぶ。RoboReward・Robometer・LRM は専門家軌跡が中心で推論過程を持たず、ゼロからのオンライン RL で検証されていない。",
+      "s3": "入力は目標・初期フレーム・直近 K フレーム・前回の進捗。出力は変化の説明（think）と進捗 p_t∈[−100,100]（answer）。専門家軌跡に乱数動作や逆再生を挟んで後退を含む動画を合成し、CoT 120万件で SFT、進捗誤差を報酬に GRPO で仕上げる。",
+      "s4": "RoboSuite・ManiSkill・Meta-World・LIBERO・実機の40課題で DrQ-v2 を乱数初期化から学習（Fig. 3）。汎用 VLM の失敗は「体感成功は高く真の成功は低い」報酬ハッキング型、SOLE-R1 は信号不足型が中心（Fig. 4）。CoT を外すと報酬が平坦化（Fig. 5）。",
+      "s5": "著者：短い出来事、遮蔽、曖昧な見えでは報酬が平坦・雑音化し、分布シフト下で誤りを突かれる余地は残る。実機には外部の安全機構が必須。\n所感：訓練課題の種類が増えるほど解ける課題が増え（Fig. 6）、ここが汎化の鍵。実機は1 seed のみ。",
+      "s6": "・RoboReward (Lee+ 2026)（本資料）\n・GVL (Ma+ 2024)（未調査）\n・ReWiND (Zhang+ 2025)（未調査）\n・TOPReward (Chen+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/sole.png",
+        "caption": "出典：SOLE-R1 Fig. 1（時刻ごとの CoT と進捗推定を報酬に方策を更新／5環境での零ショット RL 成功率）"
+      },
+      "notes": "arXiv v2 の本文（1〜8章、Limitations）を読んだ。付録は参照せず。"
+    },
+    {
+      "title": "From Demonstrations to Rewards: Test-Time Prompt Optimization for VLM Reward Models",
+      "short": "Demo2Reward (Gumbsch+ 2026)",
+      "authors": "Christian Gumbsch, Leonardo Barcellona, Lennard Schünemann ほか（University of Amsterdam / Toyota）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2606.00083",
+      "lineage": "最新",
+      "parent": "RoboReward (Lee+ 2026)",
+      "s1": "3〜10本のデモを使い、VLM 成功判定器への言語指示だけを方策学習の前に自動で書き直す Demo2Reward。再学習も学習中の追加計算もなしに偽陽性を抑え、MetaWorld で成功率を最大40ポイント改善、実機でも正解報酬並みに学習した。",
+      "s2": "VLM を零ショット成功判定器に使うと、把持した時点で「成功」とするなど偽陽性が多く、方策がそれを突いて真の成功に届かない（Fig. 2）。詳しいプロンプトの手作りは報酬設計の手間を戻してしまう。RoboReward は大規模な微調整を要する。",
+      "s3": "デモを接頭辞の部分動画に分け、時点ごとの成否ラベル付きデータにする。メタ批評役の VLM が誤判定例を見て指示 p を改訂し、Ô(p)=TNR(p)+λTPR(p)（λ=0.01）が上がるときだけ採用。退化解（常に0）を避けるため初期値とメタ VLM を変えて K 回探索。",
+      "s4": "Qwen3-VL-8B、IBRL/RLPD。PickPlace-Can で偽陽性率 26.1%→0%（Table 1–2）。MetaWorld 4課題で RoboReward・GVL・RoboCLIP・零ショット判定を上回る（Fig. 5, 10 seeds）。実機の蓋閉め（デモ20本）で正解報酬並み、零ショットより約20%高い（Fig. 7）。",
+      "s5": "著者：デモ収集時と学習時で見え方が変わると過適合しうる。二値の成否に限られ、最初の指示は人が与える。\n所感：最適化後の指示に青い棒を「赤い棒」と書くなど、VLM の知覚の癖に合わせる。人が読める仕様としての言語とのトレードオフ。",
+      "s6": "・RoboReward (Lee+ 2026)（本資料）\n・GVL (Ma+ 2024)（未調査）\n・SENSEI (Sancaktar+ 2025)（既存：world-model/intrinsic-reward）",
+      "figure": {
+        "file": "figures/d2r.png",
+        "caption": "出典：Demo2Reward Fig. 1（少数デモで指示を最適化→VLM 報酬で方策学習／零ショット判定の偽陽性・偽陰性の例）"
+      },
+      "notes": "arXiv v1 の本文（1〜5章、Limitations）を読んだ。RLC/RLJ 2026 採録との検索情報があるが PDF で確認できず、arXiv プレプリントとした。"
+    },
+    {
+      "title": "RDA: Reward Design Agent for Reinforcement Learning",
+      "short": "RDA (Lee+ 2026)",
+      "authors": "Hojoon Lee, Ajay Subramanian, Ben Abbatematteo ほか（Meta）｜ RLC 2026",
+      "year": 2026,
+      "venue": "RLC 2026",
+      "link": "https://arxiv.org/abs/2606.01672",
+      "lineage": "最新",
+      "parent": "Eureka (Ma+ 2023)",
+      "s1": "Eureka 型の報酬コード探索に、VLM による動画の視覚診断を組み込んだエージェント RDA。指示を部分課題に分け、ロールアウトを部分課題ごとに採点して失敗要因を要約し、報酬を直す。HumanoidBench で指示整合度を Eureka の0.47から0.70に高めた。",
+      "s2": "Eureka は成功率と報酬成分の統計だけで振り返るため、「荷物を押す」課題を投げて解くような指示違反を見分けられない（Fig. 1）。VLM で危険な候補を除く手法や CLIP 整合報酬の追加は、誤りを検出しても直し方を示さない。",
+      "s3": "GPT-5 が指示を部分課題列 T に分け、各部分課題に対応する成分の重み付き和で報酬コード候補を生成。候補ごとに SAC を学習し、K 本の動画を部分課題ごとに0〜1で採点・理由を要約、最良を選んで部分課題記述と報酬コードを改訂（5反復）。",
+      "s4": "ManiSkill 12課題で整合0.95・成功0.90（Eureka 0.87/0.87、人手の密報酬 0.68/0.74）、PlugCharger は RDA のみ成功。HumanoidBench 4課題で整合 0.70 vs 0.47、成功 0.42 vs 0.52（Fig. 4）。動画診断の追加だけで整合 0.31→0.82（Fig. 7）。",
+      "s5": "著者：候補ごとに RL 学習が要り高コスト。VLM の文脈長と細かな視覚推論に制約され、前後の部分課題の報酬が衝突すると失敗する。\n所感：整合度を測るのも VLM（GPT-4.1）で、探索側の VLM と偏りを共有しうる。BIRD の人手評価と突き合わせたい。",
+      "s6": "・Eureka (Ma+ 2023)（本資料）\n・BIRD (Bhamidipaty+ 2026)（本資料）\n・Prompt-to-Policy (Chung+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/rda.png",
+        "caption": "出典：RDA Fig. 2（部分課題分解→報酬生成→RL→動画の視覚分析→要約→部分課題と報酬の改訂、の進化ループ）"
+      },
+      "notes": "arXiv v1（RLJ 2026 版）の本文（1〜6章、Limitations）を読んだ。人手密報酬の HumanoidBench 値は本文（0.25/0.08）と Fig. 4（0.16/0.05）が食い違うため記載を避けた。"
+    },
+    {
+      "title": "A Bird's-Eye View of Iterative Reward Design",
+      "short": "BIRD (Bhamidipaty+ 2026)",
+      "authors": "Logan M. Bhamidipaty, Lauren Robson, Linda Petrini ほか（Anthropic Fellows Program / Anthropic）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.04364",
+      "lineage": "最新",
+      "parent": "Eureka (Ma+ 2023)",
+      "s1": "LLM による反復報酬設計（IRD）の14手法を共通ループの設定として実装し、同一予算で比べる BIRD を構築。30の設計選択の大半は効果が不明確で、単純な選択を重ねた ERA-S/ERA-U が既存手法を上回った。一方、高得点でも不自然・有害な挙動が残った。",
+      "s2": "Eureka、Text2Reward、RDA、RF-Agent、REvolve などは実装・フィードバックの前提・評価環境がばらばらで、どの工夫が効くのか比べられなかった。「ベンチマーク得点が高い＝意図どおり」かも検証されていなかった。",
+      "s3": "IRD を 生成→検証→方策学習→評価→選択 の5段に分け、各手法を YAML の設定で表す（同じ選択は同じ実装を共有）。評価は教師あり（ベンチの得点）と教師なし（VLM の達成評価）を区別し、Bradley–Terry で順位付けする。",
+      "s4": "MuJoCo・Meta-World MT10・Assistax・HumanoidBench の21課題。6手法の比較では REvolve が概ね最強で他は僅差（Fig. 4）。明確に効いた選択は4つだけ（Fig. 5）。人の達成評価とベンチ得点の相関は MT10 0.78、HumanoidBench 0.26（Table 2）。",
+      "s5": "著者：評価者は著者2名のみで、生成・判定モデルの影響は未検証。HumanoidBench の参照報酬は後ろ向きに跳ねても稼げ、背中掻き課題では3 kN の力を加える方策も高得点だった。\n所感：言語で「何を」しか伝えない設定の弱点を示した重要な負の結果。",
+      "s6": "・Eureka (Ma+ 2023)（本資料）\n・RDA (Lee+ 2026)（本資料）\n・REvolve (Hazra+ 2025)（未調査）\n・RF-Agent (Gao+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/bird.png",
+        "caption": "出典：BIRD Fig. 8（参照報酬では高得点だが不自然な IRD 方策・台本方策と、患者の腕に過大な力をかける背中掻き方策）"
+      },
+      "notes": "arXiv v1 の本文（1〜6章）と付録 D（Limitations）を読んだ。"
+    }
+  ]
+}

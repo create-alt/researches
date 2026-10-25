@@ -1,0 +1,236 @@
+{
+  "field": "言語と行動の接地・汎化",
+  "theme": "組成的汎化と言語・行動の共発達",
+  "date": "2026-10-25",
+  "summary": "少数の（文, 行動）対から語の意味と組合せ方を学び、未学習の組合せの指示を実行する研究の系譜。\n発達ロボティクスの PB 結合（Sugita & Tani 2003 → Vijayaraghavan+ 2025）、系統性ベンチマーク（SCAN → Hill+ → gSCAN）、ロボット方策（LangLfP → TRA → 2026年の VLA 研究）が、データの被覆・身体性・表現の分解という同じ問いに合流しつつある。",
+  "papers": [
+    {
+      "title": "A Holistic Approach to Compositional Semantics: a connectionist model and robot experiments",
+      "short": "PB 結合による組成的意味 (Sugita & Tani 2003)",
+      "authors": "Yuuya Sugita, Jun Tani（理化学研究所 脳科学総合研究センター）｜ NIPS 2003",
+      "year": 2003,
+      "venue": "NIPS 2003",
+      "link": "https://proceedings.neurips.cc/paper_files/paper/2003/hash/3baa271bc35fe054c86928f7016e8ae6-Abstract.html",
+      "lineage": "原典",
+      "s1": "言語用と行動用の2つの RNNPB を、対応する文と行動が同じパラメトリックバイアス（PB）ベクトルを共有するよう結合。実ロボットが18文中14文の（文, 行動）対から学び、未学習の4文（\"push red\" など）に対応する行動を生成した。",
+      "s2": "Roy や岩橋のモデルは語彙を先に獲得し、品詞や意味の型を事前に与えて文の意味を組み立てていた。本研究は語の意味も構文も与えず、文と行動の相互作用から組成的な意味構造を自己組織化させる。",
+      "s3": "各 RNNPB は時系列を低次元の PB ベクトルに符号化する。学習時、対応する文と行動の PB を引き寄せ合う項 γ(p_b − p_s) を更新則に加える（式7・8）。文を認識して PB を求め、その PB で行動モジュールを駆動する（式6）。",
+      "s4": "車輪2・腕1関節・色視覚の移動ロボットで、動詞3×名詞6（色と位置の同義語）の18文・9行動カテゴリ。14対で学習し、未学習の4文すべてで正しい行動を生成。PB 空間に動詞×名詞の格子構造と行動類似度が同時に現れた（Fig. 4）。",
+      "s5": "著者：強い系統性は検証できず、学習対が全体の大部分（14/18）を占める。大きな言語ほど必要な割合は減ると予想。\n所感：定量指標や反復はなく事例報告に近い。それでも「行動側に部品がなくても、言語の組合せ構造が行動へ転写される」という主張が後続研究の出発点になった。",
+      "s6": "・Sugita & Tani 2005 Adaptive Behavior 版（本文未確認）\n・Vijayaraghavan+ (2025)（本資料）\n・Tinker+ (2026)（既存：active-inference/epistemic-agents）",
+      "figure": {
+        "file": "figures/sugita_fig4.png",
+        "caption": "出典：Sugita & Tani 2003 Fig. 4（言語モジュールと行動モジュールの PB 空間。下線が未学習の文と対応行動）"
+      },
+      "notes": "NeurIPS proceedings の公開 PDF で全文（8頁）を読んだ。雑誌版 Adaptive Behavior 13(1) 2005 は OIST 掲載 PDF に到達できず本文未確認。"
+    },
+    {
+      "title": "Generalization without Systematicity: On the Compositional Skills of Sequence-to-Sequence Recurrent Networks",
+      "short": "SCAN (Lake & Baroni 2018)",
+      "authors": "Brenden M. Lake, Marco Baroni（ニューヨーク大学 / Facebook AI Research）｜ ICML 2018",
+      "year": 2018,
+      "venue": "ICML 2018",
+      "link": "https://arxiv.org/abs/1711.00350",
+      "lineage": "原典",
+      "s1": "\"jump twice and walk left\" のような簡易英語の命令を行動系列に変換する SCAN（全20,910命令）を提案し、seq2seq RNN の零ショット汎化を測った。ランダム分割では99.8%だが、\"jump\" を単独でしか見ない条件では最大1.2%だった。",
+      "s2": "Fodor & Pylyshyn 以来の「ニューラルネットは系統的な組成性を持たない」という論争に、現代の seq2seq（LSTM・GRU・注意）で初めて統制実験を与えた。文法と解釈関数が既知なので、学習と評価の差を系統的に設計できる。",
+      "s3": "句構造文法で命令を生成し、解釈関数で行動系列（JUMP, LTURN など6種）を決める。分割は (1) ランダム、(2) 長い行動系列、(3) 単独でしか見ていない語の組合せ。180通りの構成×5シードを試し、最良モデルで評価する。",
+      "s4": "実験1：学習に使う命令が1%で約5%、2%で54%、4%で93%（Fig. 3）。実験2：長さ24〜48の系列は最良20.8%。実験3：\"turn left\" は90.0%、\"jump\" は1.2%。\"jump\" の合成例を32個足すと88.4%（Fig. 5）。",
+      "s5": "著者：ネットは「混ぜ合わせ」では強く汎化するが、規則を抽出できない。メタ学習や構造的な帰納バイアスを提言。\n所感：行動は記号列で、身体も環境もない。被覆率が数%を超えると急に汎化する結果（Fig. 3）は、少数データで足りる条件を考える基準点になる。",
+      "s6": "・gSCAN (2020)（本資料）\n・Lake 2019 meta seq2seq（未調査）\n・Lake & Baroni 2023 MLC, Nature（未調査）",
+      "figure": {
+        "file": "figures/scan_fig3.png",
+        "caption": "出典：SCAN Fig. 3（学習に使う命令の割合と、未学習命令の正答率）"
+      },
+      "notes": "arXiv v3（ICML 版）で本文（実験1〜4・考察）を読んだ。"
+    },
+    {
+      "title": "Environmental drivers of systematicity and generalization in a situated agent",
+      "short": "身体性と系統的汎化 (Hill+ 2020)",
+      "authors": "Felix Hill, Andrew Lampinen, Rosalia Schneider ほか（DeepMind）｜ ICLR 2020",
+      "year": 2020,
+      "venue": "ICLR 2020",
+      "link": "https://arxiv.org/abs/1910.00571",
+      "lineage": "発展",
+      "parent": "SCAN (Lake & Baroni 2018)",
+      "s1": "3D の Unity 部屋で、画素と言語命令を受ける汎用の強化学習エージェントが、未学習の動詞×物体（持ち上げたことのない物を \"lift\" など）を零ショットで実行できることを示し、汎化を左右する環境要因を特定した。",
+      "s2": "SCAN などの失敗報告は、単一モダリティ・抽象刺激の教師あり学習だった。本研究は特別な帰納バイアスなしに、身体を持ち一人称で動いて多様な視覚入力を得ること自体が系統的汎化を生む、という反対側の証拠を示す。",
+      "s3": "CNN（視覚）＋語単位 LSTM（言語）＋LSTM 記憶の最小構成を IMPALA で学習。学習と評価で語の組合せを分け、(a) 語・物体の数、(b) 一人称の視野、(c) 時間的に変わる視覚入力、(d) 言語の有無を一つずつ操作する。",
+      "s4": "lift はほぼ完全、put は90%超で零ショット汎化（Fig. 2）。否定 \"not x\" は学習語6→40→100で0.40→0.60→0.78（Table 1）。put は2D 格子0.40、3D 0.63、自己中心視の格子0.60（Table 2）。単一画像の分類器0.80、エージェント1.00（Table 3）。",
+      "s5": "著者：環境は現実よりずっと単純で、汎化は完全な系統性ではない。言語の有無で汎化の差はほぼ消えた。\n所感：「何が汎化を決めるか」に身体性と感覚運動の構造という答えを定量的に出した。ただし大量の試行が前提で、少数データの問題には答えていない。",
+      "s6": "・Grounded Language Learning Fast and Slow (2021)（未調査）\n・gSCAN (2020)（本資料）\n・Vijayaraghavan+ (2025)（本資料）",
+      "figure": {
+        "file": "figures/hill_fig3.png",
+        "caption": "出典：Hill+ 2020 Fig. 3（同じ put 課題の (a) 2D 格子世界と (b) 3D 部屋の一人称視点）"
+      },
+      "notes": "arXiv v4（ICLR 版）で本文と付録 A（限界）を読んだ。"
+    },
+    {
+      "title": "A Benchmark for Systematic Generalization in Grounded Language Understanding",
+      "short": "gSCAN (Ruis+ 2020)",
+      "authors": "Laura Ruis, Jacob Andreas, Marco Baroni, Diane Bouchacourt, Brenden M. Lake（アムステルダム大学 / FAIR ほか）｜ NeurIPS 2020",
+      "year": 2020,
+      "venue": "NeurIPS 2020",
+      "link": "https://arxiv.org/abs/2003.05161",
+      "lineage": "発展",
+      "parent": "SCAN (Lake & Baroni 2018)",
+      "s1": "SCAN を格子世界に接地した gSCAN を提案。\"small\" の相対的な意味、既知の副詞と既知の動詞の新しい組合せなど8種の系統的分割を一つの訓練集合（30万例超）で評価でき、標準的な多モーダル seq2seq は大半で失敗した。",
+      "s2": "SCAN には世界状態がなく、記号列どうしの写像にすぎない。そのため置換同変性（Gordon+）や GECA などが SCAN 固有の性質を利用して解けていた。接地すると語の意味が状況で変わるため、そうした近道が効かない。",
+      "s3": "命令と格子状態（色・形・大きさ・向き）から行動系列（walk, push, L_turn など）を出す教師あり課題。物体は大きさで軽い／重いの潜在クラスを持ち、push の回数が変わる。基準モデルは二重注意付き biLSTM＋CNN。",
+      "s4": "Table 1：ランダム分割97.7%、新しい色×形23.5%（GECA 78.8%）、南西方向0%、\"small\" の相対性35.0%、重さの推論92.5%、副詞 cautiously は50例でも4.6%、spinning×pull は22.7%、長さ汎化2.1%。",
+      "s5": "著者：SCAN 向け手法の多くは SCAN の人工性を利用していた。RL 版や RGB 版への拡張を予定。\n所感：Hill+ が成功した「既知の動詞を新しい物体へ」に当たる分割 F だけが解ける点は整合的。後続のモジュラー手法で解けた分割と残った分割の差が、表現の分解の論点になる。",
+      "s6": "・Ruis & Lake 2022 モジュール＋データ拡張（未調査）\n・Qiu+ 2021 gSCAN: What is Nearly Solved（未調査）\n・Hill+ (2020)（本資料）",
+      "figure": {
+        "file": "figures/gscan_fig1_2.png",
+        "caption": "出典：gSCAN Fig. 1・2（同じ語句でも世界状態で指示対象と行動系列が変わる例と、副詞 cautiously・while spinning の例）"
+      },
+      "notes": "arXiv v2（NeurIPS 版）で本文（分割 A〜I・結論）を読んだ。"
+    },
+    {
+      "title": "Language Conditioned Imitation Learning over Unstructured Data",
+      "short": "LangLfP (Lynch & Sermanet 2021)",
+      "authors": "Corey Lynch, Pierre Sermanet（Robotics at Google）｜ RSS 2021",
+      "year": 2021,
+      "venue": "RSS 2021",
+      "link": "https://arxiv.org/abs/2005.07648",
+      "lineage": "原典",
+      "s1": "遠隔操作の「遊び」データの大部分はゴール画像で事後ラベル付けし、1%未満の区間だけに人の自然言語指示を付けて、画素から8自由度制御までを1つの言語条件付き方策で学ぶ LangLfP を提案。4連続の指示で52.1%成功。",
+      "s2": "従来の模倣学習はタスク ID やゴール画像で指示し、指示追従の研究は2D 環境・単純な行動・合成言語が前提だった。本研究は自由な人の言語と連続制御を結び、言語ラベルのコストを全データの1%未満に抑えた。",
+      "s3": "多文脈模倣学習（MCIL）：ゴール画像・言語など文脈ごとのエンコーダが共通の潜在ゴール z に写像し、単一方策 π(a|s, z) を全データで同時に最尤学習する。言語エンコーダを事前学習済みの多言語文埋め込みに替えた版も用意。",
+      "s4": "3D Playroom の18タスク。画素入力で LangBC 20.0% に対し LangLfP 68.6%、4連続（925通り）52.1%、事前学習埋め込み版は74.1%・61.8%（Table I）。未知の同義語約1.5万文で60.2%、16言語で56.0%（Table II）。",
+      "s5": "著者：同義語への頑健さは訓練と同じ行動の言い換えであり、新しい種類の操作への汎化は試していない。単一環境・固定物体。\n所感：少数の言語ラベルと大量の無ラベル行動を分ける設計は、少数の（文, 行動）対という本テーマの設定を実ロボット規模にした原型。組成的汎化は直接測っていない。",
+      "s6": "・CALVIN (2022)（未調査）\n・TRA (2025)（本資料）\n・Toyoda+ (2022)（本資料）",
+      "figure": {
+        "file": "figures/lynch_fig1.png",
+        "caption": "出典：LangLfP Fig. 1（遊びデータの大半をゴール画像、1%未満を言語で条件付けし、テスト時は言語だけで指示）"
+      },
+      "notes": "arXiv v2（RSS 版）で本文（手法・実験・限界）を読んだ。"
+    },
+    {
+      "title": "Learning Bidirectional Translation between Descriptions and Actions with Small Paired Data",
+      "short": "少数対データでの双方向翻訳 (Toyoda+ 2022)",
+      "authors": "Minori Toyoda, Kanata Suzuki, Yoshihiko Hayashi, Tetsuya Ogata（早稲田大学 ほか）｜ IEEE RA-L 2022",
+      "year": 2022,
+      "venue": "IEEE RA-L 2022 / IROS 2022",
+      "link": "https://arxiv.org/abs/2203.04218",
+      "lineage": "発展",
+      "parent": "Sugita & Tani 2003",
+      "s1": "動作と説明文の双方向翻訳を少数の対データで学ぶ2段階学習を提案。動作用と説明文用の再帰オートエンコーダ（RAE）を対なしデータで別々に事前学習し、少数の対で中間表現を結び付ける。対100〜500個で、対だけの学習を上回った。",
+      "s2": "PRAE 系の先行研究（Yamada+ 2018、Toyoda+ 2021）は、動作と説明の網羅的な対データを必要とした。本研究は対のない動作データや言語コーパスを事前学習に回し、対データの必要量を減らす。",
+      "s3": "事前学習済み Word2Vec を変換する retrofit 層付きの rPRAE。段階1は再構成誤差だけで学習し、段階2で中間表現 z_act と z_dsc を近づけ、非対応の対を遠ざけるマージン付き結合損失（式3）を加える。RAE と retrofit 層を交互に更新。",
+      "s4": "KIT Motion-Language（全身50次元）。対500個＋対なし4368個で、説明→動作→説明の逆翻訳の相対性能は BLEU 90.2%（対のみ84.8%、Table VI）。対100個でも86.3%（対のみ80.7%）。対なしデータを減らすと低下（Table VII・VIII）。",
+      "s5": "著者：文脈を考慮しない語埋め込みでは多義語を扱えない。対なしデータは対データと同じ設定で集める必要がある。\n所感：評価はランダム分割で、未学習の組合せへの汎化は測っていない。少数の対で結ぶ点で、Sugita & Tani の PB 結合を事前学習の時代に置き換えた系譜と位置づけた。",
+      "s6": "・Yamada+ 2018 PRAE（未調査）\n・Toyoda+ 2021 Embodying Pre-Trained Word Embeddings（未調査）\n・Sugita & Tani (2003)（本資料）",
+      "figure": {
+        "file": "figures/toyoda_fig1.png",
+        "caption": "出典：Toyoda+ 2022 Fig. 1（対なしデータで2つの RAE を事前学習し、少数の対で中間表現を結合）"
+      },
+      "notes": "arXiv v2（RA-L 版）で本文（手法・実験1〜2・表現の可視化・結論）を読んだ。"
+    },
+    {
+      "title": "Development of Compositionality and Generalization through Interactive Learning of Language and Action of Robots",
+      "short": "言語と行動の相互学習による組成性の発達 (Vijayaraghavan+ 2025)",
+      "authors": "Prasanna Vijayaraghavan, Jeffrey Frederic Queißer, Sergio Verduzco Flores, Jun Tani（沖縄科学技術大学院大学）｜ Science Robotics 2025",
+      "year": 2025,
+      "venue": "Science Robotics 2025",
+      "link": "https://arxiv.org/abs/2403.19995",
+      "lineage": "最新",
+      "parent": "Sugita & Tani 2003",
+      "s1": "視覚・固有感覚・言語を自由エネルギー原理の枠組みで統合したモデルで、ロボットアームが「動詞×色名詞」40通りの一部から学び、未学習の組合せを能動的推論で計画した。組合せの種類が多いほど未学習の組合せへの汎化が良くなることを示した。",
+      "s2": "Sugita & Tani の PB 結合を継承する。先行研究は組成性の仕組みを詳しく分析していなかったが、本研究は語彙の大きさと学習比率を系統的に変え、感覚運動の学習が言語の潜在空間の構造をどう形づくるかを分析した。",
+      "s3": "視覚（convLSTM＋視覚注意＋2つの作業記憶）と固有感覚（LSTM）を連想層の PV-RNN で統合し、言語 LSTM の PB と結合損失で結ぶ。計画は各時刻に目標を期待する目的論的な能動的推論で、期待自由エネルギー（式30）を最小化する。",
+      "s4": "Torobo アームの実データ400系列。未学習組合せの誤差は5×8・80%で0.036、3×3・77%で0.066（Table S1）。学習40%ではどの群も悪化。行動からの言語推定は5×8・80%で71.0%、3×3・33%で41.0%（Table S2）。注意と作業記憶を除くと誤差が約4倍（Table 2）。",
+      "s5": "著者：必要な経験量は要素数の積でなく和に比例すると予想（刺激の貧困への一つの答え）。評価は心的シミュレーションで、実機実行や社会的相互作用はない。\n所感：数百系列という少数データで成立する点は貴重。ただし行動生成は誤差だけで成功率がなく、語彙の大規模化は未検証。",
+      "s6": "・Sugita & Tani (2003)（本資料）\n・PV-RNN (2019)（既存：active-inference/hierarchical-generative-models）\n・Tinker+ (2026)（既存：active-inference/epistemic-agents）",
+      "figure": {
+        "file": "figures/vij_fig5.png",
+        "caption": "出典：Vijayaraghavan+ Fig. 5（言語 PB 空間の主成分。行 A〜D は組合せ数 5×8〜3×3。U-C が未学習の組合せ）"
+      },
+      "notes": "arXiv v2（2024年7月、Science Robotics 掲載版の原稿）で本文・Materials and Methods・補足表 S1〜S6 を読んだ。採録は OIST の業績リストと検索結果で確認（掲載題は arXiv 版と一部異なる可能性あり）。"
+    },
+    {
+      "title": "Temporal Representation Alignment: Successor Features Enable Emergent Compositionality in Robot Instruction Following",
+      "short": "TRA (Myers+ 2025)",
+      "authors": "Vivek Myers, Bill Chunyuan Zheng, Anca Dragan, Kuan Fang, Sergey Levine（UC Berkeley / Cornell）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2502.05454",
+      "lineage": "最新",
+      "parent": "LangLfP (Lynch & Sermanet 2021)",
+      "s1": "状態と将来状態の表現を時間方向にそろえる対照損失を加えるだけで、行動クローニング方策が既知の部分タスクの未学習の連結を言語指示から実行できるようになることを示した（TRA）。計画も強化学習も使わない。",
+      "s2": "複合タスクへの組成は、階層学習・VLM による分解・オフライン RL のスティッチングで扱われてきたが、実機では不安定かデータ効率が悪い。言語と画像ゴールをそろえる GRIF に、時間方向の整合を足すだけで組成的汎化が生まれる。",
+      "s3": "状態 φ(s)、未来ゴール ψ(g)、言語 ξ(ℓ) の3エンコーダ。φ(s_t) と ψ(s_{t+k})（k は幾何分布）を CLIP 型の InfoNCE でそろえ、ψ(g) と ξ(ℓ) もそろえる。方策は ψ か ξ で条件付けた BC。時間等方性の仮定で組成誤差の上界を示す。",
+      "s4": "BridgeData V2（5万軌跡）で学習し、WidowX 実機の13タスク。言語指示で連結88.9%、意味的汎化83.3%、依存あり60%（最良ベースラインは30%・43.3%・33.3%、Table 1）。OGBench の stitch 課題では5つ中4つで非 RL 手法の最良（Table 2）。",
+      "s5": "著者：BC が全く解けない課題では改善が小さい。ガウス方策のため多峰な行動や奥行きの判断で失敗する。\n所感：汎化は部分タスクの時間的な連結に限られ、未学習の動詞×目的語のような属性の組成とは別物。表現の時間構造が汎化を決めるという別の要因を示した。",
+      "s6": "・GRIF (Myers+ 2023)（未調査）\n・LangLfP (2021)（本資料）\n・Exploring the Limits of Combinatorial Generalization (2026)（未調査）",
+      "figure": {
+        "file": "figures/tra_fig1.png",
+        "caption": "出典：TRA Fig. 1（状態・ゴール・言語の表現を時間方向にそろえ、未学習の連結タスクを実行。AWR と BC は途中で失敗）"
+      },
+      "notes": "arXiv v2 の HTML 版で本文（手法・理論・実機と OGBench の実験・限界）を読んだ。採録は検索結果（NeurIPS 2025）で確認。"
+    },
+    {
+      "title": "Ground-Compose-Reinforce: Grounding Language in Agentic Behaviours using Limited Data",
+      "short": "Ground-Compose-Reinforce (Li+ 2025)",
+      "authors": "Andrew C. Li, Toryn Q. Klassen, Andrew Wang, Parand A. Alamdari, Sheila A. McIlraith（トロント大学 / Vector Institute）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2507.10741",
+      "lineage": "最新",
+      "parent": "gSCAN (Ruis+ 2020)",
+      "s1": "命題記号（「赤い箱を持っている」など）だけを少数のラベル付き軌跡で接地し、それを Reward Machine（オートマトン）で組み合わせて任意の複合タスクの報酬を自作し、強化学習する枠組み。350軌跡の事前学習で、データにない行動も引き出せた。",
+      "s2": "言語条件付き報酬や VLA は、言語と軌跡の巨大な対データか、手設計の報酬や成功判定器を必要とした。本研究は記号の意味だけを学び、組合せ方は形式言語に任せることで、少量のデータでも分布外の課題に対応する。",
+      "s3": "事前学習で各命題の真偽と「達成までの近さ」を教師あり学習とオフライン RL で学ぶ。課題時は RM の各遷移を独立な到達サブタスクとみなして価値を見積もり、ポテンシャル型の報酬整形を作って PPO で学習する。",
+      "s4": "Meta-World を改変した DrawerWorld（箱は最大1個しか扱わない350軌跡）。データ中の最大リターンが0の Pickup-Each-Box で GCR は1.00、LTL 条件付き BC・専用報酬モデル・専用 BC はすべて0（Table 2）。報酬整形を外すと0。GeoGrid でも全課題で最良。",
+      "s5": "著者：命題ラベルは手作りの関数で付与。命題の曖昧さによる報酬ハッキングが残る。\n所感：「語の意味は学習、組合せ方は記号」の分業で、少数データと言語だけの指示から新しい行動を学ぶという関心に最も直接に答える。自然言語→RM の変換は o3 の例のみ。",
+      "s6": "・Reward Machines (Icarte+ 2018)（未調査）\n・自然言語からの報酬・目標の生成（別テーマ：language-to-reward）\n・Scale Up Strategically (2026)（本資料）",
+      "figure": {
+        "file": "figures/gcr_fig1.png",
+        "caption": "出典：GCR Fig. 1（命題を少数の軌跡で接地し、Reward Machine で合成した自己生成報酬で強化学習）"
+      },
+      "notes": "arXiv v2 の HTML 版で本文（手法・報酬整形・実験・限界）を読んだ。"
+    },
+    {
+      "title": "Scale Up Strategically: Learning Compositional Generalization via Bias-Aware Evaluation and Data Collection for Robotic Manipulation",
+      "short": "Scale Up Strategically (Qi+ 2026)",
+      "authors": "Yu Qi, Zhang Ye, Xinyi Xu ほか（Northeastern University / NVIDIA）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2607.21582",
+      "lineage": "最新",
+      "parent": "SCAN (Lake & Baroni 2018)",
+      "s1": "命令を動詞・色・物体・大きさ・位置の5因子に分け、微調整した基盤方策がどの因子を近道として過信するかを測る FDR・FDH を提案。6つの方策で「色 ≧ 物体 ≧ 位置 ≧ 動詞 ≧ 大きさ」の序列が共通し、弱い因子に予算を寄せた収集で必要なデモを半減した。",
+      "s2": "既存の評価は条件を変えたときの成功率の集計で、失敗の理由（どの語を無視したか）が分からない。環境因子の組成的なデータ収集（Gao+ 2024）を、命令の因子と方策の偏りに基づく配分へ広げた。",
+      "s3": "2因子を訓練データで1対1に相関させ、対角外の組合せで評価する。どちらの因子に引きずられたかを VLM 判定で数え、FDR = (N_f1 − N_f2)/(N_f1 + N_f2)。Copeland 順位で FDH を作り、下位の因子を固定して他を振る「V字」の収集を行う。",
+      "s4": "ManiSkill（6,480命令）で π0・π0.5・GR00T など6方策を評価（Table 1・2）。全因子設定では V の n=400 が他法の n=800 を上回る（Fig. 4）。UR5 実機で L より平均28.7、Random より16.7ポイント高く、Bun では n=100 で全網羅を上回った（Table 3・Fig. 9）。",
+      "s5": "著者：机上の統制された因子空間のみで、多段タスクや開放環境での一般性は未検証。V 字の配分は最適とは限らない。\n所感：データの組合せ被覆率を「網羅する量」ではなく「偏りに合わせて配る量」として扱った点が新しい。少ない予算で全網羅に勝つ結果はユーザーの関心に直結する。",
+      "s6": "・Gao+ 2024 Efficient Data Collection via Compositional Generalization（未調査）\n・Xing+ 2025 Shortcut Learning in Generalist Robot Policies（未調査）\n・CRAFT (2026)（本資料）",
+      "figure": {
+        "file": "figures/sus_fig1.png",
+        "caption": "出典：Scale Up Strategically Fig. 1（命令の因子分解、色への近道、FDR・FDH による定量化、偏りを考慮したデータ収集）"
+      },
+      "notes": "arXiv v1 の HTML 版で本文（評価枠組み・収集戦略・シミュレーションと実機の実験・限界）を読んだ。"
+    },
+    {
+      "title": "Same Scene, Different Task: Skill Alignment for Compositional Generalization in VLAs",
+      "short": "CRAFT (Yang+ 2026)",
+      "authors": "Taegeun Yang, Youngju Na, Yoonki Cho, Sung-Eui Yoon（KAIST）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.00524",
+      "lineage": "最新",
+      "parent": "TRA (Myers+ 2025)",
+      "s1": "構成スキルはすべて実演済みでも、その組合せが未実演だと VLA は失敗する。観測を固定して命令だけ未実演の組合せに替えた反実仮想ペアに、同じスキルの実演から教師を移す CRAFT を提案。π0.5 で未実演の組合せが8.4%→84.2%。",
+      "s2": "微調整した VLA は視覚観測を命令の代わりに使う「視覚の近道」を学ぶ。近道を抑える CAG-VA や、スキルを実行時に連結する方法は効果が不安定だった。反実仮想の行動を合成せず、既存デモ内のスキル単位の教師を再利用する点が新しい。",
+      "s3": "VLM にスキル用と状態用のクエリトークンを足し、行動エキスパートを z^skill と z^state で条件付ける。同じスキルの z^skill を差し替えても誤差が小さくなる対照損失 L_skill と、反実仮想の z^skill を同スキルの実演で教師する L_cf を加える。",
+      "s4": "LIBERO を改変した Pick-Place（16組合せ中、同色の4つだけ各50デモ）の未実演成功率は π0.5 84.2%、π0 64.3%、GR00T 72.1%（通常の微調整は8.4%・2.8%・1.1%、Table 1）。3段の Pick-Place-Press は62.6%。実機 Piper で9/60→43/60（Table 3）。",
+      "s5": "著者：操作の順序は固定で、未実演のスキルや手順が変わる課題は対象外。3段の課題では実演済みとの差が大きく残る。\n所感：対角だけという極端に少ない被覆から汎化させた点で、Scale Up Strategically の「被覆の仕方」と表裏の関係。表現を分解し反実仮想で縛る VLA 版の解。",
+      "s6": "・SkillNet (Xie+ 2026, ICML)（未調査）\n・CAG-VA (Fang+ 2026)（未調査）\n・Scale Up Strategically (2026)（本資料）",
+      "figure": {
+        "file": "figures/craft_fig1.png",
+        "caption": "出典：CRAFT Fig. 1（同色の組合せだけを実演し、黄色の立方体を緑の皿へ置くような未実演の組合せを実行。右下は成功率）"
+      },
+      "notes": "arXiv v1 の HTML 版で本文（手法・シミュレーション・アブレーション・実機・考察）を読んだ。"
+    }
+  ]
+}
