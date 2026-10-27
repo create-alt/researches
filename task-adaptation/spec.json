@@ -1,0 +1,217 @@
+{
+  "field": "ハイパーネットワーク",
+  "theme": "メタ学習・継続学習とアダプタ生成",
+  "date": "2026-10-27",
+  "summary": "未学習タスクに勾配学習なしで重みを生成して適応するハイパーネットワークの系譜。\n継続学習の HNET・few-shot の HyperTransformer・RL の HyperZero から、LLM の HyperTuning → Text-to-LoRA・DnD → Doc-to-LoRA・SHINE へ。\n2026年は知識の上書きや ICL との比較で、低次元のタスク族に強く高次元では ICL に劣る限界が見えてきた。",
+  "papers": [
+    {
+      "title": "Continual learning with hypernetworks",
+      "short": "HNET-CL (von Oswald+ 2020)",
+      "authors": "Johannes von Oswald, Christian Henning, Benjamin F. Grewe, João Sacramento（チューリッヒ大・ETH Zürich）｜ ICLR 2020",
+      "year": 2020,
+      "venue": "ICLR 2020",
+      "link": "https://arxiv.org/abs/1906.00695",
+      "lineage": "原典",
+      "parent": "HyperNetworks (Ha+ 2016)",
+      "s1": "タスク埋め込み e から標的ネットの全重みを生成するタスク条件付きハイパーネットワークで継続学習を行う。過去データではなく「タスクごとの重み1点」だけを正則化で守り、100タスク続けてもほぼ忘却しない。",
+      "s2": "EWC・SI は重み空間の正則化で妥協解に縛られ、生成リプレイ（DGR）は生成器自体が劣化する。本手法は入出力対でなく重みの実現値を保持するのでデータ保存が不要。マスク型の条件付けと違い、タスク数に比例する記憶もいらない。",
+      "s3": "新タスク学習時、過去の埋め込みに対する生成重みを固定する：L = L_task + β/(T−1)·Σ_t‖f_h(e(t),Θ*) − f_h(e(t),Θ+ΔΘ)‖²。埋め込みも同時に学習し、チャンク埋め込みで重みを分割生成して圧縮する。",
+      "s4": "PermutedMNIST-10（タスク既知）で 97.57%（EWC 95.96、SI 94.75、Table 1）。タスク推定が要る設定でも HNET+R 97.76%（EWC 33.88）。Split CIFAR-10/100 の ResNet-32 でほぼ忘却ゼロ、ゼロから学ぶより高精度＝前方転移（Fig. 5）。",
+      "s5": "著者：出力正則化は旧解を凍結するので後方転移は弱い。タスクが不明な場合は別途推定が要る。\n所感：未学習タスクには埋め込みが無く、新タスクは勾配学習が前提。「生成で適応」でなく「生成で記憶」する原典。",
+      "s6": "・HyperNetworks (Ha+ 2016)（未調査）\n・Posterior Meta-Replay (Henning+ 2021)（未調査）\n・HyperZero (Rezaei-Shoshtari+ 2023)（本資料）",
+      "figure": {
+        "file": "figures/hnet_cl_fig1.png",
+        "caption": "出典：HNET-CL Fig. 1（a タスク埋め込みから標的ネットの重みを生成し、出力を正則化で固定。b チャンク化したハイパーネット）"
+      },
+      "notes": "arXiv v4（ICLR 2020 版）の PDF で本文・Discussion を読んだ。付録の CL2/CL3 詳細は概観のみ。"
+    },
+    {
+      "title": "HyperTransformer: Model Generation for Supervised and Semi-Supervised Few-Shot Learning",
+      "short": "HyperTransformer (Zhmoginov+ 2022)",
+      "authors": "Andrey Zhmoginov, Mark Sandler, Max Vladymyrov（Google Research）｜ ICML 2022",
+      "year": 2022,
+      "venue": "ICML 2022",
+      "link": "https://arxiv.org/abs/2201.04182",
+      "lineage": "原典",
+      "parent": "HyperNetworks (Ha+ 2016)",
+      "s1": "少数のラベル付き画像（サポート集合）を Transformer に読ませ、小型 CNN の全層の重みを1回の順伝播で生成する few-shot 学習法。小さい CNN ほど MAML++・RFS を上回り、自己注意が勾配1ステップ相当を表せることも示した。",
+      "s2": "距離学習（ProtoNet・RFS）は固定埋め込みの容量に縛られ、MAML 系はタスク分布の知識を標的と同じ次元の初期値に押し込む。LEO は生成後に SGD で補正する。HT は大容量の生成器と小さい標的を分け、内側ループなしで学習する。",
+      "s3": "画像埋め込み・前層の活性化埋め込み・ラベル埋め込みのトークンと、重みスライス用のプレースホルダを Transformer に入れ、θ1→θ2→… と層ごとに生成。置換不変で不均衡な集合も扱え、未ラベル標本も専用トークンで入れられる。",
+      "s4": "tieredImageNet 5-way 1-shot、8ch の CNN で HT 49.1%（MAML++ 45.5、RFS 44.1）、64ch では 56.3% で RFS 56.8 と同等（Table 1）。未ラベル標本を加えると 1-shot が 56.0→61.5%（Table 3）。全層生成の利点は小さい CNN のみ（Fig. 3）。",
+      "s5": "著者：大きい CNN では最終層の生成だけで十分で、優位性は消える。学習時のクラスには強いが未知クラスでは過学習しやすい。\n所感：生成器自体がサポート集合を読む ICL で、その結果を小型モデルへ書き出す構図は LLM 版と同じ。",
+      "s6": "・LEO (Rusu+ 2019)（未調査）\n・HyperMAML (Przewięźlikowski+ 2022)（参照のみ）\n・Continual HyperTransformer (Vladymyrov+ 2023)（未調査）\n・HyperTuning (Phang+ 2023)（本資料）",
+      "figure": {
+        "file": "figures/hypertransformer_fig1.png",
+        "caption": "出典：HyperTransformer Fig. 1（サポート標本とラベルから Transformer が CNN の層ごとの重みを生成）"
+      },
+      "notes": "arXiv v3（ICML 2022 版）の PDF で本文を読んだ。付録 A（自己注意による勾配ステップの模倣）は概観のみ。"
+    },
+    {
+      "title": "Hypernetworks for Zero-shot Transfer in Reinforcement Learning",
+      "short": "HyperZero (Rezaei-Shoshtari+ 2023)",
+      "authors": "Sahand Rezaei-Shoshtari, Charlotte Morissette, Francois R. Hogan ほか（McGill大・Mila・Samsung AI Center Montreal）｜ AAAI 2023",
+      "year": 2023,
+      "venue": "AAAI 2023",
+      "link": "https://arxiv.org/abs/2211.15457",
+      "lineage": "発展",
+      "parent": "HNET-CL (von Oswald+ 2020)",
+      "s1": "報酬・ダイナミクスのパラメータ（MDP の文脈）から、ほぼ最適な方策と価値関数の重みを生成するハイパーネットワーク HyperZero。未学習の目標速度や胴の長さに対し、試行ゼロで個別に学習した TD3 解に迫る性能を出した。",
+      "s2": "文脈を入力に連結する条件付き方策・UVFA は行動空間でしか汎化せず、MAML・PEARL はゼロショット転移に弱い。RL アルゴリズムを「MDP → 最適解」の写像とみなし、方策の空間で汎化させる点が新しい。",
+      "s3": "各訓練 MDP で TD3 を 100万ステップ学習して最適軌跡を集め、文脈 (ψ, μ) から方策 π̂ と価値 Q̂ の重みを生成。行動・価値の予測損失に、生成した π̂ と Q̂ がベルマン方程式で整合する TD 正則化を加えた教師あり学習。",
+      "s4": "DM Control の cheetah・walker・finger で、タスクを 85/15% に分けた未学習タスクへのゼロショット転移を5シードで評価。報酬・ダイナミクス・両方の変化で全ベースラインを大きく上回り、cheetah では TD3 解に近い収益を保った（Fig. 3〜5）。",
+      "s5": "著者：訓練タスクの収束済み RL 解が前提（仮定2）だが、未収束でも機能した。生成した価値関数による追加学習は今後の課題。\n所感：文脈の真値を与える強い前提で、推定は不要。訓練は 40 点前後の格子で、内挿を超える外挿は未検証。",
+      "s6": "・Hypernetworks in Meta-RL (Beck+ 2022)（未調査）\n・PEARL (Rakelly+ 2019)（未調査）\n・Model of Models (Howell 2026)（本資料）",
+      "figure": {
+        "file": "figures/hyperzero_fig4.png",
+        "caption": "出典：HyperZero Fig. 4（未学習ダイナミクスへのゼロショット転移。橙が HyperZero、青が個別学習の TD3）"
+      },
+      "notes": "arXiv v2（AAAI 2023 版）の PDF で本文と付録 A（環境・データ収集）を読んだ。結果は図のみで数表はない。"
+    },
+    {
+      "title": "HyperTuning: Toward Adapting Large Language Models without Back-propagation",
+      "short": "HyperTuning (Phang+ 2023)",
+      "authors": "Jason Phang, Yi Mao, Pengcheng He, Weizhu Chen（NYU・Microsoft Azure AI）｜ ICML 2023",
+      "year": 2023,
+      "venue": "ICML 2023",
+      "link": "https://arxiv.org/abs/2211.12485",
+      "lineage": "原典",
+      "s1": "少数例や指示を読み、凍結した T5 用の soft prefix / LoRA を1回の順伝播で生成する HyperT5 を提案。LLM を誤差逆伝播なしで未学習タスクに適応させる「HyperTuning」を定式化した。生成値は PEFT の初期値としても有効。",
+      "s2": "PEFT は更新量が少なくても LLM 全体の逆伝播が要り、ICL は推論のたびに例を読み直す。先行の HNET-LM（Deb+ 2022）は MAML で学習。本研究は多タスク学習で汎用のハイパーモデルを作り、P3・MetaICL・S-NI の未学習タスクで評価した。",
+      "s3": "φ̂ = H(ξ; {(x_i, y_i)}_K) を下流モデルに差し込み、凍結した下流モデルを通して H だけを学習。前段に、文書の前後 A・D から PEFT を作り B→C の続きを予測させる「ハイパー事前学習」を C4 で行い、多タスク微調整を続ける。",
+      "s4": "P3 未学習タスク（T5-Large）の平均：HyperT5-Prefix 54.6、LoRA 53.3、共有 LoRA 45.5、全微調整 T5-MTF 54.8、例も同時に読む T5-MTF-Few-shot（ICL 相当）55.4（Table 1）。生成値で初期化した LoRA 微調整は 75.0 vs 72.7（Table 6）。",
+      "s5": "著者：例を入力と独立に PEFT へ圧縮するため情報が欠け、ICL 相当の全注意モデルに及ばない。代わりに推論時に例を保持しなくてよい。ハイパー事前学習なしではほぼ効かない。\n所感：「性能を少し譲って効率を取る」構図はその後も続く。",
+      "s6": "・HINT (Ivison+ 2023)（未調査）\n・Investigating HyperTuning via Gisting (Phang 2024)（参照のみ）\n・Text-to-LoRA (Charakorn+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/hypertuning_fig1.png",
+        "caption": "出典：HyperTuning Fig. 1（C：ハイパーモデルが少数例から PEFT パラメータ φ を生成、D：推論時は φ のみ保持）"
+      },
+      "notes": "arXiv v1 の PDF で本文（ハイパー事前学習のアブレーション、初期化実験を含む）を読んだ。ICML 2023 版は PMLR v202。"
+    },
+    {
+      "title": "Text-to-LoRA: Instant Transformer Adaption",
+      "short": "Text-to-LoRA (Charakorn+ 2025)",
+      "authors": "Rujikorn Charakorn, Edoardo Cetin, Yujin Tang, Robert T. Lange（Sakana AI）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2506.06105",
+      "lineage": "発展",
+      "parent": "HyperTuning (Phang+ 2023)",
+      "s1": "タスクの自然言語説明だけから LoRA を1回の順伝播で生成するハイパーネットワーク Text-to-LoRA（T2L）。479 の SNI タスクで SFT 学習すると、未学習の10ベンチマークで多タスク LoRA を上回る LoRA をゼロショットで作れた。",
+      "s2": "LoRA はタスクごとにデータと学習が要る。HyperTuning・HINT は T5 系で、ハイパーネットの一部を基盤モデルと共有して安定させていた。Arrow Routing は既存 LoRA の組合せのみ。T2L は指示調整済み LLM に対し、説明文だけで全層の LoRA を作る。",
+      "s3": "ΔW_{m,l} = h_θ(concat[f(z), E[m], E[l]])。f は説明文の埋め込み（gte）、E はモジュール・層の学習埋め込み。出力頭の大きさで L/M/S の3種。既存 LoRA を再構成する学習と、下流データで直接 SFT する学習を比べる。",
+      "s4": "Mistral-7B で10ベンチマーク平均：基盤 55.8、3-shot ICL 61.0、多タスク LoRA 66.3、T2L(L) 67.7（Table 2）。タスク別 LoRA（8種平均 75.8）には届かない。再構成学習は 61.8 で汎化せず、SFT 学習が優る（Table 6）。",
+      "s5": "著者：説明文の質に敏感で、タスクと合わない説明では性能が落ちる。ゼロショットでタスク別 LoRA に届かないことが最大の課題。\n所感：訓練と評価は多肢選択 QA 中心で形式が近い。コード生成など遠いタスクの伸びは小さい。",
+      "s6": "・HyperLoRA (Lv+ 2024)（未調査）\n・Arrow Routing (Ostapenko+ 2024)（未調査）\n・Doc-to-LoRA (Charakorn+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/t2l_fig1.png",
+        "caption": "出典：T2L Fig. 1（左：再構成または SFT による学習。右上：圧縮率と性能。右下：訓練データセット数とゼロショット性能）"
+      },
+      "notes": "arXiv v2（ICML 2025 版）の PDF で本文・Discussion・Limitations と付録 D（LoRA 間の距離）を読んだ。"
+    },
+    {
+      "title": "Drag-and-Drop LLMs: Zero-Shot Prompt-to-Weights",
+      "short": "Drag-and-Drop LLMs (Liang+ 2025)",
+      "authors": "Zhiyuan Liang, Dongwen Tang, Yuhao Zhou ほか（シンガポール国立大）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2506.16406",
+      "lineage": "発展",
+      "parent": "Text-to-LoRA (Charakorn+ 2025)",
+      "s1": "ラベルなしのプロンプト群を文埋め込みにし、ハイパー畳み込みデコーダで LoRA 行列一式を生成する Drag-and-Drop LLMs（DnD）。未学習データセットに数秒で適応し、フル微調整の最大 1/12,000 のコストで学習用 LoRA の平均を上回る。",
+      "s2": "LoRA はデータセットごとに最適化が要る。パラメータ生成の RPG・p-diff は2値の条件や単純な分類が中心で、未学習データでは失敗した（Fig. 5）。DnD はプロンプトを「データセットの指紋」として条件にし、数学・コード・VLM へ広げた。",
+      "s3": "各データセットで LoRA を学習しながらチェックポイントを保存し、プロンプト束とチェックポイントを無作為に対にする。Sentence-BERT の埋め込みを畳み込みブロックで重みトークンの形へ変換し、元の重みとの MSE で学習する。",
+      "s4": "Qwen2.5-0.5B で1データセットを除いて学習し除外先で評価：ARC-c は学習 LoRA 平均 39.5→51.6%、基盤 38.3%（Table 1, 5）。HumanEval pass@1 17.6→32.7（Table 3）。256 ショット未満なら ICL・少数ショット微調整に勝つ（Fig. 4c）。",
+      "s5": "著者：訓練データセットが少ないと汎化しない（2学習・5評価で改善 −1.4、Table 4c）。7B〜70B への拡大は今後の課題。\n所感：主な比較対象が「他データセットで学習した LoRA の平均」で弱く、gsm8K は基盤から +1.9 点のみ。",
+      "s6": "・RPG (Wang+ 2025)（未調査）\n・p-diff (Wang+ 2024)（未調査）\n・Text-to-LoRA (Charakorn+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/dnd_fig2.png",
+        "caption": "出典：DnD Fig. 2（データセットごとの LoRA チェックポイントとプロンプトを対にして生成器を学習し、未学習データセットに適用）"
+      },
+      "notes": "arXiv v1 の PDF・HTML で本文（アブレーション、ICL・全微調整との比較を含む）を読んだ。NeurIPS 2025 版は抄録の数値が一部異なる。"
+    },
+    {
+      "title": "Doc-to-LoRA: Learning to Instantly Internalize Contexts",
+      "short": "Doc-to-LoRA (Charakorn+ 2026)",
+      "authors": "Rujikorn Charakorn, Edoardo Cetin, Shinnosuke Uesaka, Robert T. Lange（Sakana AI）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2602.15902",
+      "lineage": "最新",
+      "parent": "Text-to-LoRA (Charakorn+ 2025)",
+      "s1": "文書を読んで LoRA を1回の順伝播で生成し、以後は文書なしで質問に答えさせる Doc-to-LoRA（D2L）。文脈蒸留（CD）の過程をメタ学習し、1秒未満で内在化する。8K 窓の Gemma-2-2B で 40K トークン超の「干し草の針」をほぼ完答した。",
+      "s2": "ICL は長文で注意コストと KV キャッシュが膨らみ、CD は文書ごとに質問生成と逆伝播で数十〜数百秒かかる。T2L はタスク説明向けで文書の事実を保持できない。D2L は CD の目的で学習し、任意の文書を即座に重みへ写す。",
+      "s3": "凍結 LLM の各層の活性化を、層で共有する Perceiver 型ハイパーネットが rank-8 LoRA に写す。目的は文脈ありの教師との KL：min E KL(p_θ(y|x,c) ‖ p_{θ+H(c)}(y|x))。長文は分割して生成した LoRA をランク方向に連結する。",
+      "s4": "SQuAD で ICL 上限比 82.5%、更新は1秒未満（CD は40〜100秒超、Fig. 3）。2WikiMultihopQA で正規化性能 0.857・0.21秒、5問生成の CD は 0.704・73秒・79GB（Table 1）。VLM の活性化から画像分類を 75% で内在化（Table 2）。",
+      "s5": "著者：メタ学習に H200×8 で約5日かかり、標的 LLM を替えるたびに再学習が要る。ICL と重みに入れた知識の間には性能差が残る。\n所感：事前知識と矛盾する文書は評価しておらず、後の Override Gap がこの弱点を突いた。",
+      "s6": "・Generative Adapter (Chen+ 2025)（未調査）\n・Cartridges (Eyuboglu+ 2025)（未調査）\n・SHINE (Liu+ 2026)（本資料）\n・Override Gap (Cheng+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/d2l_fig1.png",
+        "caption": "出典：D2L Fig. 1（左：層ごとの活性化から LoRA を生成し、文脈ありの応答に蒸留。右：CD と比べた性能・遅延・メモリ）"
+      },
+      "notes": "arXiv v1 の PDF で本文・分析（Table 3, 4）と付録 G（結論・限界）を読んだ。ICML 2026（PMLR v306）採録は検索で確認。"
+    },
+    {
+      "title": "SHINE: A Scalable In-Context Hypernetwork for Mapping Context to LoRA in a Single Pass",
+      "short": "SHINE (Liu+ 2026)",
+      "authors": "Yewei Liu, Xiyuan Wang, Yansheng Mao ほか（北京大学）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2602.06358",
+      "lineage": "最新",
+      "parent": "HyperTuning (Phang+ 2023)",
+      "s1": "凍結 LLM 自身に文脈とメモリトークンを読ませ、各層のメモリ状態を軽量 Transformer で全層の LoRA に変換する文脈→LoRA ハイパーネット SHINE。60億トークンで事前学習し、QA で ICL に迫る性能を 0.3 秒の生成で出す。",
+      "s2": "LLM の重み空間が巨大なため、先行手法は一部の層だけ生成（Generative Adapter）、狭いボトルネック、小さい MLP の使い回し（T2L）で妥協し、表現力が足りなかった。SHINE は LLM を符号化器に流用し、層間で双方向に情報を通わせる。",
+      "s3": "文脈と M 個のメモリ埋め込みを Meta LoRA 付き LLM に通し、全 L 層のメモリ状態（L×M×H）を集める。層方向とトークン方向の注意を交互に行う M2P Transformer の出力を LoRA に整形。M ≥ rD/H で容量を確保。",
+      "s4": "Qwen3-8B、MS MARCO MQA の F1：文脈なし 23.2、ICL 69.4、文書で SFT 33.0、SHINE 55.6（生成 0.3 秒、Table 1）。単発 QA で Generative Adapter を概ね上回り、MuSiQue 28.5 は ICL 36.3 に迫る（Table 2）。SQuAD で SEAL 58.2 を上回る 63.6（Table 3）。",
+      "s5": "著者：多ターン会話で性能が落ちる。長文版 SHINE-R も ICL には届かない（Table 5）。\n所感：「ICL と同等」は1ターン・短文脈の話で、MQA では 14 点差が残る。生成器に LLM 本体を使うので、生成コストは LLM の順伝播1回分になる。",
+      "s6": "・Knowledge Interaction in HN-based CL (Zheng+ 2026)（参照のみ）\n・SEAL (Zweiger+ 2025)（未調査）\n・Override Gap (Cheng+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/shine_fig2.png",
+        "caption": "出典：SHINE Fig. 2（LLM で文脈をメモリ状態に圧縮し、M2P Transformer が LoRA を生成）"
+      },
+      "notes": "arXiv v4（ICML 2026 版）の PDF で本文（事前学習・指示調整・TTT 比較・スケーリング・長文）を読んだ。付録 C の表現力比較は概観のみ。"
+    },
+    {
+      "title": "The Override Gap: A Magnitude Account of Knowledge Conflict Failure in Hypernetwork-Based Instant LLM Adaptation",
+      "short": "Override Gap (Cheng+ 2026)",
+      "authors": "Shuaizhi Cheng, Xiang Shi, Zhiwei Zhang, Mingwei Li（ハルビン工業大・Imperial College London・KigLand ML Lab）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.23750",
+      "lineage": "最新",
+      "parent": "Doc-to-LoRA (Charakorn+ 2026)",
+      "s1": "D2L のような即時内在化は、文書が事前知識と矛盾すると失敗する（根深い事実で正答 46.4%）。原因は表現ではなく振幅にあると示し、上位層の LoRA を β 倍する SLB と、確信時だけ強める CA で 71.0% に戻した（学習不要）。",
+      "s2": "D2L・SHINE・T2L の評価は文書の事実を思い出せるかに限られ、既存知識の上書きは未検証だった。ROME・MEMIT など知識編集は事実を直接書き換える。本研究は事前学習での強さで等級化した KID-Bench で、生成アダプタの失敗を測る。",
+      "s3": "上書きの条件は Δ_lora > Δ_prior。ハイパーネットは矛盾のない文書で学習されるので Δ_lora はほぼ一定、Δ_prior は事実の頻度とともに増える。そこで s_l = ‖A_l‖‖B_l‖ 上位 k% の層の A を β 倍（k=25%, β=1.75）。",
+      "s4": "Gemma-2B の D2L 公開版で、深い矛盾 46.4→71.0%、新規知識 96.7→97.1%（Table 1）。事前確率が高い問いほど失敗（Mistral で 55%→19%、Table 3）。文書を文脈に置く RAG は深い矛盾で 63.8% だが、「文書を優先せよ」と指示すると 99.2%。",
+      "s5": "著者：k・β は KID-Bench 上で選んだ。Qwen-4B では β=3.0 への較正が要る。確信の判定は語彙の手がかりに頼る。\n所感：知識の上書きでは指示付きの ICL がなお強い。489問と小規模で、部分一致の甘い採点である点にも注意。",
+      "s6": "・ROME (Meng+ 2022)（未調査）\n・Knowledge Interaction in HN-based CL (Zheng+ 2026)（参照のみ）\n・Doc-to-LoRA (Charakorn+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/overridegap_fig1.png",
+        "caption": "出典：Override Gap Fig. 1（即時内在化の失敗、アダプタと事前知識のマージン競争、学習不要の SLB・CA、KID-Bench）"
+      },
+      "notes": "arXiv v2 の PDF で本文・頑健性検証・RAG 比較・Limitations を読んだ。強い RAG 変種との比較（CA 76.9% vs 99.2%）は本文 8.6 節。"
+    },
+    {
+      "title": "Model of Models: When Does Emitting a Specialist Beat Attending, Adapting, or Tuning?",
+      "short": "Model of Models (Howell 2026)",
+      "authors": "John C. Howell（Nineonefour）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.21386",
+      "lineage": "最新",
+      "parent": "HyperTuning (Phang+ 2023)",
+      "s1": "少数例でタスクに特化する4方式（ゼロショット・ICL・勾配適応・ハイパーネットでの重み放出）を、同じ特化モデル・文脈・予算で6タスクにわたり比較。放出は低次元のタスク族では勝つが、言語モデルでは ICL の利得の 14% しか取り戻せない。",
+      "s2": "ハイパーネットによる重み生成は HyperTuning や文脈→LoRA で広がったが、どの条件で ICL や MAML より良いかの地図はなかった。先行研究は勝てる場面を報告しがちだが、本研究は勝ち・引き分け・負けの境界を測り、反証可能な命題にした。",
+      "s3": "置換不変の符号化器 g_φ が文脈 C_τ から特化モデルの重み θ_τ = g_φ(C_τ) を出す（直接出力か FiLM）。文脈数 K を増やして誤差が飽和する点を「resolution-K」と定義し、勝敗を事前に予測する指標とした。",
+      "s4": "正弦回帰で MAML（0.171）の 1/30 以下の MSE（Table 1）。臨床の表データで TabPFN と同等の AUC 0.966（Table 3）。enwik8 では ICL 1.645 に対し 1.789 bpc で、利得の回収は 5M で 14.0%、15M で 11.2%（Table 8）。ARC の未知規則は 0%。",
+      "s5": "著者：5〜15M パラメータの小規模実験で、大規模では未検証。構造が変わる分布シフトでは自信をもって誤る。\n所感：単著で、限界節の「規模とともに悪化」と本文の「拡大しない」が食い違う。それでも「低次元なら放出、高次元なら ICL」は本テーマの軸になる。",
+      "s6": "・Hypernetworks in Meta-RL (Beck+ 2022)（未調査）\n・On-the-fly Weight Generation on ARC-1D (Fehr & Torr 2026)（参照のみ）\n・HyperTransformer (Zhmoginov+ 2022)（本資料）",
+      "figure": {
+        "file": "figures/mom_fig1.png",
+        "caption": "出典：Model of Models Fig. 1（共通の特化モデルに対する4つの条件付け：ゼロショット・ICL・勾配適応・重み放出 MoM）"
+      },
+      "notes": "arXiv v1 の PDF で本文・Limitations・付録 A（合成勾配の負の結果）を読んだ。"
+    }
+  ]
+}

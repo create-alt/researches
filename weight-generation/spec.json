@@ -1,0 +1,238 @@
+{
+  "field": "ハイパーネットワーク",
+  "theme": "ハイパーネットワークの基礎と重み生成",
+  "date": "2026-10-27",
+  "summary": "別のネットワークの重みを生成するハイパーネットワークの系譜。fast weights（1992）と動的フィルタ（2016）を源流に HyperNetworks が体系化し、SMASH・GHN-2 で未知構造の重み予測、Functa で INR 重みのデータ化へ発展。\n2024〜26年は「注意機構＝ハイパーネット」の理論視点、基盤モデル型・汎用型の生成器、表現力の鋭い理論解析が進む。",
+  "papers": [
+    {
+      "title": "Dynamic Filter Networks",
+      "short": "DFN (De Brabandere+ 2016)",
+      "authors": "Bert De Brabandere, Xu Jia, Tinne Tuytelaars, Luc Van Gool（KU Leuven）｜ NIPS 2016",
+      "year": 2016,
+      "venue": "NIPS 2016",
+      "link": "https://arxiv.org/abs/1605.09673",
+      "lineage": "原典",
+      "s1": "入力に応じて畳み込みフィルタそのものを生成する Dynamic Filter Network を提案。フィルタ生成ネットワークと動的フィルタ層からなり、Moving MNIST の動画予測で Conv-LSTM の約1/12のパラメータ（637K）で当時の最良を上回った。",
+      "s2": "従来の CNN は学習後のフィルタが全サンプル共通で、動画ごとに異なる動きを同じ演算で処理していた。Spatial Transformer は大域的・パラメトリックな幾何変換に限られる。DFN はサンプルごと・位置ごとの局所フィルタを生成し、幾何と輝度の変化を扱う。",
+      "s3": "入力 A からフィルタ生成ネットワークが θ を出し、入力 B に適用：G(i,j)=F_θ(I_B(i,j))。全位置共通の動的畳み込みと、位置ごとに別フィルタを使う dynamic local filtering の2形態。softmax で疎なフィルタに制約すると画素の移動を表せる。",
+      "s4": "Moving MNIST（10フレームから10フレーム予測）で BCE 285.2（Conv-LSTM 367.1、FC-LSTM 341.2、Table 1）。高速道路動画・ステレオ予測でも動作し、生成フィルタを可視化するとラベルなしで光学フロー・視差に相当する地図が得られた（Fig. 7）。",
+      "s5": "著者：予測は時間とともにぼやける。画素単位損失と不確実性の組合せが原因で、サンプリング型手法は今後の課題。\n所感：「入力条件付きの重み生成」をハイパーネットと独立に示した源流で、CondConv・Dynamic Convolution につながる。分類など大規模課題では未検証。",
+      "s6": "・HyperNetworks (2016)（本資料）\n・CondConv (2019)（未調査）\n・Dynamic Convolution (2020)（未調査）",
+      "figure": {
+        "file": "figures/dfn_fig2.png",
+        "caption": "出典：DFN Fig. 2（(a) 動的畳み込み、(b) 位置ごとに別フィルタを生成する動的局所フィルタ）"
+      },
+      "notes": "arXiv v2 を本文（手法・3実験・結論）まで読了。補足資料は未読。"
+    },
+    {
+      "title": "HyperNetworks",
+      "short": "HyperNetworks (Ha+ 2016)",
+      "authors": "David Ha, Andrew Dai, Quoc V. Le（Google Brain）｜ ICLR 2017",
+      "year": 2016,
+      "venue": "ICLR 2017",
+      "link": "https://arxiv.org/abs/1609.09106",
+      "lineage": "原典",
+      "parent": "Fast Weights (Schmidhuber 1992)",
+      "s1": "小さなネットワーク（ハイパーネットワーク）が主ネットワークの重みを生成する枠組みを命名・体系化。CNN 向けの静的版と RNN 向けの動的版（HyperLSTM）を示し、文字言語モデルや機械翻訳で LSTM を上回った。",
+      "s2": "HyperNEAT や Compressed Weight Search など進化計算による重み生成は小規模にとどまり、Schmidhuber の fast weights も RNN 版は思考実験だった。本論文は勾配法で end-to-end に学習し、深い CNN と長い RNN に適用できることを示した。",
+      "s3": "静的版は層埋め込み z_j から2層線形ネットで K_j=g(z_j) を生成し、層間の「緩い重み共有」を実現。動的版は小さな HyperRNN が時刻ごとに埋め込みを出し、主 RNN の重み行列の各行を d(z) でスケールする（メモリ効率版）。",
+      "s4": "CIFAR-10 で WRN 40-2 の誤差 5.66%（2.2M）に対し Hyper 版 7.23%（0.15M）（Table 2）。PTB 文字 LM 1.250 bpc（LN-LSTM 1.267、Table 3）、enwik8 1.340（Table 4）、WMT'14 En→Fr で BLEU 40.03（GNMT の LSTM 38.95、Table 6）。",
+      "s5": "著者：静的版は全層に共通性を強いるため精度が約1.25〜1.5%落ちる。HyperLSTM の重み変化は単語の切れ目で離散的に起きる。\n所感：「圧縮」と「入力依存の重み」の2動機が混在し、後続は後者へ進んだ。初期化の議論はない。",
+      "s6": "・Fast Weights (Schmidhuber 1992)（本文未確認）\n・SMASH (2017)（本資料）\n・Hyperfan 初期化 (2020)（本資料）\n・HyperNEAT (2009)（genetic-algorithm/neat で並行調査）",
+      "figure": {
+        "file": "figures/hypernetworks_fig3.png",
+        "caption": "出典：HyperNetworks Fig. 3（HyperRNN：橙の小さな RNN が主 RNN の重みを時刻ごとに生成）"
+      },
+      "notes": "arXiv v4 を本文・Table 1〜6・結論まで読了。付録（HyperLSTM の詳細、実験設定）は必要箇所のみ。"
+    },
+    {
+      "title": "SMASH: One-Shot Model Architecture Search through HyperNetworks",
+      "short": "SMASH (Brock+ 2017)",
+      "authors": "Andrew Brock, Theodore Lim, J.M. Ritchie, Nick Weston（Heriot-Watt University）｜ ICLR 2018",
+      "year": 2017,
+      "venue": "ICLR 2018",
+      "link": "https://arxiv.org/abs/1708.05344",
+      "lineage": "発展",
+      "parent": "HyperNetworks",
+      "s1": "アーキテクチャの符号を入力に重みを生成する HyperNet を1回だけ学習し、生成重みでの検証誤差で候補を順位付けする One-Shot NAS「SMASH」を提案。1回の学習で多数の構造を評価し、CIFAR-100 で誤差 20.6% の構造を得た。",
+      "s2": "強化学習による NAS は1万回超のフル学習を要し、進化法も膨大な計算を使う。ランダム重みで評価する手法は深いネットに拡張しにくい。SMASH は「生成重みでの相対性能が最終性能と相関する」と仮定し、評価コストを1回の学習に償却した。",
+      "s3": "ネットを「メモリバンクへの読み書き」として表し、ResNet・DenseNet・FractalNet を包含する探索空間を構成。読み書きパターンや演算を2値テンソル c に符号化し、全畳み込み HyperNet が W=H(c) を出す。毎ステップ構造をサンプルして学習。",
+      "s4": "CIFAR-100 の50構造で SMASH 誤差と真の誤差が相関（Fig. 4）。HyperNet を小さくすると相関は崩れる（Fig. 5a）。SMASHv2 は C10 4.03%・C100 20.60%（16M、Table 1）で Large-Scale Evolution や MetaQNN を上回るが NAS-RL（3.84%）には届かない。",
+      "s5": "著者：相関の検証は計算コストのため1データ点にすぎず一般性は保証されない。生成重みが担う容量が小さいと相関が消える。\n所感：「重み予測の質が構造評価の質を決める」という課題を残し GHN の動機となった。BN 統計を生成できない制約も後継へ引き継がれる。",
+      "s6": "・Graph HyperNetworks (2019)（参照のみ）\n・GHN-2 (2021)（本資料）\n・DARTS (2019)（未調査）",
+      "figure": {
+        "file": "figures/smash_fig4.png",
+        "caption": "出典：SMASH Fig. 4（CIFAR-100 の50構造：生成重みでの検証誤差と真の誤差の相関）"
+      },
+      "notes": "arXiv v1 を本文（手法・相関検証・転移・ベンチマーク・結論）まで読了。付録 B の符号化詳細は概略のみ。"
+    },
+    {
+      "title": "Principled Weight Initialization for Hypernetworks",
+      "short": "Hyperfan 初期化 (Chang+ 2020)",
+      "authors": "Oscar Chang, Lampros Flokas, Hod Lipson（Columbia University）｜ ICLR 2020",
+      "year": 2020,
+      "venue": "ICLR 2020",
+      "link": "https://arxiv.org/abs/2312.08399",
+      "lineage": "発展",
+      "parent": "HyperNetworks",
+      "s1": "Xavier・Kaiming 初期化をハイパーネットにそのまま使うと主ネットの重みのスケールが狂うことを示し、分散解析に基づく hyperfan-in / hyperfan-out 初期化を導出。Adam に頼らず SGD だけで安定に学習できるようにした。",
+      "s2": "実践者は Adam のスケール不変性に頼り、「小さい乱数」や出力層を1/10に縮めるなど場当たり的な初期化を使っていた。古典的初期化は層間の活性を保つが、ハイパーネットは「活性→重み」の変換も担うため主ネットの活性が深さに対し指数的に爆発・消失する。",
+      "s3": "線形出力層 H の分散を、生成される主ネットの重みが fan-in 初期化と同じ分散になるよう設定：Var(H)=1/(d_j d_k Var(e))。バイアスも生成する場合は分散を半分ずつ配分し、逆伝播側（fan-out）で対称性が崩れる点も扱う。",
+      "s4": "MNIST の5層 MLP で Xavier では初期から活性が爆発（Fig. 1）。CIFAR-10（All-CNN）で Kaiming fan-in は全く学習せず、fan-out は約270エポック後に遅れて学習開始、hyperfan は即座に学習（Fig. 5）。継続学習・ImageNet の Bayesian NN でも初期損失が小さい。",
+      "s5": "著者：残差接続は扱えない。BN があれば fan-out 版でも同等だが、ハイパーネットはパラメータが多くバッチを大きくできない。\n所感：結果は曲線のみ。入力スケール依存（MIP 2023）や構造ごとの正規化（GHN-2）へ議論が続く。",
+      "s6": "・MIP (Ortiz+ 2023)（参照のみ）\n・GHN-2 (2021)（本資料）\n・HyperNetworks (2016)（本資料）",
+      "figure": {
+        "file": "figures/hyperfan_fig5.png",
+        "caption": "出典：Hyperfan 初期化 Fig. 5（CIFAR-10：Kaiming 初期化は学習が進まず、hyperfan は即座に収束）"
+      },
+      "notes": "ICLR 2020 採録論文の arXiv 版（2023年投稿）を本文・付録 A の要点まで読了。"
+    },
+    {
+      "title": "Linear Transformers Are Secretly Fast Weight Programmers",
+      "short": "FWP (Schlag+ 2021)",
+      "authors": "Imanol Schlag, Kazuki Irie, Jürgen Schmidhuber（IDSIA）｜ ICML 2021",
+      "year": 2021,
+      "venue": "ICML 2021",
+      "link": "https://arxiv.org/abs/2102.11174",
+      "lineage": "発展",
+      "parent": "Fast Weights (Schmidhuber 1992)",
+      "s1": "線形化した自己注意が、1990年代の Fast Weight Programmer（遅いネットがキーと値の外積で速い重みを書き換える）と形式的に等価であることを示した。この視点から記憶容量の限界を導き、デルタ則型の更新則と新カーネル DPFP を提案。",
+      "s2": "線形 Transformer や Performer は softmax の近似として設計され、記憶としての性質は分析されていなかった。FWP として見ると有限サイズ行列への加算書き込みであり、系列長がキー次元 d_dot を超えると想起が干渉する（過容量）。",
+      "s3": "速い重み W_i=W_{i−1}+v_i⊗φ(k_i)、出力 y_i=W_iφ(q_i) が線形注意そのもの。改良版は現在の値 v̄=W φ(k) を読み出し、学習される書き込み強度 β で W += β(v−v̄)⊗φ(k) と誤差修正する（Delta Network）。",
+      "s4": "連想想起課題で線形注意は約60キー（d=64）から誤差が出て容量の理論と一致（Fig. 2）。WikiText-103 で Linear Transformer の PPL 38.3→35.5（small）、33.0→31.5（medium）（Table 2）。WMT14 En-De で DPFP は小さな d_dot で Performer を上回る（Table 1）。",
+      "s5": "著者：Delta Net は文脈を切らずに学習しても破綻しないが、大きな状態の Transformer-XL には及ばない。\n所感：注意を「入力ごとに重みを生成するハイパーネット」とみなす視点の起点で、DeltaNet 系線形 RNN の源流。",
+      "s6": "・Fast Weights (Schmidhuber 1992)（本文未確認）\n・Attention as a Hypernetwork (2024)（本資料）\n・FWP と線形 Transformer の総説 (Irie & Gershman 2025)（未調査）",
+      "figure": {
+        "file": "figures/fwp_fig2.png",
+        "caption": "出典：FWP Fig. 2（キー数を増やすと線形注意は d_dot 付近から想起誤差が増大）"
+      },
+      "notes": "arXiv v3 を本文・Table 1〜4・結論まで読了。付録 B（gated 更新則との比較）は要点のみ。"
+    },
+    {
+      "title": "Parameter Prediction for Unseen Deep Architectures",
+      "short": "GHN-2 (Knyazev+ 2021)",
+      "authors": "Boris Knyazev, Michal Drozdzal, Graham W. Taylor, Adriana Romero-Soriano（University of Guelph / Facebook AI Research）｜ NeurIPS 2021",
+      "year": 2021,
+      "venue": "NeurIPS 2021",
+      "link": "https://arxiv.org/abs/2110.13100",
+      "lineage": "発展",
+      "parent": "SMASH / GHN (Zhang+ 2019)",
+      "s1": "計算グラフを GNN で読み、未知のアーキテクチャの全パラメータを1回の順伝播で予測する GHN-2 を提案。100万構造のデータセット DeepNets-1M を構築し、ResNet-50 の全2400万パラメータを1秒未満で予測して CIFAR-10 で約60%を得た。",
+      "s2": "GHN（Zhang+ 2019）や SMASH は NAS の順位付けが目的で、予測重みそのものの性能は低い。メタ学習の多くは単一構造に縛られる。本論文は多様な構造への汎化と使える重みを目標に、GHN-1 の失敗要因（重みのスケール、長距離伝播、勾配ノイズ）を特定した。",
+      "s3": "演算をノードとする DAG に GatedGNN を順・逆伝播順で適用し、デコーダで各ノードの重みを出す。改良は(1) fan-in 型の微分可能なパラメータ正規化、(2) 最短路距離で重み付けした仮想エッジ、(3) 1バッチに8構造を入れるメタバッチ。",
+      "s4": "CIFAR-10 の未知構造で平均 66.9%・最高 77.1%（GHN-1 51.4%、SGD 5エポック 69.2%、Table 3）。ImageNet top-5 平均 27.2%・最高 48.3%（Table 4）。予測重みを初期値にすると 100-shot CIFAR-10 で He 初期化より 8〜15pt 高い（Table 6）。",
+      "s5": "著者：予測重みの精度は SGD での学習には遠く、直接の実用には足りない。BN の移動統計は予測できない。\n所感：重み生成を「学習の償却」として正面から扱った転換点。ImageNet での差は大きく、初期化用途（GHN-3、LoGAH）へ軸足が移った理由がよく分かる。",
+      "s6": "・GHN-3 (2023)（参照のみ）\n・LoGAH (2024)（参照のみ）\n・UHN (2026)（本資料）",
+      "figure": {
+        "file": "figures/ghn2_fig1.png",
+        "caption": "出典：GHN-2 Fig. 1（(a) GHN-2 の構成と3つの改良、(b) 未知の ResNet-50 での CIFAR-10 精度）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜6・関連研究・結論まで読了。付録 B・C は必要箇所のみ。"
+    },
+    {
+      "title": "From data to functa: Your data point is a function and you can treat it like one",
+      "short": "Functa (Dupont+ 2022)",
+      "authors": "Emilien Dupont, Hyunjik Kim, S. M. Ali Eslami, Danilo Rezende, Dan Rosenbaum（University of Oxford / DeepMind）｜ ICML 2022",
+      "year": 2022,
+      "venue": "ICML 2022",
+      "link": "https://arxiv.org/abs/2201.12204",
+      "lineage": "発展",
+      "parent": "SIREN / CAVIA",
+      "s1": "画像・3D 形状・NeRF シーン・球面上の気温場を陰関数表現（INR）で表し、その関数自体を「functa」として生成・推論・分類の入力にする枠組みを提案。256次元程度の変調ベクトルで多様なモダリティを統一的に扱った。",
+      "s2": "INR は解像度に依存しないが、1データずつ最適化すると遅く（NeRF は1シーン1GPU日）、パラメータも大きく下流で使いにくい。GAN 型の GASP は不安定で NeRF に使えない。本論文は共有ベースネット＋低次元変調への分解とメタ学習で解決した。",
+      "s3": "SIREN の各層にシフト変調を加え、それを潜在ベクトルからの線形写像（＝線形ハイパーネット）で生成。内側ループで変調だけを3ステップ勾配更新し、外側で共有重みを学ぶ CAVIA 型メタ学習で、データセットを変調の集合に変換する。",
+      "s4": "3ステップで ShapeNet 椅子のボクセル精度 99.1〜99.5%、CelebA-HQ 64² で PSNR 25.6〜30.7dB（256〜1024次元、Table 1）。変調上の DDPM で CelebA FID 40.4、SRN Cars の NeRF 生成 FID 80.3（π-GAN 36.7）。ShapeNet 10クラス分類は MLP 93.6%（3D CNN 93.3%、Table 2）。",
+      "s5": "著者：変調は空間構造を失い MLP しか使えない。MAML 由来のメモリ消費と不安定さ、少数ステップの制約による再構成精度の上限がある。\n所感：重みを「データ表現」とみなす発想の起点。生成品質は π-GAN に劣り、利点は統一性と計算効率にある。",
+      "s6": "・Trans-INR (2022)（参照のみ）\n・Spatial Functa (2023)（未調査）\n・重みの生成モデル（同分野 weight-space-learning で扱う）",
+      "figure": {
+        "file": "figures/functa_fig3.png",
+        "caption": "出典：Functa Fig. 3（変調次元と再構成 PSNR。右下は潜在ベクトル→シフト変調→SIREN の構成）"
+      },
+      "notes": "arXiv v3 を本文・Table 1〜2・限界と今後まで読了。付録の実装詳細は未読。"
+    },
+    {
+      "title": "Attention as a Hypernetwork",
+      "short": "Attention as a Hypernetwork (Schug+ 2024)",
+      "authors": "Simon Schug, Seijin Kobayashi, Yassir Akram, João Sacramento, Razvan Pascanu（ETH Zürich）｜ ICLR 2025",
+      "year": 2024,
+      "venue": "ICLR 2025（Oral）",
+      "link": "https://arxiv.org/abs/2406.05816",
+      "lineage": "最新",
+      "parent": "FWP (Schlag+ 2021)",
+      "s1": "マルチヘッド注意を「ヘッド方向の注意スコアを潜在コードとし、キー・クエリ対ごとの線形 value ネットを生成する線形ハイパーネット」として再定式化。この潜在コードが未知の課題の組合せで再利用され、組成的汎化を支えることを示した。",
+      "s2": "Schlag+ 2021 の FWP 視点はキー方向の外積和で速い重みを作るもので、ヘッドの役割は説明しない。複数ヘッドは訓練の安定化のためとも言われ、組成的汎化の機構は不明だった。本論文はヘッド方向の低次元コードに着目した。",
+      "s3": "MHA_q(X)=Σ_k(Σ_h a_{h,q,k} W_h^out W_h^value) x_k と書き換え、括弧内がコード a で重み付けた線形ハイパーネット。value ネットに ReLU を入れヘッド方向に RMS 正規化する HYLA を、追加パラメータなしで提案。",
+      "s4": "ファジィ論理関数の文脈内学習で、未知の項の組合せへの汎化は HYLA が softmax・線形注意より劣化が小さい（Fig. 2C）。記号版レーヴン行列 SRAVEN では規模とデータの増加で OOD 正解率約80%に達し、1ヘッドでは低下（Fig. 4, 5C）。",
+      "s5": "著者：スクラッチ学習の小規模モデルに限った分析で、大規模事前学習モデルに同様の構造化コードがあるかは未検証。\n所感：Transformer が内部にハイパーネットを持つという視座は強力。主結果は図のみで数値表が少なく、効果量の比較はしにくい。",
+      "s6": "・FWP (Schlag+ 2021)（本資料）\n・Hypernetworks とモジュール解の発見 (Schug+ 2024)（未調査）\n・HyperTransformer (2022)（同分野 task-adaptation で扱う）",
+      "figure": {
+        "file": "figures/attnhn_fig1.png",
+        "caption": "出典：Attention as a Hypernetwork Fig. 1（A 線形ハイパーネット、B ヘッド方向の潜在コード、C MHA の書き換え）"
+      },
+      "notes": "arXiv v4（ICLR 2025 camera-ready）を本文・Fig. 1〜6・考察・限界まで読了。C4 での言語モデル実験（50M, 130B トークン）は Fig. 6 の曲線のみ。"
+    },
+    {
+      "title": "Foundation Models Secretly Understand Neural Network Weights: Enhancing Hypernetwork Architectures with Foundation Models",
+      "short": "FM ハイパーネット (Gu & Yeung-Levy 2025)",
+      "authors": "Jeffrey Gu, Serena Yeung-Levy（Stanford University）｜ ICLR 2025",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2503.00838",
+      "lineage": "最新",
+      "parent": "Trans-INR (Chen & Wang 2022) / Functa",
+      "s1": "Transformer 型ハイパーネット（Trans-INR）のエンコーダを DINOv2・CLIP などの事前学習済み基盤モデルに置き換えると、INR の重み生成の性能・未知クラス汎化・データ効率が上がることを体系的に示した。凍結して重みトークンだけ学習しても同等以上。",
+      "s2": "汎化可能な INR の最良手法（Trans-INR、PONP、IPC）はいずれもエンコーダをゼロから学習していた。出力が「重み」という画像タスクと異質なモダリティのため、基盤モデルの利用は検討されてこなかった。",
+      "s3": "画像パッチトークンと学習可能な重みトークンを基盤モデルに通し、重みトークンの出力を層ごとの線形ヘッドで写像して共有ベースパラメータに要素積、L2 正規化して INR の重みとする。プロンプトチューニングでは基盤モデルを凍結。",
+      "s4": "ShapeNet 3カテゴリ同時学習の新視点合成で PSNR 20.86→22.10（DINOv2、Table 1）。MAE だけは改善せず。凍結 DINO（学習 100K パラメータ）で 21.04 とスクラッチ 87M の 20.86 を上回る（Table 3）。PONP・IPC でも改善（Table 4）、大きいモデルほど良い（Fig. 3）。",
+      "s5": "著者：全体のファインチューンは基盤モデル特徴の汎化性を一部損なう（未知クラスは凍結が PSNR 最良、Table 2）。\n所感：音声（LibriSpeech）では PSNR 24.431→24.434 と誤差程度で、効果はモダリティ依存。単一視点の NVS のみの評価である点にも注意。",
+      "s6": "・Trans-INR (2022)（参照のみ）\n・Functa (2022)（本資料）\n・CryoHype (2026)（参照のみ）",
+      "figure": {
+        "file": "figures/fmhn_fig1.png",
+        "caption": "出典：FM ハイパーネット Fig. 1（基盤モデル＋重みトークン→線形ヘッド×ベースパラメータで INR の重みを生成）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜5・Fig. 2〜3・関連研究・結論まで読了。"
+    },
+    {
+      "title": "Universal Hypernetworks for Arbitrary Models",
+      "short": "UHN (Zhou 2026)",
+      "authors": "Xuanfeng Zhou（独立研究者）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2604.02215",
+      "lineage": "最新",
+      "parent": "GHN-2 / HyperNetworks",
+      "s1": "パラメータの位置・アーキテクチャ・タスクを表す決定的な記述子から各スカラー重みを予測する、構造固定の生成器 Universal Hypernetwork（UHN）を提案。1つの UHN で画像・グラフ・テキスト・数式回帰のモデルを生成し直接学習に迫った。",
+      "s2": "従来のハイパーネットは出力次元や層・チャンクごとの学習埋め込みが目標構造に結び付き、構造を変えると再設計が要る。GHN 系も最大構造に合わせた出力やマスクが必要。UHN は目標側の特異性をすべて入力記述子に移した。",
+      "s3": "w_i=H_θ(v_i, s_g, {s_ℓ}, t)。添字記述子 v_i をガウス Fourier 特徴で符号化して残差 MLP で処理し、層記述子は1層 Transformer で集約して加算。生成重みの平均・分散を目標値に合わせる初期化段階を設け、再帰生成も安定させる。",
+      "s4": "CIFAR-10 CNN-20 で 89.93%（直接学習 89.99%）、AG News 90.99%（91.86%）、Cora GCN 79.5%（81.7%）（Table 1）。CNN を深さ 20→56 にしても UHN は 612K パラメータで固定（Table 2）。3段の再帰生成でも MNIST 97.4%（Table 5）。",
+      "s5": "著者：直接学習に常に並ぶわけではなく、BN 統計は生成できず学習コストも増える。初期化段階なしでは再帰生成が発散しうる。\n所感：UHN（612K）が生成対象（3万〜38万）より大きい例が多く、圧縮ではない。単著・小規模で追試が要る。",
+      "s6": "・GHN-2 (2021)（本資料）\n・HyperNetworks (2016)（本資料）\n・Chunked hypernetworks (von Oswald+ 2020)（同分野 task-adaptation で扱う）",
+      "figure": {
+        "file": "figures/uhn_fig2.png",
+        "caption": "出典：UHN Fig. 2（タスク・構造記述子と添字記述子 v_i から各重み w_i を生成）"
+      },
+      "notes": "arXiv v1 を本文・Table 1〜5・考察・付録 H（限界）まで読了。付録 B〜G は必要箇所のみ。"
+    },
+    {
+      "title": "Sharp Approximation Rates for Neural Networks with Affine Latent Parameterizations",
+      "short": "アフィン潜在パラメータ化の近似率 (Zhang 2026)",
+      "authors": "Shijun Zhang（Hong Kong Polytechnic University）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.31157",
+      "lineage": "最新",
+      "parent": "On the Modularity of Hypernetworks (Galanti & Wolf 2020)",
+      "s1": "共有の生成器で M 次元の潜在 ξ から全 P 個のパラメータを作るモデルの表現力を、生成器がアフィンの場合に解析。α-Hölder 関数の最悪誤差が [P·min{M,P}]^(−α/d) で上下から一致することを証明した。",
+      "s2": "ハイパーネット・部分空間学習・LoRA 類は「タスク依存の情報量 M」と「共有デコーダの規模 P」を区別せず語られてきた。既存の近似理論は全パラメータが目標依存の場合か、デコーダ規模を数えない場合のどちらかに偏っていた。",
+      "s3": "θ_f=Aξ_f+a（A, a は目標クラス全体で固定）。上界は幅が d のみに依存する ReLU ネットで、潜在座標に2進列を詰めて逐次復号する構成。下界は A の階数で実効変数を減らした擬次元評価と Hölder バンプのパッキング。",
+      "s4": "実験はなく定理で示す。Theorem 3.1（上界）と 3.3（下界）から、M≤P では (PM)^(−α/d)、M≥P では P^(−2α/d) に飽和（Fig. 2）。M を4以上で固定しても、デコーダ規模 P を増やせば誤差は P^(−α/d) で0に向かう（Remark 3.4）。",
+      "s5": "著者：構成は厳密な実数演算と不連続な符号化に依存し、有限精度・安定性・最適化は対象外。非線形生成器への拡張が課題。\n所感：「低次元コードで足りる」理由を与えるが、ビット長を数えると M·b の情報制約が効くため、実際のハイパーネットの説明としては上限的な結果。",
+      "s6": "・On the Modularity of Hypernetworks (2020)（参照のみ）\n・On Infinite-Width Hypernetworks (2020)（未調査）\n・Intrinsic Dimension (Li+ 2018)（未調査）",
+      "figure": {
+        "file": "figures/affine_fig2.png",
+        "caption": "出典：アフィン潜在パラメータ化 Fig. 2（M と P の2つの領域での最適誤差率）"
+      },
+      "notes": "arXiv v1 の序論・関連研究・解釈と適用範囲（2.4〜2.6）・主定理（3章）・結論を精読。4〜5章の証明は構成の流れのみ確認。"
+    }
+  ]
+}

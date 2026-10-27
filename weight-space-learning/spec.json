@@ -1,0 +1,215 @@
+{
+  "field": "ハイパーネットワーク",
+  "theme": "重み空間の学習と拡散によるパラメータ生成",
+  "date": "2026-10-27",
+  "summary": "学習済みの重みそのものをデータとして扱う系譜。重みから精度を当てる Unterthiner+ 2020、チェックポイントを生成する G.pt、置換対称性に等変な DWSNets を原典に、GMN・p-diff・SANE が規模と汎用性を広げた。\n2025〜2026年は RPG の大規模生成と、Zeng+ による「生成重みは記憶にすぎない」という検証が焦点。等変フローマッチングや LM 向け GMT がこれに応えようとしている。",
+  "papers": [
+    {
+      "title": "Predicting Neural Network Accuracy from Weights",
+      "short": "Accuracy from Weights (Unterthiner+ 2020)",
+      "authors": "Thomas Unterthiner, Daniel Keysers, Sylvain Gelly ほか（Google Research, Brain Team）｜ arXiv プレプリント 2020",
+      "year": 2020,
+      "venue": "arXiv プレプリント 2020",
+      "link": "https://arxiv.org/abs/2002.11448",
+      "lineage": "原典",
+      "s1": "入力データを一切使わずに、学習済み CNN の重みだけからテスト精度を予測できることを示した。4 データセットで学習した 12 万個の CNN（Small CNN Zoo）を公開し、層ごとの重み統計量を GBM に入れるだけで R²>0.98 を達成した。",
+      "s2": "Jiang+ 2019・Yak+ 2019 の汎化予測は、データを通した中間層マージンが必要で、計算が重い。同一ハイパラでシードだけ違うモデルが学習・評価に分かれると情報が漏れる問題も指摘した。本研究は重みだけを使い、1 設定 1 シードで漏れを防いだ。",
+      "s3": "固定アーキテクチャ（4970 パラメータ）の CNN を、ハイパラをランダムに変えて 3 万個ずつ学習する。予測器 F̂: W→[0,1] を MSE で学習し、入力は生の重み、層ごとの平均・分散・分位点（56 次元）、ノルムを比較した。",
+      "s4": "CIFAR10-GS で層統計＋GBM が R²=0.984。生の全重みは 0.970、ハイパラだけでは 0.934（Table 1, 2）。別データセットへの転移でも Kendall τ≥0.6（Table 3）。小 CNN で学習した予測器が ResNet32 の順位を τ=0.28〜0.62 で当てた（Table 4）。",
+      "s5": "著者：予測が人間に解釈できる規則に落ちるかは未解明。順序不変性を組み込む Deep Sets 系の帰納バイアスが今後の課題。\n所感：置換・スケール不変性を手作り統計量で迂回した出発点。後続の DWSNets・GMN はここを構造で解く。",
+      "s6": "・Hyper-Representations (Schürholt+ 2021)（未調査）\n・DWSNets (Navon+ 2023)（本資料）\n・GMN (Lim+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/unterthiner.png",
+        "caption": "出典：Accuracy from Weights Fig. 3（初層・最終層のバイアス幅で CIFAR10-GS の CNN を散布。色は精度。左 Adam/RMSProp、右 SGD）"
+      },
+      "notes": "arXiv v4 を本文（定式化・Small CNN Zoo・Table 1〜4・不変性の検証・結論）まで読了。付録は未読。"
+    },
+    {
+      "title": "Learning to Learn with Generative Models of Neural Network Checkpoints",
+      "short": "G.pt (Peebles+ 2022)",
+      "authors": "William Peebles, Ilija Radosavovic, Tim Brooks, Alexei A. Efros, Jitendra Malik（UC Berkeley）｜ arXiv プレプリント 2022",
+      "year": 2022,
+      "venue": "arXiv プレプリント 2022",
+      "link": "https://arxiv.org/abs/2209.12892",
+      "lineage": "原典",
+      "s1": "10 万回以上の学習で得た 2300 万チェックポイントで、条件付き拡散 Transformer「G.pt」を学習した。初期重みと目標損失（誤差・リターン）を与えると、未知の初期値からでも 1 回の更新で目標を満たすパラメータを出す。",
+      "s2": "学習型オプティマイザ（Andrychowicz+ 2016）や MAML は展開最適化や強化学習に頼るため、訓練が不安定で、目的関数が微分可能である必要もあった。G.pt は過去のチェックポイントを使った通常の生成モデル学習なので、誤差率のような非微分指標にも条件付けできる。",
+      "s3": "同じ学習の中から開始 θ と未来の θ* を選び、L = E‖θ* − G(θ*_j, θ, ℓ*, ℓ, j)‖² で未来パラメータを直接予測する。層ごとのトークン化、GPT-2 型 Transformer、入力 θ への全体残差で構成し、置換拡張でデータを水増しする。",
+      "s4": "MNIST・CIFAR-10・Cartpole で、1 ステップ後の性能が AdamW・SGD など 5 種の 1 ステップ更新を上回った（Fig. 3）。2M〜858M パラメータのモデルでスケールを調べ、60M 未満は汎化しなかった（Fig. 7）。中間チェックポイントを除くと損失が 0.2→0.32 に悪化した。",
+      "s5": "著者：CIFAR-10 で未学習気味であること、訓練データの範囲外の損失へ外挿できないこと、単一アーキ・単一タスクに限ることを限界に挙げる。\n所感：置換拡張なしでは過学習するという記述は、後の記憶問題（Zeng+ 2025）の予兆と読める。",
+      "s6": "・p-diff (Wang+ 2024)（本資料）\n・HyperDiffusion (Erkoç+ 2023)（未調査）\n・Weight Memorization (Zeng+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/gpt.png",
+        "caption": "出典：G.pt Fig. 1（左：損失・誤差付きチェックポイントのデータセット、右：開始 θ と目標損失から更新後 θ を出す生成モデル）"
+      },
+      "notes": "arXiv v1 を本文（データ・アーキテクチャ・実験・スケーリング・Limitations）まで読了。学会採録は確認できなかった。"
+    },
+    {
+      "title": "Equivariant Architectures for Learning in Deep Weight Spaces",
+      "short": "DWSNets (Navon+ 2023)",
+      "authors": "Aviv Navon, Aviv Shamsian, Idan Achituve, Ethan Fetaya, Gal Chechik, Haggai Maron（Bar-Ilan University, NVIDIA）｜ ICML 2023",
+      "year": 2023,
+      "venue": "ICML 2023",
+      "link": "https://arxiv.org/abs/2301.12780",
+      "lineage": "原典",
+      "s1": "MLP の重みを入力とし、隠れニューロンの置換対称性に等変な層を積み重ねるネットワーク「DWSNets」を提案した。重み空間上の線形等変層をすべて特徴付けたうえで、INR の分類や分類器のドメイン適応で既存手法を大きく上回った。",
+      "s2": "従来は重みを平坦化して MLP や Transformer（Schürholt+ 2021）に入れていたため、同じ関数を表す置換違いの重みを別物として扱っていた。置換拡張や Git Re-Basin による整列でも補いきれない。対称性を構造で組み込んだ初の原理的なアーキテクチャである。",
+      "s3": "重み空間 V=⊕(W_m⊕B_m) と群 G=S_d1×…×S_dM−1 の作用を定める。等変線形層を W→W、W→B、B→W、B→B のブロック行列に分け、各ブロックがプーリング・ブロードキャスト・全結合の組合せで書けることを証明した（Theorem 5.1）。",
+      "s4": "MNIST INR 分類で 85.7%（MLP+整列 59.0%、Transformer 26.6%、Table 1）。正弦波 INR の自己教師あり表現で MSE 1.39（INR2Vec 3.86、Table 2）。CIFAR-10→破損版の適応で 71.4%（適応なし 60.9%、Table 3）。",
+      "s5": "著者：層構造が特定の MLP に固定され、初期化が難しく学習が不安定なタスクがある。実装も複雑。\n所感：スケール対称性や異種アーキテクチャは扱えない。同時期の NFN（Zhou+ 2023）と並び、等変メタネットの出発点である。",
+      "s6": "・NFN (Zhou+ 2023)（未調査）\n・GMN (Lim+ 2024)（本資料）\n・Equivariant Deep Weight Space Alignment (Navon+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/dwsnets.png",
+        "caption": "出典：DWSNets Fig. 2（重み・バイアス間の等変線形写像のブロック構造。色ごとに異なる層タイプ）"
+      },
+      "notes": "arXiv v2（ICML 2023 版）を本文・Table 1〜4・Limitations まで読了。証明の付録は概略のみ。"
+    },
+    {
+      "title": "Graph Metanetworks for Processing Diverse Neural Architectures",
+      "short": "GMN (Lim+ 2024)",
+      "authors": "Derek Lim, Haggai Maron, Marc T. Law, Jonathan Lorraine, James Lucas（MIT CSAIL, NVIDIA）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2312.04501",
+      "lineage": "発展",
+      "parent": "DWSNets (Navon+ 2023)",
+      "s1": "入力ネットワークを「パラメータ＝辺」のグラフに変換し、GNN で処理する Graph Metanetworks（GMN）を提案した。正規化・残差・畳み込み・多頭注意を含む多様なアーキテクチャを 1 つのメタネットで扱い、精度予測などで既存手法を上回った。",
+      "s2": "DWSNets・NFN は MLP や単純な CNN ごとに等変層を手設計する必要があった。正規化層・残差接続・注意機構や、層数・幅の異なる入力は扱えなかった。GMN はグラフの自己同型を対称性とみなすので、GNN を使えば等変性が自動的に得られる。",
+      "s3": "計算グラフの代わりに、各パラメータが 1 本の辺に対応する「パラメータグラフ」を層ごとの部分グラフで組み立てる。バイアスはバイアスノードからの辺、畳み込みは空間位置付きの多重辺で表す。neural DAG 自己同型への等変性と、DWSNets 以上の表現力を証明した。",
+      "s4": "CIFAR-10 分類器約 3 万個（CNN・ResNet・ViT 等）の精度予測で、多様アーキの OOD 設定は R²=0.768（DMC −0.134、Table 1）。INR 編集 Contrast で MSE 0.0197（NFT 0.0200、Table 2）。自己教師あり表現で MSE 1.13（DWSNets 1.39、Table 3）。",
+      "s5": "著者：数十億パラメータ規模は未検証で、グラフ設計規則も未形式化。スケール対称性は扱わない。\n所感：重み空間学習を任意アーキテクチャに開いた転換点。PEFM・GMT の土台になった。",
+      "s6": "・Neural Graphs (Kofinas+ 2024)（未調査）\n・Scale Equivariant GMN (Kalogeropoulos+ 2024)（未調査）\n・GMT (Wolanowsky+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/gmn.png",
+        "caption": "出典：GMN Fig. 1（ネットワーク定義 → パラメータグラフ（バイアス・BN ノード付き）→ GNN による処理）"
+      },
+      "notes": "arXiv v2 を本文・Table 1〜3・Limitations まで読了。"
+    },
+    {
+      "title": "Neural Network Diffusion",
+      "short": "p-diff (Wang+ 2024)",
+      "authors": "Kai Wang, Dongwen Tang, Boya Zeng ほか（National University of Singapore）｜ arXiv プレプリント 2024",
+      "year": 2024,
+      "venue": "arXiv プレプリント 2024",
+      "link": "https://arxiv.org/abs/2402.13144",
+      "lineage": "発展",
+      "parent": "G.pt (Peebles+ 2022)",
+      "s1": "パラメータ用の自己符号化器と潜在拡散モデルを組み合わせた p-diff を提案した。ノイズから高性能なパラメータ（主に最終 BN 層、小型モデルは全体）を生成し、7 データセット・6 アーキテクチャで元モデルと同等以上の精度を報告した。",
+      "s2": "G.pt は生成モデルが元のチェックポイントより低い性能にとどまり、Hyper-Representations は解析が中心だった。p-diff は「元モデル以上の性能」と「記憶ではない新規性」を同時に主張し、拡散による重み生成ブームの起点となった。",
+      "s3": "収束後のモデルを 300 ステップ追加学習し、毎ステップ保存した部分パラメータを 1D 畳み込みの自己符号化器で潜在化する。入力と潜在にノイズ拡張（σ_v=0.001, σ_z=0.1）を加え、潜在上で DDPM を学習する。新規性は誤予測集合の IoU で測る。",
+      "s4": "ResNet-18/CIFAR-100 で元 77.4%・平均重み 77.7%・p-diff 77.9%、ImageNet で 69.5→70.4%（Table 1）。全パラメータ生成（24K〜81K）でも同等（Table 2）。生成モデルの最大類似度はノイズ付加より低く、精度は高い（Fig. 4）。",
+      "s5": "著者：大規模モデル全体の生成ではメモリが制約になり、構造設計と性能の安定性にも課題が残る。\n所感：訓練データが単一学習の連続チェックポイントで、多様性が極めて小さい。Zeng+ 2025 はこれを「補間にすぎない」と反証した。",
+      "s6": "・D2NWG (Soro+ 2024)（未調査）\n・RPG (Wang+ 2025)（本資料）\n・Weight Memorization (Zeng+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/pdiff.png",
+        "caption": "出典：p-diff Fig. 2（パラメータ自己符号化器・潜在拡散の学習と、ノイズ→DM→デコーダによる生成）"
+      },
+      "notes": "arXiv v3 を本文・Table 1〜4・類似度分析（Fig. 3〜5）・Discussion まで読了。採録先は確認できなかった。"
+    },
+    {
+      "title": "Towards Scalable and Versatile Weight Space Learning",
+      "short": "SANE (Schürholt+ 2024)",
+      "authors": "Konstantin Schürholt, Michael W. Mahoney, Damian Borth（University of St.Gallen, ICSI/UC Berkeley）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024",
+      "link": "https://arxiv.org/abs/2406.09997",
+      "lineage": "発展",
+      "parent": "Accuracy from Weights (Unterthiner+ 2020)",
+      "s1": "重みをトークン列として部分窓ごとに符号化する逐次自己符号化器「SANE」を提案した。1 つの表現で性能予測（識別）とモデル生成（生成）の両方をこなし、ResNet-18（約 1200 万パラメータ）規模の model zoo に初めて適用した。",
+      "s2": "Hyper-Representations（Schürholt+ 2021, 2022）は全重みを一度に符号化するため小さなモデルしか扱えず、識別用と生成用を別々に学習する必要があった。アーキテクチャも固定だった。SANE は窓単位の学習で、メモリ使用量をモデルサイズから切り離した。",
+      "s3": "重みを出力チャネルごとに行スライスし、固定長トークン化して 3 次元位置 [n, l, k] を付ける。部分窓で再構成損失＋対照損失を学習する。生成時は少数のプロンプトモデルの埋め込みに KDE を当ててサンプルし、上位を選ぶか反復で絞り込む。",
+      "s4": "ResNet-18 zoo で層統計量並みの R² の精度予測（Table 2）。サンプルした ResNet-18 は微調整なしで CIFAR-10 68.1%（スクラッチ約 10%、Table 4）。小 CNN では従来の Hyper-Rep 比で初期化時に約 20% 向上（Table 3）。ResNet-34 への転移も示した。",
+      "s5": "著者：事前学習は単一アーキの zoo のみで、生成には良いプロンプト例が必要。実験はビジョンに限られる。\n所感：重みを Git Re-Basin で参照モデルに整列してから学習しており、対称性は前処理で消している。Zeng+ 2025 の記憶検証の対象にもなった系譜である。",
+      "s6": "・Hyper-Representations as Generative Models (Schürholt+ 2022)（未調査）\n・Model Zoos (Schürholt+ 2022)（未調査）\n・Learning Model Representations from Model Hubs (Falk+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/sane.png",
+        "caption": "出典：SANE Fig. 2（model zoo の重みを逐次化 → 窓単位の自己符号化器で hyper-representation を学習 → 識別・生成タスク）"
+      },
+      "notes": "arXiv v1（ICML 2024）を本文・Table 1〜5・Limitations まで読了。"
+    },
+    {
+      "title": "Recurrent Diffusion for Large-Scale Parameter Generation",
+      "short": "RPG (Wang+ 2025)",
+      "authors": "Kai Wang, Dongwen Tang, Wangbo Zhao, Konstantin Schürholt, Zhangyang Wang, Yang You（National University of Singapore）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2501.11587",
+      "lineage": "最新",
+      "parent": "p-diff (Wang+ 2024)",
+      "s1": "パラメータをトークン化し、再帰モデル（Mamba）が出すプロトタイプで 1D 拡散を条件付ける RPG を提案した。ConvNeXt-L（約 2 億パラメータ）の全重みを単一 GPU で約 1.3 分で生成し、ImageNet・COCO・LLaMA-7B 用 DoRA で元モデル並みの性能を得た。",
+      "s2": "G.pt や p-diff は部分パラメータか数万パラメータ規模にとどまり、主流モデルとは 10³ 倍以上の差があった。D2NWG のように分割して生成すると、層間の相関が失われる。ViT 2 つの層を半分ずつ交換すると精度が崩れる実験で、相関モデリングの必要性を示した。",
+      "s3": "層ごとに正規化した重みを固定長トークンに切り、2D 位置埋め込みと one-hot の「置換状態」S を付ける。再帰モデルでプロトタイプ P を作り、L = E‖ε − ε_θ(K_t, t, P)‖² でトークンを拡散生成する。",
+      "s4": "ImageNet で ViT-B 84.4→生成 84.6%、ConvNeXt-L 85.8→85.8%（Table 1）。推論メモリは約 20GB（Table 7）。CIFAR-10 の二値タスク 1022 種のうち未学習 20 種のうち表示された 10 種で、元 96.7〜98.9% に対し生成 92.9〜96.6%（Table 9）。",
+      "s5": "著者：新しいアーキテクチャの生成はできず、単一タスク内の関係しかモデル化していない。\n所感：訓練データは 1 モデルの微調整チェックポイント 50 個で、置換状態で各チェックポイントを指定する設計は「再現」に近い。未知タスク実験が汎化の唯一の根拠である。",
+      "s6": "・ORAL (Khan+ 2025)（未調査）\n・Weight Memorization (Zeng+ 2025)（本資料）\n・DeepWeightFlow (Gupta+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/rpg.png",
+        "caption": "出典：RPG Fig. 2（左：層分割・トークン化・位置埋め込み、右：置換状態付き再帰モデル → 拡散でトークンを生成）"
+      },
+      "notes": "arXiv v2（改題後）を本文・Table 1〜10・Discussion・付録 A（G.pt・p-diff の限界）まで読了。採録先は NeurIPS 2025 のポスターページで確認（検索結果による）。\n学会版の題は「Scaling Up Parameter Generation: A Recurrent Diffusion Approach」とされるが、ここでは読んだ arXiv 版（v2）の原題を記載。"
+    },
+    {
+      "title": "Generative Modeling of Weights: Generalization or Memorization?",
+      "short": "Weight Memorization (Zeng+ 2025)",
+      "authors": "Boya Zeng, Yida Yin, Zhiqiu Xu, Zhuang Liu（Princeton University）｜ CVPR 2026",
+      "year": 2025,
+      "venue": "CVPR 2026",
+      "link": "https://arxiv.org/abs/2506.07998",
+      "lineage": "最新",
+      "parent": "p-diff (Wang+ 2024)",
+      "s1": "Hyper-Representations・G.pt・HyperDiffusion・p-diff の 4 手法を検証し、生成された重みは訓練チェックポイントの複製か、せいぜい単純な補間にすぎないことを示した。ノイズ付加や平均化という自明なベースラインにも勝てない。",
+      "s2": "先行研究は生成モデルの精度だけで評価し、「新規な重み」を主張していた（p-diff など）。本研究は最近傍の訓練重みとの距離、決定境界、誤り IoU を並べ、ノイズ付加ベースラインと同じ新規性の水準で比べる評価手順を確立した。",
+      "s3": "生成重みごとに最近傍の訓練重みを L2 距離で探す（置換拡張をした手法は全置換を列挙）。重み値、決定境界・3D 形状、精度対最大類似度のトレードオフで比較する。さらにデータ量・モデル容量・対称性拡張を操作し、記憶の原因を切り分けた。",
+      "s4": "HyperDiffusion の生成重みの 94.4% は訓練重みとの距離が 10 未満で、訓練重み同士は 50 超（Fig. 4）。p-diff は重み平均・ガウス近似と区別できない（Fig. 8）。G.pt はデータを 10 倍の 2040 万にすると記憶が減った（距離 2.25→2.78、Fig. 9）。",
+      "s5": "著者：原因はデータ不足・過剰な容量・構造的事前知識の不足。置換拡張だけでは HyperDiffusion が学習できず、対称性を構造で組み込む必要がある。\n所感：重み生成の評価基準を変えた転換点の論文。以後の論文は記憶の否定を示す義務を負った。",
+      "s6": "・HyperDiffusion (Erkoç+ 2023)（未調査）\n・PEFM (Piven+ 2026)（本資料）\n・NNiT (Kim+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/zeng.png",
+        "caption": "出典：Weight Memorization Fig. 6（4 手法の精度と最大類似度。赤が生成、紫・橙がノイズ付加。p-diff 以外はノイズ付加に勝てない）"
+      },
+      "notes": "arXiv v2 を本文（Sec. 1〜5、Fig. 1〜12、Table 1）まで読了。付録は目次と一部の図のみ。CVPR 2026 採録は CVPR の公開ページで確認。"
+    },
+    {
+      "title": "Permutation-Equivariant Flow Matching for Alignment-Free Neural Weight Generation",
+      "short": "PEFM (Piven+ 2026)",
+      "authors": "Arkadi Piven, Yam Eitan, Guy Bar-Shalom ほか（Technion, TU Munich, NVIDIA）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.32833",
+      "lineage": "最新",
+      "parent": "GMN (Lim+ 2024)",
+      "s1": "フローマッチングの速度場を置換等変な Graph Meta Network で表し、独立に学習された最大 10 万個のネットワークから、整列なしで重みを生成した。精度・機能類似度・重み類似度の同時分布が訓練集団に近く、記憶ではない生成の証拠を示した。",
+      "s2": "p-diff・RPG は単一学習のチェックポイントを集め（事前整列）、SANE・DeepWeightFlow は Git Re-Basin で事後整列していた。どちらも独立学習モデルの集団には適用しにくく、Zeng+ 2025 の記憶批判にも答えていない。PEFM は対称性を構造に組み込み、両方を解消した。",
+      "s3": "初期分布と学習手続きが置換不変なら、学習済み重み分布も置換不変になり、最適な FM 速度場は等変になることを示した。そこで v_θ(G, w_t, t, c) を GMN（AdaLN で時刻・タスク条件）で表す。等変なので整列しても目的関数は変わらない。",
+      "s4": "MNIST・CIFAR-10 で、精度・最大誤り IoU・重みコサイン類似度を合わせた JWS が 0.91/0.92。ベースラインは最大 0.59/0.64（Table 1）。20 タブラー課題・16 アーキの混合集団で平均精度 82.2%（参照 83.2%）。未知の幅 0.5 倍で 79.0% を得た（Fig. 6）。",
+      "s5": "著者：対象は小規模ネットワークのみで、密なグラフ表現は大規模化でメモリを食う。条件はタスク ID で、未知タスクの生成は評価していない。\n所感：記憶批判に正面から応えた評価設計が要点。基盤モデル規模で同じ主張が成り立つかは未知数。",
+      "s6": "・DeepWeightFlow (Gupta+ 2026)（未調査）\n・Geometric Flow Models over Neural Network Weights (Erdogan 2025)（未調査）\n・Weight Memorization (Zeng+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/pefm.png",
+        "caption": "出典：PEFM Fig. 2（アーキ G・タスク c で条件付けた共有速度場。置換 P_g は軌道と速度を同じく置換し、機能が等価なネットワークを生む）"
+      },
+      "notes": "arXiv v1 を本文（理論・手法・JWS 評価・Table 1〜2・Fig. 5〜7・Limitations）まで読了。証明の付録は未読。"
+    },
+    {
+      "title": "Graph Metanetworks for Transformer Based Language Models",
+      "short": "GMT (Wolanowsky+ 2026)",
+      "authors": "Yonathan Wolanowsky, Guy Bar-Shalom, Fabrizio Frasca, Haggai Maron（Technion）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.18471",
+      "lineage": "最新",
+      "parent": "GMN (Lim+ 2024)",
+      "s1": "decoder-only 言語モデル全体の重み空間対称性群を定式化した。その群とグラフ同型が一致するグラフ構成「GMT」を提案し、学習コーパス比率の予測や微調整の検出（どの重みが変わったか）で既存メタネットを上回った。",
+      "s2": "GMN・Neural Graphs は注意層の GL 対称性を無視し、ヘッド構造も正しく符号化していなかった。Tran+ の NFN-T は GL 対称性を扱えるが、単一アーキに固定されている。埋め込み・語彙置換まで含めた言語モデル全体の扱いは、これまでなかった。",
+      "s3": "群は FF ニューロン置換・残差流置換・ヘッドごとの GL(d_k)×GL(d_v)・ヘッド置換・語彙置換の積。GMT-GL は W_q W_kᵀ と W_v W_O を辺に載せ、パラメータを持たない結合辺とヘッドノードで置換を連動させる。軽量版の GMT-P も用意した。",
+      "s4": "9万〜15万パラメータの LM 集団でのコーパス比率予測で、KL は GMT-GL 0.124（GMN 0.170、MLP 0.264、Table 2）。4000 個の LoRA 微調整検出で AUC 0.956（GMN 0.936、Table 4）。重み単位の検出は Macro-F1 0.952（GMN 0.904、Table 5）。",
+      "s5": "著者：スケール・符号対称性は未対応で、実験は数百万パラメータまで。タスクは監査用途の小規模な代理問題。\n所感：重み空間学習を LLM 監査（来歴・改変検出）へ向ける動き。実用 LLM 規模への拡張と、生成側への応用が次の課題である。",
+      "s6": "・Equivariant NFN for Transformers (Tran+ 2024)（未調査）\n・Learning on LoRAs (Putterman+ 2024)（未調査）\n・Interfaces and Modules (Kozyra & Bronstein 2026)（未調査）",
+      "figure": {
+        "file": "figures/gmt.png",
+        "caption": "出典：GMT Fig. 1（2 ヘッド注意層のグラフ構成。左 GMT-GL、中 GMT-P、右 従来の GMN）"
+      },
+      "notes": "arXiv v1 を本文（対称性群・グラフ構成・Table 2〜5・Limitations）まで読了。証明の付録は未読。"
+    }
+  ]
+}
