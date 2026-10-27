@@ -3,6 +3,11 @@
 # 事前設定（リポジトリを public にした後に 1 回だけ）:
 #   Settings → Pages → Build and deployment → Source を「GitHub Actions」にする
 #
+# 公開先の制限:
+#   Pages の公開先（github-pages 環境）は、既定ではリポジトリの既定ブランチ（default branch）からの
+#   デプロイしか受け付けない。そのため route ジョブで既定ブランチを調べ、別のブランチ（main など）で
+#   起動されたときは既定ブランチ上でこのワークフローを起動し直す（既定ブランチでだけ生成・公開する）。
+#
 # 実行タイミング:
 #   - main への push（サイトのコード・設定の変更）
 #   - 分野ブランチへの push（request-pages-build.yml がこのワークフローを起動する）
@@ -18,6 +23,7 @@ on:
     - cron: "41 2 * * *"
 
 permissions:
+  actions: write
   contents: read
   pages: write
   id-token: write
@@ -27,7 +33,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  route:
+    runs-on: ubuntu-latest
+    outputs:
+      deploy: ${{ steps.check.outputs.deploy }}
+    steps:
+      - id: check
+        name: Check whether this run is on the default branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          default=$(gh api "repos/$GITHUB_REPOSITORY" --jq .default_branch)
+          echo "default branch: $default, this run: $GITHUB_REF_NAME"
+          if [ "$GITHUB_REF_NAME" = "$default" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref "$default"
+            echo "::notice::Pages deploys only from the default branch ($default); started this workflow there."
+          fi
+
   build:
+    needs: route
+    if: needs.route.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

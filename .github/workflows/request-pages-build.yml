@@ -1,5 +1,5 @@
-# 分野ブランチ（field.json を持つブランチ）に push されたら、main のサイト生成ワークフローを起動する。
-# GitHub Pages の公開は既定で main からしか許可されないため、生成と公開は main 側の pages.yml で行う。
+# 分野ブランチ（field.json を持つブランチ）と学会ブランチ（conferences.json を持つブランチ）に push されたら、
+# サイト生成ワークフロー（pages.yml）を既定ブランチ上で起動する。Pages の公開は既定ブランチからしか許可されないため。
 name: Request site rebuild
 
 on:
@@ -16,10 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          sparse-checkout: field.json
+          sparse-checkout: |
+            field.json
+            conferences.json
           sparse-checkout-cone-mode: false
-      - name: Trigger pages.yml on main
-        if: hashFiles('field.json') != ''
+      - name: Trigger pages.yml on the default branch
+        if: hashFiles('field.json') != '' || hashFiles('conferences.json') != ''
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref "${{ github.event.repository.default_branch }}"
