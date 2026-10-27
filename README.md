@@ -2,7 +2,7 @@
 
 イベントカメラと SNN・ニューロモルフィックチップでロボットの知覚・制御を行う研究について、イベントからの表現・世界モデル学習、完全ニューロモルフィック閉ループ、チップ上の局所学習の観点から系譜をまとめる。SNN 分野の応用編にあたる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -44,7 +44,7 @@
 
 ## イベントベース世界モデルと表現学習（event-world-models/）
 
-資料：[event-world-models.pptx](event-world-models/event-world-models.pptx) ／ [event-world-models.pdf](event-world-models/event-world-models.pdf) ／ 生成元 [spec.json](event-world-models/spec.json)
+資料：[event-world-models.pptx](event-world-models/event-world-models.pptx) ／ [event-world-models.pdf](event-world-models/event-world-models.pdf) ／ 生成元 [spec.json](event-world-models/spec.json) ／ [テーマ README](event-world-models/README.md)
 
 
 ### 調査履歴
@@ -121,7 +121,7 @@ Capone & Paolucci 2022 (SNN の夢見と計画) ─→ Neuromorphic dreaming (Bl
 
 ## 完全ニューロモルフィック閉ループ：センサ → SNN → アクチュエータ（closed-loop/）
 
-資料：[closed-loop.pptx](closed-loop/closed-loop.pptx) ／ [closed-loop.pdf](closed-loop/closed-loop.pdf) ／ 生成元 [spec.json](closed-loop/spec.json)
+資料：[closed-loop.pptx](closed-loop/closed-loop.pptx) ／ [closed-loop.pdf](closed-loop/closed-loop.pdf) ／ 生成元 [spec.json](closed-loop/spec.json) ／ [テーマ README](closed-loop/README.md)
 
 
 ### 調査履歴
@@ -227,7 +227,7 @@ SNN PID on Loihi (Stagsted+ 2020, ⚠️)
 
 ## チップ上の局所学習による身体の適応（on-chip-learning/）
 
-資料：[on-chip-learning.pptx](on-chip-learning/on-chip-learning.pptx) ／ [on-chip-learning.pdf](on-chip-learning/on-chip-learning.pdf) ／ 生成元 [spec.json](on-chip-learning/spec.json)
+資料：[on-chip-learning.pptx](on-chip-learning/on-chip-learning.pptx) ／ [on-chip-learning.pdf](on-chip-learning/on-chip-learning.pdf) ／ 生成元 [spec.json](on-chip-learning/spec.json) ／ [テーマ README](on-chip-learning/README.md)
 
 
 ### 調査履歴
