@@ -1,0 +1,138 @@
+{
+  "slug": "swarm-intelligence",
+  "name": "群知能",
+  "order": 2,
+  "overview": "PSO・ACO などの群知能アルゴリズムについて、原著から理論・批判研究、ディープラーニングや GA との融合までの系譜をまとめる。",
+  "themes": [
+    {
+      "slug": "foundations",
+      "name": "全体像（原著論文まわり）",
+      "scope": "群知能の代表アルゴリズムの原著、理論解析、メタファー手法の乱立への批判研究",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "deep-learning-fusion",
+      "name": "DeepLearning・NN との融合",
+      "scope": "群知能による NN・LLM の最適化、NN/DRL による群知能の強化、LLM を演算子とする群知能",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "ga-hybrid",
+      "name": "GA との融合",
+      "scope": "PSO と GA/DE のハイブリッド、モジュール化・自動構成、LLM による進化的アルゴリズム設計",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "metabbo",
+      "name": "Meta-BBO と LLM による最適化アルゴリズムの自動設計",
+      "scope": "ParamILS・L2O・LES から FunSearch・AlphaEvolve・MetaBox-v2・HADA まで、最適化器の設計の学習・自動化",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "cbo-mean-field",
+      "name": "Consensus-Based Optimization（CBO）と群れの平均場理論",
+      "scope": "CBO の原典から大域収束の証明、サンプリング・制約付きへの拡張、有限粒子・一様時間の解析、ES との接続まで",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "aco-neural",
+      "name": "ACO の系譜と Neural ACO による大規模組合せ最適化",
+      "scope": "AntNet・MMAS のランタイム解析から、Attention Model・POMO・ML-ACO・ReEvo・HeatACO・TIDE まで",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "algo-evaluation",
+      "name": "自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）",
+      "scope": "performance profile・ベイズ検定・COCO/IOHanalyzer から、構造バイアス、分布外評価（MA-BBOB）、LLM 生成ヒューリスティクスの汎化と BLADE まで",
+      "round": 3,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "learned-swarm",
+      "name": "学習型群知能と、学習器・古典的探索の役割分担",
+      "scope": "DE-DDQN・RL-DAS などの学習型制御と、DIMES・DIFUSCO・UTSP などヒートマップ型 NCO と探索器の分担、学習が効かない条件まで",
+      "round": 3,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "particle-theory",
+      "name": "粒子系最適化の理論の拡張",
+      "scope": "IGO・異方性 CBO・多目的／鞍点／二層 CBO・FedCBO と、NSGA-II・EDA のランタイム解析、ES/CBO の統一まで",
+      "round": 3,
+      "date": "2026-10-24"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-10-23",
+      "round": 1,
+      "text": "第1回調査。「全体像（原著論文まわり）」、「DeepLearning・NN との融合」、「GA との融合」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌・著者公開版など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。"
+    },
+    {
+      "date": "2026-10-23",
+      "round": 2,
+      "text": "第2回調査。第1回の推奨テーマ 「Meta-BBO と LLM による最適化アルゴリズムの自動設計」、「Consensus-Based Optimization（CBO）と群れの平均場理論」、「ACO の系譜と Neural ACO による大規模組合せ最適化」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。"
+    },
+    {
+      "date": "2026-10-24",
+      "round": 3,
+      "text": "第3回調査。第2回の推奨テーマ 「自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）」、「学習型群知能と、学習器・古典的探索の役割分担」、「粒子系最適化の理論の拡張」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。"
+    }
+  ],
+  "next": [
+    {
+      "title": "学習型・自動設計最適化の公平な評価プロトコル",
+      "body": "評価基盤テーマと学習型群知能テーマが同じ結論に達した。同予算の静的チューニング・ランダム基線・距離ベースの単純法と比べると学習の上乗せは小さく、統計的比較の作法（ベイズ・IRT・anytime 指標）も揃っていない。比較手順そのものを1テーマとして整理する。"
+    },
+    {
+      "title": "LLM による評価問題の自動生成と、手法との共進化",
+      "body": "EoTF のように評価用の問題を LLM で生成する研究が出始め、LLM 生成ヒューリスティクスの分布外汎化の弱さ（Beyond the Hype）も報告された。問題生成と手法生成の共進化、組合せ最適化での分布外ベンチマークを追う。"
+    },
+    {
+      "title": "共分散適応・回転不変な粒子系最適化と、連続空間のランタイム解析",
+      "body": "IGO・異方性 CBO・CMA-ES の理論が接続し始め、ドリフト理論を ES・CBO に適用する連続空間のランタイム解析も進んでいる。PSO・ACO 固有の状態表現を学習型制御にどう与えるか（群知能版 MetaBBO の弱さの原因）も合わせて調べる。"
+    }
+  ],
+  "done": [
+    {
+      "label": "第1回の推奨テーマ（第2回で調査済み）",
+      "items": [
+        {
+          "title": "Meta-Black-Box Optimization と LLM による最適化アルゴリズムの自動設計",
+          "theme": "metabbo"
+        },
+        {
+          "title": "Consensus-Based Optimization（CBO）と群れの平均場理論",
+          "theme": "cbo-mean-field"
+        },
+        {
+          "title": "ACO の系譜と Neural ACO による大規模組合せ最適化",
+          "theme": "aco-neural"
+        }
+      ]
+    },
+    {
+      "label": "第2回の推奨テーマ（第3回で調査済み）",
+      "items": [
+        {
+          "title": "自動設計されたアルゴリズムの評価基盤（汎化・頑健性・新規性）",
+          "theme": "algo-evaluation"
+        },
+        {
+          "title": "学習型群知能と、ヒートマップ型 NCO における「学習器と探索器の分担」",
+          "theme": "learned-swarm"
+        },
+        {
+          "title": "粒子系最適化の理論の拡張（ES/CMA-ES との統一、多目的・二層・ゲーム、ランタイム解析）",
+          "theme": "particle-theory"
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 PSO・ACO などの群知能アルゴリズムについて、原著から理論・批判研究、ディープラーニングや GA との融合までの系譜をまとめる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -68,7 +68,7 @@ PSO・ACO などの群知能アルゴリズムについて、原著から理論�
 
 ## 全体像（原著論文まわり）（foundations/）
 
-資料：[foundations.pptx](foundations/foundations.pptx) ／ [foundations.pdf](foundations/foundations.pdf) ／ 生成元 [spec.json](foundations/spec.json)
+資料：[foundations.pptx](foundations/foundations.pptx) ／ [foundations.pdf](foundations/foundations.pdf) ／ 生成元 [spec.json](foundations/spec.json) ／ [テーマ README](foundations/README.md)
 
 
 ### 調査履歴
@@ -164,7 +164,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## DeepLearning・NN との融合（deep-learning-fusion/）
 
-資料：[deep-learning-fusion.pptx](deep-learning-fusion/deep-learning-fusion.pptx) ／ [deep-learning-fusion.pdf](deep-learning-fusion/deep-learning-fusion.pdf) ／ 生成元 [spec.json](deep-learning-fusion/spec.json)
+資料：[deep-learning-fusion.pptx](deep-learning-fusion/deep-learning-fusion.pptx) ／ [deep-learning-fusion.pdf](deep-learning-fusion/deep-learning-fusion.pdf) ／ 生成元 [spec.json](deep-learning-fusion/spec.json) ／ [テーマ README](deep-learning-fusion/README.md)
 
 
 ### 調査履歴
@@ -229,7 +229,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## GA との融合（ga-hybrid/）
 
-資料：[ga-hybrid.pptx](ga-hybrid/ga-hybrid.pptx) ／ [ga-hybrid.pdf](ga-hybrid/ga-hybrid.pdf) ／ 生成元 [spec.json](ga-hybrid/spec.json)
+資料：[ga-hybrid.pptx](ga-hybrid/ga-hybrid.pptx) ／ [ga-hybrid.pdf](ga-hybrid/ga-hybrid.pdf) ／ 生成元 [spec.json](ga-hybrid/spec.json) ／ [テーマ README](ga-hybrid/README.md)
 
 
 ### 調査履歴
@@ -295,7 +295,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## MetaBBO と LLM によるアルゴリズム自動設計（metabbo/）
 
-資料：[metabbo.pptx](metabbo/metabbo.pptx) ／ [metabbo.pdf](metabbo/metabbo.pdf) ／ 生成元 [spec.json](metabbo/spec.json)
+資料：[metabbo.pptx](metabbo/metabbo.pptx) ／ [metabbo.pdf](metabbo/metabbo.pdf) ／ 生成元 [spec.json](metabbo/spec.json) ／ [テーマ README](metabbo/README.md)
 
 
 ### 調査履歴
@@ -372,7 +372,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## Consensus-Based Optimization（CBO）と群れの平均場理論（cbo-mean-field/）
 
-資料：[cbo-mean-field.pptx](cbo-mean-field/cbo-mean-field.pptx) ／ [cbo-mean-field.pdf](cbo-mean-field/cbo-mean-field.pdf) ／ 生成元 [spec.json](cbo-mean-field/spec.json)
+資料：[cbo-mean-field.pptx](cbo-mean-field/cbo-mean-field.pptx) ／ [cbo-mean-field.pdf](cbo-mean-field/cbo-mean-field.pdf) ／ 生成元 [spec.json](cbo-mean-field/spec.json) ／ [テーマ README](cbo-mean-field/README.md)
 
 
 ### 調査履歴
@@ -453,7 +453,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## ACO の系譜と Neural ACO による大規模組合せ最適化（aco-neural/）
 
-資料：[aco-neural.pptx](aco-neural/aco-neural.pptx) ／ [aco-neural.pdf](aco-neural/aco-neural.pdf) ／ 生成元 [spec.json](aco-neural/spec.json)
+資料：[aco-neural.pptx](aco-neural/aco-neural.pptx) ／ [aco-neural.pdf](aco-neural/aco-neural.pdf) ／ 生成元 [spec.json](aco-neural/spec.json) ／ [テーマ README](aco-neural/README.md)
 
 
 ### 調査履歴
@@ -525,7 +525,7 @@ Bonabeau+ 1999 (書籍) ⚠ ─────────────────�
 
 ## 自動設計アルゴリズムの評価基盤（algo-evaluation/）
 
-資料：[algo-evaluation.pptx](algo-evaluation/algo-evaluation.pptx) ／ [algo-evaluation.pdf](algo-evaluation/algo-evaluation.pdf) ／ 生成元 [spec.json](algo-evaluation/spec.json)
+資料：[algo-evaluation.pptx](algo-evaluation/algo-evaluation.pptx) ／ [algo-evaluation.pdf](algo-evaluation/algo-evaluation.pdf) ／ 生成元 [spec.json](algo-evaluation/spec.json) ／ [テーマ README](algo-evaluation/README.md)
 
 
 ### 調査履歴
@@ -619,7 +619,7 @@ LLaMEA 2024 (↪ga-hybrid)・EoH 2024 (↪ga-hybrid)・FunSearch 2024 (↪metabb
 
 ## 学習型群知能と、学習器・古典的探索の役割分担（learned-swarm/）
 
-資料：[learned-swarm.pptx](learned-swarm/learned-swarm.pptx) ／ [learned-swarm.pdf](learned-swarm/learned-swarm.pdf) ／ 生成元 [spec.json](learned-swarm/spec.json)
+資料：[learned-swarm.pptx](learned-swarm/learned-swarm.pptx) ／ [learned-swarm.pdf](learned-swarm/learned-swarm.pdf) ／ 生成元 [spec.json](learned-swarm/spec.json) ／ [テーマ README](learned-swarm/README.md)
 
 
 ### 調査履歴
@@ -685,7 +685,7 @@ Att-GCN+MCTS (Fu+ 2021, 教師あり＋MCTS)
 
 ## 粒子系最適化の理論の拡張（ES/CMA-ES 統一・多目的/二層/ゲーム・ランタイム解析）（particle-theory/）
 
-資料：[particle-theory.pptx](particle-theory/particle-theory.pptx) ／ [particle-theory.pdf](particle-theory/particle-theory.pdf) ／ 生成元 [spec.json](particle-theory/spec.json)
+資料：[particle-theory.pptx](particle-theory/particle-theory.pptx) ／ [particle-theory.pdf](particle-theory/particle-theory.pdf) ／ 生成元 [spec.json](particle-theory/spec.json) ／ [テーマ README](particle-theory/README.md)
 
 
 ### 調査履歴
