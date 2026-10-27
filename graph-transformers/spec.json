@@ -1,0 +1,236 @@
+{
+  "field": "グラフニューラルネットワーク",
+  "theme": "Graph Transformer・グラフ基盤モデルと LLM",
+  "date": "2026-10-27",
+  "summary": "Transformer をグラフへ持ち込む系譜（GT → Graphormer → GPS → Exphormer）と、言語モデルの成功をグラフへ移す系譜（OFA・Talk like a Graph → GraphGPT・G1）をたどる。\n2025〜2026年は調整済み GNN の再評価、十億規模のスケーリング則、GFM の公平な再評価が「グラフ基盤モデルは成立するか」に答え始めている。",
+  "papers": [
+    {
+      "title": "A Generalization of Transformer Networks to Graphs",
+      "short": "Graph Transformer (Dwivedi & Bresson 2020)",
+      "authors": "Vijay Prakash Dwivedi, Xavier Bresson（南洋理工大学）｜ AAAI 2021 Workshop (DLG-AAAI'21)",
+      "year": 2020,
+      "venue": "AAAI 2021 Workshop (DLG)",
+      "link": "https://arxiv.org/abs/2012.09699",
+      "lineage": "原典",
+      "s1": "Transformer を任意のグラフへ一般化した最初期の汎用モデル Graph Transformer（GT）を提案。注意を隣接ノードに限り、Laplacian 固有ベクトルを位置符号化（LapPE）に使う。以後の Graph Transformer 研究の共通の出発点になった。",
+      "s2": "Graph-BERT や Li+ 2019 は全ノード間の注意や部分グラフ専用の位置符号化に頼り、グラフの疎性を活かせなかった。GT は「疎な接続」と「LapPE」を設計の2本柱とし、辺特徴を注意スコアに掛ける拡張も用意した。",
+      "s3": "正規化 Laplacian Δ=I−D^{-1/2}AD^{-1/2}=UᵀΛU の小さい k 個の非自明固有ベクトルを入力に加える（学習中は符号をランダム反転）。注意は近傍 N_i 内だけで計算し、LayerNorm を BatchNorm に替える。",
+      "s4": "ZINC・PATTERN・CLUSTER、約50万パラメータで比較（Table 1-2）。ZINC の MAE は GT 0.226 で GCN 0.367・GAT 0.384 を上回るが GatedGCN 0.214 には届かない。全結合注意にすると ZINC 0.598 と大きく悪化した。",
+      "s5": "著者：疎性は重要な帰納バイアスで、LapPE と BatchNorm は全データで効いた。大規模な単一グラフや異種グラフは今後の課題。\n所感：MPNN 系の最良に負けた結果が「GT 対 MPNN」論争の起点。全結合注意が劣るという結論は Graphormer が覆す。",
+      "s6": "・Graphormer (Ying+ 2021)（本資料）\n・SAN (Kreuzer+ 2021)（未調査）\n・GNN-LSPE (Dwivedi+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/gt_fig1.png",
+        "caption": "出典：Graph Transformer Fig. 1（左：GT 層、右：辺特徴つき GT 層。λ が LapPE）"
+      },
+      "notes": "arXiv v2 の PDF で本文（1-4章）と Table 1-3 を読んだ。"
+    },
+    {
+      "title": "Do Transformers Really Perform Bad for Graph Representation?",
+      "short": "Graphormer (Ying+ 2021)",
+      "authors": "Chengxuan Ying, Tianle Cai, Shengjie Luo ほか（大連理工大学・Microsoft Research Asia）｜ NeurIPS 2021",
+      "year": 2021,
+      "venue": "NeurIPS 2021",
+      "link": "https://arxiv.org/abs/2106.05234",
+      "lineage": "発展",
+      "parent": "Graph Transformer (Dwivedi & Bresson 2020)",
+      "s1": "標準 Transformer に中心性・空間（最短路距離）・辺の3種の構造符号化を加えた Graphormer を提案。分子の大規模データ PCQM4M で GIN-VN より検証 MAE を11.5%下げ、OGB-LSC（KDD Cup 2021）グラフ部門で1位（アンサンブル）。",
+      "s2": "GT（Dwivedi & Bresson 2020）など既存の Graph Transformer は主要リーダーボードで GNN に勝てず、大きくしても伸びなかった。Graphormer は全ノード間の注意を保ったまま、構造を注意のバイアスとして入れる点が違う。",
+      "s3": "次数ごとの学習ベクトルを入力に足す（中心性符号化）。注意は A_ij=(h_iW_Q)(h_jW_K)ᵀ/√d+b_φ(i,j)+c_ij とし、b は最短路距離 φ ごとの学習スカラー、c は最短路上の辺特徴の平均。仮想ノードで読み出す。",
+      "s4": "PCQM4M-LSC の検証 MAE 0.1234（GIN-VN 0.1395、GT-Wide 0.1408、Table 1）。ZINC 0.122（SAN 0.139、GT 0.226、Table 4）。アブレーションで LapPE を空間符号化に替えると 0.2276→0.1483（Table 5）。",
+      "s5": "著者：自己注意の二乗計算量で大きなグラフに使えない。GIN・GCN を特殊例として表せる表現力を示した。\n所感：大規模な事前学習データがあれば全結合注意が効くと示した一方、小データでは過学習を FLAG 拡張で抑えており、データ規模依存の兆しが見える。",
+      "s6": "・GPS (Rampášek+ 2022)（本資料）\n・SAN (Kreuzer+ 2021)（未調査）\n・Graphormer-GD (Zhang+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/graphormer_fig1.png",
+        "caption": "出典：Graphormer Fig. 1（中心性・空間・辺符号化を注意に組み込む仕組み）"
+      },
+      "notes": "arXiv v5 の PDF で本文・実験（Table 1-5）・結論を読んだ。"
+    },
+    {
+      "title": "Recipe for a General, Powerful, Scalable Graph Transformer",
+      "short": "GPS (Rampášek+ 2022)",
+      "authors": "Ladislav Rampášek, Mikhail Galkin, Vijay Prakash Dwivedi ほか（Mila・モントリオール大学）｜ NeurIPS 2022",
+      "year": 2022,
+      "venue": "NeurIPS 2022",
+      "link": "https://arxiv.org/abs/2205.12454",
+      "lineage": "発展",
+      "parent": "Graphormer (Ying+ 2021)",
+      "s1": "Graph Transformer を「位置・構造符号化（PE/SE）」「局所 MPNN」「大域注意」の3要素の組合せとして整理したレシピ GPS を提案。各層で MPNN と注意を並列に足し、線形注意なら O(N+E) で数千ノードまで扱える。",
+      "s2": "GT・SAN・Graphormer は数百ノードまでの全結合注意に限られ、PE/SE の定義もばらばらだった。GraphTrans のように MPNN の後に注意を積むと初期の過平滑化で情報が失われる。GPS は PE/SE を局所・大域・相対に分類し直した。",
+      "s3": "層ごとに X^{l+1}=MLP(MPNN(X^l,E^l,A)+GlobalAttn(X^l))。辺特徴は MPNN 側だけに渡し、注意は Transformer・Performer・BigBird から選ぶ。PE は LapPE・SignNet、SE はランダムウォーク行列の対角（RWSE）。",
+      "s4": "16ベンチマークで評価。ZINC の MAE 0.070（Graphormer 0.122、Table 3）。PCQM4Mv2 の検証 MAE 0.0858 で Graphormer 0.0864 を半分以下のパラメータで上回る（Table 5）。MPNN を外すと ZINC が 0.070→0.217（Table 2a）。",
+      "s5": "著者：ハイパーパラメータに敏感で万能の構成はない。長距離依存を本当に要する難しいデータセットが足りない。\n所感：性能の多くを MPNN が担うという自らのアブレーションは、のちの再評価（Tönshoff+ 2023、GNN+）が突く弱点にもなった。",
+      "s6": "・Exphormer (Shirzad+ 2023)（本資料）\n・GNN+ (Luo+ 2025)（本資料）\n・Where Did the Gap Go? (Tönshoff+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/gps_fig1.png",
+        "caption": "出典：GPS Fig. 1（PE・SE・グラフ特徴の符号化と、MPNN＋大域注意の GPS 層）"
+      },
+      "notes": "arXiv v4 の PDF で本文（PE/SE の分類、表現力の議論）、Table 2-6、結論と限界を読んだ。"
+    },
+    {
+      "title": "Exphormer: Sparse Transformers for Graphs",
+      "short": "Exphormer (Shirzad+ 2023)",
+      "authors": "Hamed Shirzad, Ameya Velingker, Balaji Venkatachalam ほか（ブリティッシュコロンビア大学・Google Research）｜ ICML 2023",
+      "year": 2023,
+      "venue": "ICML 2023",
+      "link": "https://arxiv.org/abs/2303.06147",
+      "lineage": "発展",
+      "parent": "GPS (Rampášek+ 2022)",
+      "s1": "局所近傍・ランダム正則エクスパンダーグラフ・仮想グローバルノードの3種の辺だけに注意を張る疎な Graph Transformer、Exphormer を提案。計算量 O(|V|+|E|) で、GPS に組み込むと全結合注意と同等以上の精度を出す。",
+      "s2": "GPS で使われた BigBird や Performer は系列向けの疎注意で、GPS のアブレーションでは注意なしより悪いデータもあった。Exphormer はグラフ向けの疎注意を、エクスパンダーの理論的性質で正当化した点が新しい。",
+      "s3": "d 正則 ε-エクスパンダーは完全グラフをスペクトル近似し、直径は O(log n)。O(log n) 層重ねれば全ノード対が相互作用できる。ランダム置換 d/2 個からほぼ Ramanujan なグラフを作り、注意の辺の種類は辺特徴で区別する。",
+      "s4": "GPS 枠内の比較で CIFAR10 74.69%（GPS-Transformer 72.31%）、MalNet-Tiny 94.02%（93.50%）、PascalVOC-SP F1 0.3975（0.3736）（Table 2）。全結合 GPS が OOM の ogbn-arxiv（16.9万ノード）で 72.44%（Table 4）。",
+      "s5": "著者：エクスパンダー辺や仮想ノードが効かないデータもある（Table 5）。arxiv では首位 79.66% に及ばない。\n所感：第一著者は2026年、単一グラフの設定では大域通信が「重みに埋め込める定数メモリ」と同等かもしれないと報告し、評価設定ごと問い直している。",
+      "s6": "・GPS (Rampášek+ 2022)（本資料）\n・Global Communication or Graph-Specific Memory? (Shirzad & Sutherland 2026)（未調査）\n・NAGphormer (Chen+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/exphormer_fig1.png",
+        "caption": "出典：Exphormer Fig. 1（(a) 局所近傍 (b) エクスパンダー (c) 仮想ノード (d) 3つを合わせた注意パターン）"
+      },
+      "notes": "ICML 版（arXiv v2）の PDF で本文・理論（4章）・実験（Table 1-5）・大規模グラフへの適用を読んだ。"
+    },
+    {
+      "title": "One for All: Towards Training One Graph Model for All Classification Tasks",
+      "short": "OFA (Liu+ 2023)",
+      "authors": "Hao Liu, Jiarui Feng, Lecheng Kong ほか（ワシントン大学セントルイス・北京大学）｜ ICLR 2024",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2310.00149",
+      "lineage": "原典",
+      "s1": "全ノード・辺を自然言語で記述した text-attributed graph に変換し、LLM で埋め込んで1つの GNN で分類する One for All（OFA）を提案。引用・分子・知識グラフ9データセットを同時学習し、ゼロショット分類も行う最初期のグラフ基盤モデル。",
+      "s2": "グラフはデータごとに特徴の次元と意味が違い、ノード・リンク・グラフの各タスクにも別の手法が要った。GraphPrompt や Prodigy は領域ごとに別 GNN を学習していた。OFA は特徴空間を言語で、タスクを「プロンプトグラフ」で統一した。",
+      "s3": "対象ノード集合（NOI）の部分グラフに、タスク文を持つ NOI プロンプトノードと、クラス説明文を持つクラスノードをつなぐ。GNN 後のクラスノード埋め込みを MLP で二値判定し、未知クラスも説明文から予測できる。",
+      "s4": "9データセットの同時学習が単独学習と同等以上（Table 2-3）。ゼロショットで ogbn-arxiv 5-way 46.19%、Cora 2-way 転移 56.92%（Table 4）、FB15K237 20-way 70.20%（Table 5）。",
+      "s5": "著者：値域が無限の回帰は扱えず、学習データも LLM に比べて乏しい。\n所感：HIV のゼロショット AUC は 35.67 と 50 を下回る（Table 6）。テキストで統一する設計は、文章で表しにくい特徴では LLM 埋め込みの質に頼りすぎる。",
+      "s6": "・GraphGPT (Tang+ 2023)（本資料）\n・Fair Evaluation of GFMs (Platonov+ 2026)（本資料）\n・Position: Graph Foundation Models are Already Here (Mao+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/ofa_fig1.png",
+        "caption": "出典：OFA Fig. 1（異なる領域のグラフとタスク記述を LLM で同じ空間に埋め込み、1つの GNN で予測）"
+      },
+      "notes": "ICLR 版（arXiv v3）の PDF で本文・Table 2-6・付録 F（限界）を読んだ。"
+    },
+    {
+      "title": "Talk like a Graph: Encoding Graphs for Large Language Models",
+      "short": "Talk like a Graph (Fatemi+ 2023)",
+      "authors": "Bahare Fatemi, Jonathan Halcrow, Bryan Perozzi（Google Research）｜ ICLR 2024",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "link": "https://arxiv.org/abs/2310.04560",
+      "lineage": "原典",
+      "s1": "グラフをテキストに直して LLM に解かせるとき、エンコード方法・タスク・グラフ構造で精度が大きく変わることを初めて系統的に調べた研究。ベンチマーク GraphQA を作り、エンコードの選び方で4.8〜61.8%改善すると示した。",
+      "s2": "先行の NLGraph（Wang+ 2023）は ER ランダムグラフと少数のタスクに限られていた。本研究は隣接リスト・接続ノード列挙・人名など9通りのエンコード関数と質問の言い換えを変数とし、LLM の重みに触れずに最適化する問題として定式化した。",
+      "s3": "答えを A=f(g(G),q(Q)) と書き、エンコード関数 g と質問関数 q を変えて期待スコアを比べる。グラフ生成器も ER・BA・SBM・スター・パス・完全グラフに広げ、ゼロショット・CoT・CoT-BAG などのプロンプトと組み合わせた。",
+      "s4": "PaLM 62B で辺の有無・次数・閉路検出など6課題（Table 1）。隣接ノード列挙は adjacency 19.8% 対 incident 53.8%。閉路検出は完全グラフ 91.7%、パスグラフ 5.9%（Table 4）。非隣接ノード列挙はほぼ0%。",
+      "s5": "著者：LLM は単純なグラフ課題も苦手で、辺が「ない」ことの推論は特に難しい。モデルが大きいほど良い。\n所感：凍結 LLM と小さなグラフでの評価。2026年の追試の要旨では、推論モデルでも構造推論は形式の選択に敏感なままとされる。",
+      "s6": "・G1 (Guo+ 2025)（本資料）\n・GraphToken (Perozzi+ 2024)（未調査）\n・NLGraph (Wang+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/tlg_fig2.png",
+        "caption": "出典：Talk like a Graph Fig. 2（同じグラフ G を9通りのテキストに符号化する例）"
+      },
+      "notes": "arXiv v1 の PDF で本文（実験1-5、グラフ構造の影響）と Table 1-4 を読んだ。"
+    },
+    {
+      "title": "GraphGPT: Graph Instruction Tuning for Large Language Models",
+      "short": "GraphGPT (Tang+ 2023)",
+      "authors": "Jiabin Tang, Yuhao Yang, Wei Wei ほか（香港大学・Baidu）｜ SIGIR 2024",
+      "year": 2023,
+      "venue": "SIGIR 2024",
+      "link": "https://arxiv.org/abs/2310.13023",
+      "lineage": "発展",
+      "parent": "Talk like a Graph (Fatemi+ 2023)",
+      "s1": "事前学習済みグラフエンコーダの出力を線形射影で「グラフトークン」に変え、凍結 LLM（Vicuna-7B）に入れるグラフ指示チューニング GraphGPT を提案。ノード分類の教師あり設定とデータセット間ゼロショットで既存 GNN を上回った。",
+      "s2": "グラフをテキストで渡すと、103ノードの部分グラフで4649トークンを要し、ChatGPT でも構造を活かせなかった。GraphGPT は750トークンで済む。GNN の自己教師あり学習のように、下流ラベルでの微調整にも頼らない。",
+      "s3": "2段階の指示チューニング。第1段階はグラフトークンとノード文の対応を当てる自己教師ありのグラフマッチング、第2段階はノード分類・リンク予測の指示。LLM とエンコーダは凍結し射影層だけを学習。CoT 蒸留も加える。",
+      "s4": "OGB-arxiv・PubMed・Cora（Table 1）。arxiv の教師ありで精度 0.7511（GLNN 0.6088）。arxiv で学習し PubMed へゼロショットで 0.7011（vicuna-7B 0.6351）、70クラスの Cora へは 0.1813（同 0.1489）。",
+      "s5": "著者：今後は LLM の枝刈りで規模を減らしたい。\n所感：表の GCN は arxiv で 0.5267 だが、OFA（本資料）の表では 74.09（分割は異なる）で、比較の公平性に疑問が残る。弱いベースラインの問題は 2025〜2026年の再評価で繰り返し指摘されている。",
+      "s6": "・LLaGA (Chen+ 2024)（未調査）\n・GLBench (Li+ 2024)（未調査）\n・OFA (Liu+ 2023)（本資料）",
+      "figure": {
+        "file": "figures/graphgpt_fig2_stack.png",
+        "caption": "出典：GraphGPT Fig. 2（左上：構造エンコーダと射影層、右上：自己教師ありのグラフマッチング、下：課題別の指示チューニング。パネルを並べ替えた）"
+      },
+      "notes": "arXiv v3（SIGIR 版）の PDF で本文・Table 1 と効率分析・結論を読んだ。"
+    },
+    {
+      "title": "Can Classic GNNs Be Strong Baselines for Graph-level Tasks? Simple Architectures Meet Excellence",
+      "short": "GNN+ (Luo+ 2025)",
+      "authors": "Yuankai Luo, Lei Shi, Xiao-Ming Wu（北京航空航天大学・香港理工大学）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2502.09263",
+      "lineage": "最新",
+      "parent": "GPS (Rampášek+ 2022)",
+      "s1": "古典的 GNN（GCN・GIN・GatedGCN）に辺特徴・正規化・ドロップアウト・残差・FFN・位置符号化（RWSE）の6技法を足す GNN+ で再評価。14のグラフレベルデータセットで全て3位以内、8つで1位となり、Graph Transformer 優位の通説を覆した。",
+      "s2": "Tönshoff+ 2023 は LRGB で調整不足を指摘したが、GT 全体には届かなかった。ノードレベルでは同著者らが古典 GNN の強さを既に示していた。本研究は GPS と同じ探索空間でグラフレベル全般へ広げた。",
+      "s3": "新しい層は作らない。GCN などの各層を FFN(Dropout(σ(BN(辺特徴つきメッセージの和)))+残差) とし、入力に RWSE を連結する。6技法の有無と3〜20の層数をハイパーパラメータとして調整する。",
+      "s4": "ZINC の MAE は GCN 0.367→GCN+ 0.076、GIN+ 0.065（GPS 0.070、Table 2）。Peptides-func AP 0.7261（GCN+）、COCO-SP F1 0.3802（GatedGCN+、Table 3）。エポック時間は ZINC で GPS 21秒に対し GCN+ 7秒。",
+      "s5": "著者：理論的な説明はなく、現行ベンチマーク自体が現実の複雑さを捉えていない可能性がある。\n所感：GT の優位とされた差の多くは調整の差だった。ただし十億規模の事前学習（GraphBFF）では注意型が生きる可能性があり、勝敗はデータ規模で変わりうる。",
+      "s6": "・Classic GNNs are Strong Baselines (Luo+ 2024)（未調査）\n・Where Did the Gap Go? (Tönshoff+ 2023)（未調査）\n・Position: Graph Learning Will Lose Relevance (Bechler-Speicher+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/gnnplus_fig2.png",
+        "caption": "出典：GNN+ Fig. 2（古典 GNN 層に辺特徴・正規化・ドロップアウト・残差・FFN・PE を足した構成）"
+      },
+      "notes": "ICML 版（arXiv v3）の PDF で本文・Table 2-6・観察1-6・限界を読んだ。"
+    },
+    {
+      "title": "G1: Teaching LLMs to Reason on Graphs with Reinforcement Learning",
+      "short": "G1 (Guo+ 2025)",
+      "authors": "Xiaojun Guo, Ang Li, Yifei Wang ほか（北京大学・MIT）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2505.18499",
+      "lineage": "最新",
+      "parent": "Talk like a Graph (Fatemi+ 2023)",
+      "s1": "50種のグラフ理論課題・10万問のデータセット Erdős を作り、検証可能な報酬で LLM を強化学習（GRPO）する G1 を提案。G1-7B は平均正答率を 32.06%→66.16% に上げて o3-mini（64.90%）並み、G1-3B も Qwen2.5-72B を上回った。",
+      "s2": "Talk like a Graph 以降、エンコードの工夫や指示チューニング（GraphWiz）は改善が小さいか、他形式へ汎化しなかった。グラフ基盤モデルの事前学習は大規模データ不足に悩む。G1 は LLM が持つグラフ推論力を RL で引き出す立場をとる。",
+      "s3": "実グラフから5〜35ノードの部分グラフを切り出し、辺リストで記述。報酬は値の完全一致、集合の答えは Jaccard 指数、複数解がある課題（最短路など）は検証プログラムで与える。CoT-SFT で初期化し GRPO で300ステップ学習。",
+      "s4": "Erdős テストで G1-7B は Easy 95.07%、Challenging 23.57%（Table 2）。未学習の GraphWiz で 57.11%（GraphWiz-7B-RFT 49.61%、Table 5）。36〜100ノードのグラフで 46.46%（ベース 23.94%、Table 4）。GSM8K・MATH も維持。",
+      "s5": "著者：GRPO の標本効率が悪い。200ノードで32kトークンを超えるため大きなグラフは扱えない。\n所感：Cora のノード分類は 79.20% とベース 79.30% から伸びず（Table 7）、合成課題で得た推論力は実グラフの予測に直結していない。",
+      "s6": "・Talk like a Graph (Fatemi+ 2023)（本資料）\n・GraphWiz (Chen+ 2024)（未調査）\n・GREG (Porras-Valenzuela+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/g1_table2.png",
+        "caption": "出典：G1 Table 2（Erdős の難易度別正答率。G1-3B/7B と各種 LLM の比較）"
+      },
+      "notes": "arXiv v3（NeurIPS 版）の PDF で本文・Table 1-9・考察・限界・付録 D（大規模グラフ）を読んだ。"
+    },
+    {
+      "title": "Billion-Scale Graph Foundation Models",
+      "short": "GraphBFF (Bechler-Speicher+ 2026)",
+      "authors": "Maya Bechler-Speicher, Yoel Gottlieb, Andrey Isakov ほか（Meta）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2602.04768",
+      "lineage": "最新",
+      "parent": "GPS (Rampášek+ 2022)",
+      "s1": "約500億ノード・辺の異種企業グラフで、14億パラメータの Graph Transformer を10億本の辺で事前学習するレシピ GraphBFF を提示。グラフでべき乗のスケーリング則を示し、凍結モデル＋小さな probe が10課題すべてで専用モデルを上回った。",
+      "s2": "公開データに十億規模の多様なグラフがなく、GFM の規模拡大は言語・画像に遅れていた。グラフを文字列にして LLM に渡す方法は不安定（Talk like a Graph）。HGT や GPS などの課題専用モデルより汎用な事前学習モデルを狙う。",
+      "s3": "辺の型ごとに softmax を分ける型条件付き注意（TCA）と、2ホップから標本した近傍への型非依存注意（TAA）を併用し、両方が表現力に必要と証明。目的は masked link prediction のみ。損失を L=L∞+(Nc/N)^αN+(Dc/D)^αD で当てはめる。",
+      "s4": "事前学習に含まない10の産業課題（Table 1）で probe が全課題で HGT・HAN・GraphGPS を上回る。Task 1 は PRAUC 88.13（最良の専用モデル 76.88）。10^6〜4×10^9 パラメータで αN≈0.703、αD≈0.188（Fig. 4）。TCA を外すと17〜30点低下。",
+      "s5": "著者：スケーリング則は1つの企業データに基づき、分子のような小さな連結成分の集まりは対象外。計算最適な配分は未解決。\n所感：社内データのみで再現も比較もできない。公開データの欠乏が GFM 研究の律速だという著者らの主張を、本論文自体が裏づけている。",
+      "s6": "・Towards Neural Scaling Laws on Graphs (Liu+ 2024)（未調査）\n・Position: Graph Learning Will Lose Relevance (Bechler-Speicher+ 2025)（未調査）\n・GPS (Rampášek+ 2022)（本資料）",
+      "figure": {
+        "file": "figures/graphbff_fig4.png",
+        "caption": "出典：GraphBFF Fig. 4(a)(b)（上：モデル規模、下：データ規模に対する検証損失。破線はスケーリング則の当てはめ。上下に並べ替えた）"
+      },
+      "notes": "arXiv v2 の PDF で本文（アーキテクチャ・事前学習・バッチ化）・Table 1-2・スケーリング則・議論と限界を読んだ。"
+    },
+    {
+      "title": "A Fair Evaluation of Graph Foundation Models for Node Property Prediction",
+      "short": "Fair Evaluation of GFMs (Platonov+ 2026)",
+      "authors": "Oleg Platonov, Gleb Bazhenov, Dmitry Eremeev ほか（HSE 大学・Yandex Research）｜ ICML 2026 GFM Workshop",
+      "year": 2026,
+      "venue": "ICML 2026 Workshop (GFM)",
+      "link": "https://arxiv.org/abs/2606.24509",
+      "lineage": "最新",
+      "parent": "OFA (Liu+ 2023)",
+      "s1": "ノード性質予測向けのグラフ基盤モデル（GFM）9種を、実応用由来の GraphLand 10データセットで、十分に調整した GNN と公平に比べ直した研究。PFN（事前データ適合ネットワーク）型の GFM だけが GNN に勝ち、他の6種は大差で負けた。",
+      "s2": "GFM 研究は評価設定がばらばらで、狭いデータセットと弱いベースラインで比べられてきた。本研究は改良 GNN（Platonov+ 2023、Luo+ 2024）を TPE で100試行ずつ調整し、各 GFM の公式実装を ICL と微調整の両方で評価した。",
+      "s3": "GFM を、タブラー基盤モデル（TabPFNv2・LimiX）をそのまま使う G2T-FM・TAG、グラフ専用 PFN の GraphPFN、それ以外（OpenGraph・AnyGraph・GCOPE など）に分ける。正規化スコアと平均順位で集計し、学習・推論時間も測る。",
+      "s4": "微調整した GraphPFN が10データセットすべてで1位（Table 1）。hm-categories で 78.67%（最良 GNN 73.46%）。非 PFN 型は OpenGraph 9.88% など大差で劣る。推論時間は GNN が1秒未満、PFN 型は数秒〜数分（Table 2）。",
+      "s5": "著者：GraphLand 以外の領域へ結論が一般化する保証はなく、新しい GFM も網羅できていない。\n所感：著者らは G2T-FM・GraphPFN の開発者で、自陣営に有利な可能性は残る。それでも「GFM は調整済み GNN に勝てるか」に数値で答えた意義は大きい。",
+      "s6": "・GraphPFN (Eremeev+ 2025)（未調査）\n・G2T-FM (Eremeev+ 2025)（未調査）\n・GraphLand (Bazhenov+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/fair_table1.png",
+        "caption": "出典：Fair Evaluation of GFMs Table 1 の抜粋（分類4データセットと集計列。回帰列は省略。上段：改良 GNN、中段：非 PFN 型、下段：PFN 型。赤が1位）"
+      },
+      "notes": "arXiv v1 の PDF で本文・Table 1-2・付録（PFN の説明、限界）を読んだ。"
+    }
+  ]
+}

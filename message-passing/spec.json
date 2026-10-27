@@ -1,0 +1,214 @@
+{
+  "field": "グラフニューラルネットワーク",
+  "theme": "メッセージパッシング GNN の基礎と表現力",
+  "date": "2026-10-27",
+  "summary": "スペクトル畳み込み（Bruna+ 2014）を GCN が局所近似し、MPNN が枠組みとして統一。GIN が 1-WL 上限を示して表現力研究が始まり、過圧縮（Alon & Yahav）と曲率 rewiring（Topping+）が深さと長距離の問題を拓いた。\n2024〜2026年は準同型表現力、勾配消失による統一、MPC、通念の再検討など「何を測るべきか」の見直しが最前線。",
+  "papers": [
+    {
+      "title": "Spectral Networks and Locally Connected Networks on Graphs",
+      "short": "Spectral Networks (Bruna+ 2014)",
+      "authors": "Joan Bruna, Wojciech Zaremba, Arthur Szlam, Yann LeCun（New York University）｜ ICLR 2014",
+      "year": 2014,
+      "venue": "ICLR 2014",
+      "link": "https://arxiv.org/abs/1312.6203",
+      "lineage": "原典",
+      "s1": "CNN の畳み込みを一般のグラフへ拡張する2方式（階層クラスタリングによる空間構成と、グラフラプラシアンの固有基底を使うスペクトル構成）を提案。スペクトル乗数を滑らかにすると、入力サイズに依存しない少数のパラメータで局所化したフィルタが学べることを示した。",
+      "s2": "CNN は格子の平行移動・計量・多重解像度を前提とし、メッシュ、センサ網、SNS には使えない。局所結合網（Coates & Ng 2011）は場所ごとに別の重みになる。畳み込みをグラフフーリエ基底上の対角作用素として定義し、重み共有を可能にした。",
+      "s3": "ラプラシアンの固有ベクトル V を使い x_{k+1,j} = h(Σ_i V F_{k,i,j} Vᵀ x_{k,i})（F は対角行列）。低周波の d 本だけを使い、対角成分を3次スプラインで補間して滑らかにすると、空間的に局所化したフィルタになる（3.4節）。",
+      "s4": "400点に間引いた MNIST の誤差：全結合 1.8%、局所結合2層 1.3%、スペクトル 2.6%、平滑スペクトル 2.3%（1.6×10³ パラメータ）（Table 1）。球面 MNIST（一様回転）では平滑スペクトル 50% が全結合 52% を上回る（Table 3）。",
+      "s5": "著者：意味のある固有ベクトルは低周波に限られ、V の積は O(n²) と重い。粗視化とラプラシアンの整合は未解決。\n所感：固有分解に依存し別のグラフへ転移できない点が、多項式近似（ChebNet）と GCN への動機になった。",
+      "s6": "・ChebNet (Defferrard+ 2016)（未調査）\n・GCN (Kipf & Welling 2017)（本資料）\n・MPNN (Gilmer+ 2017)（本資料）",
+      "figure": {
+        "file": "figures/bruna2014_fig6.png",
+        "caption": "出典：Bruna+ 2014 Fig. 6 (a)(c)(e)（局所結合・スペクトル・平滑スペクトルで学習したフィルタ）"
+      },
+      "notes": "arXiv v3（14頁）を全文読了。MNIST 部分サンプルと球面 MNIST の実験のみ。"
+    },
+    {
+      "title": "Semi-Supervised Classification with Graph Convolutional Networks",
+      "short": "GCN (Kipf & Welling 2017)",
+      "authors": "Thomas N. Kipf, Max Welling（University of Amsterdam）｜ ICLR 2017",
+      "year": 2017,
+      "venue": "ICLR 2017",
+      "link": "https://arxiv.org/abs/1609.02907",
+      "lineage": "発展",
+      "parent": "Spectral Networks (Bruna+ 2014)",
+      "s1": "スペクトル畳み込みの1次近似と「renormalization trick」から、層ごとの伝播則 H' = σ(D̃^{-1/2} Ã D̃^{-1/2} H W) を導いた GCN を提案。計算量は辺数に線形で、引用ネットワークの半教師ありノード分類で既存法を大きく上回った。",
+      "s2": "ラプラシアン正則化型の手法は「隣接ノードは同じラベル」を仮定し、DeepWalk 等は多段のパイプラインが必要だった。スペクトル法（Bruna+ 2014, ChebNet）は固有分解や K 次多項式が重い。K=1, λmax=2 へ単純化して大規模グラフに適用した。",
+      "s3": "Chebyshev 近似を1次で打ち切ると θ(I + D^{-1/2} A D^{-1/2}) x となるが、固有値が [0, 2] にあり深くすると不安定。自己ループを加えた Ã = A + I で正規化し直す。付録 A では 1-WL のハッシュを微分可能な近傍和に置き換えたものと解釈する。",
+      "s4": "各クラス20ラベルで Citeseer/Cora/Pubmed/NELL の精度は 70.3/81.5/79.0/66.0% で、Planetoid の 64.7/75.7/77.2/61.9% を上回る（Table 2）。伝播則の比較では renormalization trick が Chebyshev K=2,3 や1次モデルより良い（Table 3）。",
+      "s5": "著者：全バッチ学習でメモリが線形に増え、有向辺・辺特徴に非対応。2〜3層が最良で、7層を超えると残差なしでは学習が難しい（付録 B）。\n所感：この「深くできない」壁が、後の過平滑化・過圧縮研究の出発点になった。",
+      "s6": "・GraphSAGE (Hamilton+ 2017)（未調査）\n・Deeper Insights into GCN (Li+ 2018)（未調査）\n・GIN (Xu+ 2019)（本資料）",
+      "figure": {
+        "file": "figures/kipf2017_fig1.png",
+        "caption": "出典：GCN Fig. 1（多層 GCN の模式図と、Cora で学習した隠れ層の t-SNE）"
+      },
+      "notes": "arXiv v4 を本文・付録 A（WL との関係）・付録 B（深さの実験）まで読了。"
+    },
+    {
+      "title": "Neural Message Passing for Quantum Chemistry",
+      "short": "MPNN (Gilmer+ 2017)",
+      "authors": "Justin Gilmer, Samuel S. Schoenholz, Patrick F. Riley, Oriol Vinyals, George E. Dahl（Google Brain）｜ ICML 2017",
+      "year": 2017,
+      "venue": "ICML 2017",
+      "link": "https://arxiv.org/abs/1704.01212",
+      "lineage": "原典",
+      "s1": "GG-NN、Interaction Networks、分子フィンガープリント、GCN など8つの既存モデルを、メッセージ関数 M・更新関数 U・読み出し R からなる MPNN という共通の枠組みに統一。QM9 の13物性すべてで SOTA、うち11物性で化学的精度に達した。",
+      "s2": "化学の機械学習はクーロン行列や ECFP など手設計の記述子が主流で、グラフ NN は個別に提案され比較もされていなかった。共通の枠組みにより、辺ネットワーク、set2set 読み出し、仮想エッジ・マスターノードなどの変種を系統的に探索できるようにした。",
+      "s3": "m_v = Σ_{w∈N(v)} M(h_v, h_w, e_vw)、h_v ← U(h_v, m_v)、ŷ = R({h_v})。最良の構成は、距離と結合種を d×d 行列に写す辺ネットワーク、GRU による更新、set2set 読み出し、水素を明示したノードの組合せ。",
+      "s4": "QM9（約13万分子、DFT で計算した13物性）。化学的精度に対する MAE 比の平均は enn-s2s 0.68、5モデルのアンサンブル 0.52 で、GG-NN 1.36、BAML 2.17 を上回る（Table 2）。空間情報なしでは仮想エッジで 3.47→2.90、マスターノードで 2.62（Table 3）。",
+      "s5": "著者：密なグラフでは1ステップ O(n²d²) と重く、towers で軽減した。訓練より大きな分子への汎化が課題。\n所感：長距離の相互作用にはマスターノードや仮想エッジが効くという観察は、後の過圧縮と rewiring の議論を先取りしている。",
+      "s6": "・GG-NN (Li+ 2016)（未調査）\n・GIN (Xu+ 2019)（本資料）\n・過圧縮 (Alon & Yahav 2021)（本資料）",
+      "figure": {
+        "file": "figures/gilmer2017_fig1.png",
+        "caption": "出典：MPNN Fig. 1（DFT 計算を MPNN で代替して分子の量子化学物性を予測）"
+      },
+      "notes": "arXiv v2（ICML 版）の本文を読了。補足資料（各ターゲットの詳細表）は概観のみ。"
+    },
+    {
+      "title": "How Powerful are Graph Neural Networks?",
+      "short": "GIN (Xu+ 2019)",
+      "authors": "Keyulu Xu, Weihua Hu, Jure Leskovec, Stefanie Jegelka（MIT）｜ ICLR 2019",
+      "year": 2019,
+      "venue": "ICLR 2019",
+      "link": "https://arxiv.org/abs/1810.00826",
+      "lineage": "原典",
+      "s1": "近傍集約型 GNN の識別能力は 1-WL グラフ同型性テストが上限であることを証明し、集約と読み出しが単射なら 1-WL と同等になる条件を示した。和集約と MLP を使う GIN を提案し、9つのグラフ分類ベンチマークで最高水準の精度を得た。",
+      "s2": "GCN や GraphSAGE など多くの変種は経験則で設計され、何が区別できないかの理論がなかった。近傍の特徴を多重集合とみなし、mean は分布、max は集合しか捉えず単射でないこと、1層パーセプトロンでは不十分なことを示した。",
+      "s3": "和で表せる多重集合関数が普遍的であること（Lemma 5）から h_v = MLP((1+ε) h_v + Σ_{u∈N(v)} h_u)。グラフの読み出しは全層の和を連結し、WL 部分木カーネルを一般化する。",
+      "s4": "MUTAG、PROTEINS、REDDIT など9データで10分割交差検証。GIN は訓練データをほぼ完全に当てはめ、mean/max 変種は当てはめきれない（Fig. 4）。特徴が一様な REDDIT-B で GIN-0 は 92.4%、mean 系（GCN 相当）は 50.0%（Table 1）。",
+      "s5": "著者：特徴が可算集合の場合に限った議論で、連続特徴や汎化の理論は今後の課題。メッセージパッシングを超える構造が必要と結論。\n所感：「1-WL が上限」は以後の表現力研究の基準線になったが、表現力と汎化のずれは残された。",
+      "s6": "・k-GNN (Morris+ 2019)（未調査）\n・ESAN (Bevilacqua+ 2022)（未調査）\n・準同型表現力 (Zhang+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/xu2019_fig2_3.png",
+        "caption": "出典：GIN Fig. 2・3（sum > mean > max の表現力の順と、mean/max が区別できない構造）"
+      },
+      "notes": "arXiv v3 の本文を読了（付録の証明は省略）。"
+    },
+    {
+      "title": "On the Bottleneck of Graph Neural Networks and its Practical Implications",
+      "short": "過圧縮 (Alon & Yahav 2021)",
+      "authors": "Uri Alon, Eran Yahav（Technion）｜ ICLR 2021",
+      "year": 2021,
+      "venue": "ICLR 2021",
+      "link": "https://arxiv.org/abs/2006.05205",
+      "lineage": "原典",
+      "s1": "GNN が長距離依存の課題で失敗する原因として「過圧縮（over-squashing）」を提唱。層を重ねると受容野が指数的に広がり、その情報が固定長ベクトルに押し込まれる。最終層を全結合にするだけで、調整済みの既存モデルの QM9 誤差が平均42%減った。",
+      "s2": "深い GNN が効かない理由は過平滑化（Li+ 2018, Oono & Suzuki 2020）とされてきたが、主に短距離の課題で示されたもの。長距離の課題では受容野の指数的増大によるボトルネックが本質だと主張し、到達不足（under-reaching）とも区別した。",
+      "s3": "問題半径 r の課題には r 層が必要だが、受容野は r に対して指数的に増える。二分木の葉の情報を根に集める Tree-NeighborsMatch で、ラベル割当の数 (2^r)!/2^{2^r-1} と d 次元32ビットベクトルの表現量を比べ、必要な隠れ次元の下界を出した。",
+      "s4": "Tree-NeighborsMatch で GCN は r=4 で訓練精度70%、r=5 以上では全 GNN が当てはめきれない（Fig. 3）。全結合層 +FA で QM9 誤差 -42%（Table 1）、ENZYMES -12%、NCI1 -4.8%、VarMisuse で SOTA。次元を倍にしても改善は5.5%。",
+      "s5": "著者：FA 層は過圧縮の存在を示す最小の手段で、解法の提案ではない。受け手の状態で入力を選べる GAT・GGNN は GCN・GIN より強い。\n所感：過圧縮を直接測る指標がなく、FA の効果の解釈は間接的。この曖昧さが後の定義をめぐる議論につながる。",
+      "s6": "・曲率と SDRF (Topping+ 2022)（本資料）\n・Di Giovanni+ (2023) 幅・深さ・位相（未調査）\n・LRGB (Dwivedi+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/alon2021_fig1.png",
+        "caption": "出典：Alon & Yahav 2021 Fig. 1（RNN seq2seq と GNN のボトルネック。GNN では受容野が指数的に増える）"
+      },
+      "notes": "arXiv v4（ICLR 版）の本文を読了。付録の追加実験（他の GNN、半分の辺の FA など）は本文の言及範囲で確認。"
+    },
+    {
+      "title": "Understanding over-squashing and bottlenecks on graphs via curvature",
+      "short": "曲率と SDRF (Topping+ 2022)",
+      "authors": "Jake Topping, Francesco Di Giovanni, Benjamin P. Chamberlain, Xiaowen Dong, Michael M. Bronstein（University of Oxford）｜ ICLR 2022",
+      "year": 2022,
+      "venue": "ICLR 2022",
+      "link": "https://arxiv.org/abs/2111.14522",
+      "lineage": "発展",
+      "parent": "過圧縮 (Alon & Yahav 2021)",
+      "s1": "過圧縮をノード表現のヤコビアン ∂h_i/∂x_s で定式化し、新しい辺曲率 Balanced Forman curvature を導入して、強く負に曲がった辺がボトルネックを作り過圧縮を起こすことを証明した。曲率に基づく rewiring 法 SDRF も提案した（ICLR 2022 Outstanding Paper Honourable Mention）。",
+      "s2": "Alon & Yahav (2021) は過圧縮を実験で示したが、グラフのどの構造が原因かは不明だった。拡散に基づく rewiring の DIGL（Klicpera+ 2019）は Cheeger 定数を十分に改善できないことも示し（Thm 6）、局所的に辺を足す方法を対置した。",
+      "s3": "|∂h_i/∂x_s| は (αβ)^{r+1}(Â^{r+1})_{is} で抑えられる（Lemma 1）。曲率 Ric(i,j) が -2 に近い辺のまわりでは、2ホップ先への感度が小さく抑えられる（Thm 4）。SDRF は最も負の辺を支える辺を追加し、最も正の辺を削除する。",
+      "s4": "GCN で9データのノード分類。SDRF はすべてで基準を改善し、ホモフィリーの低いデータで効果が大きい：Texas 61.19→70.35%、Actor 23.84→28.42%（Table 2）。追加される辺は DIGL が Cora で +3038% なのに対し SDRF は +1.0%（Table 3）。",
+      "s5": "著者：理論はマルチグラフに対応せず、ノード特徴を考慮しない。\n所感：「ボトルネック＝負曲率」は rewiring 研究の土台になったが、計算上と位相的なボトルネックを同一視する流れも生んだ。",
+      "s6": "・Di Giovanni+ (2023) 幅・深さ・位相（未調査）\n・GNN-SSM (Arroyo+ 2025)（本資料）\n・Attali+ (2026) rewiring サーベイ（未調査）",
+      "figure": {
+        "file": "figures/topping2022_fig1.png",
+        "caption": "出典：Topping+ 2022 Fig. 1（曲面の曲率の発展がくびれを解消するように、グラフでもボトルネックを解消。青が負・赤が正の曲率）"
+      },
+      "notes": "arXiv v4 の本文（9頁）を読了。付録の証明・追加実験は概観のみ。"
+    },
+    {
+      "title": "Beyond Weisfeiler-Lehman: A Quantitative Framework for GNN Expressiveness",
+      "short": "準同型表現力 (Zhang+ 2024)",
+      "authors": "Bohang Zhang, Jingchu Gai, Yiheng Du, Qiwei Ye, Di He, Liwei Wang（Peking University）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024（Oral）",
+      "link": "https://arxiv.org/abs/2401.08514",
+      "lineage": "発展",
+      "parent": "GIN (Xu+ 2019)",
+      "s1": "WL 階層に代わる定量的な表現力の尺度「準同型表現力」を提案。モデルが準同型数を数えられるパターン族を、MPNN（森）、部分グラフ GNN、Local 2-GNN、2-FGNN それぞれについて入れ子耳分解（NED）の型で完全に特徴づけた。",
+      "s2": "1-WL 上限（Xu+ 2019, Morris+ 2019）以後、表現力は WL 階層で語られてきたが、粗く定性的で、部分グラフの数え上げなど実用的な能力を反映しない。Dell+ (2018) の木幅の理論を実用的な GNN へ広げ、表現力の差をパターン族の集合差として測れるようにした。",
+      "s3": "パターン族 F^M は、(a) F^M 内のすべての準同型数が一致することと表現の一致が同値、(b) 極大、を満たす。部分グラフ GNN は「1頂点除くと森」、2-FGNN は「NED を持つ」グラフ。Spasm(F) が F^M に含まれるとき部分グラフ数を数えられる（Thm 4.5）。",
+      "s4": "帰結として MPNN < 部分グラフ GNN < Local 2-GNN < Local 2-FGNN < 2-FGNN の厳密な階層（Cor. 4.1）、Local 2-GNN は7頂点以下の全サイクルを数えられる。実験でも ZINC-subset の MAE が .138/.110/.069/.064 と表現力の順に改善（Table 2）。",
+      "s5": "著者：一般の色精錬型 GNN で準同型表現力が存在するかは予想にとどまる。距離ベース・スペクトル型 GNN は未解析。\n所感：「どの部分構造を数えられるか」へ問いを移した点は重要だが、依然として可否の二値で、学習のしやすさは扱わない（Kemper+ が批判）。",
+      "s6": "・ESAN (Bevilacqua+ 2022)（未調査）\n・MPC (Kemper+ 2025)（本資料）\n・Morris+ (2024) GNN 理論の展望（未調査）",
+      "figure": {
+        "file": "figures/zhang2024_fig3.png",
+        "caption": "出典：Zhang+ 2024 Fig. 3（MPNN・部分グラフ GNN・Local GNN・FGNN の表現力の階層）"
+      },
+      "notes": "arXiv 版（ICLR 2024 拡張版）の本文と付録 B（限界と未解決問題）を読了。証明（付録 C 以降）は省略。"
+    },
+    {
+      "title": "On Vanishing Gradients, Over-Smoothing, and Over-Squashing in GNNs: Bridging Recurrent and Graph Learning",
+      "short": "GNN-SSM (Arroyo+ 2025)",
+      "authors": "Álvaro Arroyo, Alessio Gravina, Benjamin Gutteridge ほか（University of Oxford）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025",
+      "link": "https://arxiv.org/abs/2502.10818",
+      "lineage": "最新",
+      "parent": "曲率と SDRF (Topping+ 2022)",
+      "s1": "過平滑化と過圧縮を「勾配消失」という一つの視点で統一。GCN・GAT は正規化隣接行列のスペクトルが縮小的なため数層で極端な勾配消失を起こすことを示し、層の更新を状態空間モデルとして書く GNN-SSM で、学習パラメータを増やさず両問題を緩和した。",
+      "s2": "過平滑化（Oono & Suzuki 2020）と過圧縮（Alon & Yahav 2021, Topping+ 2022）は別々に研究され、rewiring はグラフの位相の項だけを扱ってきた。RNN の勾配消失と edge of chaos の知見を持ち込み、モデルの動力学の項も同時に扱う必要を示した。",
+      "s3": "H^{(k+1)} = Λ H^{(k)} + B F_θ(H^{(k)})。Λ は固定したランダムなユニタリ行列をスケールして固有値を1付近に置き、ヤコビアンを edge of chaos に保つ。縮小写像の層を重ねると特徴はゼロへ崩壊し、Dirichlet エネルギーも0になる（Prop. 4.3, 4.4）。",
+      "s4": "Cora で GCN は層を増やすと精度が約80%から20〜30%に落ちるが、GCN-SSM（Λ の固有値1）は64層でも約80%を保つ（Fig. 3）。LRGB peptides-func の AP は GCN 60.93、DRew-GCN 68.04 に対し kGCN-SSM 69.02、次元を増やすと 72.12（Table 1）。",
+      "s5": "著者：解析は主に GCN・GAT 型の更新に限られ、他の更新則や非線形性の影響は今後の課題。\n所感：「過平滑化はゼロへの崩壊にすぎない」という主張は Arnaiz-Rodriguez & Errica と整合する。Λ を固定するだけで効く単純さは魅力だが、検証課題は限られる。",
+      "s6": "・Di Giovanni+ (2023) 幅・深さ・位相（未調査）\n・DRew (Gutteridge+ 2023)（未調査）\n・通念の再検討 (Arnaiz-Rodriguez & Errica 2026)（本資料）",
+      "figure": {
+        "file": "figures/arroyo2025_fig3.png",
+        "caption": "出典：Arroyo+ 2025 Fig. 3（Cora で層数を増やしたときの Dirichlet エネルギー、特徴の軌跡、精度）"
+      },
+      "notes": "arXiv v2（NeurIPS 2025 版）の本文と付録 F 冒頭の限界を読了。"
+    },
+    {
+      "title": "What Expressivity Theory Misses: Message Passing Complexity for GNNs",
+      "short": "MPC (Kemper+ 2025)",
+      "authors": "Niklas Kemper, Tom Wollschläger, Stephan Günnemann（Technical University of Munich）｜ NeurIPS 2025",
+      "year": 2025,
+      "venue": "NeurIPS 2025（Spotlight）",
+      "link": "https://arxiv.org/abs/2509.01254",
+      "lineage": "最新",
+      "parent": "準同型表現力 (Zhang+ 2024)",
+      "s1": "WL に基づく同型性の表現力理論は実際の性能を説明できないと論じ、メッセージが確率的に失われる lossyWL に基づく連続的な課題難度「メッセージパッシング複雑度（MPC）」を提案。不可能性の結果を保ちつつ過圧縮・到達不足も捉え、精度とよく相関した。",
+      "s2": "表現力理論は無損失の伝播と無限の層を仮定した二値の判定で、ZINC など主要ベンチマークのグラフはほぼすべて 1-WL で区別できる（Table 1）。高次 GNN の好成績を表現力で説明する前提（Xu+ 2019 以降の系譜）を批判した。",
+      "s3": "lossyWL では u から v へのメッセージが確率 I_vu（自己ループ付き正規化隣接）で届く。MPC は L 回の lossyWL の色から課題 f_v を一意に決められる確率の負の対数。不可能な課題では無限大になり（Thm 4.6）、-log (I^L)_vu 以上となって過圧縮と結びつく。",
+      "s4": "ランダム正則グラフで特徴の保持、距離 D の情報伝播、サイクル検出を検証。特徴保持では MPC と精度の順位相関が -1（Fig. 3）。D=5 では GCN-VN 以外が失敗（Fig. 5）。リング課題の MPC と ZINC の MAE の順位が一致（Table 2）。",
+      "s5": "著者：更新・集約関数の形と最適化を抽象化しており、注意機構は枠組みの外。実課題の目的関数は未知で、代理課題に頼る。\n所感：表現力から「課題との整合」へ視点を移す説得力のある議論。ただし MPC はモンテカルロ近似で、大規模グラフでの診断はまだ遠い。",
+      "s6": "・準同型表現力 (Zhang+ 2024)（本資料）\n・Di Giovanni+ (2024) 過圧縮と表現力（未調査）\n・GRIP/TRIP (Hernandez Caralt+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/kemper2025_fig4.png",
+        "caption": "出典：Kemper+ 2025 Fig. 4（目標ノード（四角）へ特徴を伝える MPC。仮想ノードで遠方の難度が下がる）"
+      },
+      "notes": "arXiv v2（NeurIPS 2025 版）の本文、限界、付録 D の Table 2 を読了。"
+    },
+    {
+      "title": "Oversmoothing, Oversquashing, Heterophily, Long-Range, and more: Demystifying Common Beliefs in Graph Machine Learning",
+      "short": "通念の再検討 (Arnaiz-Rodriguez & Errica 2026)",
+      "authors": "Adrian Arnaiz-Rodriguez, Federico Errica（ELLIS Alicante, NEC Laboratories Europe）｜ ICLR 2026",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2505.15547",
+      "lineage": "最新",
+      "parent": "過圧縮 (Alon & Yahav 2021)",
+      "s1": "過平滑化・過圧縮・ホモフィリーとヘテロフィリー・長距離依存をめぐって定着した9つの「通念」を明示し、単純な反例で反駁した論文。特に「過圧縮」という語を、計算上のボトルネックと位相的なボトルネックに分けて使うべきだと提言した。",
+      "s2": "Alon & Yahav (2021) の計算木の圧縮と、Topping+ (2022) の負曲率のボトルネックが同じ語で混用され、rewiring の効果検証や長距離ベンチマークの設計が曖昧になっていた。過平滑化を性能低下の原因とみる見方も再検討した。",
+      "s3": "計算上のボトルネックを計算木の多重集合の大きさ |M_v^K| と定義（Def. 4.1）。格子グラフは位相的ボトルネックがないのに計算上のボトルネックが深刻で、逆の例もある（Fig. 4）。次数差があれば完全にヘテロフィリックな2部グラフも1層で分類できる。",
+      "s4": "Cora で GCN・SAGE・GAT・GIN を3〜64層にし、50シードで Dirichlet エネルギー（DE）とレイリー商（RQ）を測定。GIN は DE が発散し、重みを2倍にするだけで傾向が逆転、DE と RQ の結論も食い違う（Fig. 1）。",
+      "s5": "著者：先行研究の批判ではなく問いの明確化が目的。ボトルネックの種類ごとに専用のベンチマークが必要。\n所感：理論的な貢献は小さいが、2026年の位置づけ論文（Kormann+）や GRIP など評価を見直す流れの要。「何を測るか」が最前線であることを示す。",
+      "s6": "・Kormann+ (2026) 過平滑化・過圧縮を恐れるな（未調査）\n・GRIP/TRIP (Hernandez Caralt+ 2026)（未調査）\n・Tönshoff+ (2023) LRGB の再評価（未調査）",
+      "figure": {
+        "file": "figures/arnaiz2025_fig4.png",
+        "caption": "出典：Arnaiz-Rodriguez & Errica Fig. 4（計算上のボトルネックと位相的ボトルネックは独立に起こる）"
+      },
+      "notes": "arXiv v3（ICLR 2026 版）の本文を読了。付録（各通念を主張する論文の一覧 Table 2 など）は概観のみ。"
+    }
+  ]
+}

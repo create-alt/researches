@@ -1,0 +1,238 @@
+{
+  "field": "グラフニューラルネットワーク",
+  "theme": "GNN による物理シミュレーション・世界モデル",
+  "date": "2026-10-27",
+  "summary": "物理系を「物体・粒子・メッシュ要素とその相互作用」のグラフとして学ぶ系譜。IN（2016）と GN（2018）を原典に、物体中心の C-SWM、粒子の GNS、メッシュの MeshGraphNets、対称性の EGNN を経て、GraphCast が実天気予報に到達。\n2025〜2026年は拡散（DGN）・Transformer（ParticleFormer、メッシュ Transformer）との比較と、長期ロールアウトの安定性（IGNS）が焦点。",
+  "papers": [
+    {
+      "title": "Interaction Networks for Learning about Objects, Relations and Physics",
+      "short": "Interaction Networks (Battaglia+ 2016)",
+      "authors": "Peter W. Battaglia, Razvan Pascanu, Matthew Lai ほか（Google DeepMind）｜ NIPS 2016",
+      "year": 2016,
+      "venue": "NIPS 2016",
+      "link": "https://arxiv.org/abs/1612.00222",
+      "lineage": "原典",
+      "s1": "物体をノード・関係をエッジとするグラフを入力に、関係モデル f_R と物体モデル f_O を分けて学習する Interaction Network（IN）を提案。n体・剛体衝突・バネ紐で、1ステップ学習のみから数千ステップのロールアウトを実現した最初の汎用学習型物理エンジン。",
+      "s2": "CNN は固定の局所近傍、MLP は全入力を平坦化するため、物体数や関係の構造が変わると対応できない。IN は関係を明示的に入力し f_R・f_O を全関係・全物体で共有するので、物体数の異なる系へそのまま汎化する。比較は MLP・等速度・関係なし IN。",
+      "s3": "相互作用項 b_k=[o_i; o_j; r_k] に f_R を適用して効果 e_k を求め、受信物体ごとに和で集約（順序不変）。外力 x_j と結合して f_O で次の速度を出す。e_k の L2 正則化と入力ノイズで長期のドリフトを抑える。",
+      "s4": "自作物理エンジンの 2000 シーン×1000 ステップで学習。次ステップ速度の MSE は n体 0.25（MLP 79）、ボール 0.0020（0.072）、紐 0.0011（0.016）と桁違いに小さい（Table 2）。6体→3・12体、15質点→5・30質点へも汎化（Table 3）。",
+      "s5": "著者：大規模系での相互作用の間引き、知覚フロントエンドの付加、確率モデル化が課題。\n所感：位置・速度が既知という前提で、「グラフはどこから来るか」は未解決。カオス系では軌道が一致せず、評価は見た目の妥当性に頼っている。",
+      "s6": "・Graph Networks (Battaglia+ 2018)（本資料）\n・GNS (Sanchez-Gonzalez+ 2020)（本資料）\n・NPE (Chang+ 2017)（未調査）",
+      "figure": {
+        "file": "figures/in.png",
+        "caption": "出典：Interaction Networks Fig. 1（a: 関係推論と物体推論の分離、b: m・f_R・a・f_O による計算の流れ）"
+      },
+      "notes": "arXiv v1 を本文・Table 2〜3・付録の物理領域の詳細まで読了。"
+    },
+    {
+      "title": "Relational inductive biases, deep learning, and graph networks",
+      "short": "Graph Networks (Battaglia+ 2018)",
+      "authors": "Peter W. Battaglia, Jessica B. Hamrick, Victor Bapst ほか（DeepMind・Google Brain・MIT・エディンバラ大）｜ arXiv 2018",
+      "year": 2018,
+      "venue": "arXiv プレプリント 2018",
+      "link": "https://arxiv.org/abs/1806.01261",
+      "lineage": "原典",
+      "parent": "Interaction Networks",
+      "s1": "組合せ汎化を AI の最優先課題とする立場から、IN・MPNN・NLNN・Deep Sets などを辺・ノード・グローバルの3つの更新関数と3つの集約関数で統一する Graph Network（GN）ブロックを提案した総説兼ポジション論文。graph_nets ライブラリも公開。",
+      "s2": "MLP・CNN・RNN の関係的帰納バイアス（全結合・局所性・逐次性）を整理し、どれも集合やグラフ構造を自然に扱えないと指摘。GNN（Scarselli+ 2009）や MPNN（Gilmer+ 2017）を特殊ケースとして含み、グラフ→グラフの共通インタフェースで積み重ね可能にした。",
+      "s3": "各辺で e'_k=φ^e(e_k, v_rk, v_sk, u)、受信ノードごとに ρ^{e→v} で集約して v'_i=φ^v(ē'_i, v_i, u)、最後にグローバル u' を更新。ρ は置換不変（和・平均・最大）。encode-process-decode 構成で M 回のメッセージパッシングを重ねる。",
+      "s4": "新しい実験はなく、既存研究の整理で主張を裏づける。1ステップ学習の IN が数千ステップに伸び物体数が半分・倍の系へゼロショット転移した例、関節数の異なる系に汎化した GN 順モデル（2018）などを組合せ汎化の証拠に挙げる（Sec. 5.1）。",
+      "s5": "著者：WL テストで区別できないグラフがあり、再帰や制御フローは表しにくい。感覚入力からグラフを得る方法、破断時のノード分割など動的なグラフ変更は未解決。\n所感：後の GNS・MGN・GraphCast はすべてこの型の上に建っている。",
+      "s6": "・GNS (Sanchez-Gonzalez+ 2020)（本資料）\n・MPNN (Gilmer+ 2017)（未調査）\n・GN as Learnable Physics Engines (Sanchez-Gonzalez+ 2018)（未調査）",
+      "figure": {
+        "file": "figures/gn.png",
+        "caption": "出典：Graph Networks Fig. 3（GN ブロック内の辺・ノード・グローバルの順の更新）"
+      },
+      "notes": "arXiv v3 の Sec. 1〜5（関係的帰納バイアス、GN ブロックの定義、設計原則、議論・限界）を読了。付録の各モデルの対応表は斜め読み。"
+    },
+    {
+      "title": "Contrastive Learning of Structured World Models",
+      "short": "C-SWM (Kipf+ 2020)",
+      "authors": "Thomas Kipf, Elise van der Pol, Max Welling（アムステルダム大）｜ ICLR 2020",
+      "year": 2020,
+      "venue": "ICLR 2020",
+      "link": "https://arxiv.org/abs/1911.12247",
+      "lineage": "発展",
+      "parent": "Graph Networks",
+      "s1": "画素観測から物体ごとの潜在状態を教師なしで取り出し、GNN で物体間相互作用を含む行動条件付き遷移を学ぶ C-SWM を提案。画素を再構成せず対照損失だけで学び、ブロック押し環境の10ステップ予測で H@1 ほぼ100%を達成。",
+      "s2": "物体発見の既存手法や World Models（Ha & Schmidhuber 2018）は画素再構成損失に頼るため、小さいが重要な物体を無視したり背景に容量を割く。C-SWM は知識グラフ埋め込み TransE に倣い、本物と偽の状態遷移をエネルギーで識別する。",
+      "s3": "CNN の K 枚の特徴マップを物体スロットとし MLP で z^k に符号化。全結合グラフ上の GNN が行動つきで Δz を予測。正例のエネルギー H=(1/K)Σ_k d(z^k+Δz^k, z^k_{t+1}) と負例のヒンジで L=H+max(0, γ−H̃) を最小化。",
+      "s4": "2D Shapes・3D Blocks・Atari 2種・3体重力を潜在空間の順位指標 H@1/MRR で評価。3D Blocks の10ステップで H@1 99.9%、AE 型 World Model は 4.0%。GNN を MLP に替えると 2D Shapes で 89.7% に低下。3体系は 75.5% 対 67.9%（Table 1）。",
+      "s5": "著者：同じ見た目の物体を区別できず、決定論的でマルコフ性を仮定している。\n所感：GNN 遷移を物体中心世界モデルの標準部品にした。ただし Atari では分散が大きくスロット数 K に敏感で、現実画像への適用は後続に委ねられた。",
+      "s6": "・Slot Attention (Locatello+ 2020)（未調査）\n・SlotFormer (Wu+ 2023)（未調査）\n・ParticleFormer (2025)（本資料）",
+      "figure": {
+        "file": "figures/cswm.png",
+        "caption": "出典：C-SWM Fig. 1（CNN 物体抽出器、MLP 物体符号化器、GNN 遷移モデル、物体ごとの対照損失）"
+      },
+      "notes": "arXiv v2 を本文・Table 1・Limitations まで読了。付録のハイパーパラメータは参照のみ。"
+    },
+    {
+      "title": "Learning to Simulate Complex Physics with Graph Networks",
+      "short": "GNS (Sanchez-Gonzalez+ 2020)",
+      "authors": "Alvaro Sanchez-Gonzalez, Jonathan Godwin, Tobias Pfaff, Rex Ying ほか（DeepMind・スタンフォード大）｜ ICML 2020",
+      "year": 2020,
+      "venue": "ICML 2020",
+      "link": "https://arxiv.org/abs/2002.09405",
+      "lineage": "発展",
+      "parent": "Graph Networks",
+      "s1": "粒子をノード、近傍半径内の粒子対をエッジとするグラフ上の学習メッセージパッシングで加速度を予測する Graph Network-based Simulator（GNS）を提案。水・砂・粘性体と剛体が混ざる系を、最大約2万粒子・数千ステップで同じ構造のまま模擬した。",
+      "s2": "DPI（Li+ 2018）は剛体を保つ専用の階層機構が必要で、CConv（Ummenhofer+ 2020）は流体に特化していた。GNS は同じハイパーパラメータで全領域を学び、6領域すべてで最良設定の CConv よりロールアウト誤差が小さい（Fig. 4m）。",
+      "s3": "encode-process-decode で、エッジに相対変位と距離を入れて並進不変にし、非共有の GN を M=10 段重ねて加速度を出し、オイラー積分する。学習時に入力速度へランダムウォークノイズ（σ=3e-4）を加え、自己予測による誤差蓄積に強くする。",
+      "s4": "SPH・MPM・PBD で作った十数データセット（Table 1）。WaterRamps で学習したモデルを 32倍の領域・34倍の8.5万粒子・8倍の5000ステップに適用しても妥当な流れを生成。ノイズ量、メッセージパッシング段数、接続半径が性能を左右（Fig. 4）。",
+      "s5": "著者：メッシュへの拡張、ハミルトン力学や対称性など物理知識の導入、高速化、逆問題への応用が今後の課題。\n所感：評価は見た目と粒子 MSE が中心。カオス的な長期挙動が統計的に正しいかは問われていない。",
+      "s6": "・MeshGraphNets (2021)（本資料）\n・IGNS (2026)（本資料）\n・DPI-Net (Li+ 2019)（未調査）",
+      "figure": {
+        "file": "figures/gns.png",
+        "caption": "出典：GNS Fig. 2（学習シミュレータ s_θ と encode-process-decode、グラフ構築・メッセージパッシング・動力学の取り出し）"
+      },
+      "notes": "arXiv v2 を本文・Table 1・Fig. 4（アブレーションと CConv 比較）まで読了。補足資料は参照のみ。"
+    },
+    {
+      "title": "Learning Mesh-Based Simulation with Graph Networks",
+      "short": "MeshGraphNets (Pfaff+ 2021)",
+      "authors": "Tobias Pfaff, Meire Fortunato, Alvaro Sanchez-Gonzalez, Peter W. Battaglia（DeepMind）｜ ICLR 2021",
+      "year": 2021,
+      "venue": "ICLR 2021",
+      "link": "https://arxiv.org/abs/2010.03409",
+      "lineage": "発展",
+      "parent": "GNS",
+      "s1": "シミュレーションのメッシュをグラフとし、メッシュ空間とワールド空間の2種のエッジで学習メッセージパッシングを行う MeshGraphNets を提案。布・弾性体・非圧縮流・圧縮性の翼周り流を同じ枠組みで学び、元の解法より1〜2桁速く推論した。",
+      "s2": "GNS（2020）は粒子を固定半径でつなぐので布の静止形状を持てず、不規則なメッシュでは発散する。格子 CNN（UNet）は翼端の細かい後流を解像できず、GCN（Belbute-Peres+ 2020）はエッジでメッセージを計算しないため翼周り流でロールアウトが安定しない。",
+      "s3": "メッシュエッジに参照座標の相対ベクトル u_ij と世界座標の x_ij を、ワールドエッジに x_ij を入れ、15段の非共有 GN ブロックで更新し、出力を積分する。さらにサイジング場を予測し、汎用リメッシャで次ステップのメッシュを適応的に作り直す。",
+      "s4": "6データセットで1ステップと全ロールアウトの RMSE を報告（Table 1）。FlagDynamic で解法 26199 ms/step に対し 837 ms。2千ノードの旗で学習し2万ノードの吹き流しへ汎化。ワールドエッジを外すとロールアウト誤差が 51%・92% 増える。",
+      "s5": "著者：物理に基づく補助損失、エネルギー保存型の積分、予測精度を直接最適化する離散化の学習が今後の課題。\n所感：Airfoil の全ロールアウト RMSE は大きく、長期誤差は残る。後の Transformer 型や階層型の比較基準になった。",
+      "s6": "・Training Transformers for Mesh-Based Simulations (2025)（本資料）\n・MultiScale MeshGraphNets (Fortunato+ 2022)（未調査）\n・IGNS (2026)（本資料）",
+      "figure": {
+        "file": "figures/mgn.png",
+        "caption": "出典：MeshGraphNets Fig. 1（布と球の例での encode-process-decode と2種のエッジ）"
+      },
+      "notes": "arXiv v4 を本文・Table 1・Fig. 5（GNS・GCN・UNet 比較、ハイパーパラメータ）まで読了。付録のリメッシャ詳細は参照のみ。"
+    },
+    {
+      "title": "E(n) Equivariant Graph Neural Networks",
+      "short": "EGNN (Satorras+ 2021)",
+      "authors": "Victor Garcia Satorras, Emiel Hoogeboom, Max Welling（アムステルダム大）｜ ICML 2021",
+      "year": 2021,
+      "venue": "ICML 2021",
+      "link": "https://arxiv.org/abs/2102.09844",
+      "lineage": "発展",
+      "parent": "Graph Networks",
+      "s1": "辺関数に座標の距離の二乗だけを入れ、座標は相対ベクトルの重み付き和で更新することで、回転・並進・反射・置換に等変な EGNN を提案。球面調和関数を使わず高次元にも拡張でき、n体の位置予測で次点より誤差を32%下げた。",
+      "s2": "TFN（Thomas+ 2018）や SE(3)-Transformer（Fuchs+ 2020）は球面調和関数による高次表現が必要で、計算が重く3次元に限られる。Radial Field（Köhler+ 2019）は等変だが特徴 h を伝えない。EGNN は普通の GNN の柔軟さと等変性を両立する。",
+      "s3": "m_ij=φ_e(h_i, h_j, ‖x_i−x_j‖², a_ij)、x_i←x_i+CΣ_j (x_i−x_j)φ_x(m_ij)、h_i←φ_h(h_i, Σ_j m_ij)。距離は E(n) 不変、相対ベクトルの和は等変なので、層を重ねても等変性が保たれる（付録 A で証明）。速度を扱う拡張もある。",
+      "s4": "3次元の荷電5粒子系で 1000 ステップ後の位置を予測し、MSE 0.0071（GNN 0.0107、Radial Field 0.0104、TFN 0.0155、SE(3)-Tr. 0.0244、Table 2）。推論も TFN より速い。グラフ自己符号化と QM9 分子物性でも高い性能（Table 3）。",
+      "s5": "著者：計算が軽く実装が簡単なので、創薬・タンパク質・材料への応用を期待。\n所感：力学の検証は5粒子のみで、ロールアウトでなく一括予測。大規模なメッシュや粒子のシミュレータで等変性がどこまで効くかは別途確かめる必要がある。",
+      "s6": "・NequIP (Batzner+ 2022)（未調査）\n・SEGNN (Brandstetter+ 2022)（未調査）\n・PIEGraph (Orozco+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/egnn.png",
+        "caption": "出典：EGNN Fig. 1（入力を回転してから GNN を通しても、GNN の出力を回転しても同じになる等変性の例）"
+      },
+      "notes": "arXiv v3 を本文・Table 2〜3・Conclusion まで読了。付録の証明は要点のみ確認。"
+    },
+    {
+      "title": "GraphCast: Learning skillful medium-range global weather forecasting",
+      "short": "GraphCast (Lam+ 2023)",
+      "authors": "Remi Lam, Alvaro Sanchez-Gonzalez, Matthew Willson ほか（Google DeepMind・Google Research）｜ Science 2023",
+      "year": 2023,
+      "venue": "Science 2023",
+      "link": "https://arxiv.org/abs/2212.12794",
+      "lineage": "発展",
+      "parent": "MeshGraphNets",
+      "s1": "0.25°格子（約104万点、227変数）の大気状態から6時間後を予測する GNN を自己回帰で回し、10日予報を TPU 1台で1分以内に出す GraphCast を提案。ECMWF の決定論予報 HRES を、検証した1380項目の90.3%で上回った。",
+      "s2": "数値予報は計算資源で精度が伸びるが、過去データから直接は改善できない。既存の機械学習予報（Keisler 2022 の GNN、FourCastNet、Pangu-Weather）が HRES に迫るのは一部変数・7日程度まで。Pangu-Weather には 252 項目中 99.2% で勝る。",
+      "s3": "格子→メッシュの1層エンコーダ、正二十面体を6回細分した4万962ノードのマルチメッシュ（全解像度の辺を同時に持ち、長距離を少ない段数で伝える）上の16層プロセッサ、メッシュ→格子のデコーダ。学習時の自己回帰ステップを1→12に増やす。",
+      "s4": "ERA5（1979–2017）で学習し2018年で評価。z500 の RMSE スキルで HRES より7〜14%良い（Fig. 2）。熱帯低気圧の進路、大気の川、極端高温も改善（Fig. 3）。マルチメッシュを外すと5日以内の z500 で HRES に勝てない（Supp. 7.3.1）。",
+      "s5": "著者：MSE 学習のため長いリードタイムで予報がぼやけ、決定論的で不確実性を扱えない。アンサンブル化が次の課題。\n所感：GNN シミュレータが実世界の基幹業務で勝った転換点。ぼやけの問題が拡散型（GenCast）への移行を促した。",
+      "s6": "・GenCast (Price+ 2024)（未調査）\n・Diffusion Graph Networks (2025)（本資料）\n・Pangu-Weather (Bi+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/graphcast.png",
+        "caption": "出典：GraphCast Fig. 1（入力→次状態の予測→ロールアウト、エンコーダ・プロセッサ・デコーダと M0〜M6 のマルチメッシュ）"
+      },
+      "notes": "arXiv v2 の本文（Introduction〜Conclusions）と補足の Sec. 3（構造）、7.3（アブレーション）を読了。他の補足は参照のみ。"
+    },
+    {
+      "title": "Learning Distributions of Complex Fluid Simulations with Diffusion Graph Networks",
+      "short": "Diffusion Graph Networks (Lino+ 2025)",
+      "authors": "Mario Lino, Tobias Pfaff, Nils Thuerey（ミュンヘン工科大・Google DeepMind）｜ ICLR 2025",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2504.02843",
+      "lineage": "最新",
+      "parent": "MeshGraphNets",
+      "s1": "メッシュと物理パラメータを条件に、流れ場の統計的平衡状態を拡散モデルで直接サンプリングする Diffusion Graph Networks（DGN）と潜在版 LDGN を提案。短い軌跡だけで学習しても全分布を再現し、3D 翼の乱流の圧力場を解法より4〜5桁速く生成した。",
+      "s2": "従来の GNN 代理モデルは平均流や軌跡を予測するが、長いロールアウトでは不安定になる。流れ場の拡散モデル（Lienen+ 2024 など）は CNN で格子に限られる。単一スケールの GNN 拡散は受容野が足りず、大きいメッシュでは解を生成できない（Fig. 15）。",
+      "s3": "ノイズを予測する DDPM のデノイザを encode-process-decode の GNN とし、Guillard の粗視化で作った多段グラフ上の U-Net 型で大域的に除去する。LDGN は変分グラフ自己符号化器の粗い潜在メッシュ上で拡散し、高周波ノイズを抑える。",
+      "s4": "楕円周りの2D 層流と、DES で作った3D 翼の乱流で評価。翼の W2graph は LDGN 1.95、DGN 2.12、混合ガウス GNN 4.32（Table 9）。3000 サンプルの生成は GPU で 2.43 分、解法は 2989 分。LDGN は DGN より8倍速い。",
+      "s5": "著者：生成サンプルに時間相関がなく、物理制約の導入やフローマッチングでの高速化が今後の課題。\n所感：自己回帰をやめて分布を直接学ぶことで長期の不安定さを避けた。一方、時間発展を問う世界モデルとしては使えない。",
+      "s6": "・GraphCast (2023)（本資料）\n・Fluid-DiT (Mo & Ke 2026)（参照のみ）\n・PDE-Refiner (Lippe+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/dgn.png",
+        "caption": "出典：DGN Fig. 2（a: 条件エンコーダ付き変分グラフ自己符号化器、b: 潜在空間でノイズ除去する LDGN の推論）"
+      },
+      "notes": "arXiv v1 を本文・付録 Table 5〜9（R2 と Wasserstein-2 距離）まで読了。"
+    },
+    {
+      "title": "ParticleFormer: A 3D Point Cloud World Model for Multi-Object, Multi-Material Robotic Manipulation",
+      "short": "ParticleFormer (Huang+ 2025)",
+      "authors": "Suning Huang, Qianzhong Chen, Xiaohan Zhang ほか（スタンフォード大・RAI Institute）｜ CoRL 2025",
+      "year": 2025,
+      "venue": "CoRL 2025",
+      "link": "https://arxiv.org/abs/2506.23126",
+      "lineage": "最新",
+      "parent": "C-SWM",
+      "s1": "ロボットが操作する物体を点群の粒子で表し、GNN の代わりに Transformer の自己注意で粒子間の相互作用を学ぶ3D 世界モデル ParticleFormer を提案。剛体・布・ロープ・粒状体が混ざる場面で予測誤差を下げ、実機の MPC でも GNN 型より目標に近づけた。",
+      "s2": "RoboCraft や AdaptiGraph などのグラフ型粒子ダイナミクス（GBND）は近傍半径や最大近傍数 TopK に敏感で、多材質の接触の伝わりが苦手。学習には動的 Gaussian Splatting による粒子追跡も要る。DINO-WM など2D 世界モデルは3D 構造を捉えにくい。",
+      "s3": "ステレオ画像から点群を再構成・分割し、各粒子の位置・材質・動作を埋め込み、3層の Transformer エンコーダで全粒子どうしを注意させて変位を予測。対応点不要の Chamfer 距離と微分可能 Hausdorff 距離の混合損失で5ステップ自己回帰学習する。",
+      "s4": "FleX シミュレーション6種と実機3種で評価。粒子 MSE は Cloth Gathering 0.0023（GBND 0.0076）、Rope Sweeping 0.0008（0.0029）。CD+HD も DINO-WM より大幅に小さい（Table 1）。GBND は TopK を5→15と増やしても及ばない（Fig. 4）。",
+      "s5": "著者：シーンごとの学習で、多様な環境への汎化は未確認。外部の分割モデルの失敗が伝搬する。\n所感：全粒子の全結合注意は大規模化で計算量が問題になる。近傍半径という「関係の手設計」に GNN が依存することへの反論として読める。",
+      "s6": "・C-SWM (2020)（本資料）\n・AdaptiGraph (Zhang+ 2024)（未調査）\n・PIEGraph (Orozco+ 2026)（参照のみ）",
+      "figure": {
+        "file": "figures/particleformer.png",
+        "caption": "出典：ParticleFormer Fig. 2（ステレオ画像から粒子状態を作り、Transformer で次状態を予測、混合損失で学習）"
+      },
+      "notes": "arXiv v4 を本文・Table 1・Fig. 3〜5・Limitations まで読了。付録の追加タスクは参照のみ。"
+    },
+    {
+      "title": "Training Transformers for Mesh-Based Simulations",
+      "short": "Mesh Transformer (Garnier+ 2025)",
+      "authors": "Paul Garnier, Vincent Lannelongue, Jonathan Viquerat, Elie Hachem（Mines Paris - PSL, CEMEF）｜ arXiv 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2508.18051",
+      "lineage": "最新",
+      "parent": "MeshGraphNets",
+      "s1": "隣接行列をそのまま注意のマスクに使う Transformer でメッシュ上の流体を学習し、MeshGraphNet（MGN）と体系的に比べた。最小モデルは7倍速く6倍小さいまま MGN と同等、最大モデル（5100万パラメータ）は従来最良を平均38.8%上回った。",
+      "s2": "メッセージパッシング型（MGN、BSMS-GNN、マルチグリッド）は受容野を広げるため階層化や K-hop で複雑になり、層や幅を増やすと辺上の逆伝播でメモリが尽きる。GATv2 や TransformerConv など注意つき GNN とも比較し、単純な構成で上回ることを示す。",
+      "s3": "Attention(Z)=A⊙softmax(QKᵀ/√d)V とし、エッジ特徴は使わずノード座標を位置情報とする。A を A²（膨張）・ランダム辺20%・グローバルノード1%で拡張して受容野を広げる。マスク事前学習ののち微調整し、60超のモデルでスケーリング則を求めた。",
+      "s4": "Cylinder・Plate・Airfoil・2D/3D 動脈瘤（最大30万ノード）で評価。3D-Aneurysm の全ロールアウト RMSE は 4825、MGN は 13747（Table 1）。最適なモデル規模は N∝C^0.75（Fig. 3）。ランダム辺は訓練時間15%増で誤差15%減（Fig. 4）。",
+      "s5": "著者：接触とワールドエッジが重要な Plate では従来最良に届かない。座標を直接入れるので並進・回転に不変でない。\n所感：査読前のプレプリントで、基準値には自前の再現値も含む。MGN との差がどこまで構造由来かは慎重に読みたい。",
+      "s6": "・MeshGraphNets (2021)（本資料）\n・MeshGraphNet-Transformer (Iparraguirre+ 2026)（参照のみ）\n・Transolver (Wu+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/tmesh.png",
+        "caption": "出典：Mesh Transformer Fig. 7（隣接行列を拡張して注意マスクにする Transformer ブロックの構成）"
+      },
+      "notes": "arXiv v1 を本文・Table 1・Fig. 3〜4・Conclusion and Limitations まで読了。付録は E 節のスケーリング補足のみ確認。"
+    },
+    {
+      "title": "Improving Long-Range Interactions in Graph Neural Simulators via Hamiltonian Dynamics",
+      "short": "IGNS (Hoang+ 2026)",
+      "authors": "Tai Hoang, Alessandro Trenta, Alessio Gravina ほか（カールスルーエ工科大・ピサ大）｜ ICLR 2026",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2511.08185",
+      "lineage": "最新",
+      "parent": "MeshGraphNets",
+      "s1": "ポートハミルトン力学を潜在の時間発展とするグラフニューラルシミュレータ IGNS を提案。情報が散逸しないので遠いノードへ信号が届き、多段損失で真の軌道に沿わせて誤差の蓄積を抑える。衝撃が伝わる板の課題で MGN の誤差を約45分の1にした。",
+      "s2": "MGN など従来の GNS は1ステップ損失で学び自己回帰で回すため誤差が蓄積し、メッセージパッシングは過平滑化・過圧縮で長距離の依存を失う。多段損失（Lienen & Günnemann 2022）も GNN が不安定で短い窓に限られていた。A-DGN・GraphCON とも比較。",
+      "s3": "状態を一般化座標 q と運動量 p に分け、ẋ=J∇H − 減衰 + 外力 r_θ をシンプレクティック・オイラー法で積分する。H は近傍和の形で学習し、外力項が幾何情報を担う。開始前に l 回のウォームアップ伝搬を行い、窓 T 全体の多段損失で学習する。",
+      "s4": "6課題で評価。Impact Plate の MSE は IGNS 67.9、MGN 3096、HCMT 647（Table 1, 2）。Wave Balls は 0.37e-3 対 MGN 1.78e-3。多段損失を外すと誤差が約94倍、外力項を外すと大きく悪化（Table 3）。T=200 の長い窓でも安定（Fig. 3c）。",
+      "s5": "著者：開ループの設定で、観測によるフィードバックがない。逆設計や制御への展開は今後。\n所感：Plate Def. では MGN がわずかに良く、Cylinder Flow は分割を変えた条件。訓練と評価の窓 T が同じで、窓を超える外挿は未検証。",
+      "s6": "・GNS (2020)（本資料）\n・MeshGraphNets (2021)（本資料）\n・GraphCON (Rusch+ 2022)（未調査）",
+      "figure": {
+        "file": "figures/igns.png",
+        "caption": "出典：IGNS Fig. 1（l 回のウォームアップで大域情報を持たせた初期状態から、ポートハミルトン動力学で展開し多段損失で学習）"
+      },
+      "notes": "arXiv v2 を本文・Table 1〜3・Fig. 3・Limitations まで読了。付録の証明（E 節）は定理の主張のみ確認。"
+    }
+  ]
+}
