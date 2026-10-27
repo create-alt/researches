@@ -17,8 +17,12 @@
 | ニューラルセルオートマトン・自己組織化 | [`neural-cellular-automata`](https://github.com/create-alt/researches/tree/neural-cellular-automata) | 局所則の世界モデル・推論器としての NCA、学習される群知能、離散・非同期 NCA のハードウェア化 | 29 / 91 本 | 第1回 | 2026-10-24 |
 | イベントベース視覚とニューロモルフィック・ロボティクス | [`neuromorphic-robotics`](https://github.com/create-alt/researches/tree/neuromorphic-robotics) | イベントベース世界モデルと表現学習、完全ニューロモルフィック閉ループ、チップ上の局所学習による身体の適応 | 32 / 110 本 | 第1回 | 2026-10-24 |
 | 言語と行動の接地・汎化 | [`language-action`](https://github.com/create-alt/researches/tree/language-action) | 組成的汎化と言語・行動の共発達、言語から報酬・目標を生成する行動獲得、基盤モデル・言語条件付き世界モデルによるゼロショット行動生成 | 31 / 96 本 | 第1回 | 2026-10-25 |
+| 遺伝的アルゴリズム | [`genetic-algorithm`](https://github.com/create-alt/researches/tree/genetic-algorithm) | NEAT とトポロジー進化・間接符号化、CMA-ES とその発展、遺伝的アルゴリズムの応用、遺伝的プログラミングとシンボリック回帰、進化戦略・ニューロエボリューションの大規模化 | 52 / 166 本 | 第1回 | 2026-10-27 |
+| 免疫アルゴリズム | [`immune-algorithm`](https://github.com/create-alt/researches/tree/immune-algorithm) | クローン選択と免疫最適化アルゴリズム、自己・非自己識別と異常検知、免疫ネットワーク理論と機械学習・AI との融合 | 28 / 103 本 | 第1回 | 2026-10-27 |
+| グラフニューラルネットワーク | [`gnn`](https://github.com/create-alt/researches/tree/gnn) | メッセージパッシング GNN の基礎と表現力、Graph Transformer・グラフ基盤モデルと LLM、GNN による物理シミュレーション・世界モデル | 32 / 98 本 | 第1回 | 2026-10-27 |
+| ハイパーネットワーク | [`hypernetworks`](https://github.com/create-alt/researches/tree/hypernetworks) | ハイパーネットワークの基礎と重み生成、メタ学習・継続学習とアダプタ生成、重み空間の学習と拡散によるパラメータ生成 | 31 / 99 本 | 第1回 | 2026-10-27 |
 
-合計：スライド化 424 本（8 分野・41 テーマ）。
+合計：スライド化 567 本（12 分野・55 テーマ）。
 
 > 分野ブランチを作成・更新したら、この表にも追記します。各ブランチの README に、調査履歴・系譜・引用論文一覧・次の推奨テーマがあります。
 
