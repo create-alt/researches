@@ -2,7 +2,7 @@
 
 環境のダイナミクスを学習した内部モデル（世界モデル）を、探索・計画・表現学習に使う研究の系譜をまとめる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -67,7 +67,7 @@
 
 ## 内発的報酬（intrinsic-reward/）
 
-資料：[intrinsic-reward.pptx](intrinsic-reward/intrinsic-reward.pptx) ／ [intrinsic-reward.pdf](intrinsic-reward/intrinsic-reward.pdf) ／ 生成元 [spec.json](intrinsic-reward/spec.json)
+資料：[intrinsic-reward.pptx](intrinsic-reward/intrinsic-reward.pptx) ／ [intrinsic-reward.pdf](intrinsic-reward/intrinsic-reward.pdf) ／ 生成元 [spec.json](intrinsic-reward/spec.json) ／ [テーマ README](intrinsic-reward/README.md)
 
 
 ### 調査履歴
@@ -147,7 +147,7 @@
 
 ## 階層化（hierarchical/）
 
-資料：[hierarchical.pptx](hierarchical/hierarchical.pptx) ／ [hierarchical.pdf](hierarchical/hierarchical.pdf) ／ 生成元 [spec.json](hierarchical/spec.json)
+資料：[hierarchical.pptx](hierarchical/hierarchical.pptx) ／ [hierarchical.pdf](hierarchical/hierarchical.pdf) ／ 生成元 [spec.json](hierarchical/spec.json) ／ [テーマ README](hierarchical/README.md)
 
 
 ### 調査履歴
@@ -209,7 +209,7 @@ LeCun "A Path Towards AMI" (2022) ※本文未確認 ─ Dawid & LeCun 講義ノ
 
 ## JEPA 系の非生成型潜在世界モデル（jepa/）
 
-資料：[jepa.pptx](jepa/jepa.pptx) ／ [jepa.pdf](jepa/jepa.pdf) ／ 生成元 [spec.json](jepa/spec.json)
+資料：[jepa.pptx](jepa/jepa.pptx) ／ [jepa.pdf](jepa/jepa.pdf) ／ 生成元 [spec.json](jepa/spec.json) ／ [テーマ README](jepa/README.md)
 
 
 ### 調査履歴
@@ -290,7 +290,7 @@ Learning by Reconstruction Produces Uninformative Features (2024) → Prediction
 
 ## 潜在空間での計画と分布外への逸脱（latent-planning/）
 
-資料：[latent-planning.pptx](latent-planning/latent-planning.pptx) ／ [latent-planning.pdf](latent-planning/latent-planning.pdf) ／ 生成元 [spec.json](latent-planning/spec.json)
+資料：[latent-planning.pptx](latent-planning/latent-planning.pptx) ／ [latent-planning.pdf](latent-planning/latent-planning.pdf) ／ 生成元 [spec.json](latent-planning/spec.json) ／ [テーマ README](latent-planning/README.md)
 
 
 ### 調査履歴
@@ -364,7 +364,7 @@ Diffuser (2022, 軌道拡散 = 計画) → Decision Diffuser (2023)  ※参照�
 
 ## 動画・基盤世界モデルの能動データ収集と意味的好奇心（foundation-world-model/）
 
-資料：[foundation-world-model.pptx](foundation-world-model/foundation-world-model.pptx) ／ [foundation-world-model.pdf](foundation-world-model/foundation-world-model.pdf) ／ 生成元 [spec.json](foundation-world-model/spec.json)
+資料：[foundation-world-model.pptx](foundation-world-model/foundation-world-model.pptx) ／ [foundation-world-model.pdf](foundation-world-model/foundation-world-model.pdf) ／ 生成元 [spec.json](foundation-world-model/spec.json) ／ [テーマ README](foundation-world-model/README.md)
 
 
 ### 調査履歴
@@ -438,7 +438,7 @@ World Models (2018) ─> Genie (2024, 動画のみ・潜在行動・ΔtPSNR)    
 
 ## 世界モデルの評価・診断指標（wm-evaluation/）
 
-資料：[wm-evaluation.pptx](wm-evaluation/wm-evaluation.pptx) ／ [wm-evaluation.pdf](wm-evaluation/wm-evaluation.pdf) ／ 生成元 [spec.json](wm-evaluation/spec.json)
+資料：[wm-evaluation.pptx](wm-evaluation/wm-evaluation.pptx) ／ [wm-evaluation.pdf](wm-evaluation/wm-evaluation.pdf) ／ 生成元 [spec.json](wm-evaluation/spec.json) ／ [テーマ README](wm-evaluation/README.md)
 
 
 ### 調査履歴
@@ -514,7 +514,7 @@ PSNR・SSIM ─→ FID (2017) ─→ FVD (Unterthiner+ 2018: 分布の忠実度�
 
 ## 確率的・多峰な未来を扱う潜在世界モデル（stochastic-latent/）
 
-資料：[stochastic-latent.pptx](stochastic-latent/stochastic-latent.pptx) ／ [stochastic-latent.pdf](stochastic-latent/stochastic-latent.pdf) ／ 生成元 [spec.json](stochastic-latent/spec.json)
+資料：[stochastic-latent.pptx](stochastic-latent/stochastic-latent.pptx) ／ [stochastic-latent.pdf](stochastic-latent/stochastic-latent.pdf) ／ 生成元 [spec.json](stochastic-latent/spec.json) ／ [テーマ README](stochastic-latent/README.md)
 
 
 ### 調査履歴
@@ -605,7 +605,7 @@ SV2P/SVG の best-of-N 評価 → Quantifying Multimodality (2021) → CaliBench
 
 ## 動画からの潜在行動学習と世界モデル内の方策学習（latent-action/）
 
-資料：[latent-action.pptx](latent-action/latent-action.pptx) ／ [latent-action.pdf](latent-action/latent-action.pdf) ／ 生成元 [spec.json](latent-action/spec.json)
+資料：[latent-action.pptx](latent-action/latent-action.pptx) ／ [latent-action.pdf](latent-action/latent-action.pdf) ／ 生成元 [spec.json](latent-action/spec.json) ／ [テーマ README](latent-action/README.md)
 
 
 ### 調査履歴
