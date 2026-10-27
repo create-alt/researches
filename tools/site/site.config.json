@@ -1,0 +1,8 @@
+{
+  "title": "Research Survey",
+  "subtitle": "落合陽一フォーマットによる先行研究調査アーカイブ",
+  "repo": "create-alt/researches",
+  "remote": "origin",
+  "sourceDir": "../../site",
+  "outDir": "../../_site"
+}

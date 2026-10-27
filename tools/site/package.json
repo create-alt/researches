@@ -1,0 +1,13 @@
+{
+  "name": "research-survey-site",
+  "private": true,
+  "type": "module",
+  "description": "分野ブランチの調査結果（field.json / spec.json / README.md / figures）から GitHub Pages 用の静的サイトを生成する",
+  "scripts": {
+    "build": "node build.mjs",
+    "readme": "node readme.mjs"
+  },
+  "dependencies": {
+    "marked": "12.0.2"
+  }
+}

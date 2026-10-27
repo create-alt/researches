@@ -1,0 +1,25 @@
+# 分野ブランチ（field.json を持つブランチ）に push されたら、main のサイト生成ワークフローを起動する。
+# GitHub Pages の公開は既定で main からしか許可されないため、生成と公開は main 側の pages.yml で行う。
+name: Request site rebuild
+
+on:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: field.json
+          sparse-checkout-cone-mode: false
+      - name: Trigger pages.yml on main
+        if: hashFiles('field.json') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "$GITHUB_REPOSITORY" --ref main

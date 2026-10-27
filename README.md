@@ -42,13 +42,20 @@ main
 │   ├── ochiai_format_template.pptx    # 落合陽一フォーマットのテンプレート（1枚）
 │   └── ochiai_format_template.pdf     # 上記の PDF 版
 ├── tools/ochiai/                      # スライド生成スクリプト（pptxgenjs）
+├── tools/site/                        # Web サイト生成・ブランチ README 生成（Node）
+├── site/                              # Web サイトの画面（HTML / CSS / ES モジュール）
+├── .github/workflows/                 # GitHub Pages への公開
 └── candidates/                        # 候補分野（隣接分野）の最新研究メモ
 
 <分野ブランチ>（例：world-model, swarm-intelligence）
-├── README.md                          # 調査履歴・引用論文一覧（概要＋リンク）
+├── README.md                          # 調査履歴・引用論文一覧（field.json と各テーマの README から生成）
+├── field.json                         # 分野のメタデータ（テーマ順・調査履歴・推奨テーマ）
 └── <テーマ>/                           # 例：intrinsic-reward, pso
     ├── <テーマ>.pptx                   # 1論文1スライドでまとめたデッキ
-    └── <テーマ>.pdf                    # 上記の PDF 版
+    ├── <テーマ>.pdf                    # 上記の PDF 版
+    ├── spec.json                      # デッキの元データ（Web サイトもここから生成）
+    ├── README.md                      # テーマの調査履歴・系譜・引用論文一覧
+    └── figures/                       # 代表図
 ```
 
 - ブランチ名・ディレクトリ名は英小文字とハイフン（例：`world-model`、`intrinsic-reward`）。
@@ -94,3 +101,18 @@ node build.js <theme>/spec.json <theme>/<theme>.pptx  # テーマのデッキ（
 
 - `spec.json` の書式は `build.js` 冒頭のコメントを参照。各欄の文字量に応じて 12pt〜9pt の範囲で文字サイズを自動調整し、収まらない欄は警告します。
 - デッキの1枚目は表紙（テーマ概要と調査論文の一覧）、2枚目以降が1論文1スライドです。
+
+## Web サイト（GitHub Pages）
+
+スライドにまとめた内容を、分野 → テーマ → 論文の順にブラウザで読めるサイトを `tools/site/` で生成します。全論文の検索もできます。pptx・pdf・README はこれまでどおり各分野ブランチに残し、サイトはそれらから毎回作り直します。
+
+- 公開手順：リポジトリを public にしたあと、Settings → Pages → Source を「GitHub Actions」にして、Actions の「Deploy research site」を実行する。公開先は `https://create-alt.github.io/researches/`。
+- 更新：main または分野ブランチへの push で自動的に作り直される（`.github/workflows/`）。
+- 分野・テーマの追加手順とコードの構成は [tools/site/README.md](tools/site/README.md) を参照。
+
+```bash
+npm ci --prefix tools/site
+git fetch origin '+refs/heads/*:refs/remotes/origin/*'
+node tools/site/build.mjs                 # _site/ に出力
+python3 -m http.server -d _site 8000      # → http://localhost:8000/
+```

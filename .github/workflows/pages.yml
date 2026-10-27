@@ -1,0 +1,58 @@
+# 全分野ブランチの調査結果から静的サイトを生成し、GitHub Pages に公開する
+#
+# 事前設定（リポジトリを public にした後に 1 回だけ）:
+#   Settings → Pages → Build and deployment → Source を「GitHub Actions」にする
+#
+# 実行タイミング:
+#   - main への push（サイトのコード・設定の変更）
+#   - 分野ブランチへの push（request-pages-build.yml がこのワークフローを起動する）
+#   - 手動実行（Actions タブ → Deploy research site → Run workflow）
+#   - 毎日 1 回（起動が漏れた場合の保険）
+name: Deploy research site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "41 2 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Fetch all branches
+        run: git fetch --no-tags origin '+refs/heads/*:refs/remotes/origin/*'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install builder dependencies
+        run: npm ci --prefix tools/site
+      - name: Build site
+        run: node tools/site/build.mjs
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
