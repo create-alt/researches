@@ -2,7 +2,7 @@
 
 すべてのセルが同じ小さなニューラルネット（局所更新則）を共有し、近傍とのやりとりだけで形・判断・推論が創発するニューラルセルオートマトン（NCA）について、推論器・世界モデルとしての利用、学習される群知能、ハードウェア化の観点から系譜をまとめる。群知能・SNN・世界モデルの3分野にまたがる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -44,7 +44,7 @@
 
 ## 局所則の世界モデル・推論器としての NCA（nca-world-models/）
 
-資料：[nca-world-models.pptx](nca-world-models/nca-world-models.pptx) ／ [nca-world-models.pdf](nca-world-models/nca-world-models.pdf) ／ 生成元 [spec.json](nca-world-models/spec.json)
+資料：[nca-world-models.pptx](nca-world-models/nca-world-models.pptx) ／ [nca-world-models.pdf](nca-world-models/nca-world-models.pdf) ／ 生成元 [spec.json](nca-world-models/spec.json) ／ [テーマ README](nca-world-models/README.md)
 
 
 ### 調査履歴
@@ -118,7 +118,7 @@ CA as CNN (2019) ─ It's Hard to Learn the Game of Life (2021) ─ Vafa+ (2024,
 
 ## 学習される群知能：NCA から物理モジュール・ロボット群へ（learned-collective/）
 
-資料：[learned-collective.pptx](learned-collective/learned-collective.pptx) ／ [learned-collective.pdf](learned-collective/learned-collective.pdf) ／ 生成元 [spec.json](learned-collective/spec.json)
+資料：[learned-collective.pptx](learned-collective/learned-collective.pptx) ／ [learned-collective.pdf](learned-collective/learned-collective.pdf) ／ 生成元 [spec.json](learned-collective/spec.json) ／ [テーマ README](learned-collective/README.md)
 
 
 ### 調査履歴
@@ -185,7 +185,7 @@ Self-Assembling Agents (Pathak+ 2019, RL + 動的 GNN) → Shared Modular Polici
 
 ## 離散・非同期 NCA のハードウェア化（nca-hardware/）
 
-資料：[nca-hardware.pptx](nca-hardware/nca-hardware.pptx) ／ [nca-hardware.pdf](nca-hardware/nca-hardware.pdf) ／ 生成元 [spec.json](nca-hardware/spec.json)
+資料：[nca-hardware.pptx](nca-hardware/nca-hardware.pptx) ／ [nca-hardware.pdf](nca-hardware/nca-hardware.pdf) ／ 生成元 [spec.json](nca-hardware/spec.json) ／ [テーマ README](nca-hardware/README.md)
 
 
 ### 調査履歴
