@@ -172,7 +172,14 @@ export class VenueView extends View {
         : null,
       v.unknowns?.length ? this.section("調べても分からなかったこと", this.list(v.unknowns)) : null,
       v.sources?.length ? this.section("主な出典", h("ul", { class: "plain-list" }, v.sources.map((x) => h("li", {}, externalLink(x.url, x.label))))) : null,
-      v.readmeHtml ? h("section", { class: "readme" }, h("h2", {}, "調査メモ（README）"), trustedHTML("div", v.readmeHtml, { class: "markdown" })) : null,
+      v.readmeHtml
+        ? h(
+            "section",
+            { class: "readme" },
+            h("h2", {}, "調査メモ（README）"),
+            h("details", { class: "archive" }, h("summary", {}, "調査履歴・締切の要点・受賞一覧（README）を表示"), trustedHTML("div", v.readmeHtml, { class: "markdown venue-readme" })),
+          )
+        : null,
     );
   }
 }

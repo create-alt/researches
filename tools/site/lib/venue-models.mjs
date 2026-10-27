@@ -104,7 +104,7 @@ export class Venue {
    */
   nextDeadline(today) {
     const open = this.deadlines.filter((d) => /締切|deadline/i.test(d.label) && d.isAfter(today)).sort((a, b) => a.sortKey.localeCompare(b.sortKey));
-    return open.find((d) => /論文|アブスト|abstract|paper/i.test(d.label)) ?? open[0] ?? null;
+    return open.find((d) => /論文|ペーパー|アブスト|abstract|paper/i.test(d.label)) ?? open[0] ?? null;
   }
 
   /** 既存デッキの論文のうち、発表先（venue 欄）がこの学会のもの */

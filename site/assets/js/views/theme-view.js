@@ -39,7 +39,7 @@ export class ThemeView extends View {
         h("h2", {}, `スライド化した論文（${theme.papers.length} 本）`),
         h("ol", { class: "paper-list" }, theme.papers.map((p) => paperRow(p))),
       ),
-      h("section", { class: "readme" }, h("h2", {}, "調査履歴・系譜・引用論文一覧"), trustedHTML("div", theme.readmeHtml, { class: "markdown" })),
+      h("section", { class: "readme" }, h("h2", {}, "調査履歴・系譜・引用論文一覧"), trustedHTML("div", theme.readmeHtml, { class: "markdown theme-readme" })),
     );
   }
 }

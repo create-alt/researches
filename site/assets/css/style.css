@@ -236,7 +236,10 @@ input[type="search"], select {
 .markdown th, .markdown td { border-bottom: 1px solid var(--line); padding: 0.4rem 0.5rem; text-align: left; vertical-align: top; min-width: 3rem; }
 .markdown th { background: var(--surface); }
 /* 引用論文一覧（# / 論文 / 年 / 発表 / 系譜 / 概要 / スライド）の短い列は折り返さない */
-.markdown td:nth-child(1), .markdown td:nth-child(3), .markdown td:nth-child(5) { white-space: nowrap; }
+.theme-readme td:nth-child(1), .theme-readme td:nth-child(3), .theme-readme td:nth-child(5) { white-space: nowrap; }
+/* 学会 README の受賞一覧（# / 年 / 賞 / 論文 / 概要 / スライド） */
+.venue-readme td:nth-child(1), .venue-readme td:nth-child(2), .venue-readme td:nth-child(6) { white-space: nowrap; }
+.venue-readme td:nth-child(4) { min-width: 14rem; }
 .markdown pre { background: var(--surface); padding: 1rem; border-radius: var(--radius); overflow-x: auto; font-size: 0.8rem; line-height: 1.5; }
 .markdown code { font-family: var(--mono); font-size: 0.85em; }
 .markdown blockquote { border-left: 3px solid var(--line); margin: 0; padding-left: 1rem; color: var(--muted); }
