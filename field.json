@@ -1,0 +1,138 @@
+{
+  "slug": "snn",
+  "name": "SNN（スパイキングニューラルネットワーク）",
+  "order": 3,
+  "overview": "スパイクで情報を伝えるニューラルネットワーク（SNN）について、学習手法・大規模化・それを動かすハードウェアの系譜をまとめる。テーマは調査者の提案による（学習手法／Spiking Transformer・大規模化／ニューロモルフィックハードウェアと応用）。",
+  "themes": [
+    {
+      "slug": "training",
+      "name": "学習手法",
+      "scope": "STDP・ANN-SNN 変換・サロゲート勾配・e-prop・EventProp から並列学習まで",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "spiking-transformer",
+      "name": "Spiking Transformer・大規模化",
+      "scope": "深い残差 SNN から Spiking Transformer、スパイキング LLM とスケーリング則まで",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "neuromorphic-hardware",
+      "name": "ニューロモルフィックハードウェアと応用",
+      "scope": "TrueNorth・Loihi 2・Speck・SpiNNaker2 などのチップと、ベンチマーク・エッジ応用",
+      "round": 1,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "parallel-training",
+      "name": "時間方向の並列学習とスパイキング状態空間モデル",
+      "scope": "S4・S5 から PSN・FPT・P-SpikeSSM・PMSN・Bullet Trains まで、BPTT の逐次性を崩す学習とスパイキング SSM",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "energy-evaluation",
+      "name": "エネルギー評価の方法論（理論推定と実機計測の差）",
+      "scope": "Davidson & Furber・SATA から、データ移動を含む推定、QNN との公平比較、Loihi 2 と Jetson の実測比較まで",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "spike-coding",
+      "name": "スパイク符号化と量子化の境界",
+      "scope": "TTFS・バースト／位相符号から、TTFS≡ReLU、整数学習＋スパイク推論、TTFS-LLM・Spora まで",
+      "round": 2,
+      "date": "2026-10-23"
+    },
+    {
+      "slug": "fair-benchmark",
+      "name": "SNN と量子化 ANN の公平なベンチマーク",
+      "scope": "Sigma-Delta・Delta Networks・B-SNN から、活性スパース ANN との比較、Loihi 2 上の SDNN 変換、sparsity ceiling まで",
+      "round": 3,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "accelerator-dataflow",
+      "name": "SNN 専用加速器のデータフローと時間符号の時刻分解能",
+      "scope": "SpinalFlow・TC-SNN から LoAS・SpikeX、2026 年の FlexSpIM・ELSA・HEMERA まで、時刻並列化と時間符号の HW 実装",
+      "round": 3,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "selective-spiking",
+      "name": "入力依存（選択的）スパイキングニューロンと、多値スパイク×低ビット LLM",
+      "scope": "Mamba・BitNet b1.58 を起点に、3値重みスパイキング LM、SpikeLM、SpikingMamba、NeuronSpark・SDLLM・QuantaSpike まで",
+      "round": 3,
+      "date": "2026-10-24"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-10-23",
+      "round": 1,
+      "text": "第1回調査。「学習手法」、「Spiking Transformer・大規模化」、「ニューロモルフィックハードウェアと応用」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌・著者公開版など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。"
+    },
+    {
+      "date": "2026-10-23",
+      "round": 2,
+      "text": "第2回調査。第1回の推奨テーマ 「時間方向の並列学習とスパイキング状態空間モデル」、「エネルギー評価の方法論（理論推定と実機計測の差）」、「スパイク符号化と量子化の境界」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。"
+    },
+    {
+      "date": "2026-10-24",
+      "round": 3,
+      "text": "第3回調査。第2回の推奨テーマ 「SNN と量子化 ANN の公平なベンチマーク」、「SNN 専用加速器のデータフローと時間符号の時刻分解能」、「入力依存（選択的）スパイキングニューロンと、多値スパイク×低ビット LLM」 を追加調査。既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。"
+    }
+  ],
+  "next": [
+    {
+      "title": "スパイク vs 活性スパース ANN（delta / sigma-delta / event）の同一条件比較",
+      "body": "公平なベンチマークテーマでは、SNN の本当の比較相手は量子化 ANN より活性スパース ANN であり、膜電位のメモリ読み書きが利点を打ち消すことが分かった。選択的スパイキングテーマでも多値スパイクは W4A4 量子化とほぼ等価だった。「スパイクらしさ」を定量化し、同一ビット幅・同一 HW で比べる研究を追う。"
+    },
+    {
+      "title": "時刻並列か時刻逐次＋層間パイプラインか：加速器設計と時間符号のデジタル実装",
+      "body": "LoAS 系（時刻並列）と ELSA 系（時刻逐次＋層間パイプライン）が逆方向に進んでおり、統一比較がない。時刻分解能・量子化誤差・遅延窓、NoC マッピングと合わせて HW 側から整理する。"
+    },
+    {
+      "title": "大規模スパイキング LM の作り方（スクラッチ事前学習か蒸留・変換か）と選択的ニューロンの HW 実装",
+      "body": "NeuronSpark・SDLLM・SpikingBrain など作り方が分かれており、評価条件も揃っていない。選択的ニューロンの並列学習とハードウェア実装の可否と合わせて比較する。"
+    }
+  ],
+  "done": [
+    {
+      "label": "第1回の推奨テーマ（第2回で調査済み）",
+      "items": [
+        {
+          "title": "時間方向の並列学習とスパイキング状態空間モデル",
+          "theme": "parallel-training"
+        },
+        {
+          "title": "エネルギー評価の方法論（理論推定と実機計測の差）",
+          "theme": "energy-evaluation"
+        },
+        {
+          "title": "スパイク符号化と量子化の境界（整数で学習し、スパイクで推論）",
+          "theme": "spike-coding"
+        }
+      ]
+    },
+    {
+      "label": "第2回の推奨テーマ（第3回で調査済み）",
+      "items": [
+        {
+          "title": "SNN と量子化 ANN の公平なベンチマーク",
+          "theme": "fair-benchmark"
+        },
+        {
+          "title": "SNN 専用加速器のデータフローと、時間符号の時刻分解能",
+          "theme": "accelerator-dataflow"
+        },
+        {
+          "title": "入力依存（選択的）スパイキングニューロンと、多値スパイク×低ビット LLM",
+          "theme": "selective-spiking"
+        }
+      ]
+    }
+  ]
+}

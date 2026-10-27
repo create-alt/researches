@@ -2,7 +2,7 @@
 
 スパイクで情報を伝えるニューラルネットワーク（SNN）について、学習手法・大規模化・それを動かすハードウェアの系譜をまとめる。テーマは調査者の提案による（学習手法／Spiking Transformer・大規模化／ニューロモルフィックハードウェアと応用）。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -68,7 +68,7 @@
 
 ## 学習手法（training/）
 
-資料：[training.pptx](training/training.pptx) ／ [training.pdf](training/training.pdf) ／ 生成元 [spec.json](training/spec.json)
+資料：[training.pptx](training/training.pptx) ／ [training.pdf](training/training.pdf) ／ 生成元 [spec.json](training/spec.json) ／ [テーマ README](training/README.md)
 
 
 ### 調査履歴
@@ -139,7 +139,7 @@
 
 ## Spiking Transformer・大規模化（spiking-transformer/）
 
-資料：[spiking-transformer.pptx](spiking-transformer/spiking-transformer.pptx) ／ [spiking-transformer.pdf](spiking-transformer/spiking-transformer.pdf) ／ 生成元 [spec.json](spiking-transformer/spec.json)
+資料：[spiking-transformer.pptx](spiking-transformer/spiking-transformer.pptx) ／ [spiking-transformer.pdf](spiking-transformer/spiking-transformer.pdf) ／ 生成元 [spec.json](spiking-transformer/spec.json) ／ [テーマ README](spiking-transformer/README.md)
 
 
 ### 調査履歴
@@ -208,7 +208,7 @@ SEW 型残差 ─> SpikeGPT (2023, Spiking RWKV)    SpikingBrain (2025, 線形/�
 
 ## ニューロモルフィックハードウェアと応用（neuromorphic-hardware/）
 
-資料：[neuromorphic-hardware.pptx](neuromorphic-hardware/neuromorphic-hardware.pptx) ／ [neuromorphic-hardware.pdf](neuromorphic-hardware/neuromorphic-hardware.pdf) ／ 生成元 [spec.json](neuromorphic-hardware/spec.json)
+資料：[neuromorphic-hardware.pptx](neuromorphic-hardware/neuromorphic-hardware.pptx) ／ [neuromorphic-hardware.pdf](neuromorphic-hardware/neuromorphic-hardware.pdf) ／ 生成元 [spec.json](neuromorphic-hardware/spec.json) ／ [テーマ README](neuromorphic-hardware/README.md)
 
 
 ### 調査履歴
@@ -276,7 +276,7 @@ KWS on Loihi (Blouw+ 2018: 動的エネルギー/推論)
 
 ## 時間方向の並列学習とスパイキング状態空間モデル（parallel-training/）
 
-資料：[parallel-training.pptx](parallel-training/parallel-training.pptx) ／ [parallel-training.pdf](parallel-training/parallel-training.pdf) ／ 生成元 [spec.json](parallel-training/spec.json)
+資料：[parallel-training.pptx](parallel-training/parallel-training.pptx) ／ [parallel-training.pdf](parallel-training/parallel-training.pdf) ／ 生成元 [spec.json](parallel-training/spec.json) ／ [テーマ README](parallel-training/README.md)
 
 
 ### 調査履歴
@@ -348,7 +348,7 @@ KWS on Loihi (Blouw+ 2018: 動的エネルギー/推論)
 
 ## エネルギー評価の方法論（理論推定と実機計測の差）（energy-evaluation/）
 
-資料：[energy-evaluation.pptx](energy-evaluation/energy-evaluation.pptx) ／ [energy-evaluation.pdf](energy-evaluation/energy-evaluation.pdf) ／ 生成元 [spec.json](energy-evaluation/spec.json)
+資料：[energy-evaluation.pptx](energy-evaluation/energy-evaluation.pptx) ／ [energy-evaluation.pdf](energy-evaluation/energy-evaluation.pdf) ／ 生成元 [spec.json](energy-evaluation/spec.json) ／ [テーマ README](energy-evaluation/README.md)
 
 
 ### 調査履歴
@@ -418,7 +418,7 @@ Xu+ 2025（SENECA 上でスパース化 ANN と SNN を同条件比較、ゲー�
 
 ## スパイク符号化と量子化の境界（spike-coding/）
 
-資料：[spike-coding.pptx](spike-coding/spike-coding.pptx) ／ [spike-coding.pdf](spike-coding/spike-coding.pdf) ／ 生成元 [spec.json](spike-coding/spec.json)
+資料：[spike-coding.pptx](spike-coding/spike-coding.pptx) ／ [spike-coding.pdf](spike-coding/spike-coding.pdf) ／ 生成元 [spec.json](spike-coding/spec.json) ／ [テーマ README](spike-coding/README.md)
 
 
 ### 調査履歴
@@ -497,7 +497,7 @@ Xu+ 2025（SENECA 上でスパース化 ANN と SNN を同条件比較、ゲー�
 
 ## SNN と量子化 ANN の公平なベンチマーク（fair-benchmark/）
 
-資料：[fair-benchmark.pptx](fair-benchmark/fair-benchmark.pptx) ／ [fair-benchmark.pdf](fair-benchmark/fair-benchmark.pdf) ／ 生成元 [spec.json](fair-benchmark/spec.json)
+資料：[fair-benchmark.pptx](fair-benchmark/fair-benchmark.pptx) ／ [fair-benchmark.pdf](fair-benchmark/fair-benchmark.pdf) ／ 生成元 [spec.json](fair-benchmark/spec.json) ／ [テーマ README](fair-benchmark/README.md)
 
 
 ### 調査履歴
@@ -571,7 +571,7 @@ SNN vs RNN (He+ 2020：学習・損失・構造を揃えた比較)
 
 ## SNN 専用加速器のデータフローと時間符号の時刻分解能（accelerator-dataflow/）
 
-資料：[accelerator-dataflow.pptx](accelerator-dataflow/accelerator-dataflow.pptx) ／ [accelerator-dataflow.pdf](accelerator-dataflow/accelerator-dataflow.pdf) ／ 生成元 [spec.json](accelerator-dataflow/spec.json)
+資料：[accelerator-dataflow.pptx](accelerator-dataflow/accelerator-dataflow.pptx) ／ [accelerator-dataflow.pdf](accelerator-dataflow/accelerator-dataflow.pdf) ／ 生成元 [spec.json](accelerator-dataflow/spec.json) ／ [テーマ README](accelerator-dataflow/README.md)
 
 
 ### 調査履歴
@@ -659,7 +659,7 @@ SNN vs RNN (He+ 2020：学習・損失・構造を揃えた比較)
 
 ## 入力依存（選択的）スパイキングニューロンと多値スパイク×低ビット LLM（selective-spiking/）
 
-資料：[selective-spiking.pptx](selective-spiking/selective-spiking.pptx) ／ [selective-spiking.pdf](selective-spiking/selective-spiking.pdf) ／ 生成元 [spec.json](selective-spiking/spec.json)
+資料：[selective-spiking.pptx](selective-spiking/selective-spiking.pptx) ／ [selective-spiking.pdf](selective-spiking/selective-spiking.pdf) ／ 生成元 [spec.json](selective-spiking/spec.json) ／ [テーマ README](selective-spiking/README.md)
 
 
 ### 調査履歴
