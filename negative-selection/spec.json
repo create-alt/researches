@@ -1,0 +1,211 @@
+{
+  "field": "免疫アルゴリズム・人工免疫システム",
+  "theme": "自己・非自己識別と異常検知",
+  "date": "2026-10-27",
+  "summary": "負の選択（Forrest+ 1994）は「自己だけを学び、補集合を検出器で覆う」一クラス異常検知の原型。LISYS で侵入検知へ広がったが高次元・誤検知の限界が示され、危険理論→樹状細胞アルゴリズムへ分岐した。\n2024〜2026 は基盤モデルの意味空間で負の選択をやり直す流れ（Immuno-VLM, ESIA）と群ロボ故障診断へ。AIS が効くのは自己が低次元・安定・分散のとき。",
+  "papers": [
+    {
+      "title": "Self-Nonself Discrimination in a Computer",
+      "short": "Negative Selection (Forrest+ 1994)",
+      "authors": "Stephanie Forrest, Alan S. Perelson, Lawrence Allen, Rajesh Cherukuri（University of New Mexico）｜ IEEE S&P 1994",
+      "year": 1994,
+      "venue": "IEEE S&P 1994",
+      "link": "https://doi.org/10.1109/RISP.1994.296580",
+      "lineage": "原典",
+      "s1": "コンピュータ保護を「自己（正常データ）と他者の識別」と捉え、胸腺での T 細胞の負の選択を模した変更検知法を提案。自己と r 連続一致しないランダム文字列だけを検出器に残し、ウイルスによるファイル改ざんを確率的に検知した、負の選択アルゴリズム（NSA）の原典。",
+      "s2": "既存のウイルス対策はシグネチャ照合やチェックサム（Tripwire 等）で、既知パターンや単一の照合方式に頼る。本手法は未知の変化を確率的に検出し、サイトごとに異なる検出器集合を持たせるので、1か所が破られても他は守られる。",
+      "s3": "自己文字列集合 S と r 連続一致しない候補だけを残す（検閲）。一致確率 P_M、自己数 N_S、許容失敗率 P_f から必要な初期候補数 N_R0 = −ln P_f / (P_M (1−P_M)^N_S) を解析。検出器数は自己の量に依らないが、生成コストは N_S に指数的に増える。",
+      "s4": "ランダム2値列で理論と実験の P_f が一致（Table 2。N_S=128 で初期候補3.5万個）。SPARC 命令列と DOS の COM ファイルで検証し、TIMID ウイルス感染を検出器10個でほぼ100%検出（Table 4）。サイトを増やすと失敗率は P_f^N_t に下がる。",
+      "s5": "著者：最大の限界は初期レパートリー生成の計算コスト。自己の断片だけで組んだウイルスは検出できず、区切り長をサイトごとに変えて防ぐ。\n所感：自己が静的ファイルという前提が強い。後の「高次元では検出器が作れない」批判の種は N_R0 の指数式にすでにある。",
+      "s6": "・ARTIS / LISYS (Hofmeyr & Forrest 2000)（本資料）\n・A Sense of Self for Unix Processes (1996)（未調査）\n・Stibor+: Is negative selection appropriate? (2005)（本文未確認）",
+      "figure": {
+        "file": "figures/forrest94_fig1.png",
+        "caption": "出典：Negative Selection (Forrest+ 1994) Fig. 1（検出器集合の生成＝検閲。自己と一致した乱数列を捨てる）"
+      },
+      "notes": "UNM の著者公開 PDF（Type3 フォントのためページ画像で全11頁を読んだ）。"
+    },
+    {
+      "title": "Architecture for an Artificial Immune System",
+      "short": "ARTIS / LISYS (Hofmeyr & Forrest 2000)",
+      "authors": "Steven A. Hofmeyr, Stephanie Forrest（University of New Mexico）｜ Evolutionary Computation 2000",
+      "year": 2000,
+      "venue": "Evolutionary Computation 2000",
+      "link": "https://doi.org/10.1162/106365600568257",
+      "lineage": "発展",
+      "parent": "Negative Selection (Forrest+ 1994)",
+      "s1": "負の選択を中核に、活性化閾値・感度・共刺激・記憶・検出器の寿命・ノードごとの表現を組み込んだ汎用人工免疫系 ARTIS を提案し、ネットワーク侵入検知 LISYS として実装。50台の LAN で実侵入7件をすべて検出し、誤検知は1日約1.8件。",
+      "s2": "Forrest+ 1994 の NSA は静的ファイル向けで、検出器を一括生成していた。ARTIS は各ホストが分散・非同期に寛容化し、自己の変化に検出器の寿命と再生成で追従する。人手を共刺激として使い、誤検知した検出器を自動で淘汰する点が新しい。",
+      "s3": "（送信元 IP, 宛先 IP, ポート）を49ビット列にし、r=12 の r 連続ビット一致で照合。寛容化期間 T 内に何かと一致した検出器は死に、成熟後は τ 回一致で活性化、共刺激を受ければ記憶検出器へ。ノードごとの置換マスクで検出の「穴」を分散させる。",
+      "s4": "UNM の50台サブネットで50日分の自己（3,900種）と実侵入7件を用い、30回のシミュレーション（Table 3）。誤検知 1.76±0.20 件/日、7/7件を検知し、各事件の非自己の44%以上を検出（Table 4）。記憶検出器で再検出率25%→75%。",
+      "s5": "著者：TCP SYN だけを監視し、スイッチ網や Web/FTP サーバでは自己を定義できない。閾値は低頻度の攻撃に回避される。\n所感：誤検知を減らす機構が多く、どれが効いたかは未分離。これを Glickman+ 2005 が ML の視点で検証する。",
+      "s6": "・LISYS ML evaluation (Glickman+ 2005)（本資料）\n・Kim & Bentley: 負の選択の IDS 評価 (2001)（本文未確認）\n・Danger Theory for AIS (2002)（本資料）",
+      "figure": {
+        "file": "figures/hofmeyr00_fig4.png",
+        "caption": "出典：ARTIS / LISYS (Hofmeyr & Forrest 2000) Fig. 4（検出器のライフサイクル：未熟→成熟→活性化→記憶／死）"
+      },
+      "notes": "UNM の著者公開版（hofmeyr_forrest.pdf）で全文を読んだ。PDF のフッタは 7(1) だが掲載は Evolutionary Computation 8(4):443-473, 2000。"
+    },
+    {
+      "title": "The Danger Theory and Its Application to Artificial Immune Systems",
+      "short": "Danger Theory for AIS (Aickelin & Cayzer 2002)",
+      "authors": "Uwe Aickelin, Steve Cayzer（University of Nottingham）｜ ICARIS 2002",
+      "year": 2002,
+      "venue": "ICARIS 2002",
+      "link": "https://arxiv.org/abs/0801.3549",
+      "lineage": "原典",
+      "scope": "全文（概念論文のため実験はない）",
+      "s1": "免疫学の危険理論（Matzinger）を AIS 研究者向けに紹介し、自己か非自己かではなく「組織の損傷を示す危険信号」に反応する免疫系を、異常検知やデータマイニングに使う道筋を示した概念論文。後の樹状細胞アルゴリズムの出発点。",
+      "s2": "負の選択型 AIS（Forrest+ 1994、Hofmeyr & Forrest 2000）は自己の網羅に依存し、自己の変化・自己と非自己の重なり・スケーリング（Kim & Bentley）・人手による共刺激が課題だった。危険信号は意味のある接地信号で、非自己全体を覆う必要をなくす。",
+      "s3": "二信号モデルの拡張。信号1（抗原認識）と信号2（共刺激）が揃えば活性化、信号1だけなら死ぬ。信号2は危険信号で準備された抗原提示細胞だけが出す。危険信号の「近く」（空間でなく時間や因果の近さ）にある抗原にだけ応答する。",
+      "s4": "実験はない。侵入検知での危険信号の候補（メモリ使用量の異常、不自然なディスク活動、ファイル変更頻度、SIGABRT、非自己の存在）と、文書推薦で「ユーザの関心」を危険信号とみなすシナリオを示した（Section 4, 5）。",
+      "s5": "著者：適切な危険信号の定義は、進化計算での適合度関数の選択と同じくらい難しい。\n所感：危険信号は結局ドメイン知識による特徴量なので、DL の時代には監視メトリクスや弱ラベルの設計問題として読める。",
+      "s6": "・DCA (Greensmith+ 2005)（本資料）\n・Danger Theory: The Link between AIS and IDS? (2003)（未調査）\n・Matzinger: 危険モデル (1994)（本文未確認）",
+      "figure": {
+        "file": "figures/aickelin02_fig2.png",
+        "caption": "出典：Danger Theory for AIS (Aickelin & Cayzer 2002) Fig. 2 の5・6（危険信号が抗原提示細胞を介して信号2を生む）"
+      }
+    },
+    {
+      "title": "Introducing Dendritic Cells as a Novel Immune-Inspired Algorithm for Anomaly Detection",
+      "short": "DCA (Greensmith+ 2005)",
+      "authors": "Julie Greensmith, Uwe Aickelin, Steve Cayzer（University of Nottingham）｜ ICARIS 2005",
+      "year": 2005,
+      "venue": "ICARIS 2005",
+      "link": "https://arxiv.org/abs/1004.3196",
+      "lineage": "発展",
+      "parent": "Danger Theory for AIS (Aickelin & Cayzer 2002)",
+      "s1": "危険理論に基づき、樹状細胞（DC）の成熟を信号処理として抽象化した樹状細胞アルゴリズム（DCA）を提案。PAMP・危険・安全・炎症の4信号から各 DC が成熟/半成熟を決め、集団で抗原の文脈を判定する。乳がんデータで精度99%超。",
+      "s2": "負の選択型 AIS は誤検知とスケーラビリティに悩んだ（Kim & Bentley 2001）。それまでの危険理論の実装は危険信号を直接監視するだけだった。DCA は信号を融合する細胞を明示的にモデル化し、検出器の生成と照合そのものを不要にした。",
+      "s3": "出力 C = (W_P C_P + W_S C_S + W_D C_D)(1+IC) / (W_P+W_S+W_D) を共刺激・半成熟・成熟の3つについて計算（重みは Table 1）。DC は複数の抗原を集め、共刺激が閾値を超えたら移動し、成熟/半成熟の多数決で抗原を異常か判定する。",
+      "s4": "UCI Wisconsin Breast Cancer（700件）の属性から信号を作り、100個の DC から10個を選んで各抗原を10回サンプリング、20回試行。データ順2通りで誤分類は4件と7件（Table 4）。誤りは文脈が切り替わる境界にだけ出た（Fig. 4）。",
+      "s5": "著者：データは理想的な応用先ではなく、重みも経験的。文脈が短時間に何度も変わると誤りが増える。\n所感：信号の振り分けは人手で、識別の大部分は信号設計が担う。後に「DCA は線形識別器に近い」と批判された（Stibor+ 2009）。",
+      "s6": "・The Deterministic DCA (2008)（未調査）\n・Stibor+: Geometrical insights into the DCA (2009)（本文未確認）\n・Quiet in Class (Gu+ 2013)（未調査）",
+      "figure": {
+        "file": "figures/greensmith05_fig2.png",
+        "caption": "出典：DCA (Greensmith+ 2005) Fig. 2（未熟 DC が安全信号で半成熟、危険信号・PAMP で成熟へ分化）"
+      }
+    },
+    {
+      "title": "A Machine Learning Evaluation of an Artificial Immune System",
+      "short": "LISYS ML evaluation (Glickman+ 2005)",
+      "authors": "Matthew Glickman, Justin Balthrop, Stephanie Forrest（University of New Mexico）｜ Evolutionary Computation 2005",
+      "year": 2005,
+      "venue": "Evolutionary Computation 2005",
+      "link": "https://doi.org/10.1162/1063656054088512",
+      "lineage": "発展",
+      "parent": "ARTIS / LISYS (Hofmeyr & Forrest 2000)",
+      "s1": "LISYS を一クラス・オンライン・概念ドリフト下の機械学習として捉え直し、免疫由来の機構を足し引きして寄与を測った。LISYS の正体は最近傍法の変種で、汎化（近似一致・活性化閾値・共刺激）が誤検知を24分の1に抑えることを示した。",
+      "s2": "Hofmeyr & Forrest 2000 は多くの機構を盛り込んだが、各機構の寄与は不明でデータも古かった。本研究は17台・62日の新データで、汎化しない完全一致の1-NN（packet hash）を下限に置き、AIS を ML の言葉で比べられるようにした。",
+      "s3": "LISYS ≒ 1-NN（検出器との r 連続ビット距離が閾値以内なら異常）とみなす。packet hash に活性化閾値→共刺激→近似一致（Hamming / r 連続）を順に足し、逆に LISYS から記憶・表現の多様性・検出器の入れ替えを外して、ROC 平面上の位置を比べた。",
+      "s4": "packet hash は攻撃パケットの97.7%を検出するが誤検知101.7件/日。LISYS は61.4%を検出し誤検知4.1±0.7件/日、5攻撃中4つを高頻度で検知（Table 2）。記憶と表現多様性を外しても有意差なし。静的 LISYS と強化 packet hash の差は僅か（Fig. 10）。",
+      "s5": "著者：最後に残る差は負の検出か正の検出かだけで、検出器ごとの一致カウントという帰納バイアスが効いた可能性がある。\n所感：免疫らしい機構の多くは効かず、効いたのは汎化と時間方向の集積だった。AIS を ML ベースラインと並べて評価する作法の原点。",
+      "s6": "・Stibor+: Is negative selection appropriate? (2005)（本文未確認）\n・NSA review (Gupta & Dasgupta 2021)（本資料）\n・Textor: 系列データでの負の選択の比較 (2012)（本文未確認）",
+      "figure": {
+        "file": "figures/glickman05_fig10.png",
+        "caption": "出典：LISYS ML evaluation (Glickman+ 2005) Fig. 10（横軸 誤検知/日、縦軸 検出率。(1) LISYS、(3) 表現多様性と入れ替えなし、(4) 強化 packet hash）"
+      },
+      "notes": "UNM の著者公開版（lisys-ecj-05.pdf、プレプリント体裁）で全文を読んだ。掲載は Evolutionary Computation 13(2), 2005。"
+    },
+    {
+      "title": "Negative Selection Algorithm Research and Applications in the last decade: A Review",
+      "short": "NSA review & OCC benchmark (Gupta & Dasgupta 2021)",
+      "authors": "Kishor Datta Gupta, Dipankar Dasgupta（University of Memphis）｜ arXiv プレプリント 2021",
+      "year": 2021,
+      "venue": "arXiv プレプリント 2021",
+      "link": "https://arxiv.org/abs/2105.06109",
+      "lineage": "発展",
+      "parent": "Negative Selection (Forrest+ 1994)",
+      "s1": "負の選択アルゴリズム（NSA）の約30年を、文字列型→実数値型（V-detector）→適応型→他手法との融合の4期に整理したレビュー。さらに V-detector 等を、AE・VAE・GAN を含む pyod の一クラス手法20種と、2次元形状データと ODDS 17データで比べた。",
+      "s2": "従来の NSA 研究は一クラス SVM や Isolation Forest としか比べず、オートエンコーダや GAN 系との比較が欠けていた。また Ji & Dasgupta の V-detector 以降の改良（GA・PSO による検出器配置など）を体系化した新しいレビューもなかった。",
+      "s3": "実数値 NSA：自己サンプルの周りに自己半径を取り、ランダムに置いた候補のうち自己と重ならないものを、最近傍の自己までの距離を半径とする可変サイズ検出器（V-detector）として残す。ODDS データは t-SNE で2次元にしてから適用した。",
+      "s4": "非線形な Ring で V-detector は ROC 0.99・誤り率0、OCSVM 0.87/0.135、AE 0.85/0.247。実行時間は V-detector 0.14 秒、AE 4.62 秒（Table 4）。ODDS 17データの平均 ROC は V-NSA 0.77、IForest 0.82、OCSVM 0.79（Table 5）。",
+      "s5": "著者：NSA は非線形な表現に強く、NN 系より速い。今後は自己の表現空間の研究が要る。\n所感：NSA だけ t-SNE 後に評価し、他手法は pyod 論文の値を流用しており公平でない。結果はむしろ「低次元なら効く」ことの裏づけと読める。",
+      "s6": "・V-detector (Ji & Dasgupta 2004)（本文未確認）\n・Anomaly-seeded NSA (Li+ 2025)（本資料）\n・Immuno-VLM (Fang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/gupta21_fig9.png",
+        "caption": "出典：NSA review (Gupta & Dasgupta 2021) Fig. 9（V-detector の検出結果。青が非自己を覆う検出器、赤が自己）"
+      }
+    },
+    {
+      "title": "Detecting and Diagnosing Faults in Autonomous Robot Swarms with an Artificial Antibody Population Model",
+      "short": "AAPD (O'Keeffe 2025)",
+      "authors": "James O'Keeffe（University of York）｜ Royal Society Open Science 2025",
+      "year": 2025,
+      "venue": "Royal Society Open Science 2025",
+      "link": "https://arxiv.org/abs/2412.19942",
+      "lineage": "最新",
+      "parent": "Farmer+ 1986 抗体集団動態",
+      "s1": "Farmer らの抗体集団動態モデルを群ロボットに移した AAPD モデルを提案。自分と近傍ロボットの挙動の時系列窓を「抗体」とし、仲間との相互抑制で自己寛容を、故障ラベル付き抗体で学習と記憶を実現。徐々に進む劣化の検知と診断を初めて統合した。",
+      "s2": "群ロボの故障検知（Tarapore+ 2017 の CRM-B、Carminati+ の ML-B/ML-N など）は、少数のロボットへの突発故障の注入を前提とし、全員が同時に少しずつ劣化する現実的な状況や、検知と診断の統合を扱っていなかった。",
+      "s3": "抗体集団の変化 dx_i/dt = m(p_i, W_self)(1 + k1 max m(p_i, Y)) − k2 Σ_j m(p_i, W_j) − k3。自分の挙動と一致すると増え、他のロボットの挙動と一致すると抑えられる。x_i が閾値 F を超えたら故障とし、抗体の出どころ（モータ/センサ）で診断する。",
+      "s4": "ROS2/Gazebo の TurtleBot3 群（最大20台）で採餌タスク。単体の完全故障は Ψ_T=1・Ψ_F=0 で、既存の ML-B/ML-N/CRM-B（センサ故障で F_β 0.4〜0.7）と同等以上。全員が劣化する条件でも群の成果を理想の70〜97%に保った（Table 3）。",
+      "s5": "著者：理想の検知点 d≈0.75 に対し、検知時の劣化度は中央値0.53〜0.74と遅め。既存法との比較は非公式。\n所感：自己を「多数派の仲間の挙動」と定義するので事前学習が要らず、冗長な分散システムで強い。実機での検証が次の鍵。",
+      "s6": "・Farmer, Packard & Perelson: The immune system, adaptation, and machine learning (1986)（未調査）\n・Tarapore+ 2017 群ロボの汎用・分散故障検知（未調査）\n・ARTIS / LISYS (Hofmeyr & Forrest 2000)（本資料）",
+      "figure": {
+        "file": "figures/aapd_fig1.png",
+        "caption": "出典：AAPD (O'Keeffe 2025) Fig. 1（R1・R2 の抗体は相互抑制で寛容化、R3 の抗体は抑制されず閾値 F を超えて故障判定）"
+      }
+    },
+    {
+      "title": "Generating detectors from anomaly samples via negative selection for network intrusion detection",
+      "short": "Anomaly-seeded NSA (Li+ 2025)",
+      "authors": "Zhiyong Li, Xiang Wei, Chunyan Li, Jianhong Sun（Honghe University）｜ Scientific Reports 2025",
+      "year": 2025,
+      "venue": "Scientific Reports 2025",
+      "link": "https://doi.org/10.1038/s41598-025-20516-6",
+      "lineage": "最新",
+      "parent": "NSA review & OCC benchmark (Gupta & Dasgupta 2021)",
+      "s1": "ネットワーク侵入検知で、従来の NSA が高次元で検出器をほとんど作れない原因を「サンプルが低次元の部分空間に集中する」ことに求めた。訓練データの異常サンプルを検出器の中心に使い、検出器の穴に落ちた試料を KNN で再分類する手法を提案。",
+      "s2": "V-detector・BIORV-NSA・ADC-NSA など従来の NSA は乱数で候補を作るため、41次元の NSL-KDD では成熟検出器が平均1.6個しか残らず、検出率は1%前後だった。検出器が覆えない穴にある異常も正常と誤判定していた。",
+      "s3": "系1：次元 n→∞ で、乱数の候補がサンプルのある低次元部分空間に入る確率は0。そこで異常サンプルを中心に、既存検出器と正常サンプルへの二重の寛容化を通った候補だけを残す。NSA が正常と判定した試料（穴）は KNN で判定し直す。",
+      "s4": "NSL-KDD で検出率73.45%・誤報2.87%・F1 0.837（Table 5）。従来 NSA は0.14〜9.91%、KNN 64.47%、RF 62.13%。UNSW-NB15 で検出率98.79%・F1 0.879（Table 6）。分散した R2L・U2R 攻撃は検出率が低い。",
+      "s5": "著者：分布が散らばった攻撃（U2R・R2L）に弱く、学習・検出時間でも優位はない。\n所感：異常ラベルを使った時点で一クラス学習という NSA の利点は失われ、実質は「検出器の形をした教師あり学習＋KNN」。DL 系との比較もない。",
+      "s6": "・Is negative selection appropriate for anomaly detection? (Stibor+ 2005)（本文未確認）\n・V-detector (Ji & Dasgupta 2009)（本文未確認）\n・HAIS-IDS: A hybrid AIS model for IoT intrusion detection (Soni+ 2025)（本文未確認）",
+      "figure": {
+        "file": "figures/li2025_dr.png",
+        "caption": "出典：調査者作成（Anomaly-seeded NSA (Li+ 2025) Table 5・6 の検知率を図化）"
+      },
+      "notes": "PMC（PMC12534389）の HTML 全文で読んだ。図画像の CDN は到達不可だったため、表の数値から図を作成した。"
+    },
+    {
+      "title": "Immuno-VLM: Immunizing Large Vision-Language Models via Generative Semantic Antibodies for Open-World Trustworthiness",
+      "short": "Immuno-VLM (Fang+ 2026)",
+      "authors": "Xiang Fang, Wanlong Fang, Wei Ji（Huazhong University of Science and Technology）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2605.30745",
+      "lineage": "最新",
+      "parent": "Negative Selection (Forrest+ 1994)",
+      "s1": "CLIP 型の視覚言語モデルの OOD 検出に負の選択を持ち込んだ Immuno-VLM を提案。LLM を「計算論的胸腺」とし、既知クラスと紛らわしい概念（狼、ロボット犬など）を「意味的抗体」として生成、アダプタを押し引き学習する。ImageNet-O で AUROC 83.4%。",
+      "s2": "MSP・Energy・MCM などは既知側の確信度だけを見る受け身の方法で、未知を既知に押し込む「意味の傲慢」を防げない。画素空間での外れ値生成（GAN）は ImageNet 規模で破綻し、古典 AIS の乱数検出器は512次元ではクラス中心とほぼ直交して役に立たない。",
+      "s3": "LLM が生成した抗体のうち δ_safe < cos(抗体, プロトタイプ) < δ_risk のものだけを残す（同義語と無関係語を捨てる負の選択）。L = L_pull + λ L_push で ID 特徴をプロトタイプへ寄せ、抗体から余白 m 離す。判定は DIS = s+ − λ s− と EVT 閾値。",
+      "s4": "CLIP ViT-B/16、ImageNet-1K を ID とする。ImageNet-O で AUROC 83.4・FPR95 28.5（MCM 74.5/46.2）、ID 精度は 78.2→78.5（Table 1）。抗体をガウス雑音（古典 AIS）にすると +1.4、ランダム語で +5.7、LLM 抗体で +16.6（Table 2）。",
+      "s5": "著者：余白 m≥0.5 では既知クラスが潰れ ID 精度が4.2%落ちる。安全性は LLM の想像力に上限づけられる。\n所感：AIS の高次元問題を「意味の多様体上で検出器を作る」ことで回避した好例。ただ関連研究欄は自己引用が異様に多く、ベースライン値の再現は要確認。",
+      "s6": "・NegLabel: Negative label guided OOD detection (Jiang+ 2024)（未調査）\n・MCM: Delving into OOD detection with vision-language representations (Ming+ 2022)（未調査）\n・ESIA (Li+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/immunovlm_fig3.png",
+        "caption": "出典：Immuno-VLM (Fang+ 2026) Fig. 3（抗原プロファイル→LLM による意味的抗体生成と選別→ワクチン学習→推論）"
+      }
+    },
+    {
+      "title": "Earth Surface Immune System for Rapid Monitoring of Unknown Anomalies",
+      "short": "ESIA (Li+ 2026)",
+      "authors": "Jingtao Li, Qian Zhu, Xinyu Wang, Deren Li ほか（Wuhan University）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2609.20662",
+      "lineage": "最新",
+      "parent": "Negative Selection (Forrest+ 1994)",
+      "s1": "衛星の時系列画像から未知の地表異常（ダム決壊・火災・油流出など）を監視する Earth Surface Immune System（ESIA）。自然免疫段で種類を仮定せず位置を特定し、獲得免疫段で負の選択により選んだテキストプロンプトと MS-CLIP で属性を開語彙認識する。",
+      "s2": "既存手法は植生指数や調和回帰など特定の種類向けか、位置特定どまりで、種類・面積・被害度は人手か再学習が必要だった。異常は多様・希少・予測不能で、教師あり DL では全種類のサンプルを集められない。",
+      "s3": "自然免疫：基盤モデル HyperFree の物体単位の特徴を過去画像と比べ、最小コサイン距離を異常度にする。獲得免疫：LLM で大量に作ったプロンプトを、異常あり/なし1組の参照画像に対する親和性の大小で選別する（負の選択）。",
+      "s4": "6種55事象・19,801 km² の GSA データで22モデルと比較。位置特定 F1 41.58（AnomalyCD 30.27、Table 2）、認識 F1 は MS-CLIP 53.05 に対し80超（Fig. 8）。負の選択を外すと F1 81.25→77.54（Table 4）。",
+      "s5": "著者：教師なしのため閾値選択が難しく、参照画像1組の性質が認識の偏りを決めてしまう。\n所感：負の選択の役割が「検出器を作る」から「大量の既製候補をふるう」へ変わった例。寄与は約4ポイントと控えめで、主役は基盤モデル。",
+      "s6": "・AnomalyCD: 時系列による異常変化検出 (Li+ 2024)（未調査）\n・MS-CLIP: マルチスペクトル CLIP (Jakubik+ 2024)（未調査）\n・Immuno-VLM (Fang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/esia_fig3.png",
+        "caption": "出典：ESIA (Li+ 2026) Fig. 3（(a) 生体免疫系と (b) ESIA の対応。獲得免疫段に負の選択を置く）"
+      }
+    }
+  ]
+}

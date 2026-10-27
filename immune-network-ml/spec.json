@@ -1,0 +1,218 @@
+{
+  "field": "免疫アルゴリズム・人工免疫システム",
+  "theme": "免疫ネットワーク理論と機械学習・AI との融合",
+  "date": "2026-10-27",
+  "summary": "Jerne の免疫ネットワーク説と Farmer+ (1986) の抗体濃度方程式を起点に、抗体間の刺激・抑制を行動調停（石黒+ 1997）やデータ圧縮（aiNet）へ写した工学化が進み、その検証と実機移植を経た。\n2020 年代は DNN の敵対的防御（RAILS）や免疫レパートリー解析（DeepRC）と交わり、2025〜26 年は LLM・エージェントの「適応免疫型」防御と深層 AIN の継続学習が最前線。",
+  "papers": [
+    {
+      "title": "免疫情報処理機構に基づく分散型コンセンサス決定ネットワークの構築 ―自律移動ロボットの行動調停への適用―",
+      "short": "Immunoid 行動調停 (石黒+ 1997)",
+      "authors": "石黒章夫, 渡邊裕司, 近藤敏之, 内川嘉樹（名古屋大学）｜ 計測自動制御学会論文集 33(6) 1997",
+      "year": 1997,
+      "venue": "計測自動制御学会論文集 1997",
+      "link": "https://doi.org/10.9746/sicetr1965.33.524",
+      "lineage": "原典",
+      "parent": "Jerne 1974 / Farmer+ 1986",
+      "s1": "免疫ネットワーク説を「抗体間の刺激・抑制による調停機構」と読み替え、要素行動を抗体、センサ状況を抗原とする分散型コンセンサス決定網（immunoid）を提案。仮想世界の採餌・回避課題で生存時間を大きく延ばした。",
+      "s2": "Brooks のサブサンプションは優先度が固定、Maes の行動ネットワークは行動間の明確な因果関係を要する。Farmer+ (1986) の抗体濃度方程式を、状況に応じて優先度が動的に入れ替わるボトムアップ調停として工学化した。",
+      "s3": "抗体＝要素行動に paratope（選択の前提条件）と idiotope（許容できない条件）を記述し、一致で刺激・抑制を伝える。濃度は他抗体からの刺激−抑制＋抗原刺激−自然死の微分方程式をシグモイドで正規化し、閾値超えで発火。",
+      "s4": "50×50 の仮想世界・手設計 91 抗体・100 環境平均（Table 1）。生存時間は結合なし 337／ルール選択 680／提案 867、捕食者接触 94/80/44。GA で抗体間親和性を調整すると生存 796→926（Table 2）。",
+      "s5": "著者：抗体は設計者が用意しており、新抗体の生成・淘汰（metadynamics）と実機検証が課題。\n所感：対ルール選択の優位は抗体設計に依存する。それでも抗原・抗体・idiotope の対応づけは以後のロボット AIS の雛形になった。",
+      "s6": "・Towards a network theory of the immune system (Jerne 1974)（本文未確認）\n・The immune system, adaptation, and machine learning (Farmer+ 1986)（本文未確認）\n・Whitbrook+ (2010)（本資料）",
+      "figure": {
+        "file": "figures/ishiguro1997_fig4.png",
+        "caption": "出典：石黒+ 1997 Fig. 4（行動選択機構と免疫ネットワークの対応）"
+      },
+      "notes": "J-STAGE 公開 PDF（日本語）を全文読了。Table 1–3、4.3 考察（Fuzzy 推論との比較、metadynamics）まで確認。"
+    },
+    {
+      "title": "Experimental Results On Compression Quality of aiNet",
+      "short": "aiNet の圧縮品質検証 (Stibor+ 2007)",
+      "authors": "Thomas Stibor, Rao Vemuri（UC Davis）｜ IEEE FOCI 2007 特別セッション（著者公開版）",
+      "year": 2007,
+      "venue": "IEEE FOCI 2007（著者公開版）",
+      "link": "https://www.cs.ucdavis.edu/~vemuri/papers/papers/stibor_vemuri_foci.pdf",
+      "lineage": "発展",
+      "parent": "aiNet (de Castro+ 2001)",
+      "s1": "免疫ネットワーク型クラスタリング aiNet の「入力を冗長性の少ない代表点集合に圧縮する」という主張を、Parzen 窓密度と KL ダイバージェンスに基づく指標で検証。密な領域を含む分布では圧縮品質が悪いことを示した。",
+      "s2": "aiNet（de Castro & Von Zuben 2001）はクローン選択と抗体間抑制で代表点を作り MST や k-means に渡す手法として広く使われたが、出力が入力分布をどれだけ保つかは図示による主観評価にとどまっていた。",
+      "s3": "入力 N と出力 R の Parzen 密度の近さを J=(1/N)Σ[ln p̂_R(x_i)−ln p̂_N(x_i)] で測り、真の分布から同数を引いた参照値と比較。抑制閾値 σs が「出力点間距離≥σs」を強制する最適化基準であることを解析した。",
+      "s4": "400 点の人工 2 次元データ 4 種、σs=0.2〜0.005 で各 50 回（Table I）。密ガウス入りデータ・σs=0.2 で J=−0.236（参照 −0.005）と大きく乖離し、正弦＋ノイズのみ良好。σs が小さいと出力が入力より多くなる。",
+      "s5": "著者：抑制規則が出力を等間隔に押しやるため非一様分布に不向きで、J を最適化基準に組み込めば改善できる。\n所感：免疫メタファーを情報理論で検証する姿勢が重要。ただし 2 次元人工データのみで実データの検証はない。",
+      "s6": "・aiNet (de Castro & Von Zuben 2001)（本文未確認）\n・CLONALG (de Castro+ 2002)（既存：clonal-selection）\n・Deep AIN (Sithungu 2026)（本資料）",
+      "figure": {
+        "file": "figures/stibor2007_fig5.png",
+        "caption": "出典：Stibor+ 2007 Fig. 5（左：密ガウス入りの入力 400 点、右：σs=0.2 の aiNet 出力）"
+      },
+      "notes": "著者の UC Davis 公開 PDF（FOCI 2007 特別セッション版、8 頁）を全文読了。Crossref 上の採録版は 'An Investigation on the Compression Quality of aiNet'（Stibor & Timmis, IEEE FOCI 2007, pp.495-502, doi:10.1109/FOCI.2007.371518）で、著者表記が異なる点に注意。"
+    },
+    {
+      "title": "Real-world Transfer of Evolved Artificial Immune System Behaviours between Small and Large Scale Robotic Platforms",
+      "short": "イディオタイプ AIS の機体間移植 (Whitbrook+ 2010)",
+      "authors": "Amanda M. Whitbrook, Uwe Aickelin, Jonathan M. Garibaldi（University of Nottingham）｜ Evolutionary Intelligence 3(3) 2010",
+      "year": 2010,
+      "venue": "Evolutionary Intelligence 2010",
+      "link": "https://arxiv.org/abs/1305.7432",
+      "lineage": "発展",
+      "parent": "石黒+ 1997",
+      "s1": "小型ロボット epuck のシミュレーションで GA により進化させた行動群を、Farmer 型イディオタイプ免疫ネットワークで選ぶ制御系に載せ、大型 Pioneer（シミュレーション 3 環境＋実機）へ移植。免疫網ありで全課題を成功させた。",
+      "s2": "同著者の 2007 年論文は強化学習のみに比べイディオタイプ網がスタック脱出を 8.53→4.78 反復に短縮すると示したが、行動は手設計で固定だった。本論文は GA と組合せ、センサも寸法も異なる機体間の移植で適応性を試す。",
+      "s3": "長期学習：独立 5 集団の GA で抗原 8 種ごとの行動を進化。短期学習：強化学習スコアを paratope 行列 P、最低スコアを idiotope 行列 I とし刺激・抑制で P を補正、クローン数 N←bP+N(1−k3) から濃度最大の行動を選ぶ。",
+      "s4": "4 環境×（イディオタイプ 30 回＋RL のみ 30 回）（Table 3, 4）。失敗率はイディオタイプ 0%、RL のみ 17/17/7/4%。実機の中央時間 174 秒対 236 秒、衝突 2 対 6。時間差は全環境で有意（A 値 0.68〜0.79）。",
+      "s5": "著者：網内の抗体は選ぶだけで新生成できず、移植は閾値や旋回係数の試行錯誤に依存。\n所感：免疫網の効果を ablation と実機で示した貴重な例。ただし idiotope はほぼ手設計で、多様な候補からの文脈選択以上の免疫性は検証しにくい。",
+      "s6": "・Idiotypic Immune Networks in Mobile Robot Control (Whitbrook+ 2007)（参照のみ）\n・Immunoid 行動調停 (石黒+ 1997)（本資料）\n・AgentAntibody (Weng+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/whitbrook2010_fig7.png",
+        "caption": "出典：Whitbrook+ 2010 Fig. 7（W3 での軌跡。左：イディオタイプ、右：RL のみ）"
+      },
+      "notes": "arXiv 版（22 頁）を全文読了。2007 年 IEEE SMC-B 論文（arXiv 0803.2981）も全文を読み、S1〜S3 比較の数値を s2 に引用（arXiv 版には図表が含まれないためスライド化はこちらを選択）。"
+    },
+    {
+      "title": "Modern Hopfield Networks and Attention for Immune Repertoire Classification",
+      "short": "DeepRC (Widrich+ 2020)",
+      "authors": "Michael Widrich, Bernhard Schäfl, Hubert Ramsauer ほか（JKU Linz）｜ NeurIPS 2020",
+      "year": 2020,
+      "venue": "NeurIPS 2020",
+      "link": "https://arxiv.org/abs/2007.13505",
+      "lineage": "発展",
+      "parent": "現代 Hopfield ネットワーク",
+      "s1": "個人の免疫レパートリー（約 30 万本の受容体配列の集合）から免疫状態を当てる、超大規模で陽性配列が極端に少ない多インスタンス学習を、現代 Hopfield＝Transformer 注意で解く DeepRC を提案。実データ CMV で AUC 0.831。",
+      "s2": "k-mer ロジスティック MIL（Ostmeyer+ 2019）や burden test（Emerson+ 2017）は固定特徴・max-pooling に縛られ、陽性率 0.01〜1% の設定に弱い。指数的な記憶容量をもつ注意で「少数の決め手配列」を検索する点が新しい。",
+      "s3": "注意 softmax(βXᵀξ) が連続状態 Hopfield の更新則で、指数個のパターンを記憶・検索できると示す（Theorem 1）。1D-CNN で配列表現 z_i を作り、学習した固定クエリで z=Σa_i z_i に集約して分類。上位 10% 配列のみで勾配を計算。",
+      "s4": "計約 300 億配列の 4 カテゴリで入れ子 5 分割 CV（Table 1）。CMV 実データ AUC 0.831（SVM-MinMax 0.825、burden 0.699）、実配列＋埋込モチーフ平均 0.980（次点 0.883）。上位注意配列は既知の CMV 関連配列と一致（p=1.3e-93）。",
+      "s5": "著者：GPU メモリと計算量が律速で、実データは人数が少なく過学習しやすい。\n所感：「AI で免疫を読む」逆向きの融合で、免疫記憶（連想記憶）と注意の同型性を示した点が本テーマの境界として重要。AIS 側との接続はまだ薄い。",
+      "s6": "・Hopfield Networks is All You Need (Ramsauer+ 2020)（参照のみ）\n・Immune networks: multitasking capabilities (Agliari+ 2013)（参照のみ）\n・Deep AIN (Sithungu 2026)（本資料）",
+      "figure": {
+        "file": "figures/deeprc2020_fig1.png",
+        "caption": "出典：DeepRC Fig. 1（配列の集合→モチーフ認識→注意プーリング→免疫状態）"
+      },
+      "notes": "arXiv 版を本文・Broader Impact・付録 A（Limitations）まで読了。"
+    },
+    {
+      "title": "RAILS: A Robust Adversarial Immune-inspired Learning System",
+      "short": "RAILS (Wang+ 2022)",
+      "authors": "Ren Wang, Tianqi Chen, Stephen Lindsly ほか（University of Michigan）｜ IEEE Access 2022",
+      "year": 2022,
+      "venue": "IEEE Access 2022",
+      "link": "https://arxiv.org/abs/2107.02840",
+      "lineage": "発展",
+      "parent": "クローン選択・AIS",
+      "s1": "適応免疫の「感知→群集→親和性成熟→合意」を DNN の敵対的防御に写した RAILS を提案。隠れ層の kNN から各クラス均等の候補集団を作り、進化計算で真のクラスへ特化させる。CIFAR-10 の PGD 下で頑健精度を DkNN 比 +10.3pt。",
+      "s2": "検出器・敵対的訓練・入力復元型の防御は強い攻撃や未知の攻撃に弱く、精度とのトレードオフも大きい。従来の AIS 型防御（負の選択など）は自然免疫の模倣にとどまり、適応免疫の B 細胞選択・変異・記憶全体を写した初の防御と主張。",
+      "s3": "入力を抗原、訓練例を B 細胞とみなし、親和性 A=−‖f(x1)−f(x2)‖ で各クラスの近傍を集め、選択・交叉・変異を G 世代反復。高親和の「形質細胞データ」の多数決で予測し、中程度親和の「記憶データ」を訓練集合に足して将来攻撃に備える。",
+      "s4": "MNIST/SVHN/CIFAR-10/100 と 8 種の攻撃（Table 2, 3）。CIFAR-10 の ℓ∞-PGD で頑健精度 RAILS 52.0%、DkNN 41.7%、敵対訓練 CNN 32.6%（標準精度 82.0/86.6/87.3%）。親和性成熟を外すと 59.2→55.7%。",
+      "s5": "著者：計算コストは群集と成熟段階が支配的で、近似 kNN や並列化が必要。\n所感：in vitro の B 細胞実験と学習曲線を比べた点は独自。ただし標準精度を約 5pt 失い、防御を知る適応攻撃への評価は限定的。",
+      "s6": "・Immuno-mimetic Deep Neural Networks (Wang+ 2021)（参照のみ）\n・CLONALG (de Castro+ 2002)（既存：clonal-selection）\n・Test-Time Immunization (Yu+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/rails2021_fig2.png",
+        "caption": "出典：RAILS Fig. 2（上：簡略化した免疫系、下：RAILS の計算フロー。左右を上下に再配置）"
+      },
+      "notes": "arXiv v2（IEEE Access 採録版）を本文と付録 A・B・F まで読了。"
+    },
+    {
+      "title": "Test-Time Immunization: A Universal Defense Framework Against Jailbreaks for (Multimodal) Large Language Models",
+      "short": "TIM (Yu+ 2025)",
+      "authors": "Yongcan Yu, Yanbo Wang, Ran He, Jian Liang（中国科学院自動化研究所）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2505.22271",
+      "lineage": "最新",
+      "parent": "RAILS",
+      "s1": "ジェイルブレイクを「病原体」とみなし、推論中に検知した攻撃とその拒否応答で LoRA を逐次安全微調整して「免疫」を獲得するテスト時防御 TIM を提案。画像型・テキスト型の攻撃で、後半 50% の攻撃成功率を全設定で 0% にした。",
+      "s2": "既存防御（言い換え、perplexity フィルタ、AdaShield、VLGuard 等）は特定の攻撃型に特化し、未知の型に事前には備えられない。検知器も代理 LLM で判定するものは遅い。「検知は防御より易しい」を防御能力へ転化する。",
+      "s3": "系列末尾に学習可能な gist トークンを置き、中間層の隠れ状態と 2 値分類器で KV キャッシュ上で安価に検知。検知した攻撃を記憶に蓄えて後段層の LoRA を微調整し、検知器も逐次更新。検知層と更新層を分離し検知器の劣化を防ぐ。",
+      "s4": "LLaVA-v1.6（7B/13B）で FigStep・MM-SafetyBench、LLaMA2/3 で I-FSJ（Table 1–3）。FigStep で ASR 0.6〜1.8%、後半 0%、過剰拒否 ≤0.4%。検知 ACC 99.9%・FPR 0.1%（Table 4）。検知コストは推論の +0.4%（Table 5）。",
+      "s5": "著者：学習時と長さが大きく違う攻撃（I-FSJ）では検知 TPR が 18.2% に落ち、逐次適応で 40% に改善。\n所感：検知→記憶→獲得免疫を重みに書き込む閉ループが明快。検知器を騙す攻撃や微調整データ汚染（自己免疫）は未検証。",
+      "s6": "・Rapid Response: Mitigating LLM Jailbreaks with a Few Examples (Peng+ 2024)（参照のみ）\n・IMAG (Leng+ 2025)（本資料）\n・Immune (Ghosal+ 2025)（参照のみ）",
+      "figure": {
+        "file": "figures/tim2025_fig1.png",
+        "caption": "出典：TIM Fig. 1（事前防御の限界と、検知した攻撃からの適応的「予防接種」）"
+      },
+      "notes": "arXiv v1 を本文・付録の主要部まで読了。"
+    },
+    {
+      "title": "From static to adaptive: immune memory-based jailbreak detection for large language models",
+      "short": "IMAG (Leng+ 2025)",
+      "authors": "Jun Leng, Yu Liu, Litian Zhang ほか（北京郵電大学）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2512.03356",
+      "lineage": "最新",
+      "parent": "TIM",
+      "s1": "免疫記憶に着想し、LLM の隠れ状態を「抗原」として攻撃／良性の記憶バンクと照合し、未知の入力はエージェントで模擬実行して判定、確定例を記憶に追加する訓練不要の検知器 IMAG を提案。5 つのオープン LLM で平均検知精度 94%。",
+      "s2": "外部モデレーション（Llama Guard 等）は大量データと計算が必要。内部信号型（GradSafe、PPL フィルタ）は固定閾値・固定参照による静的検知で、進化する攻撃に追従できない。記憶を更新して適応する閉ループ検知へ転換する。",
+      "s3": "①免疫検知：攻撃・良性が最も分離する層の活性を TopK 検索し、SVD で代表ベクトルを得て距離差で既知を判定。②能動免疫（樹状細胞の比喩）：未知候補を模擬＋反省の 2 エージェントで判定。③短期記憶を検証後に長期記憶へ登録。",
+      "s4": "5 モデル×6 攻撃（GCG, AutoDAN, PAIR, DrAttack, Base64, Zulu）各 850 件（Table 2）。Mistral-7B で平均精度 0.94（Llama Guard 0.75、GradSafe 0.12）。能動免疫を外すと Base64 の検知は 0%（Table 3）。遅延は平均 0.77 秒/件。",
+      "s5": "著者：攻撃と防御の共進化、生涯的な記憶更新、自己修復型への拡張が今後の課題。\n所感：既知は記憶照合、未知は高コスト判定という自然免疫と獲得免疫の分業は実用的。ただし主表と ablation の数値に不整合が見え、記憶汚染の評価もない。",
+      "s6": "・Test-Time Immunization (Yu+ 2025)（本資料）\n・GradSafe (Xie+ 2024)（未調査）\n・AgentAntibody (Weng+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/imag2025_fig2.png",
+        "caption": "出典：IMAG Fig. 2（免疫検知・能動免疫・記憶更新の閉ループ）"
+      },
+      "notes": "arXiv v2（HTML 版）を本文・Table 1–4・考察まで読了。Table 3 の full guard（GPT-4o mini）の Base64 0.60 と Table 2 の 0.95 は評価条件の違いが本文から読み取れなかった。"
+    },
+    {
+      "title": "Agent-Native Immune System: Architecture, Taxonomy, and Engineering",
+      "short": "ANIS (Shen+ 2026)",
+      "authors": "Bo Shen, Lifeng Chang, Tianyuan Wei ほか（Novo Ordo for AI）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2606.28270",
+      "lineage": "最新",
+      "parent": "IMAG / Forrest+ 1994",
+      "s1": "記憶・ツール・マルチエージェント協調をもつ LLM エージェント向けに、生体免疫の階層を写した内因性防御 ANIS を提案する概念論文。6 層の Immune Tower、エージェントのウイルス／ワクチン分類、ワクチンを継続生成する Harness Triad を定式化。",
+      "s2": "境界防御（入力フィルタ、API ゲートウェイ）や訓練時アラインメントは推論ループの外にあり、記憶汚染・ツール記述攻撃・エージェント間プロトコル攻撃のような実行時の乗っ取りを防げない。Forrest らの免疫アナロジーを推論するエージェントへ拡張する。",
+      "s3": "障壁（L1 サンドボックス）・自然（L2 ルール検証）・獲得（L3 ステアリングベクトルや LoRA の「パラメトリックワクチン」）・生態（L4 プロトコル監査）・集団（L5 ワクチン共有）。胸腺シミュレータで良性行動の誤遮断率を閾値以下に抑える。",
+      "s4": "実験による検証はない（著者が限界として明記）。既存の攻撃研究（記憶汚染、MCP ツール攻撃、thought virus 等）を分類に位置づけ、健全性指標（CCS, BLI, EOC）と群れの感染を表す SIR 拡張モデルを提示するにとどまる。",
+      "s5": "著者：実証、監視コスト、自己免疫率の閾値設定、マルチモーダル化、プロトコル標準化が未解決。\n所感：用語体系としては有用だが、免疫ネットワーク理論の抗体間相互作用は L5 の名称に現れる程度。実証論文とは区別して読むべき。",
+      "s6": "・AgentAntibody (Weng+ 2026)（本資料）\n・Cowpox: Towards the Immunity of VLM-based Multi-Agent Systems (Wu+ 2025)（参照のみ）\n・Self-Nonself Discrimination in a Computer (Forrest+ 1994)（未調査）",
+      "figure": {
+        "file": "figures/anis2026_fig3.png",
+        "caption": "出典：ANIS Fig. 3（6 層の Agent-Native Immune Tower）"
+      },
+      "notes": "arXiv v1（17 頁）を全文読了。実験はなく、Limitations で明記されている。"
+    },
+    {
+      "title": "AgentAntibody: An Adaptive Immune System for Defending LLM Agents against Prompt Injection",
+      "short": "AgentAntibody (Weng+ 2026)",
+      "authors": "Shihao Weng, Yang Feng, Xiaofei Xie, Jiongchi Yu（南京大学）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.04053",
+      "lineage": "最新",
+      "parent": "IMAG",
+      "s1": "プロンプトインジェクション防御を、利用者ごとの「明示されない許容境界」を経験から学ぶ適応免疫として設計した訓練不要の AgentAntibody を提案。空の抗体ライブラリから始め、累積攻撃成功率を 5 攻撃後 35.0% から 80 攻撃後 6.1% へ下げた。",
+      "s2": "Task Shield、DRIFT、MELON などはタスクごとに独立して判定し、目標には適うが利用者の暗黙の境界を越える要求（例：社外への資料送付）を見逃す。過去の遭遇から境界を記憶し転移する仕組みがなかった。新ベンチ LatentBoundaryBench も提案。",
+      "s3": "行動を誘導する文を抗原化し、エピトープ（意図・手法・目標への影響）に抽象化。抗体はエピトープ＋陽性条件＋除外条件＋閾値＋応答（無害化・制約・確認）。誤検知で絞り、見逃しで新抗体を誘導し、具体値を除く検証器で記憶汚染を防ぐ。",
+      "s4": "AgentDojo・AgentDyn・LBB×4 バックボーン、各 80 攻撃（Table 1）。安全率と課題成功率の調和平均はマクロ 81.1%（最良ベースライン 36.6%）。80 攻撃後の抗体数は平均 2.44 個、再利用率 89.9%。エピトープを外すと LBB の ASR 2.5→100%。",
+      "s5": "著者：境界は利用者ごとで、明示ラベルは種類あたり最大 10 件という限られたフィードバックで学ぶ。\n所感：特異性・除外条件・成熟まで対応づけた具体設計で、少数抗体の再利用は免疫記憶らしい。判定自体を GPT-4o-mini に頼る点の頑健性は今後の論点。",
+      "s6": "・IMAG (Leng+ 2025)（本資料）\n・GRAD: Graph-Structured Antibody Defense for LLM Agents (Song+ 2026)（参照のみ）\n・AgentDojo (Debenedetti+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/agentantibody2026_fig2.png",
+        "caption": "出典：AgentAntibody Fig. 2（上：従来防御との比較、下：抗原抽出〜自己進化する免疫記憶。上下に再配置）"
+      },
+      "notes": "arXiv v1（HTML 版）を本文・Table 1–2・付録 C–E（ベンチ構築・評価手順）まで読了。"
+    },
+    {
+      "title": "Structured Affinity for Unsupervised Visual Class-Incremental Memory in Deep Artificial Immune Networks",
+      "short": "Deep AIN (Sithungu 2026)",
+      "authors": "Siphesihle Sithungu（University of Johannesburg）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.20104",
+      "lineage": "最新",
+      "parent": "aiNet / AIRS",
+      "s1": "人工免疫ネットワークの B 細胞を画像テンプレート／局所フィルタとして構造化し、前層の免疫応答マップを次層の抗原とする多層 Deep AIN を提案。逆伝播もリプレイもなしにクラス逐次学習し、digits で最終平衡精度 0.978（外部プローブ）。",
+      "s2": "従来の視覚 AIN（aiNet・AIRS 系）は画像を平坦なベクトルとして RBF 親和性を測り空間構造を無視していた。継続学習の主流（EWC、iCaRL、リプレイ）と異なり、記憶形成と表現形成を同じレパートリーで行う点が新しい。",
+      "s3": "B 細胞フィルタ b と画像パッチ P の親和性を K=(ZNCC(P,b)+1)/2 とし、応答マップを潰さず積み重ねる。各層はクローン選択・変異・抑制でラベルなしに更新。既知サンプルを現在のレパートリーで再埋め込みし、外部プローブで評価。",
+      "s4": "digits/MNIST/Fashion-MNIST/KMNIST の逐次ストリーム、3 シード（Table 2, 4–6）。MNIST の 1NN プローブ 0.860（リプレイ MLP 0.851、非リプレイ MLP 0.444）、Fashion 0.814、KMNIST 0.853。平坦 RBF AIN 0.849 に対し ZNCC 型 0.931。",
+      "s5": "著者：局所フィルタはクラス間で似た応答を生み、レパートリーの冗長化や高層の尺度調整が課題。RGB 画像は未検証。\n所感：免疫網を表現学習器として再定義する方向は面白い。ただしプローブは毎回全既知例で再学習し、クラスあたり 60 例の小規模検証。",
+      "s6": "・aiNet (de Castro & Von Zuben 2001)（本文未確認）\n・AIRS (Watkins+ 2004)（本文未確認）\n・iCaRL (Rebuffi+ 2017)（未調査）",
+      "figure": {
+        "file": "figures/deepain2026_fig1.png",
+        "caption": "出典：Deep AIN Fig. 1（前層の免疫応答を次層の抗原とする階層）"
+      },
+      "notes": "arXiv v1（18 頁）を全文読了。"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+  "field": "免疫アルゴリズム・人工免疫システム",
+  "theme": "クローン選択と免疫最適化アルゴリズム",
+  "date": "2026-10-27",
+  "summary": "森ら（1993）の免疫アルゴリズムと CLONALG（2002）に始まるクローン選択型最適化は、Opt-IA の超突然変異・エージングの厳密解析で「EAに勝つ条件／負ける条件」が明確になった。\n2024〜25年は Fast 化された超突然変異、エージングの多目的EAへの移植、交叉との比較理論、多党MOO応用が進む一方、新メタファー型AISの乱立も続く。",
+  "papers": [
+    {
+      "title": "多様性をもつ免疫的アルゴリズムの提案と負荷割当て問題への応用",
+      "short": "免疫アルゴリズム IA (森+ 1993)",
+      "authors": "森 一之, 築山 誠, 福田 豊生（三菱電機）｜ 電気学会論文誌C 1993",
+      "year": 1993,
+      "venue": "電気学会論文誌C 113(10) 1993",
+      "link": "https://doi.org/10.1541/ieejeiss1987.113.10_872",
+      "lineage": "原典",
+      "s1": "免疫系のソマティック説（多様な抗体生成）とネットワーク説（抗体間認識による増殖抑制）を模した「免疫アルゴリズム（IA）」を提案。抗体＝解候補とし、濃度による抑制で多様性を保ち、記憶細胞で再探索を高速化した。",
+      "s2": "当時の GA（Goldberg 1989）は収束が速い反面、パラメータ調整なしでは集団ごと局所解に収束しやすい。IA は抗体間の親和度と濃度で増殖を抑え、局所解を抜ける多様性と、過去の抗原への二次応答（記憶）を併せ持たせた。",
+      "s3": "情報エントロピー H で抗体間親和度 ay=1/(1+H(2)) を定義し、濃度 c_i（親和度の高い同種抗体の割合）から期待値 e_i=ax_i/c_i を計算。期待値の低い抗体を淘汰して交叉・突然変異で補充し、記憶細胞は高親和度抗体と入替える。",
+      "s4": "9工場×3品種の負荷割当て（Fig. 4）。抗体200、交叉0.5、変異0.01。GA・ランダム探索と比べ IA は評価値の異なる複数解を並行保持（Fig. 6–8）。15抗原で記憶学習後、未学習8抗原の全件で探索ステップを短縮（例 23 vs 188、Table 1）。",
+      "s5": "著者：厳密な最適性は保証しないが、適応システムの情報処理モデルとして有望。記憶機構の定量評価は今後の課題。\n所感：1問題の定性比較で統計検定はない。濃度で選択を割り引く仕組みは fitness sharing に近く、免疫固有の効果の切り分けが要る。",
+      "s6": "・CLONALG (de Castro & Von Zuben 2002)（本文未確認）\n・Theories of Immune Networks (Atlan & Cohen 1989)（未調査）\n・The immune system, adaptation, and machine learning (Farmer+ 1986)（未調査）",
+      "figure": {
+        "file": "figures/mori1993.png",
+        "caption": "出典：免疫アルゴリズム IA (森+ 1993) Fig. 6, 7（左：IA、右：GA における解の評価値ごとの濃度推移）"
+      },
+      "notes": "英題：Immune Algorithm with Searching Diversity and its Application to Resource Allocation Problem。J-STAGE の公開 PDF（日本語）を全7ページ画像で通読。"
+    },
+    {
+      "title": "When Hypermutations and Ageing Enable Artificial Immune Systems to Outperform Evolutionary Algorithms",
+      "short": "Opt-IA runtime (Corus+ 2020)",
+      "authors": "Dogan Corus, Pietro S. Oliveto, Donya Yazdani（University of Sheffield）｜ Theoretical Computer Science 2020",
+      "year": 2020,
+      "venue": "Theor. Comput. Sci. 832 (2020)",
+      "link": "https://arxiv.org/abs/1804.01314",
+      "lineage": "発展",
+      "parent": "Opt-IA (Cutello+ 2004)",
+      "s1": "Opt-IA の特徴演算子「変異ポテンシャル付き超突然変異（HMP）」と「エージング」を、単独と組合せで厳密に時間計算量解析。EA より指数的に速くなる関数と逆に失敗する関数を示し、AIS を選ぶべき条件を体系化した。",
+      "s2": "先行理論は B-Cell Algorithm の連続超突然変異（Jansen & Zarges）や CLONALG の反比例変異に偏り、Opt-IA はほぼ未解析だった。タンパク質構造予測等での成功理由も、FCM の要否など実装細部も曖昧なままだった。",
+      "s3": "静的 HMP は M=cn 個の異なるビットを順に反転し、改善が出たら停止（FCM）。ハイブリッド・エージングは年齢 τ 超を確率 1−1/µ で除去。FCM なしでは多項式個の最適を持つ任意関数で指数時間（Thm 1）、ありなら RLS 上界の高々 n 倍（Thm 2）。",
+      "s4": "Jump_k は O(n^{k+1}e^k/k^k)（SBM は Θ(n^k)）。Cliff_d で (µ+1) RLS＋エージングは d=Θ(n) で O(n log n)（elitist EA は Θ(n^d)、Thm 6）。HiddenPath は両演算子の併用が必須（Thm 11–13）。HyperTrap では Opt-IA が指数時間（Thm 14）。",
+      "s5": "著者：OneMax・LeadingOnes では線形倍遅く（Θ(n² log n), Θ(n³)）、易しい問題では HMP とエージングは有害。\n所感：利点を示す関数は人工的で、実問題での効用は後続（Partition 等）に委ねられる。遺伝子型重複の禁止が脱出を妨げる指摘は実装上重要。",
+      "s6": "・Fast HMP (Corus+ 2021)（本資料）\n・Partition approximation (Corus+ 2019)（参照のみ）\n・CHM variants (Jansen & Zarges 2011)（本文未確認）",
+      "figure": {
+        "file": "figures/optia_hiddenpath.png",
+        "caption": "出典：Opt-IA runtime (Corus+ 2020) Fig. 3（HiddenPath：局所最適 S_{n-1} から S_5 と SP を経て最適解へ至る構造）"
+      },
+      "notes": "GECCO 2017 版の拡張。arXiv v2（2019）で全文を確認。"
+    },
+    {
+      "title": "Fast Immune System-Inspired Hypermutation Operators for Combinatorial Optimization",
+      "short": "Fast HMP (Corus+ 2021)",
+      "authors": "Dogan Corus, Pietro S. Oliveto, Donya Yazdani（University of Sheffield）｜ IEEE TEVC 2021",
+      "year": 2021,
+      "venue": "IEEE TEVC 25(5) 2021",
+      "link": "https://arxiv.org/abs/2009.00990",
+      "lineage": "発展",
+      "parent": "Opt-IA runtime (Corus+ 2020)",
+      "s1": "HMP の「脱出は強いが山登りが線形倍遅い」欠点を、各ビット反転後の評価を確率的に間引く FCM_γ で解消。Fast (1+1) IA_γ と Fast Opt-IA_γ を提案し、脱出力を保ったまま山登りを RLS 並みにできることを NP 困難問題まで含めて証明した。",
+      "s2": "静的 HMP＋FCM（Corus+ 2020）は改善がないと毎回 cn 回の評価を浪費し、OneMax で Θ(n² log n)。反比例 HMP（Corus+ 2019）は山登りを速めたが局所最適で変異率が下がり脱出力を失う。FCM がエージングの劣解受容も打ち消していた。",
+      "s3": "i 番目の反転後に確率 p_i=γ/i（i≤n/2）、γ/(n−i)（i>n/2）、端点 1/e で評価する放物型分布。γ=1/log n で1回あたりの評価は O(1)。対称べき乗則版 HMP_β では FCM 自体を不要にした。",
+      "s4": "Table I：OneMax Θ(n log n)、LeadingOnes Θ(n²) と従来比で線形倍高速化。Jump・Cliff は SBM 比で指数的に速いまま。Partition の (1+ε) 近似は O(n²(1+γ log n))（従来 O(n³)）、頂点被覆2近似は Θ(m log m)。",
+      "s5": "著者：探索期と山登り期で最適な γ・β が異なり、適応制御と実問題での実験が今後の課題。演算子は EA にも使える。\n所感：結論は heavy-tailed 変異（fast GA）と同族で「免疫由来」の固有性は薄れる。最悪ケース上界中心で実測はない。",
+      "s6": "・Fast GA / heavy-tailed mutation (Doerr+ 2017)（未調査）\n・Inversely proportional HMP (Corus+ 2019)（参照のみ）\n・Fast CHM (Corus+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/fasthmp_table.png",
+        "caption": "出典：Fast HMP (Corus+ 2021) Table I 上段（(1+1) EA・従来 HMP・Fast 版・Opt-IA の期待実行時間。太字が最良）"
+      },
+      "notes": "PPSN 2018 版（Fast Artificial Immune Systems）の拡張。arXiv 版（自己完結版）で確認。"
+    },
+    {
+      "title": "Crossover Can Guarantee Exponential Speed-Ups in Evolutionary Multi-Objective Optimisation",
+      "short": "Crossover vs hypermutation (Dang+ 2024)",
+      "authors": "Duc-Cuong Dang, Andre Opris, Dirk Sudholt（University of Passau）｜ Artificial Intelligence 2024",
+      "year": 2024,
+      "venue": "Artificial Intelligence 330 (2024)",
+      "link": "https://arxiv.org/abs/2301.13687",
+      "lineage": "最新",
+      "parent": "B-Cell Algorithm の CHM",
+      "s1": "多目的 royal road 関数 RR_MO・uRR_MO を構成し、GSEMO と NSGA-II が交叉ありなら多項式時間でパレートフロントを覆い、交叉なしでは指数時間かかることを証明。免疫由来の連続超突然変異（CHM）でも指数時間を回避できないと示した。",
+      "s2": "単目的では交叉の指数的利点（Jansen & Wegener 2005）が既知だが、多目的では「フロントを早く埋める」効果しか示されていなかった。CHM は一点交叉を模倣できるため、利点が位置バイアス由来かを切り分ける必要があった。",
+      "s3": "RR_MO は巨大な低適合度の谷を越える必要があり、一点交叉は異なるトレードオフ解の接頭・接尾を接合して越える。CHM は最初のパレート解探索とフロント展開で必要な区間長が両立しない（Lemma 11）。uRR_MO はビット置換で位置バイアスも封じる。",
+      "s4": "Table 1：交叉なしの GSEMO/NSGA-II は n^{Ω(n)}、任意の非偏り変異の (µ+λ) ブラックボックスや CHM でも 2^{Ω(n)}（Thm 10, 20）。交叉ありは GSEMO が O(n⁴/(1−p_c)+n/p_c)、uRR_MO で O(n³/(p_c(1−p_c)))。",
+      "s5": "著者：NSGA-II＋CHM が RR_MO を解けるかは未解決。CHM と標準ビット変異の併用（B-Cell の実際の形）は対象外。\n所感：「交叉 vs 超突然変異」を GA と AIS の本質差として定式化した好例。ただし関数は人工的で、実問題での差は別途検証が要る。",
+      "s6": "・NSGA-II runtime (Zheng & Doerr 2022)（既存：swarm-intelligence/particle-theory）\n・Hypermutation in EMO (Huang & Zhou 2021)（本文未確認）\n・Fast CHM (Corus+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/dang_table1.png",
+        "caption": "出典：Crossover vs hypermutation (Dang+ 2024) Table 1（交叉・変異の組合せ別の期待実行時間）"
+      },
+      "notes": "AAAI 2023 版を拡張し、超突然変異と uRR_MO を追加した arXiv v2 で確認。"
+    },
+    {
+      "title": "SAIS: A Novel Bio-Inspired Artificial Immune System Based on Symbiotic Paradigm",
+      "short": "SAIS (Song+ 2024)",
+      "authors": "Junhao Song, Yingfang Yuan, Wei Pang（Imperial College London／Heriot-Watt University）｜ GECCO 2024 Companion",
+      "year": 2024,
+      "venue": "GECCO 2024 Companion",
+      "link": "https://arxiv.org/abs/2402.07244",
+      "lineage": "最新",
+      "parent": "CLONALG／SOS",
+      "s1": "共生生物探索（SOS）の相利・片利・寄生の3更新式を、母集団を3分割して並列に適用し、記憶集団と合わせて上位 N 個を残す新 AIS「SAIS」を提案。26ベンチ関数で SOS に匹敵し、CLONALG や NSA より高精度と報告した。",
+      "s2": "著者は従来 AIS（CLONALG 等）が個々の抗体の変異に偏り、抗体間相互作用を欠くため大母集団で多様性と効率が落ちると主張。SOS が全個体に3段階を逐次適用するのに対し、部分集団で並列化して評価回数を1/3にした。",
+      "s3": "相利：atb'=atb+rand·(best−µ·bf)、µ=(atb_i+atb_j)/2、bf∈{1,2}。片利：atb'=atb+rand(−1,1)·(best−atb_j)。寄生：新規ランダム解が良ければ置換。旧集団と合わせた 2N から上位 N を残す。",
+      "s4": "予算 p·i=2.5×10⁷ で p=50,000, i=500 が最良（26題中22題で成功率100%、Table 2）。大域最適到達数は GA 9, DE 18, PSO 17, PBA 20, SOS 22（再現21）に対し SAIS 20（Table 3）。CLONALG・NSA より平均・分散とも小（Table 4）。",
+      "s5": "著者：大母集団で強いが反復あたりの計算コストは増える。3演算子の同時使用がアブレーションで最良。\n所感：更新式は SOS そのもので、免疫要素は記憶集団と切り捨て選択のみ。SOS 自体にも届かず、メタファー型手法批判の典型例として読むべき。",
+      "s6": "・Symbiotic Organisms Search (Cheng & Prayogo 2014)（未調査）\n・Paradox of Success survey (Molina+ 2025)（既存：swarm-intelligence/foundations）\n・CLONALG (de Castro & Von Zuben 2002)（本文未確認）",
+      "figure": {
+        "file": "figures/sais_fig3.png",
+        "caption": "出典：SAIS (Song+ 2024) Fig. 3（SOS の逐次3段階更新と、SAIS の部分集団並列更新の比較）"
+      },
+      "notes": "GA・DE・PSO 等の比較値は SOS 原論文の設定（p=50, i=5×10⁵）に依拠し、SOS のみ再実験。"
+    },
+    {
+      "title": "Fast Contiguous Somatic Hypermutations for Single-Objective Optimisation and Multi-Objective Optimisation Via Decomposition",
+      "short": "Fast CHM (Corus+ 2025)",
+      "authors": "Dogan Corus, Pietro S. Oliveto, Donya Yazdani（Istanbul Bilgi University／SUSTech／British Antarctic Survey）｜ AAAI 2025",
+      "year": 2025,
+      "venue": "AAAI 2025",
+      "link": "https://doi.org/10.1609/aaai.v39i25.34897",
+      "lineage": "最新",
+      "parent": "B-Cell Algorithm (Kelsey & Timmis 2003)",
+      "s1": "B-Cell Algorithm の連続体細胞超突然変異（CHM）を、走査しながら確率的に評価する Fast CHM に改良。山登りで標準ビット変異と同等、長い連続区間の反転が要る局面では CHM の強みを保つことを、単目的と MOEA/D で証明した。",
+      "s2": "CHM は CLOB・頂点被覆・LCS・MaxCut で SBM に対し多項式 vs 指数の差を生むが、山登りが遅く OneMax で Θ(n² log n)、どの関数でも Ω(n²)。MOEA/D＋CHM（Huang & Zhou 2020）も山登り支配の問題では高速化しなかった。",
+      "s3": "開始点 a から全ビットを順に反転し、i 番目の後に確率 p_i=max{min(i,n−i+1)^{−β}, 1/n} で評価して最良解を返す。β=1+ε で1回の評価は O(1)（Lemma 1）。近傍の改善を確率 |H|/n で発見し（Lemma 2）、任意区間を Ω(1/n²) で反転。",
+      "s4": "Table 1：Fast (1+1) BCA は OneMax O(n log n)、LeadingOnes Θ(n²)、CLOB O(n² log n)、頂点被覆2近似 O(m log m)（従来 O(m² log m)）。MOEA/D では OMM・LOTZ 等4問題で従来 CHM 比 最大線形倍の高速化（Table 2）。",
+      "s5": "著者：解析は r=1 の極端設定で、実用では収束のため r を1未満にすべき。\n所感：Fast HMP の「評価の確率的間引き＋べき乗則」を CHM に移植した一般化で、実験は一切ない。heavy-tailed 変異との差は位置バイアスの有無に集約される。",
+      "s6": "・Fast HMP (Corus+ 2021)（本資料）\n・B-Cell Algorithm (Kelsey & Timmis 2003)（本文未確認）\n・MOEA/D with CHM (Huang & Zhou 2020)（本文未確認）",
+      "figure": {
+        "file": "figures/fastchm_table1.png",
+        "caption": "出典：Fast CHM (Corus+ 2025) Table 1（(1+1) EA・従来 BCA・Fast BCA の期待実行時間）"
+      },
+      "notes": "AAAI の OA 版（ojs.aaai.org）で全文を確認。証明の多くは付録（未公開部分あり）。"
+    },
+    {
+      "title": "Scalable Speed-ups for the SMS-EMOA from a Simple Aging Strategy",
+      "short": "SMS-EMOA aging (Li+ 2025)",
+      "authors": "Mingfeng Li, Weijie Zheng, Benjamin Doerr（Harbin Institute of Technology, Shenzhen／École Polytechnique）｜ IJCAI 2025",
+      "year": 2025,
+      "venue": "IJCAI 2025",
+      "link": "https://arxiv.org/abs/2505.01647",
+      "lineage": "最新",
+      "parent": "Opt-IA のエージング",
+      "s1": "AIS のエージングを SMS-EMOA の生存選択に導入し、新個体を τ 世代は除去対象から外す非エリート戦略を提案。m 目的 Jump で目的数によらず max{1, Θ(k)^{k−1}} 倍の高速化を初めて証明し、実験でも約3〜7倍の短縮を確認した。",
+      "s2": "多目的 EA は貪欲選択が常識で、唯一の非エリート手法である確率的母集団更新（Bian+ 2023）は k≥4log₂n の超多項式域でしか効かず、目的数が増えると利点が消える。エージングはこの2つの欠点を解消する。",
+      "s3": "初期個体は年齢 τ、子は年齢0。µ+1 個体のうち年齢≥τ の個体だけを非優越ソート＋超体積寄与による除去の対象にし、残りは年齢+1。劣った新個体も τ 世代は生き残り、谷を越える数歩の連続探索が可能になる。",
+      "s4": "OJZJ で O(µn log n+kτ(2e)^k+e²kn^k/Θ(k)^k)（Thm 5、従来 O(n^{k+1})）。OJZJ（k=4, n=10〜30, 50試行）で原版の約7倍、SPU 版の約5倍速い（Fig. 2）。mOJZJ（m=4, k=3, 20試行）で約3倍・2倍（Fig. 3）。",
+      "s5": "著者：他の MOEA への適用は今後の課題。超体積計算の重さや実問題は扱わない。\n所感：エージングが AIS の外で「非エリート選択の道具」として再評価された好例。免疫の比喩ではなく生存保証期間という操作的定義で効く点が示唆的。",
+      "s6": "・Opt-IA runtime (Corus+ 2020)（本資料）\n・Stochastic population update (Bian+ 2023)（未調査）\n・NSGA-II runtime (Zheng & Doerr 2022)（既存：swarm-intelligence/particle-theory）",
+      "figure": {
+        "file": "figures/sms_aging_fig2.png",
+        "caption": "出典：SMS-EMOA aging (Li+ 2025) Fig. 2（OJZJ, k=4 における原版・SPU・エージング版の評価回数）"
+      }
+    },
+    {
+      "title": "A Novel Immune Algorithm for Multiparty Multiobjective Optimization",
+      "short": "MPIA (Chen+ 2025)",
+      "authors": "Kesheng Chen, Wenjian Luo, Qi Zhou ほか（Harbin Institute of Technology, Shenzhen）｜ IEEE TETCI 2025",
+      "year": 2025,
+      "venue": "IEEE TETCI 9(2) 2025",
+      "link": "https://arxiv.org/abs/2603.27541",
+      "lineage": "最新",
+      "parent": "NNIA (Gong+ 2008)",
+      "s1": "複数の意思決定者（DM）が別々の目的を持つ多党多目的最適化（MPMOP）向けに、NNIA 系の免疫アルゴリズム MPIA を提案。DM 間の順位で交叉相手を選ぶ guided crossover と被覆指標 MCM による適応的活性化で、UAV 経路計画の全12ケースで最良の sumHV を得た。",
+      "s2": "既存の多党 EA（OptMPNDS 等）や免疫系の BPNNIA・BPHEIA・BPAIMA は、非優越解から固定数を活性化するため一部の DM から見た多様性を失い、探索方向も DM ごとの収束情報を活かしていなかった。",
+      "s3": "MPNDS2 で多党非優越層を付与し、各 DM の目的範囲の被覆率 cm_k から MCM を求め、しきい値0.99を満たす最小の活性化数を{20,…,70}から選ぶ。クローン数は混雑距離＋層の収束度に比例（式7）。DE と guided SBX を段階で切替。",
+      "s4": "合成 MPMOP1–11（30試行、MPIGD）で MPIA は5問題で最良、MPNDS2 に対しては6勝5敗で拮抗（Table III）。双党 UAV 経路計画 Case 1–12 では sumHV が全ケース最良で、AIMA にも11勝1分（Table V）。",
+      "s5": "著者：探索難度の低い一部 MPMOP では平均的な性能。理論解析と実応用の拡充が今後の課題。\n所感：「免疫」要素は活性化とクローン数配分のみで、探索は DE・SBX が担い超突然変異も使わない。NSGA-II 系との差は語彙に近く、寄与の切り分けが要る。",
+      "s6": "・NNIA (Gong+ 2008)（本文未確認）\n・Biparty UAV path planning (Chen+ 2024)（参照のみ）\n・OptMPNDS (Liu+ 2020)（未調査）",
+      "figure": {
+        "file": "figures/mpia_fig5.png",
+        "caption": "出典：MPIA (Chen+ 2025) Fig. 5（多党順位付け→適応的活性化→クローン→適応的演算子→選択の全体像）"
+      },
+      "notes": "IEEE TETCI 9(2) 2025 掲載版の arXiv 公開（2026-03）で確認。"
+    }
+  ]
+}
