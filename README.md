@@ -2,7 +2,7 @@
 
 知覚・学習・行動を、生成モデルのもとでの（期待）自由エネルギー最小化として統一的に扱う能動的推論（Active Inference）について、深層化・階層化・認識的価値（好奇心）の観点から系譜をまとめる。世界モデル分野（内発的報酬・階層化）の姉妹分野にあたる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -44,7 +44,7 @@
 
 ## 深層能動的推論と世界モデル（deep-active-inference/）
 
-資料：[deep-active-inference.pptx](deep-active-inference/deep-active-inference.pptx) ／ [deep-active-inference.pdf](deep-active-inference/deep-active-inference.pdf) ／ 生成元 [spec.json](deep-active-inference/spec.json)
+資料：[deep-active-inference.pptx](deep-active-inference/deep-active-inference.pptx) ／ [deep-active-inference.pdf](deep-active-inference/deep-active-inference.pdf) ／ 生成元 [spec.json](deep-active-inference/spec.json) ／ [テーマ README](deep-active-inference/README.md)
 
 
 ### 調査履歴
@@ -116,7 +116,7 @@
 
 ## 階層的・多時間スケール生成モデル（hierarchical-generative-models/）
 
-資料：[hierarchical-generative-models.pptx](hierarchical-generative-models/hierarchical-generative-models.pptx) ／ [hierarchical-generative-models.pdf](hierarchical-generative-models/hierarchical-generative-models.pdf) ／ 生成元 [spec.json](hierarchical-generative-models/spec.json)
+資料：[hierarchical-generative-models.pptx](hierarchical-generative-models/hierarchical-generative-models.pptx) ／ [hierarchical-generative-models.pdf](hierarchical-generative-models/hierarchical-generative-models.pdf) ／ 生成元 [spec.json](hierarchical-generative-models/spec.json) ／ [テーマ README](hierarchical-generative-models/README.md)
 
 
 ### 調査履歴
@@ -175,7 +175,7 @@
 
 ## 認識的価値（好奇心）と LLM エージェント・発達ロボティクス（epistemic-agents/）
 
-資料：[epistemic-agents.pptx](epistemic-agents/epistemic-agents.pptx) ／ [epistemic-agents.pdf](epistemic-agents/epistemic-agents.pdf) ／ 生成元 [spec.json](epistemic-agents/spec.json)
+資料：[epistemic-agents.pptx](epistemic-agents/epistemic-agents.pptx) ／ [epistemic-agents.pdf](epistemic-agents/epistemic-agents.pdf) ／ 生成元 [spec.json](epistemic-agents/spec.json) ／ [テーマ README](epistemic-agents/README.md)
 
 
 ※ デッキ表紙では、長い題が2行に折り返して重なるため「認識的価値（好奇心）と LLM・発達ロボティクス」と短縮した。
