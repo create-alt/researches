@@ -2,7 +2,7 @@
 
 自然言語と行動を結びつけ、少数の言語・行動データから、未学習の行動を自然言語だけを手がかりに実行・獲得させる研究について、組成的汎化、言語から報酬・目標を作る行動獲得、基盤モデル（VLA・言語条件付き世界モデル）によるゼロショット行動生成の3方向から系譜をまとめる。能動的推論（谷研究室の系譜）と世界モデル（潜在行動・基盤世界モデル）の分野とつながる。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -44,7 +44,7 @@
 
 ## 組成的汎化と言語・行動の共発達（compositional-generalization/）
 
-資料：[compositional-generalization.pptx](compositional-generalization/compositional-generalization.pptx) ／ [compositional-generalization.pdf](compositional-generalization/compositional-generalization.pdf) ／ 生成元 [spec.json](compositional-generalization/spec.json)
+資料：[compositional-generalization.pptx](compositional-generalization/compositional-generalization.pptx) ／ [compositional-generalization.pdf](compositional-generalization/compositional-generalization.pdf) ／ 生成元 [spec.json](compositional-generalization/spec.json) ／ [テーマ README](compositional-generalization/README.md)
 
 
 ### 調査履歴
@@ -123,7 +123,7 @@
 
 ## 言語から報酬・目標を生成する行動獲得（language-to-reward/）
 
-資料：[language-to-reward.pptx](language-to-reward/language-to-reward.pptx) ／ [language-to-reward.pdf](language-to-reward/language-to-reward.pdf) ／ 生成元 [spec.json](language-to-reward/spec.json)
+資料：[language-to-reward.pptx](language-to-reward/language-to-reward.pptx) ／ [language-to-reward.pdf](language-to-reward/language-to-reward.pdf) ／ 生成元 [spec.json](language-to-reward/spec.json) ／ [テーマ README](language-to-reward/README.md)
 
 
 ### 調査履歴
@@ -201,7 +201,7 @@
 
 ## 基盤モデル・言語条件付き世界モデルによるゼロショット行動生成（foundation-policies/）
 
-資料：[foundation-policies.pptx](foundation-policies/foundation-policies.pptx) ／ [foundation-policies.pdf](foundation-policies/foundation-policies.pdf) ／ 生成元 [spec.json](foundation-policies/spec.json)
+資料：[foundation-policies.pptx](foundation-policies/foundation-policies.pptx) ／ [foundation-policies.pdf](foundation-policies/foundation-policies.pdf) ／ 生成元 [spec.json](foundation-policies/spec.json) ／ [テーマ README](foundation-policies/README.md)
 
 
 ### 調査履歴
