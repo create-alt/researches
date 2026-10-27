@@ -1,0 +1,663 @@
+{
+  "slug": "gecco",
+  "name": "GECCO",
+  "fullName": "Genetic and Evolutionary Computation Conference",
+  "organizer": "ACM SIGEVO（Special Interest Group on Genetic and Evolutionary Computation）",
+  "area": "進化計算全般（GA・GP・ES・QD・群知能・多目的最適化・神経進化・理論・応用）",
+  "aliases": [
+    "GECCO",
+    "GECCO Companion",
+    "ACM GECCO"
+  ],
+  "website": "https://gecco-2027.sigevo.org/HomePage",
+  "summary": "ACM SIGEVO が毎年 7 月に開く、進化計算の主要な国際会議。GA・GP・進化戦略・QD・群知能・多目的最適化・理論・実応用など約 14 のトラックがある。フルペーパーの採択率は例年 35〜37%。トラック別の Best Paper、Humies（人間に匹敵する成果の賞）、SIGEVO Impact Award が併せて発表される。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "GECCO 2027",
+    "location": "Kraków, Poland（対面のみ）",
+    "dates": "2027-07-12〜16",
+    "status": "公式（会期・開催地）／締切は推定",
+    "deadlines": [
+      {
+        "label": "アブストラクト締切（フルペーパー）",
+        "date": "2027-01-18",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "2023〜2026 は 2/3, 1/25, 1/22, 1/19 と毎年 3〜9 日ずつ早まり、2026 は月曜。2027 も会期が 2026 とほぼ同じ（7/12 開始）ため 2027-01-18（月）前後。幅は 1/15〜1/29。",
+        "source": null
+      },
+      {
+        "label": "論文締切（フルペーパー・ポスターのみ論文）",
+        "date": "2027-01-25",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "アブストラクトの 1 週間後が慣例（2023〜2026 はいずれも 7 日後: 2/10, 2/1, 1/29, 1/26）。2026 は延長なしと明記。幅は 1/22〜2/5。",
+        "source": null
+      },
+      {
+        "label": "採否通知",
+        "date": "2027-03-19",
+        "status": "推定",
+        "basis": "2023: 3/31, 2024: 3/21, 2025: 3/19, 2026: 3/20。",
+        "source": null
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-04-09",
+        "status": "推定",
+        "basis": "2025: 4/9, 2026: 4/10。",
+        "source": null
+      },
+      {
+        "label": "会期",
+        "date": "2027-07-12〜16",
+        "status": "公式",
+        "basis": "GECCO 2027 公式サイト（検索結果）と ccf-deadlines。",
+        "source": "https://gecco-2027.sigevo.org/HomePage"
+      }
+    ],
+    "notes": "2026-09 時点で 2027 の Call for Papers は未公開（検索結果）。gecco-2027.sigevo.org/Call-for-Papers には 2026 年の日付が残っている。ワークショップ論文・ポスターのみ論文・Hot Off the Press・Humies の締切はフルペーパーより後（例年 3〜6 月）。"
+  },
+  "history": [
+    {
+      "edition": "GECCO 2026",
+      "location": "San José, Costa Rica（hybrid、会場 CIC-ANDE）",
+      "dates": "2026-07-13〜17（本会議 7/15〜17）",
+      "abstract": "2026-01-19",
+      "paper": "2026-01-26",
+      "notification": "2026-03-20",
+      "submissions": 425,
+      "accepted": 150,
+      "acceptanceRate": "35%",
+      "source": "https://sigevo.hosting.acm.org/gecco-2026/Call+for+Papers ／ 投稿数・採択数は https://github.com/ryojitanabe/ecconf（公式 Accepted Papers ページの検索スニペットでは 149 本）"
+    },
+    {
+      "edition": "GECCO 2025",
+      "location": "Málaga, Spain（hybrid）",
+      "dates": "2025-07-14〜18（本会議 7/16〜18）",
+      "abstract": "2025-01-22",
+      "paper": "2025-01-29",
+      "notification": "2025-03-19",
+      "submissions": 501,
+      "accepted": 181,
+      "acceptanceRate": "36.1%",
+      "source": "https://gecco-2025.sigevo.org/Call-for-Papers ／ SIGEVOlution Vol.18 Iss.4 https://sigevo.hosting.acm.org/public_html/sigevolution/?p=1241"
+    },
+    {
+      "edition": "GECCO 2024",
+      "location": "Melbourne, Australia（hybrid）",
+      "dates": "2024-07-14〜18（本会議 7/16〜18）",
+      "abstract": "2024-01-25",
+      "paper": "2024-02-01",
+      "notification": "2024-03-21",
+      "submissions": 497,
+      "accepted": 178,
+      "acceptanceRate": "36%",
+      "source": "https://gecco-2024.sigevo.org/Call-for-Papers ／ https://github.com/ryojitanabe/ecconf"
+    },
+    {
+      "edition": "GECCO 2023",
+      "location": "Lisbon, Portugal（hybrid）",
+      "dates": "2023-07-17〜19（本会議, ccf-deadlines）",
+      "abstract": "2023-02-03",
+      "paper": "2023-02-10",
+      "notification": "2023-03-31",
+      "submissions": 519,
+      "accepted": 180,
+      "acceptanceRate": "35%",
+      "source": "https://gecco-2023.sigevo.org/Call-for-Papers ／ https://github.com/ryojitanabe/ecconf"
+    },
+    {
+      "edition": "GECCO 2022",
+      "location": "Boston, USA（hybrid）",
+      "dates": "2022-07-11〜13（本会議, ccf-deadlines）",
+      "abstract": "2022-01-27",
+      "paper": "2022-02-03",
+      "notification": null,
+      "submissions": 426,
+      "accepted": 158,
+      "acceptanceRate": "37%",
+      "source": "ccf-deadlines gecco.yml ／ https://github.com/ryojitanabe/ecconf"
+    }
+  ],
+  "format": [
+    "査読：ダブルブラインド（著者名・所属・謝辞を削除し、自己引用も第三者として書く）。トラックごとに査読し、採択はトラックごとに投稿数の 40% が上限（CEILING(40%×投稿数)）。",
+    "フルペーパーは 8 ページ（参考文献を除く）＋補足資料。ポスターのみの論文は 4 ページ（参考文献込み、2026）で Companion に 2 ページの拡張要旨として掲載。",
+    "論文集：ACM Digital Library の本会議 Proceedings（フルペーパー）と Companion（ポスター・ワークショップ・HOP・コンペなど）。2026 の Proceedings は DOI 10.1145/3795095。",
+    "Hot Off the Press（HOP）トラック：他の会議や論文誌に最近載った論文を 2 ページで紹介。ACM TELO などの論文誌論文も発表できる。",
+    "トラック（2025）：BBSR, CS, ECOM, EML, EMO, ENUM, GA, GECH, GP, L4EC, NE, RWA, SI, THEORY。Best Paper はトラック（小さいトラックは 2 つで 1 枠）ごとに 2〜3 本の候補から、会期中の参加者投票で決まる。",
+    "併催：ワークショップ、チュートリアル、コンペティション（2026 は LLM が設計した EA のコンペなど）、Humies（23 回目, 賞金総額 1 万ドル）、学生ワークショップ、SIGEVO の総会と各賞の発表。"
+  ],
+  "features": [
+    "ACM SIGEVO の旗艦会議。進化計算では IEEE CEC と並ぶ年次の大規模会議で、ccf-deadlines の格付けは CORE A・CCF C。",
+    "GA・GP・CMA-ES などの進化戦略・QD・群知能・多目的・理論・実応用までを 1 つの会議で扱う。CEC より採択率が低く（35〜37%）、トラックの専門性が高い。",
+    "QD（MAP-Elites 系）、CMA-ES、記号回帰（GP）、実行時間解析の理論の中心的な発表の場。2024〜2026 の Best Paper にもこれらが並ぶ。",
+    "Humies（人間に匹敵する成果の賞）はここで発表される。他の会議や論文誌で発表済みの成果も対象で、2026 年は ICML 論文 AutoNumerics-Zero が金賞（二次情報）。",
+    "会場は年ごとに欧州・米州・アジア太平洋を回る（2023 リスボン、2024 メルボルン、2025 マラガ、2026 サンホセ、2027 クラクフ）。2022〜2026 はハイブリッド、2027 は対面のみ。",
+    "関連：ACM TELO（SIGEVO の論文誌）と FOGA（理論ワークショップ）。「Best of GECCO」の特集号が ACM の論文誌で組まれる（2023, 2024 回）。"
+  ],
+  "trends": [
+    "フルペーパーの投稿数：2023: 519 → 2024: 497 → 2025: 501 → 2026: 425。採択率は 35〜36% で安定（Tanabe の集計 https://github.com/ryojitanabe/ecconf、2025 は SIGEVOlution でも 501/181=36.1%）。2026 は中米開催で投稿が約 15% 減った。",
+    "採択の上限：SIGEVO の規則で、各トラックの採択は投稿数の 40% が上限。2025 は RWA・EMO・GA が 30% 前後だった（SIGEVOlution 18-4）。",
+    "LLM の浸透：2026 は LLM と EC のワークショップ（LLMfwEC）、LLM が設計した EA のコンペ（2 回目）、Digital Red Queen（LLM による Core War の敵対的進化）などが採択。Best Paper 候補にも LLM で再現性を監査する RECAP（Da Ros ら）が入った。",
+    "QD と強化学習の融合が毎年受賞：2023 DCG-MAP-Elites（CS）、2024 JEDi（CS＋L4EC）、2025 Extract-QD（CS＋NE）、2026 QDHUAC（EML）。",
+    "学習で最適化器を設計する研究（L4EC・MetaBBO）が伸び、2026 は LH-CC が L4EC の Best Paper。2025 も強化学習による動的アルゴリズム設定の論文が受賞した（St Andrews、Paderborn）。",
+    "ベンチマークの見直しと再現性：2023 ENUM（BBOB のアフィン結合）、2026 BBSR（パレート保存変換）が受賞。2026 は 10 年分の GECCO 論文の再現性を調べた論文も候補になった。"
+  ],
+  "fields": [
+    {
+      "slug": "genetic-algorithm",
+      "fit": "高",
+      "reason": "CMA-ES・NEAT・GP の既存デッキの主な出典で、CMA-ES with Margin（GECCO 2022）、TSGP（GECCO 2025 GP Best Paper）、Mixed-integer ES の収束解析（GECCO 2026）などがある。2026 年も GP-GOMEA と (μ+1) GA の理論が受賞。"
+    },
+    {
+      "slug": "open-endedness",
+      "fit": "高",
+      "reason": "QD の中心的な会議。CMA-MAE（GECCO 2023 EML Best Paper）、Dominated Novelty Search（2025）、Digital Red Queen と Picbreeder の VLM 再現（2026）が既存デッキにある。JEDi・Extract-QD・QDHUAC も受賞。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "高",
+      "reason": "SI トラックがあり、BACO の Markov 連鎖解析（GECCO 2024 SI Best Paper）、294 のメタファー系アルゴリズムの大規模ベンチマーク（2024）、RLDE-AFL（2025）、BLADE（2025 Companion）が既存デッキにある。"
+    },
+    {
+      "slug": "immune-algorithm",
+      "fit": "中",
+      "reason": "人工免疫系の論文は少数だが、SAIS（GECCO 2024 Companion）が既存デッキにある。主な発表の場は ICARIS や CEC。"
+    },
+    {
+      "slug": "hypernetworks",
+      "fit": "中",
+      "reason": "HyperNEAT（GECCO 2007）や DPPN（GECCO 2016）など、CPPN による間接符号化の系譜が GECCO の NE トラックにある。2025 の受賞論文も HyperNEAT を比較している。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（RWA トラック）",
+      "title": "Evolution With Purpose: Hierarchy-Informed Optimization of Whole-Brain Models",
+      "authors": "Hormoz Shahrzad ほか（UT Austin / Stanford / Cognizant AI Lab）",
+      "link": "https://arxiv.org/abs/2602.11398",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "全脳 DMF モデルの GA フィッティングで、皮質の階層順にパラメータを解放するカリキュラム HICO。被験者間の汎化と行動予測を両立。",
+      "basis": null,
+      "source": "https://www.cognizant.com/us/en/ai-lab/blog/gecco-best-paper-evolutionary-ai-whole-brain-modeling"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（EML トラック）",
+      "title": "Distributional Value Estimation Without Target Networks for Robust Quality-Diversity",
+      "authors": "Behrad Koohy, Jamie Bayne（Luffy.AI）",
+      "link": "https://arxiv.org/abs/2604.20381",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "ターゲットネット無しの分布型 critic と DNS で、高 UTD 比の QD-RL を安定化（QDHUAC）。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（L4EC トラック）",
+      "title": "A Learning-Based Cooperative Coevolution Framework for Heterogeneous Large-Scale Global Optimization",
+      "authors": "Wenjie Qiu ほか（South China University of Technology）",
+      "link": "https://arxiv.org/abs/2604.01241",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "異質な大規模最適化で、部分問題ごとの最適化器を PPO のエージェントが選ぶ協調共進化 LH-CC。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）／ https://sites.google.com/view/scnu-mzy"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（GP トラック）",
+      "title": "Introns and Templates Matter: Rethinking Linkage in GP-GOMEA",
+      "authors": "Johannes Koch, Tanja Alderliesten, Peter A.N. Bosman（CWI / TU Delft）",
+      "link": "https://arxiv.org/abs/2602.02311",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "イントロンを考慮した相互情報量と、テンプレート木の距離によるリンケージで GP-GOMEA を改善。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（NE トラック）",
+      "title": "Evolving Multi-Channel Confidence-Aware Activation Functions for Missing Data with Channel Propagation",
+      "authors": "Naeem Shahabi Sani ほか（University of Oklahoma）",
+      "link": "https://arxiv.org/abs/2602.13864",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "値・欠損フラグ・信頼度を入力とする活性化関数を GP で進化させ、欠損のある表データの分類を改善。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（BBSR–ENUM 共同枠）",
+      "title": "Exploration of Pareto-preserving Search Space Transformations in Multi-objective Test Functions",
+      "authors": "Diederick Vermetten, Jeroen Rook（Sorbonne Université / Paderborn University）",
+      "link": "https://arxiv.org/abs/2604.08173",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "目的空間を保つ探索空間の全単射変換で、多目的 EA の軸バイアスを明らかにした。",
+      "basis": null,
+      "source": "https://math.uni-paderborn.de/nachricht/best-paper-award"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（GA–THEORY 共同枠）",
+      "title": "Parent Selection Mechanisms in Elitist Crossover-Based Algorithms",
+      "authors": "Andre Opris, Denis Antipov（University of Passau / Sorbonne Université）",
+      "link": "https://arxiv.org/abs/2604.04083",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "最遠ペアを親に選ぶ (μ+1) GA が Jump_k を O(k·4^k·n log n) で解くことを証明。交叉が多様性を作る。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award（EMO トラック）",
+      "title": "Multi-objective Local Optima Networks based on Decomposition",
+      "authors": "Gabriela Ochoa, Quentin Renau, Arnaud Liefooghe, Jonathan Fieldsend",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "分解（MOEA/D 型）に基づく多目的の局所最適ネットワーク（LON）の提案（検索情報による題名と著者のみ。arXiv 版は見つからず）。",
+      "basis": null,
+      "source": "https://www.acm.org/conferences/best-paper-awards（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "23rd Humies Gold Award",
+      "title": "AutoNumerics-Zero: Automated Discovery of State-of-the-Art Mathematical Functions",
+      "authors": "Esteban Real ほか（Google DeepMind / Google）",
+      "link": "https://arxiv.org/abs/2312.08472",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "記号回帰で超越関数の近似プログラムを発見。2^x を 10 演算で 14 桁。受賞は二次情報（gpbib の SIGEVOlution 予定稿）。",
+      "basis": null,
+      "source": "http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "23rd Humies Silver Award",
+      "title": null,
+      "authors": "Chao Qian ほか",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "始新世〜漸新世の海洋生態に関する研究（Nature Communications）。題名は未確認。",
+      "basis": null,
+      "source": "http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "23rd Humies Bronze Award（同点）",
+      "title": null,
+      "authors": "Christina Berghegger ほか（Université Toulouse 1 Capitole, REVA）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "Cartesian GP による、解釈可能な視覚制御方策の探索。題名は未確認。",
+      "basis": null,
+      "source": "http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html（検索スニペット）／ LinkedIn 投稿"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "23rd Humies Bronze Award（同点）",
+      "title": null,
+      "authors": "Arinze Obidiegwu ほか",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "文法進化（grammatical evolution）で Grover のアルゴリズムの量子回路を進化させた研究。題名は未確認。",
+      "basis": null,
+      "source": "http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html（検索スニペット）"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "Best Paper ノミネート（BBSR）",
+      "title": "Assessing Reproducibility in Evolutionary Computation: A Case Study using Human- and LLM-based Assessment",
+      "authors": "Francesca Da Ros ほか（Leiden University ほか）",
+      "link": "https://arxiv.org/abs/2602.07059",
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "10 年分の GECCO 論文の再現性を調べ、LLM で再現性を監査するパイプライン RECAP を作った。",
+      "basis": "公式 Best Paper Nominations と Leiden NaCo のニュース（https://naco.liacs.nl/2026/06/25/gecco2026/）で候補と確認。同じ枠の受賞は Vermetten & Rook。",
+      "source": "https://naco.liacs.nl/2026/06/25/gecco2026/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（CS＋NE）",
+      "title": "Extract-QD Framework: A Generic Approach for Quality-Diversity in Noisy, Stochastic or Uncertain Domains",
+      "authors": "Manon Flageat ほか（Imperial College London / ISIR）",
+      "link": "https://arxiv.org/abs/2502.06585",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "不確実 QD を統一する枠組みと、評価の 25% を再評価に回す Extract-MAP-Elites。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（BBSR＋ENUM）",
+      "title": "When Does Neuroevolution Outcompete Reinforcement Learning in Transfer Learning Tasks?",
+      "authors": "Eleni Nisioti ほか（IT University of Copenhagen）",
+      "link": "https://arxiv.org/abs/2505.22696",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "段階的な課題での技能の転移を、NEAT・CMA-ES などの神経進化と PPO で比較するベンチマーク。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（GP）",
+      "title": "Transformer Semantic Genetic Programming for Symbolic Regression",
+      "authors": "Philipp Anthes, Dominik Sobania, Franz Rothlauf",
+      "link": null,
+      "slide": null,
+      "status": "既存：genetic-algorithm/genetic-programming",
+      "summary": "生成 Transformer を意味的な探索演算子に使う記号回帰 GP（TSGP）。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（ECOM）",
+      "title": "On Revealing the Hidden Problem Structure in Real-World and Theoretical Problems Using Walsh Coefficient Influence",
+      "authors": "Michal W. Przewozniczek, Francisco Chicano ほか",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "Walsh 係数の影響度で、実問題と理論問題の隠れた構造（変数の依存）を明らかにする（検索情報による）。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（EMO）",
+      "title": "Exploring Phase-Specific Configuration of Interactive Evolutionary Multiobjective Optimization Methods",
+      "authors": "Giomara Lárraga, Kaisa Miettinen",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "対話型の多目的進化最適化で、段階ごとに設定を変える効果を調べた（検索情報による）。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（GA＋SI）",
+      "title": "Empirical Linkage Learning Provably Builds Truthful Models on Concatenated Traps and H-IFF",
+      "authors": "Marcus Schmidbauer, Dirk Sudholt",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "経験的リンケージ学習が連結トラップと H-IFF で正しい依存モデルを作ることの証明（検索情報による）。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（GA＋SI）",
+      "title": "Congestion-Aware Multi-Agent Path Planning for Pick-up and Delivery Tasks",
+      "authors": "Mehrdad Asadi, Ann Nowé, Javad Ghofrani",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "集荷・配送タスクでの混雑を考慮した複数エージェントの経路計画（検索情報による）。",
+      "basis": null,
+      "source": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（トラック不明）",
+      "title": null,
+      "authors": "Tai Nguyen, Nguyen Dang, Carola Doerr ほか（St Andrews / Sorbonne / Freiburg）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "OneMax 上の (1+(λ,λ))-GA を題材に、強化学習による動的アルゴリズム設定の報酬設計を調べた（大学ニュースによる。題名未確認）。",
+      "basis": null,
+      "source": "https://blogs.cs.st-andrews.ac.uk/csblog/2025/07/31/phd-student-tai-nguyen-wins-best-paper-award-at-gecco-2025/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（トラック不明）",
+      "title": "Deep Reinforcement Learning for Instance-Specific Algorithm Configuration",
+      "authors": "Paderborn University MALEO グループ・Bielefeld University",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "深層強化学習によるインスタンスごとのアルゴリズム設定（大学ニュースによる）。",
+      "basis": null,
+      "source": "https://www.eim.uni-paderborn.de/en/eim-news-single-en/maleo-at-gecco-2025-best-paper-award-and-more"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "SIGEVO Impact Award（GECCO 2015 の論文が対象）",
+      "title": "General Program Synthesis Benchmark Suite",
+      "authors": "Thomas Helmuth, Lee Spector",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "プログラム合成 GP の標準ベンチマーク（PSB1）。10 年後の影響を評価して授与。",
+      "basis": null,
+      "source": "https://sigevo.hosting.acm.org/public_html/sigevolution/?p=1306"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award（CS＋L4EC）",
+      "title": "Quality with Just Enough Diversity in Evolutionary Policy Search",
+      "authors": "Paul Templier ほか（ISAE-SUPAERO / Imperial College London）",
+      "link": "https://arxiv.org/abs/2405.04308",
+      "slide": 11,
+      "status": "スライド化",
+      "summary": "行動と適応度の関係をガウス過程で学び、有望な行動を目標に ES を走らせる JEDi。",
+      "basis": null,
+      "source": "https://gecco-2024.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award（ECOM）",
+      "title": null,
+      "authors": "Maria Bresich, Günther Raidl, Steffen Limmer（TU Wien）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "電気自動車の Dial-A-Ride 問題で、充電ステーションをその場で挿入する大近傍探索（大学ニュースによる。正確な題名は未確認）。",
+      "basis": null,
+      "source": "https://www.ac.tuwien.ac.at/2024/07/best-paper-award-at-gecco-2024-for-m-bresich-g-raidl-and-s-limmer/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award（SI）",
+      "title": "Markov Chain-based Optimization Time Analysis of Bivalent Ant Colony Optimization for Sorting and LeadingOnes",
+      "authors": "Matthias Kergaßner, Oliver Keszöcze, Rolf Wanka（FAU Erlangen-Nürnberg）",
+      "link": null,
+      "slide": null,
+      "status": "既存：swarm-intelligence/aco-neural",
+      "summary": "2 値 ACO の最適化時間をマルコフ連鎖で解析。",
+      "basis": null,
+      "source": "https://www.cs12.tf.fau.eu/2024/07/18/best-paper-in-the-swarm-intelligence-track-of-gecco-2024/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Best Paper Award（EML）",
+      "title": "Covariance Matrix Adaptation MAP-Annealing",
+      "authors": "Matthew C. Fontaine, Stefanos Nikolaidis",
+      "link": null,
+      "slide": null,
+      "status": "既存：open-endedness/quality-diversity",
+      "summary": "CMA-ME の受け入れ閾値を徐々に上げる CMA-MAE。",
+      "basis": null,
+      "source": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Best Paper Award（CS）",
+      "title": "MAP-Elites with Descriptor-Conditioned Gradients and Archive Distillation into a Single Policy",
+      "authors": "Maxence Faldor, Félix Chalumeau, Manon Flageat, Antoine Cully",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "記述子で条件付けた勾配を使う MAP-Elites（DCG-ME）。後継の DCRL-MAP-Elites（TELO 2024）は既存デッキ open-endedness/quality-diversity にある。題名は検索情報から補った。",
+      "basis": null,
+      "source": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Best Paper Award（EMO）",
+      "title": null,
+      "authors": "Arnaud Liefooghe, Gabriela Ochoa, Sébastien Verel, Bilel Derbel",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "パレート局所最適解のネットワーク（Pareto Local Optimal Solutions Networks）に関する論文（検索情報による。正確な題名は未確認）。",
+      "basis": null,
+      "source": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Best Paper Award（ENUM）",
+      "title": null,
+      "authors": "Diederick Vermetten, Furong Ye, Carola Doerr",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "BBOB 問題のアフィン結合による性能評価（後の MA-BBOB につながる。検索情報による）。",
+      "basis": null,
+      "source": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Best Paper Award（ECOM / GA / GP / NE＋SBSE / RWA / ACO-SI）",
+      "title": null,
+      "authors": "Benavides ほか（ECOM）、Przewozniczek ほか（GA）、Huang ほか（GP）、Feldmeier & Fraser（NE＋SBSE）、Hayslep ほか（RWA）、Nitschke & Mkhatshwa（ACO-SI）",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "順に、QAP の elementary landscape 分解、リンケージ学習付き first improvement 山登り、動的ジョブショップ向け文法誘導の線形 GP、人のプレイ記録によるゲームのテスト入力生成、漏水予測の多目的 multi-gene GP、ロボット群の形態多様性（検索情報による。正確な題名は未確認）。",
+      "basis": null,
+      "source": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    }
+  ],
+  "unknowns": [
+    "GECCO 2026 の ECOM、CS–SI、GECH の Best Paper 受賞論文（公式の Best Paper Awards ページに到達できず、ACM 一覧の検索スニペットにも出てこない）。ECOM の候補は Sodhi & Prasad「Vehicle Routing Problem with Resource-Constrained Pickup and Delivery」（arXiv 2602.23685）など。",
+    "GECCO 2026 の EMO 受賞論文（Ochoa ほか）の本文。arXiv・著者公開版を見つけられなかった。",
+    "Humies 2026 の公式の受賞一覧（human-competitive.org に到達不可）。金・銀・銅は gpbib の SIGEVOlution 予定稿の検索スニペットのみが根拠。銀・銅の論文題名。",
+    "SIGEVO Impact Award 2026（GECCO 2016 の論文が対象）の受賞者。2025 の受賞は General Program Synthesis Benchmark Suite。",
+    "ACM TELO Best Paper Award（2024〜2026）の受賞論文。検索で情報が見つからなかった。",
+    "GECCO 2025 の EML・L4EC・RWA・GECH＋THEORY、GECCO 2024 の EML・EMO・ENUM・GA＋THEORY・GECH＋NE・GP・RWA の受賞論文（公式ページの検索スニペットが途中で切れる）。2023 の GECH・THEORY の受賞論文。",
+    "GECCO 2027 の締切（Call for Papers 未公開。推定値のみ）。リバッタル期間の有無（公式 CfP 本文を読めなかった）。",
+    "GECCO 2022 の採否通知日。2026 の採択数は 149（公式ページのスニペット）と 150（Tanabe の集計）で食い違う。"
+  ],
+  "sources": [
+    {
+      "label": "GECCO 2027 Home Page（Kraków, 2027-07-12〜16）",
+      "url": "https://gecco-2027.sigevo.org/HomePage"
+    },
+    {
+      "label": "GECCO 2026 Call for Papers",
+      "url": "https://sigevo.hosting.acm.org/gecco-2026/Call+for+Papers"
+    },
+    {
+      "label": "GECCO 2026 Best Paper Nominations",
+      "url": "https://gecco-2026.sigevo.org/Best+Paper+Nominations"
+    },
+    {
+      "label": "ACM Conferences Best Paper Awards（GECCO '26 受賞一覧）",
+      "url": "https://www.acm.org/conferences/best-paper-awards"
+    },
+    {
+      "label": "Cognizant AI Lab: GECCO 2026 Best Paper（RWA）",
+      "url": "https://www.cognizant.com/us/en/ai-lab/blog/gecco-best-paper-evolutionary-ai-whole-brain-modeling"
+    },
+    {
+      "label": "Paderborn University: Best Paper Award（BBSR 2026）",
+      "url": "https://math.uni-paderborn.de/nachricht/best-paper-award"
+    },
+    {
+      "label": "Leiden NaCo: 2 Best Paper Nominees at GECCO 2026",
+      "url": "https://naco.liacs.nl/2026/06/25/gecco2026/"
+    },
+    {
+      "label": "23rd Humies (2026), SIGEVOlution（gpbib）",
+      "url": "http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html"
+    },
+    {
+      "label": "GECCO 2026 Humies",
+      "url": "https://sigevo.hosting.acm.org/gecco-2026/Humies"
+    },
+    {
+      "label": "GECCO 2025 Best Paper Awards",
+      "url": "https://gecco-2025.sigevo.org/Best-Paper-Awards"
+    },
+    {
+      "label": "GECCO 2024 Best Paper Awards",
+      "url": "https://gecco-2024.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "label": "GECCO 2023 Best Paper Awards",
+      "url": "https://gecco-2023.sigevo.org/Best-Paper-Awards.html"
+    },
+    {
+      "label": "SIGEVOlution Vol.18 Iss.4（GECCO 2025 の統計）",
+      "url": "https://sigevo.hosting.acm.org/public_html/sigevolution/?p=1241"
+    },
+    {
+      "label": "SIGEVOlution Vol.19 Iss.1（2025 Impact Award）",
+      "url": "https://sigevo.hosting.acm.org/public_html/sigevolution/?p=1306"
+    },
+    {
+      "label": "SIGEVO の GECCO 運営規則（採択上限 40%）",
+      "url": "https://sig.sigevo.org/GECCOs"
+    },
+    {
+      "label": "Tanabe: 進化計算の会議の採択率統計",
+      "url": "https://github.com/ryojitanabe/ecconf"
+    },
+    {
+      "label": "ccf-deadlines gecco.yml",
+      "url": "https://github.com/ccfddl/ccf-deadlines"
+    },
+    {
+      "label": "GECCO 2025 Call for Papers",
+      "url": "https://gecco-2025.sigevo.org/Call-for-Papers"
+    }
+  ]
+}

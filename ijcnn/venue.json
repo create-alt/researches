@@ -1,0 +1,510 @@
+{
+  "slug": "ijcnn",
+  "name": "IJCNN",
+  "fullName": "International Joint Conference on Neural Networks",
+  "organizer": "IEEE CIS（Computational Intelligence Society）と INNS（International Neural Network Society）",
+  "area": "ニューラルネットワーク全般（理論・応用・脳型計算・SNN）",
+  "aliases": [
+    "IJCNN",
+    "IEEE IJCNN",
+    "IJCNN/WCCI",
+    "WCCI (IJCNN)"
+  ],
+  "website": "https://ijcnn.org/",
+  "summary": "IEEE CIS と INNS が共催するニューラルネットワーク分野の旗艦会議。偶数年は CEC・FUZZ-IEEE と合同の IEEE WCCI、奇数年は INNS 主導の単独開催。2025 年（ローマ）は投稿 5,526・採択 2,152（38.9%）と急拡大し、採択率 40% 上限・リバッタルなしで選考する。理論から医療・LLM 応用、SOM・リザバー・SNN など脳型計算まで扱う幅の広さが特徴。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "IJCNN 2027",
+    "location": "Cape Town, South Africa（Cape Town International Convention Centre）",
+    "dates": "2027-06-14〜18（ワークショップは 6/18）",
+    "status": "公式",
+    "deadlines": [
+      {
+        "label": "特別セッション・ワークショップ提案締切",
+        "date": "2026-11-15",
+        "time": null,
+        "status": "公式",
+        "basis": "IJCNN 2027 公式サイトの日程表（検索結果スニペット）。チュートリアル・コンペ提案も 11 月締切（Beri.net）",
+        "source": "https://ijcnn.org/2027"
+      },
+      {
+        "label": "特別セッション・ワークショップ採否通知",
+        "date": "2026-12-15",
+        "time": null,
+        "status": "公式",
+        "basis": "IJCNN 2027 公式サイトの日程表（検索結果スニペット）",
+        "source": "https://ijcnn.org/2027"
+      },
+      {
+        "label": "論文締切（Regular / Special Session / Tutorial paper）",
+        "date": "2027-01-31",
+        "time": "23:59 AoE（公式は TZ 未記載。2024〜2026 は UTC-12）",
+        "status": "公式",
+        "basis": "公式ホームの日程表と Call for Tutorials に 2027-01-31。ワークショップ募集ページの一部に「2027-01-15」とする記述があり食い違う。例年は延長が出ることがある（2023: 1/31→2/7、2024: 延長後 1/29）が、2026 は延長なしと明記",
+        "source": "https://ijcnn.org/2027/call-for-papers"
+      },
+      {
+        "label": "採否通知",
+        "date": "2027-03-15",
+        "time": null,
+        "status": "公式",
+        "basis": "IJCNN 2027 公式サイトの日程表（Regular Papers Notifications）。myhuiban も 2027-03-15",
+        "source": "https://ijcnn.org/2027"
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-04-12",
+        "time": null,
+        "status": "公式",
+        "basis": "IJCNN 2027 公式サイトの日程表（検索結果スニペット）",
+        "source": "https://ijcnn.org/2027"
+      }
+    ],
+    "notes": "CFP では本論文は IEEE 2 段組 6 ページ以内（2023〜2025 は 6〜8 ページ）。公式サイト（ijcnn.org）は本環境から直接は開けず、日程は検索結果スニペットで確認した。締切前に公式の Important Dates を要確認。"
+  },
+  "history": [
+    {
+      "edition": "IJCNN 2026（IEEE WCCI 2026）",
+      "location": "Maastricht, the Netherlands（MECC、ハイブリッド）",
+      "dates": "2026-06-21〜26",
+      "abstract": null,
+      "paper": "2026-01-31（23:59 AoE、延長なしと明記）",
+      "notification": "2026-03-16〜22",
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "note": "late-breaking 論文締切 3/10、camera-ready 4/15。検索結果の要約には「投稿 4,178 本・採択率約 40%」とあったが原文（WCCI 2026 Full Program の IJCNN 歓迎文とみられる）は未確認のため数値は空欄",
+      "source": "https://attend.ieee.org/wcci-2026/important-dates-deadlines"
+    },
+    {
+      "edition": "IJCNN 2025",
+      "location": "Rome, Italy",
+      "dates": "2025-06-30〜07-05",
+      "abstract": null,
+      "paper": "2025-01-15（PaperPilot は延長後 2025-02-05 と記載、公式未確認）",
+      "notification": "2025-03 末",
+      "submissions": 5526,
+      "accepted": 2152,
+      "acceptanceRate": "38.9%",
+      "note": "Regular 4,225→1,533、Special Session 1,049→478、特別トラック・コンペ・Position・Workshop を含む（非アーカイブ枠 122→109 は別）。査読者 7,877、AC 426、参加 2,300 人超",
+      "source": "https://arxiv.org/abs/2603.19244"
+    },
+    {
+      "edition": "IJCNN 2024（IEEE WCCI 2024）",
+      "location": "Yokohama, Japan（ハイブリッド）",
+      "dates": "2024-06-30〜07-05",
+      "abstract": null,
+      "paper": "2024-01-29（延長後）",
+      "notification": "2024-03-15",
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "note": "2025 年の報告では 2025 年の投稿が「前回比約 100% 増」とあり、2024 年は約 2,700〜2,800 本と推定されるが公式値は未確認",
+      "source": "https://lists.cnsorg.org/hyperkitty/list/comp-neuro@lists.cnsorg.org/thread/KKVJZYELYTYACTWP7VIERKPIXZJZKH3W/"
+    },
+    {
+      "edition": "IJCNN 2023",
+      "location": "Gold Coast, Queensland, Australia",
+      "dates": "2023-06-18〜23",
+      "abstract": null,
+      "paper": "2023-02-07（ccf-deadlines、延長後とみられる）",
+      "notification": null,
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "note": "非公式集計（modulabs）では採択率 54.76%。FAU のニュースは「1,000 本超の採択論文」と記載。ダブルブラインド、6〜8 ページ",
+      "source": "https://2023.ijcnn.org/"
+    },
+    {
+      "edition": "IJCNN 2022（IEEE WCCI 2022）",
+      "location": "Padua, Italy",
+      "dates": "2022-07-19〜23（ccf-deadlines）",
+      "abstract": "2022-01-31",
+      "paper": "2022-02-14",
+      "notification": null,
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "note": "締切は ccf-deadlines の値（AoE）。非公式集計では採択率 55.4%",
+      "source": "https://wcci2022.org/"
+    }
+  ],
+  "format": [
+    "ダブルブラインド査読（WCCI 2026・IJCNN 2023 で明記）。リバッタル期間はなく、スコア指数の順位で採否を決める（2025 年の査読報告）",
+    "ページ数: 2027 は IEEE 2 段組 6 ページ以内、2023〜2026 は 6〜8 ページ（追加料金で最大 +2 ページ）",
+    "論文集: IEEE Xplore（IJCNN Proceedings）。2025 年は CMT で査読、AC（メタ査読者）制で 1 本に最低 4 名を割当",
+    "トラック: Regular、Special Sessions（2025 は 1,049 投稿）、Competitions、Position Papers、Workshops、Journal-to-Conference（J2C、非アーカイブ）、Poster Track（非アーカイブ）、late-breaking（2026）",
+    "併催: 偶数年は IEEE WCCI として CEC・FUZZ-IEEE と合同開催（2022 Padua、2024 横浜、2026 Maastricht）、奇数年は INNS 主導の単独開催（2023 Gold Coast、2025 Rome、2027 Cape Town）"
+  ],
+  "features": [
+    "IEEE CIS と INNS が共催するニューラルネットワーク分野の旗艦会議。INNS の Doctoral Dissertation Award や Neural Networks 誌 Best Paper Award の授与の場でもある",
+    "格付けは CORE B・CCF C（ccf-deadlines）。採択率は約 40%（2025 年 38.9%）で、NeurIPS・ICML より門戸が広い",
+    "規模が大きく急拡大中：2025 年は 68 か国 12,407 人の著者、投稿 5,526、参加 2,300 人超（arXiv 2603.19244）",
+    "扱う範囲が広い：LLM・拡散・医用画像など応用から、SOM・エコーステートネットワーク・リザバー計算・SNN・量子 NN など脳型／非主流の NN まで。特別セッション単位で小さなコミュニティが集まる",
+    "賞は Best Paper のほか Best Student Paper・Best Industry Paper（2025）、Runner-Up Best Student Paper（2024）など。受賞論文が arXiv に出ないことも多い"
+  ],
+  "trends": [
+    "投稿の急増：2025 年は 5,526 本で前回比約 2 倍、査読者は約 3 倍の 7,877 人（arXiv 2603.19244, 2026-02）。2026 年は検索要約で 4,178 本・採択率約 40% とされる（原文未確認）",
+    "採択率の引き締め：INNS 理事会が格付け対策として採択率 40% 以下を要請（2025）。非公式集計では 2021〜2023 年は 55〜59% だった（modulabs）",
+    "査読運営の変化：2025 年は入札 20%・TPMS 30%・分野一致 50% で割当、著者兼査読者は 1 本 1 人まで、NeurIPS 由来の査読者バイアス補正を試験導入。今後は AI 生成査読の検出が課題とされた",
+    "トピック：arXiv で IJCNN 2026（または WCCI 2026）と明記された約 140 本の題名では LLM 関連 22、医療・脳波 17、拡散 10、量子 10、グラフ 8、連合学習 7、スパイキング・リザバー 6（本調査の arXiv API 集計。投稿段階の論文や CEC 論文を少数含む）",
+    "新しい枠：2025 年に Position Paper（投稿 66・採択 15）、J2C、Poster Track を導入。2027 年は本論文のページ上限が 6 ページに"
+  ],
+  "fields": [
+    {
+      "slug": "snn",
+      "fit": "高",
+      "reason": "SNN・ニューロモルフィックの採録が継続的にある。例：Spiking and Event-driven Neuromorphic Mamba Models for Efficient Speech Recognition（IJCNN 2026、既存 snn/fair-benchmark）、Intrinsic Neuro-Synaptic Spiking Dynamics and Resonance in Memristive Networks（IJCNN 2026）。2023 年 Best Paper も LIF ニューロン型 LSTM。"
+    },
+    {
+      "slug": "neuromorphic-robotics",
+      "fit": "中",
+      "reason": "イベントカメラ・ロボット制御の論文が採録される。例：RGB-Event Fusion with Self-Attention for Collision Prediction（IJCNN 2025）、Domain Adaption as Auxiliary Task for Sim-to-Real Transfer in Vision-based Neuro-Robotic Control（IJCNN 2024 Runner-Up Best Student Paper）。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "中",
+      "reason": "WCCI で CEC と同居し、群知能と NN の融合が多い。例：G-ICSO-NAS（IJCNN 2026、競争型粒子群×DARTS）。"
+    },
+    {
+      "slug": "genetic-algorithm",
+      "fit": "中",
+      "reason": "進化計算で NN を最適化する研究が受賞する。例：2024 年 Best Paper「Balancing Performance, Efficiency and Robustness in Open-World Machine Learning via Evolutionary Multi-objective Model Compression」。"
+    },
+    {
+      "slug": "gnn",
+      "fit": "中",
+      "reason": "グラフ学習が一定数あり 2025 年の Best Paper も有向グラフ向け Graph Mamba（Every Hop Etched in Memory）。2026 年も FairGC、Graph-RHO などが採録。"
+    },
+    {
+      "slug": "world-model",
+      "fit": "中",
+      "reason": "Schmidhuber の好奇心・内発的報酬の原典の一つが IJCNN'91 に発表されている（既存 world-model/intrinsic-reward の notes）。現在も RL・予測モデルの応用論文が多い。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 Oral（話題）",
+      "title": "MIRROR: Novelty-Constrained Memory-Guided MCTS Red-Teaming for Agentic RAG",
+      "authors": "Inderjeet Singh ほか（Fujitsu Research of Europe / 富士通）",
+      "link": "https://arxiv.org/abs/2606.26793",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "記憶誘導 MCTS と決定的な新規性ゲートで、エージェント型 RAG の 4 攻撃面を統一的にレッドチーミング。既知攻撃の再生による ASR 水増しを定量化した。",
+      "basis": "arXiv コメントに「presented as an oral talk」と明記",
+      "source": "https://arxiv.org/abs/2606.26793"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：群知能×NAS）",
+      "title": "G-ICSO-NAS: Shifting Gears between Gradient and Swarm for Robust Neural Architecture Search",
+      "authors": "Xingbang Du ほか（北海道大学）",
+      "link": "https://arxiv.org/abs/2604.00703",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "競争型粒子群（ICSO）と DARTS を 3 段階で切り替える NAS。CIFAR-10 誤差 2.54% を 0.15 GPU 日で達成。",
+      "basis": "本アーカイブの swarm-intelligence 分野に直結する 2026 年採録論文（arXiv 脚注で採録明記）",
+      "source": "https://arxiv.org/abs/2604.00703"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：物理ニューロモルフィック）",
+      "title": "Intrinsic Neuro-Synaptic Spiking Dynamics and Resonance in Memristive Networks",
+      "authors": "Yinhao Xu, Georg A. Gottwald, Zdenka Kuncic（The University of Sydney）",
+      "link": "https://arxiv.org/abs/2604.18015",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "メモリスタ・ナノワイヤ網がニューロンモデルなしでスパイクを自発的に生み、固有時間尺度で共鳴することを示した。物理リザバーの最適駆動周波数は共鳴直前。",
+      "basis": "本アーカイブの snn / neuromorphic-robotics 分野に関係する 2026 年採録論文",
+      "source": "https://arxiv.org/abs/2604.18015"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：脳型記憶による説明）",
+      "title": "Engram Memory Network: Brain-Inspired Prototype Explanations",
+      "authors": "Hyunjun Kim, Myoung Hoon Ha（Seoul National University / KAIST）",
+      "link": "https://arxiv.org/abs/2610.27770",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "現代 Hopfield 型の連想記憶でプロトタイプを想起し、分類・再構成・説明を同時に行う。下位クラス一致を既存最良の約 2 倍に。",
+      "basis": "脳型記憶を XAI に用いた 2026 年採録論文（arXiv に「Presented at IJCNN 2026」）",
+      "source": "https://arxiv.org/abs/2610.27770"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（Position Paper・話題）",
+      "title": "Position Paper: Neurotransmitters as a Missing Dimension in Artificial Neural Networks",
+      "authors": "Yupei Li, Manuel Milling, Berrak Sisman, Björn Schuller（Imperial College London / TU Munich ほか）",
+      "link": "https://arxiv.org/abs/2609.20083",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "神経伝達物質による神経修飾を学習の第 3 の軸として ANN に組み込むべきと主張。4 類型と三因子学習則で設計図を示す。",
+      "basis": "2025 年に始まった Position Paper 枠に相当する 2026 年採録論文",
+      "source": "https://arxiv.org/abs/2609.20083"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：古典 NN の再定式化）",
+      "title": "Self-Organizing Maps with Optimized Latent Positions",
+      "authors": "Seiki Ubukata, Akira Notsu, Katsuhiro Honda（大阪公立大学）",
+      "link": "https://arxiv.org/abs/2604.13622",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "SOM を連続潜在位置つきのエントロピー正則化目的関数で再定式化し、O(NM) の閉形式更新で 25 万ノードまで拡張。",
+      "basis": "IJCNN の伝統的な中核テーマ（自己組織化）を更新した 2026 年採録論文",
+      "source": "https://arxiv.org/abs/2604.13622"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：査読割当の自動化）",
+      "title": "Beyond Paper-to-Paper: Structured Profiling and Rubric Scoring for Paper-Reviewer Matching",
+      "authors": "Yicheng Pan ほか（UCAS 杭州高等研究院 ほか）",
+      "link": "https://arxiv.org/abs/2604.05866",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "LLM で論文と査読者の構造化プロファイルを作り、ルーブリック採点の LLM 委員会で順位付けする学習不要の査読者推薦。",
+      "basis": "投稿急増に悩む IJCNN 自身の運営課題に直結する 2026 年採録論文",
+      "source": "https://arxiv.org/abs/2604.05866"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2025 プログラム委員長による査読報告（話題）",
+      "title": "The IJCNN 2025 Review Process",
+      "authors": "Michele Scarpiniti, Danilo Comminiello（Sapienza University of Rome）",
+      "link": "https://arxiv.org/abs/2603.19244",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "投稿 5,526・採択 2,152 の IJCNN 2025 の査読割当・スコア指数・査読者バイアス補正を公開した一次資料。IJCNN 採録論文ではない。",
+      "basis": "2026-02 に arXiv で公開された学会運営の一次資料",
+      "source": "https://arxiv.org/abs/2603.19244"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 Oral（話題）",
+      "title": "VISTA: Velocity-Informed Sequential Transition Analysis（認知症の進行予測）",
+      "authors": "Prajvi Saxena ほか（DFKI / DZNE）",
+      "link": "https://www.dfki.de/web/forschung/projekte-publikationen/publikation/17186",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "臨床特徴の変化速度を入力に加えた勾配ブースティングで MMSE の推移を予測。DelpHi コホート 459 人・768 遷移で R²=0.74（線形混合モデル 0.25）と報告（検索情報に基づく）。",
+      "basis": "Saarland 大学のニュースが IJCNN 2026 での口頭発表を報告。camera-ready PDF は DFKI サイトにあるが本環境から到達不可",
+      "source": "https://iss.uni-saarland.de/news/paper-presentation-at-ijcnn-2026"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IJCNN 2026 採録（話題：SNN）",
+      "title": "Spiking and Event-driven Neuromorphic Mamba Models for Efficient Speech Recognition",
+      "authors": "Tauseef Ahmed, Tao Sun, Jeronimo Castrillon ほか（Maastricht University / imec）",
+      "link": "https://arxiv.org/abs/2606.01135",
+      "slide": null,
+      "status": "既存：snn/fair-benchmark",
+      "summary": "スパイキング／イベント駆動の Mamba による省電力音声認識。既存デッキで扱い済み。",
+      "basis": "本アーカイブ SNN 分野の既存デッキに含まれる IJCNN 2026 採録論文",
+      "source": "https://arxiv.org/abs/2606.01135"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IJCNN 2025 Best Paper Award",
+      "title": "Every Hop Etched in Memory: Tokenized Graph Mamba Meets Directed Graph Learning",
+      "authors": "Lizhi Liu（China UnionPay）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "題名と著者のみ確認。arXiv 版・著者公開版が見つからず、内容は未確認。",
+      "basis": null,
+      "source": "https://2025.ijcnn.org/program/awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IJCNN 2025 Best Student Paper Award",
+      "title": "Can LLMs Revolutionize the Design of Explainable and Efficient TinyML Models?",
+      "authors": "Christophe El Zeinaty ほか（Univ. Rennes, INSA Rennes, IETR）",
+      "link": "https://arxiv.org/abs/2504.09685",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "小型オープン LLM による NAS、パレート最適化、ViT 蒸留で、320KB SRAM のマイコン上で CIFAR-100 74.5% を達成。",
+      "basis": null,
+      "source": "https://2025.ijcnn.org/program/awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IJCNN 2025 Best Industry Paper Award",
+      "title": "Improving Vector-Quantized Image Modeling with Latent Consistency-Matching Diffusion",
+      "authors": "Bac Nguyen ほか（Sony AI）",
+      "link": "https://arxiv.org/abs/2410.14758",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "埋め込みと連続拡散の同時学習で起きる埋め込み崩壊を一貫性マッチング損失で防ぎ、ImageNet 256 で FID 6.81。",
+      "basis": null,
+      "source": "https://2025.ijcnn.org/program/awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IJCNN 2025 の賞（部門不明）",
+      "title": "A Neural Network Approach to Image-Based Navigation and Localization",
+      "authors": "Daniel Short, Tingjun Lei, Lantao Liu, Chaomin Luo, Erfu Yang",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "画像に基づくナビゲーションと自己位置推定のニューラルネット手法（題名のみ確認）。",
+      "basis": "公式受賞ページの抜粋に掲載されているが、部門の対応が文字化けで読み取れない",
+      "source": "https://2025.ijcnn.org/program/awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "IJCNN 2024 Best Paper Award（WCCI 2024）",
+      "title": "Balancing Performance, Efficiency and Robustness in Open-World Machine Learning via Evolutionary Multi-objective Model Compression",
+      "authors": "Javier Del Ser, Aitor Martinez-Seras ほか（TECNALIA ほか）",
+      "link": "https://doi.org/10.1109/IJCNN60899.2024.10651338",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "学習済みモデルの量子化を、性能・メモリ・分布外頑健性の多目的問題として多目的進化アルゴリズムで解き、パレート前線を近似（機関リポジトリの要旨に基づく）。",
+      "basis": null,
+      "source": "https://www.tecnalia.com/en/news/tecnalia-wins-the-prestigious-ijcnn-best-paper-award"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "IJCNN 2024 Runner-Up Best Student Paper Award",
+      "title": "Domain Adaption as Auxiliary Task for Sim-to-Real Transfer in Vision-based Neuro-Robotic Control",
+      "authors": "Connor Gäde, Jan-Gerrit Habekost, Stefan Wermter（University of Hamburg）",
+      "link": "https://wtmbib.informatik.uni-hamburg.de/Basilic/publis/903/",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "ドメイン適応と逆運動学を 1 つの視覚運動モデルで学び、ヒューマノイド NICO の把持で成功率 80.30% と報告（要旨に基づく）。",
+      "basis": null,
+      "source": "https://www.inf.uni-hamburg.de/en/inst/ab/wtm/about/news/20240707wtmatijcnn.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "IJCNN 2023 Best Paper Award",
+      "title": "Leaky-Integrate-and-Fire Neuron-Like Long-Short-Term-Memory Units as Model System in Computational Biology",
+      "authors": "Richard C. Gerum, André Erpenbeck, Patrick Krauss, Achim Schilling（FAU Erlangen-Nürnberg / York University ほか）",
+      "link": "https://cris.fau.de/publications/332588469",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "ピープホール LSTM の特定のパラメータ選択が LIF ニューロンのように振る舞うことを示した（要旨に基づく）。SNN 分野と関係が深い。",
+      "basis": null,
+      "source": "https://lme.tf.fau.de/?p=17879"
+    },
+    {
+      "year": 2022,
+      "kind": "award",
+      "award": "IJCNN 2022 Best Student Paper Award（WCCI 2022）",
+      "title": "Neural Network Compatible Off-Policy Natural Actor-Critic Algorithm",
+      "authors": "Raghuram Bharadwaj ほか（IISc）",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "ニューラルネット関数近似に対応したオフポリシー自然アクター・クリティック。",
+      "basis": null,
+      "source": "https://eecs.iisc.ac.in/events/best-student-paper-award-at-ijcnn/"
+    }
+  ],
+  "unknowns": [
+    "IJCNN 2026（WCCI 2026）の受賞論文（Best Paper ほか）：会期は 2026-06 で終了済みだが、検索では受賞発表を見つけられなかった。例年は会期中の授賞式で発表され、公式サイトの Awards ページに掲載される（2025 年は 2025.ijcnn.org/program/awards/）",
+    "IJCNN 2026 の投稿数・採択数：検索要約に「4,178 本・約 40%」とあるが出典（WCCI 2026 Full Program）を開けず未確認",
+    "IJCNN 2025 受賞ページの部門の対応：抜粋が文字化けしており、Best Student Paper と Best Industry Paper の割り当ては調査者の読み取り。Tianyi Luo & Jiaojiao Wang（CASIA）の受賞論文名と部門、「A Neural Network Approach to Image-Based Navigation and Localization」の部門も不明",
+    "IJCNN 2025 Best Paper（Every Hop Etched in Memory）の本文：arXiv 版・著者公開版が見つからない",
+    "IJCNN 2024 の投稿数・採択数・Best Student Paper（首位）の題名",
+    "IJCNN 2023 の投稿数・採択数（公式値）、Best Student Paper の有無、Best Poster Award 論文（軽量な深層極端多ラベル分類）の正式題名",
+    "IJCNN 2027 の論文締切のタイムゾーン（公式は未記載）と、ワークショップ募集ページにある「2027-01-15」との食い違い",
+    "IJCNN 2025 の論文締切の延長の有無（PaperPilot は 2025-02-05 と記載）",
+    "公式サイト（ijcnn.org、2025.ijcnn.org、attend.ieee.org）、DFKI・TECNALIA・Hamburg 大の機関リポジトリ、IEEE Xplore は本環境から到達不可"
+  ],
+  "sources": [
+    {
+      "label": "IJCNN 2027 ホーム（日程表）",
+      "url": "https://ijcnn.org/2027"
+    },
+    {
+      "label": "IJCNN 2027 Call for Papers",
+      "url": "https://ijcnn.org/2027/call-for-papers"
+    },
+    {
+      "label": "IJCNN 2027 Call for Workshops",
+      "url": "https://ijcnn.org/2027/authors/call-for-workshops"
+    },
+    {
+      "label": "IJCNN 2027 Deadline（mldeadlines）",
+      "url": "https://mldeadlines.com/conference/ijcnn-2027/"
+    },
+    {
+      "label": "WCCI 2026 Important Dates",
+      "url": "https://attend.ieee.org/wcci-2026/important-dates-deadlines"
+    },
+    {
+      "label": "WCCI 2026 Call for Papers",
+      "url": "https://attend.ieee.org/wcci-2026/call-for-papers"
+    },
+    {
+      "label": "WCCI 2026 Paper Submission Rules",
+      "url": "https://attend.ieee.org/wcci-2026/information-for-authors"
+    },
+    {
+      "label": "The IJCNN 2025 Review Process（arXiv 2603.19244）",
+      "url": "https://arxiv.org/abs/2603.19244"
+    },
+    {
+      "label": "IJCNN 2025 Awards",
+      "url": "https://2025.ijcnn.org/program/awards/"
+    },
+    {
+      "label": "TECNALIA wins the IJCNN Best Paper Award（WCCI 2024）",
+      "url": "https://www.tecnalia.com/en/news/tecnalia-wins-the-prestigious-ijcnn-best-paper-award"
+    },
+    {
+      "label": "Knowledge Technology Awarded at IJCNN'24（Hamburg）",
+      "url": "https://www.inf.uni-hamburg.de/en/inst/ab/wtm/about/news/20240707wtmatijcnn.html"
+    },
+    {
+      "label": "IJCNN 2023 Award Winners",
+      "url": "https://2023.ijcnn.org/ijcnn-2023-award-winners/"
+    },
+    {
+      "label": "FAU: Landmark Success at IJCNN（2023 Best Paper）",
+      "url": "https://lme.tf.fau.de/?p=17879"
+    },
+    {
+      "label": "IISc: Best student paper award at IJCNN（2022）",
+      "url": "https://eecs.iisc.ac.in/events/best-student-paper-award-at-ijcnn/"
+    },
+    {
+      "label": "Saarland: Paper Presentation at IJCNN 2026（VISTA）",
+      "url": "https://iss.uni-saarland.de/news/paper-presentation-at-ijcnn-2026"
+    },
+    {
+      "label": "WCCI 2024 締切延長（comp-neuro ML）",
+      "url": "https://lists.cnsorg.org/hyperkitty/list/comp-neuro@lists.cnsorg.org/thread/KKVJZYELYTYACTWP7VIERKPIXZJZKH3W/"
+    },
+    {
+      "label": "IJCNN Acceptance Rate（非公式集計）",
+      "url": "https://modulabs.notion.site/IJCNN-Acceptance-Rate-706ddf0d4e954827b912fb5069c9bbd2"
+    },
+    {
+      "label": "ccf-deadlines ijcnn.yml",
+      "url": "https://raw.githubusercontent.com/ccfddl/ccf-deadlines/main/conference/AI/ijcnn.yml"
+    },
+    {
+      "label": "arXiv API（comment に IJCNN 2026 を含む論文の検索）",
+      "url": "https://export.arxiv.org/api/query?search_query=co:%22IJCNN%202026%22"
+    }
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "slug": "icons",
+  "name": "ICONS",
+  "fullName": "International Conference on Neuromorphic Systems",
+  "organizer": "Oak Ridge National Laboratory（ORNL）発祥のコミュニティが運営。論文集は ACM（2018〜2023、2026。2026 は SIGDA・SIGAI 協賛）と IEEE（2024・2025）",
+  "area": "ニューロモルフィック計算・スパイキングニューラルネットワーク",
+  "aliases": [
+    "ICONS",
+    "ACM ICONS",
+    "ICONS '26",
+    "International Conference on Neuromorphic Systems"
+  ],
+  "website": "https://iconsneuromorphic.cc/",
+  "summary": "ICONS は Oak Ridge National Laboratory が 2018 年に始めたニューロモルフィック計算専門の国際会議（2026 年で第 9 回）。デバイス・回路、SNN の学習とアルゴリズム、Loihi 2 などの実機評価、医療やロボットへの応用までを一つの会場で扱う。採録は年 40〜60 本程度と小規模で、論文集は ACM と IEEE を行き来している。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "ICONS 2027",
+    "location": "未発表",
+    "dates": "2027-07 下旬〜08 上旬（推定）",
+    "status": "推定",
+    "deadlines": [
+      {
+        "label": "論文締切",
+        "date": "2027-04-01",
+        "time": null,
+        "status": "推定",
+        "basis": "2021〜2025 はいずれも 4/30（2024 は 5/3 AoE まで延長、延長なしと明記）、2026 は 4/1（集約サイトでは 4/8 に延長）。直近の 2026 に合わせて 4 月 1 日前後を代表値とし、幅は 4/1〜4/30。",
+        "source": null
+      },
+      {
+        "label": "査読締切（参考）",
+        "date": "2027-05-中旬",
+        "status": "推定",
+        "basis": "2023 は 5/15、2024 は 5/15（NeuroPAC）、2026 は 5/13。",
+        "source": null
+      },
+      {
+        "label": "採否通知",
+        "date": "2027-06-上旬",
+        "status": "推定",
+        "basis": "2021 は 6/7、2022 は 6/10、2024 は 6/10（NeuroPAC では 6/6）、2026 は 6/5。",
+        "source": null
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-06-下旬",
+        "status": "推定",
+        "basis": "2026 は 6/24。他年は未確認。",
+        "source": null
+      }
+    ],
+    "notes": "ICONS 2027 の告知は 2026-10-27 時点の検索では見つからなかった。2026 年の CFP は EasyChair（icons26）で公開されており、2027 も同様の公開が見込まれる。会期は 2023〜2026 のいずれも 7 月末〜8 月上旬の 3〜4 日間（米国内）。"
+  },
+  "history": [
+    {
+      "edition": "ICONS 2026",
+      "location": "Chicago, IL, USA（会場 Chicago Marriott Naperville）",
+      "dates": "2026-08-04〜06",
+      "abstract": null,
+      "paper": "2026-04-01（集約サイトでは 2026-04-08 に延長）",
+      "notification": "2026-06-05",
+      "cameraReady": "2026-06-24",
+      "submissions": 112,
+      "accepted": 40,
+      "acceptanceRate": "35.7%",
+      "publisher": "ACM（DOI 10.1145/3822454）",
+      "source": "https://easychair.org/cfp/ACM-ICONS-2026"
+    },
+    {
+      "edition": "ICONS 2025",
+      "location": "Seattle, WA, USA（ORNL の記録では Bellevue）",
+      "dates": "2025-07-29〜31",
+      "abstract": null,
+      "paper": "2025-04-30（集約サイトの値）",
+      "notification": null,
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "publisher": "IEEE（DOI 10.1109/ICONS69015.2025）",
+      "source": "https://www.proceedings.com/84034.html"
+    },
+    {
+      "edition": "ICONS 2024",
+      "location": "Arlington, VA, USA（George Mason University）",
+      "dates": "2024-07-30〜08-02",
+      "abstract": null,
+      "paper": "2024-04-30（2024-05-03 AoE まで延長）",
+      "notification": "2024-06-10",
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "publisher": "IEEE（DOI 10.1109/ICONS62911.2024）",
+      "source": "https://iconsneuromorphic.cc/icons-2024/calls-2/"
+    },
+    {
+      "edition": "ICONS 2023",
+      "location": "Santa Fe, NM, USA（ハイブリッド）",
+      "dates": "2023-08-01〜03",
+      "abstract": null,
+      "paper": "2023-04-30",
+      "notification": null,
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "publisher": "ACM（DOI 10.1145/3589737）",
+      "source": "https://icons.ornl.gov/for-authors/"
+    }
+  ],
+  "format": [
+    "論文は最大 8 ページ（参考文献・付録を含む）（ICONS 2026 CFP）。",
+    "投稿と査読は EasyChair。2026 は投稿 4/1 → 査読締切 5/13 → 通知 6/5 → カメラレディ 6/24。リバッタルの記載は見当たらない。",
+    "査読方式（ダブルブラインドか否か）は公式ページに到達できず未確認。",
+    "発表は口頭とポスター。2025 はポスター発表のみで論文集に載らない枠もあった（arXiv 2606.18732 の注記）。",
+    "論文集：2023 と 2026 は ACM（2026 は SIGDA・SIGAI 協賛）、2024・2025 は IEEE（Conference Publishing Services、IEEE Xplore 収録）。",
+    "会期は 3〜4 日。基調講演（2026 は Sandia の Brad Aimone ほか）と Best Paper の表彰がある。"
+  ],
+  "features": [
+    "ORNL の主導で 2018 年に始まった、ニューロモルフィック計算に特化した国際会議。2026 年で第 9 回（CFP の記載）。",
+    "米国の国立研究所（ORNL・Sandia・Argonne・空軍工科大学 AFIT など）とテネシー大 TENNLab、George Mason 大などの参加が多く、EONS/Caspian、Fugu、Lava/Loihi 2 といった米国系ツールを使う研究が目立つ。",
+    "デバイス（メモリスタ、強誘電体、トンネル FET）から回路、SNN の学習則、アプリケーションまでが同じ会場に並ぶ。NeurIPS などの大規模 ML 会議より規模は小さく、ハードウェアとの距離が近い。",
+    "採録は年 40〜60 本程度の小規模会議（2026 は 112 投稿・40 採録）。CORE・CCF への掲載は確認できなかった。",
+    "同名の IARIA「ICONS（International Conference on Systems）」とは別物（2025 年はニースで開催）。arXiv の注記で混同しやすいので注意。"
+  ],
+  "trends": [
+    "論文集の出版社が 2023（ACM）→ 2024・2025（IEEE）→ 2026（ACM、SIGDA・SIGAI 協賛）と変わった（Crossref の会議メタデータで確認）。",
+    "2026 は 112 投稿・40 採録（約 36%。ACM DL の統計の検索スニペット）。Crossref 上の論文数は 2023 が 42 件、2024 が約 56 件、2026 が 40 件。",
+    "論文締切は 2021〜2025 の 4 月 30 日前後から、2026 は 4 月 1 日に約 1 か月前倒しされた。",
+    "2026 は平衡伝播（FlowEqProp）、状態空間モデル（Phase SSM、4SM）、超次元計算（SRMU、HyperGraphX）など学習理論寄りの論文が増えた。一方で Loihi 2 の実測比較（Conv LCA、SDNN 変換）も続く（2026 年の採録一覧、Crossref）。",
+    "応用の幅が広い。医療（パーキンソン病 DBS、認知症 EEG）、電力変換器の健全性監視、ヒューマノイドや群ロボット、音響イベント検出、航空管制の認知負荷推定（2025）など。",
+    "Best Paper は、2021 年が SNN 設計のベイズ最適化、2022 年がロボットの継続学習、2025 年が乱流の確率過程シミュレーション、2026 年が EP による生成モデル学習。認知以外の応用と新しい学習則が評価される傾向がある（調査者の見立て）。"
+  ],
+  "fields": [
+    {
+      "slug": "snn",
+      "fit": "高",
+      "reason": "採録の大半が SNN の学習・量子化・実装。Beyond Weights（2023）、Event-SSM（2024）、Phase SSM（2026）のほか、既存デッキの Extreme Quantization in Spiking LMs（2024、snn/selective-spiking）と Sigma-Delta Neural Network Conversion on Loihi 2（2026、snn/fair-benchmark）も ICONS 論文。"
+    },
+    {
+      "slug": "neuromorphic-robotics",
+      "fit": "高",
+      "reason": "イベントカメラやロボット制御の論文が毎年ある。EEvAct（2025）、腕と歩行のスパイキング統合制御（2026）、TRIP（2024）、2022 年 Best Paper の Interactive continual learning for robots など。"
+    },
+    {
+      "slug": "genetic-algorithm",
+      "fit": "中",
+      "reason": "TENNLab の EONS による SNN の構造進化が定番の手法。Co-Evolved SNN Ensembles（2026）、Competitive Co-Evolution with SNNs（2024）、SNN 群制御（2024）。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "中",
+      "reason": "SNN を群ロボットの制御器に使う研究が続く。Spiking Neural Networks as a Controller for Emergent Swarm Agents（2024）、Zespol（2023）。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "FlowEqProp: Training Flow Matching Generative Models with Gradient Equilibrium Propagation",
+      "authors": "Alex Gower（Nokia Bell Labs / University of Cambridge）",
+      "link": "https://arxiv.org/abs/2604.08150",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "平衡伝播をエネルギー勾配（速度場）の学習に拡張した GradEP で、フローマッチング生成モデルを誤差逆伝播なしで学習。8×8 手書き数字で判読できるサンプルを生成した。",
+      "basis": "ACM の Conferences Best Paper Awards 一覧に「Best Paper at ICONS '26」として掲載（検索スニペット。公式サイトには未到達）。",
+      "source": "https://www.acm.org/conferences/best-paper-awards"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "Best Paper Finalist（上位 3 候補）",
+      "title": "Neuromorphic Silicon Neuron Controller for Adaptive Deep Brain Stimulation in Parkinson's Disease",
+      "authors": "Md Abu Bakr Siddique ほか（Michigan Technological University）",
+      "link": "https://arxiv.org/abs/2607.05453",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "aDBS の制御器を不応期付き CMOS LIF ニューロンで実装し、パーキンソン病モデルの閉ループで開ループ比 25% の電力で β 振動を抑えた。",
+      "basis": "著者研究室（BrainX Lab）のニュースに、ICONS 2026 で口頭発表し Top 3 Best Paper Finalists に選ばれたとの記載（検索スニペット）。",
+      "source": "https://sites.google.com/mtu.edu/hongyu/news-and-events"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Phase State Space Models: Parallel, Surrogate-Free Training of Spiking Networks",
+      "authors": "Wilkie Olin-Ammentorp（Argonne National Laboratory）",
+      "link": "https://arxiv.org/abs/2608.07754",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "周波数ロックした resonate-and-fire ニューロンを SSM として定式化し、代理勾配なしの並列学習を実現。",
+      "basis": "ICONS 2026 採録（DOI 10.1145/3822454.3822484）。公式の賞情報はなく、SNN の並列学習という近年の主題に直結するため調査者が選定。",
+      "source": "https://api.crossref.org/works/10.1145/3822454.3822484"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Convolutional Sparse Coding via the Locally Competitive Algorithm on Loihi 2",
+      "authors": "Geoffrey Kasenbacher ほか（Mercedes-Benz AG / Universität zu Lübeck）",
+      "link": "https://arxiv.org/abs/2606.08584",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "畳み込み LCA を Loihi 2 に初めて実装し GPU と比較。遅延は GPU が速く、エネルギーは Loihi 2 が約 4〜140 倍有利。",
+      "basis": "ICONS 2026 採録（DOI 10.1145/3822454.3822468）。Loihi 2 の省エネ評価という本アーカイブの論点に直結するため選定。",
+      "source": "https://api.crossref.org/works/10.1145/3822454.3822468"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "A Spiking Neural Architecture for Coordinating Arm and Locomotor Control",
+      "authors": "Lea Steffen ほか（University of Waterloo / Applied Brain Research）",
+      "link": "https://arxiv.org/abs/2606.11034",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "腕の力制御と二足歩行を単一の SNN に統合し、基底核モデルで切り替えるヒューマノイド制御。",
+      "basis": "ICONS 2026 採録（DOI 10.1145/3822454.3822466）。neuromorphic-robotics 分野との関係で選定。",
+      "source": "https://api.crossref.org/works/10.1145/3822454.3822466"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Co-Evolved Spiking Neural Network Ensembles via Marginal Contribution Fitness",
+      "authors": "Catherine Rodriquez, James Ghawaly Jr.（Louisiana State University）",
+      "link": "https://arxiv.org/abs/2606.13985",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "限界貢献を適応度とする協調共進化で SNN アンサンブルを進化させ、分類・回帰・制御で単一進化と事後アンサンブルを上回った。",
+      "basis": "ICONS 2026 採録（arXiv 注記と DOI 10.1145/3822454.3822482）。genetic-algorithm 分野との関係で選定。",
+      "source": "https://api.crossref.org/works/10.1145/3822454.3822482"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "採録（参照）",
+      "title": "Sigma-Delta Neural Network Conversion on Loihi 2",
+      "authors": "Matthew Brehove ほか（ChromoLogic / Penn State）",
+      "link": "https://arxiv.org/abs/2505.06417",
+      "slide": null,
+      "status": "既存：snn/fair-benchmark",
+      "summary": "量子化 ANN を Loihi 2 の Σ-Δ ニューロンへ変換し Jetson と比較。PilotNet で 16 倍超の省エネ、検出モデルでは約 1.2 倍。",
+      "basis": "ICONS 2026 採録（DOI 10.1145/3822454.3822490）。既存デッキで全文確認済み。",
+      "source": "https://api.crossref.org/works/10.1145/3822454.3822490"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "A Comparison of Custom and Standard Neuron Model Random Walks on the Ornstein-Uhlenbeck Equation for Simplified Turbulence",
+      "authors": "Brady Taylor ほか（Sandia National Laboratories）",
+      "link": "https://doi.org/10.1109/ICONS69015.2025.00012",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "ニューロモルフィックなランダムウォークで Ornstein-Uhlenbeck 方程式（簡略化した乱流モデル）を解く際の、専用ニューロンモデルと標準ニューロンモデルの比較（題名と検索情報に基づく。本文は非公開）。",
+      "basis": "ICONS の Schedule-2025 ページに Best Paper Award Winner として掲載（検索スニペット）。",
+      "source": "https://iconsneuromorphic.cc/schedule-2025/"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "Best Paper Award Nominee",
+      "title": "Neuromorphic Closed-Loop Control with Spiking Motor Neuron and Muscle Spindle Models",
+      "authors": null,
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "スパイキング運動ニューロンと筋紡錘のモデルによる閉ループ制御（題名からの概要。本文と著者は未確認）。",
+      "basis": "Schedule-2025 ページで Best Paper Award Nominee として掲載（検索スニペット）。",
+      "source": "https://iconsneuromorphic.cc/schedule-2025/"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "EEvAct: Early Event-Based Action Recognition with High-Rate Two-Stream Spiking Neural Networks",
+      "authors": "Michael Neumeier ほか（fortiss / Technical University of Munich）",
+      "link": "https://arxiv.org/abs/2507.07734",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "2 ms ビンの高レート二流路 SNN で THU EACT-50 94.9%（3D CNN 超え）と、早期認識の評価枠組みを提示。",
+      "basis": "ICONS 2025 採録（arXiv 注記、Crossref の 2025 論文集）。2025 年 Best Paper は本文非公開のため、neuromorphic-robotics 分野に近い採録論文として選定。",
+      "source": "https://arxiv.org/abs/2507.07734"
+    },
+    {
+      "year": 2024,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Scalable Event-by-event Processing of Neuromorphic Sensory Signals With Deep State-Space Models",
+      "authors": "Mark Schöne ほか（TU Dresden / Ruhr-University Bochum）",
+      "link": "https://arxiv.org/abs/2404.18508",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "イベント間隔で離散化した S5 で百万イベント級の列をイベント単位で学習。SSC 88.4%、DVS128 97.7%。",
+      "basis": "ICONS 2024 採録（Crossref）。2024 年の Best Paper は特定できず、SNN と SSM をつなぐ代表的な論文として選定。",
+      "source": "https://arxiv.org/abs/2404.18508"
+    },
+    {
+      "year": 2024,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Spiking Neural Networks as a Controller for Emergent Swarm Agents",
+      "authors": "Kevin Zhu ほか（George Mason University / University of Utah）",
+      "link": "https://arxiv.org/abs/2410.16175",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "2 値センサの群ロボットに EONS で進化させた SNN を載せ、ミリング行動を創発させた。",
+      "basis": "ICONS 2024 で発表（arXiv 注記、Crossref の 2024 論文集）。swarm-intelligence 分野との関係で選定。",
+      "source": "https://arxiv.org/abs/2410.16175"
+    },
+    {
+      "year": 2024,
+      "kind": "topic",
+      "award": "採録（参照）",
+      "title": "Exploring Extreme Quantization in Spiking Language Models",
+      "authors": "Malyaban Bal, Yi Jiang, Abhronil Sengupta（Pennsylvania State University）",
+      "link": "https://arxiv.org/abs/2405.02543",
+      "slide": null,
+      "status": "既存：snn/selective-spiking",
+      "summary": "スパイキング言語モデルの重みを 1〜1.58 ビットまで量子化する試み。",
+      "basis": "ICONS 2024 採録（DOI 10.1109/ICONS62911.2024.00047）。既存デッキで全文確認済み。",
+      "source": "https://arxiv.org/abs/2405.02543"
+    },
+    {
+      "year": 2023,
+      "kind": "topic",
+      "award": "採録（話題）",
+      "title": "Beyond Weights: Deep learning in Spiking Neural Networks with pure synaptic-delay training",
+      "authors": "Edoardo W. Grappolini, Anand Subramoney（Università degli Studi di Firenze / Royal Holloway, University of London）",
+      "link": "https://arxiv.org/abs/2306.06237",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "重みを固定してシナプス遅延だけを学習しても、MNIST 95.6%・Fashion-MNIST 86.6% と重み学習に迫る精度を得た。",
+      "basis": "ICONS 2023 採録（arXiv 注記）。2023 年の Best Paper は特定できず、遅延学習という SNN の論点の先駆として選定。",
+      "source": "https://arxiv.org/abs/2306.06237"
+    },
+    {
+      "year": 2022,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Interactive continual learning for robots: a neuromorphic approach",
+      "authors": "Elvin Hajizada, Patrick Berggold, Yulia Sandamirskaya（Intel）",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "ニューロモルフィックな手法でロボットが対話的に物体を継続学習する研究（検索情報に基づく）。",
+      "basis": "ICONS 2022 の Awards ページと Intel のページに掲載（検索スニペット）。",
+      "source": "https://icons.ornl.gov/2022/awards/"
+    },
+    {
+      "year": 2021,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Accurate and Accelerated Neuromorphic Network Design Leveraging A Bayesian Hyperparameter Pareto Optimization Approach",
+      "authors": "Maryam Parsa ほか（Purdue University / ORNL）",
+      "link": null,
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "ベイズ多目的ハイパーパラメータ最適化で SNN とニューロモルフィックハードの設計を高速化する研究（検索情報に基づく）。",
+      "basis": "Purdue の C-BRIC ニュース（2021-08-26）。",
+      "source": "https://engineering.purdue.edu/NRL/News/cbric-purdue-researchers-win-icons-best-paper-award"
+    }
+  ],
+  "unknowns": [
+    "ICONS 2026 Best Paper（FlowEqProp）の出典は ACM の Best Paper 一覧の検索スニペットだけで、公式サイト（iconsneuromorphic.cc）では確認できていない。選考理由も不明。",
+    "ICONS 2026 の Best Student Paper など他部門の有無、Best Paper Finalist（上位 3 候補）の残り 2 本の題名。",
+    "ICONS 2025 Best Paper（Taylor ほか）の本文と全著者（IEEE Xplore のみで非公開）。2025 年のノミネート全体と Best Student Paper。",
+    "ICONS 2024・2023 の Best Paper（検索で特定できなかった）。",
+    "ICONS 2022 の Best Student Paper の正確な題名（マイクロ飛行体向けのニューロモルフィック PID 制御）。2022 年のスケジュールで BEST PAPER と表記された Aimone ほか「Learning to Parameterize a Stochastic Process Using Neuromorphic Data Generation」の位置づけ（受賞か候補か）。",
+    "ICONS 2026 の締切延長（4/8）は集約サイト（myhuiban）の記載のみで、公式には確認できない。",
+    "ICONS 2025 の締切（4/30）は集約サイトの値。2025・2023 の採否通知日。",
+    "2023〜2025 の投稿数・採択数・採択率（Crossref の論文レコード数は 2023: 42、2024: 約 56、2025: 約 31 だが、検索の取りこぼしがあり得る）。",
+    "査読方式（ダブルブラインドか）、リバッタルの有無、ショート論文とポスターの区分。",
+    "ICONS 2027 の開催地・日程・締切（未発表）。",
+    "CORE・CCF の格付け（掲載を確認できなかった）。",
+    "ICONS 2025 の開催地の表記が Seattle（IEEE・Crossref）と Bellevue（ORNL の記録）で揺れている（ベルビューはシアトル都市圏）。"
+  ],
+  "sources": [
+    {
+      "label": "ACM ICONS 2026 Call for Papers（EasyChair）",
+      "url": "https://easychair.org/cfp/ACM-ICONS-2026"
+    },
+    {
+      "label": "ICONS 2026 公式サイト",
+      "url": "https://iconsneuromorphic.cc/"
+    },
+    {
+      "label": "ICONS 2026 Speakers",
+      "url": "https://iconsneuromorphic.cc/speakers-2026-2/"
+    },
+    {
+      "label": "ICONS 2026 Schedule",
+      "url": "https://iconsneuromorphic.cc/Schedule-2026/"
+    },
+    {
+      "label": "ICONS 2026 Cvent（会期・会場）",
+      "url": "https://web.cvent.com/event/18878308-da54-4c71-8abd-9ebae6aebec9/summary"
+    },
+    {
+      "label": "ICONS 2026 論文集メタデータ（Crossref, ACM）",
+      "url": "https://api.crossref.org/works/10.1145/3822454"
+    },
+    {
+      "label": "ACM Conferences Best Paper Awards",
+      "url": "https://www.acm.org/conferences/best-paper-awards"
+    },
+    {
+      "label": "ACM DL ICONS 論文集ページ（投稿・採録数）",
+      "url": "https://dl.acm.org/doi/proceedings/10.5555/3774519"
+    },
+    {
+      "label": "BrainX Lab（Michigan Tech）ニュース",
+      "url": "https://sites.google.com/mtu.edu/hongyu/news-and-events"
+    },
+    {
+      "label": "ICONS 締切の集約（myhuiban）",
+      "url": "https://www.myhuiban.com/conference/5479?lang=en-us"
+    },
+    {
+      "label": "ICONS Schedule-2025（Best Paper）",
+      "url": "https://iconsneuromorphic.cc/schedule-2025/"
+    },
+    {
+      "label": "ICONS 2025 論文集（proceedings.com）",
+      "url": "https://www.proceedings.com/84034.html"
+    },
+    {
+      "label": "Message from the General Chairs ICONS 2025（ORNL）",
+      "url": "https://impact.ornl.gov/en/publications/message-from-the-general-chairs-icons-2025/"
+    },
+    {
+      "label": "TENNLab の ICONS 2025 発表",
+      "url": "https://neuromorphic.eecs.utk.edu/posts/2025-07-01-ICONS/"
+    },
+    {
+      "label": "ICONS 2024 Calls",
+      "url": "https://iconsneuromorphic.cc/icons-2024/calls-2/"
+    },
+    {
+      "label": "ICONS 2024 論文集（proceedings.com）",
+      "url": "https://www.proceedings.com/77533.html"
+    },
+    {
+      "label": "ICONS 2024 IEEE Xplore 目次",
+      "url": "https://ieeexplore.ieee.org/xpl/conhome/10766494/proceeding"
+    },
+    {
+      "label": "ICONS 2023 Call for Papers（ORNL）",
+      "url": "https://icons.ornl.gov/for-authors/"
+    },
+    {
+      "label": "ICONS 2023 論文集メタデータ（Crossref, ACM）",
+      "url": "https://api.crossref.org/works/10.1145/3589737"
+    },
+    {
+      "label": "ICONS 2022 Awards",
+      "url": "https://icons.ornl.gov/2022/awards/"
+    },
+    {
+      "label": "ICONS 2022 Schedule",
+      "url": "https://icons.ornl.gov/2022/schedule/"
+    },
+    {
+      "label": "C-BRIC Purdue Researchers Win ICONS Best Paper Award（2021）",
+      "url": "https://engineering.purdue.edu/NRL/News/cbric-purdue-researchers-win-icons-best-paper-award"
+    },
+    {
+      "label": "arXiv 検索（comments に ICONS 2023〜2026 を含む論文）",
+      "url": "https://export.arxiv.org/api/query?search_query=co:ICONS"
+    }
+  ]
+}

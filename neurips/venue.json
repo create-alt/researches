@@ -1,0 +1,642 @@
+{
+  "slug": "neurips",
+  "name": "NeurIPS",
+  "fullName": "Conference on Neural Information Processing Systems",
+  "organizer": "NeurIPS Foundation",
+  "area": "機械学習・計算論的神経科学・認知",
+  "aliases": [
+    "NeurIPS",
+    "NIPS"
+  ],
+  "website": "https://neurips.cc/",
+  "summary": "1987 年創設の機械学習の最大級の国際会議。毎年 12 月開催で、本会議に加え Datasets & Benchmarks（2026 から Evaluations & Datasets）、Position Paper、Journal Track、約100のワークショップが並ぶ。2026 年の本会議投稿は 30,709 本で、2024 年から倍増した。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "NeurIPS 2027",
+    "location": "未発表（地域は欧州との二次情報あり）",
+    "dates": "2027-12 上旬〜中旬（推定）",
+    "status": "推定",
+    "deadlines": [
+      {
+        "label": "アブストラクト締切",
+        "date": "2027-05-06",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "2023〜2026 のアブストラクト締切は 5/11, 5/15, 5/11, 5/4（いずれも AoE 相当）。年々早まる傾向で、2027 は 5 月第1〜2週（5/4〜5/14 の幅）と推定。",
+        "source": null
+      },
+      {
+        "label": "論文締切",
+        "date": "2027-05-12",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "2023〜2026 の論文締切は 5/17, 5/22, 5/15, 5/6。アブストラクトの 2〜7 日後。2027 は 5/6〜5/21 の幅で、代表値 5 月中旬前半。",
+        "source": null
+      },
+      {
+        "label": "レビュー公開・リバッタル",
+        "date": "2027-07-下旬",
+        "status": "推定",
+        "basis": "2026 はレビュー公開 2026-07-22（公式 Dates）。リバッタル期間の公式日付は未確認。",
+        "source": null
+      },
+      {
+        "label": "採否通知",
+        "date": "2027-09-下旬",
+        "status": "推定",
+        "basis": "2024: 9/25、2025: 9/18、2026: 9/24（いずれも公式）。",
+        "source": null
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-10-下旬",
+        "status": "推定",
+        "basis": "2025 は 10/23（公式 CFP）。2026 は 10/24 との二次情報のみ。",
+        "source": null
+      }
+    ],
+    "notes": "NeurIPS の CFP は例年 3〜4 月に公開（2026 は 4 月中旬に投稿受付開始）。2026 は OpenReview で全著者のプロフィールが必須、相互査読（著者の査読参加）・LLM 利用方針も CFP で更新されるため、2027 の公式発表で確認が必要。"
+  },
+  "history": [
+    {
+      "edition": "NeurIPS 2026",
+      "location": "Sydney, Australia（本会場）＋ Atlanta, USA / Paris, France（公式サテライト）",
+      "dates": "Sydney 2026-12-06〜12（本会議 12-08〜10）、Atlanta 12-08〜13、Paris 12-09〜13",
+      "abstract": "2026-05-04",
+      "paper": "2026-05-06",
+      "notification": "2026-09-24",
+      "submissions": 30709,
+      "accepted": 7900,
+      "acceptanceRate": "25.7%",
+      "source": "https://neurips.cc/Conferences/current/Dates"
+    },
+    {
+      "edition": "NeurIPS 2025",
+      "location": "San Diego, USA ＋ Mexico City, Mexico（公式第2会場）。Copenhagen で EurIPS（NeurIPS 公認）",
+      "dates": "San Diego 2025-12-02〜07、Mexico City 11-30〜12-05",
+      "abstract": "2025-05-11",
+      "paper": "2025-05-15",
+      "notification": "2025-09-18",
+      "submissions": 21575,
+      "accepted": 5290,
+      "acceptanceRate": "24.52%",
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "edition": "NeurIPS 2024",
+      "location": "Vancouver, Canada",
+      "dates": "2024-12-10〜15（本会議 12-11〜13）",
+      "abstract": "2024-05-15",
+      "paper": "2024-05-22",
+      "notification": "2024-09-25",
+      "submissions": 15671,
+      "accepted": 4037,
+      "acceptanceRate": "25.8%",
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2024/NeurIPS2024-Fact_Sheet.pdf"
+    },
+    {
+      "edition": "NeurIPS 2023",
+      "location": "New Orleans, USA",
+      "dates": "2023-12-10〜16（本会議 12-12〜14）",
+      "abstract": "2023-05-11",
+      "paper": "2023-05-17",
+      "notification": null,
+      "submissions": 12345,
+      "accepted": 3218,
+      "acceptanceRate": "26.1%",
+      "source": "https://papercopilot.com/statistics/neurips-statistics/"
+    },
+    {
+      "edition": "NeurIPS 2022",
+      "location": "New Orleans, USA（ハイブリッド）",
+      "dates": "2022-11-28〜12-01（現地）、12-06〜08（オンライン）",
+      "abstract": "2022-05-16",
+      "paper": "2022-05-19",
+      "notification": null,
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "source": "https://neurips.cc/Conferences/2022"
+    }
+  ],
+  "format": [
+    "OpenReview によるダブルブラインド査読（Datasets & Benchmarks は単一盲検も可）。著者リバッタルと討論期間あり。全著者に OpenReview プロフィールが必要。",
+    "本文 9 ページ（図表込み）＋参考文献・チェックリスト・付録は別。採択後のカメラレディは 1 ページ追加可（2025 CFP）。論文チェックリストが必須。",
+    "論文集は Advances in Neural Information Processing Systems（proceedings.neurips.cc でオープンアクセス）。",
+    "トラック：Main Track、Datasets & Benchmarks（2026 から Evaluations & Datasets Track に改称・拡張）、Position Paper Track（2025〜）、Journal Track（2026 は TMLR・JMLR・Annals of Statistics から 88 本）。",
+    "採択論文は Poster・Spotlight・Oral に区分。Oral は投稿比 0.4% 前後（2026 の著者記載で 0.36%・上位 0.4%）。",
+    "併催：約 100 のワークショップ（2026 は 102 本を 3 都市に分配）、チュートリアル、コンペティション、Expo。"
+  ],
+  "features": [
+    "1987 年創設、NeurIPS Foundation（非営利）主催。ICML・ICLR と並ぶ機械学習の三大会議で、規模は最大（2025 の現地参加は San Diego だけで約 2.45 万人、Fact Sheet）。",
+    "CORE ランク A*、CCF A（ccf-deadlines YAML）。",
+    "対象は深層学習・強化学習・学習理論・最適化から計算論的神経科学・認知科学まで広く、理論と応用、データセット・評価研究を同じ会議で扱う。",
+    "受賞は Best Paper（旧 Outstanding Paper）・Runner-up・Datasets & Benchmarks 部門・Test of Time（10 年前の NeurIPS 論文）。会期直前（11 月末〜12 月上旬）に公式ブログで発表。",
+    "ICML・ICLR より投稿締切が遅く（5 月）、年末の会期まで間が長い。採否は 9 月下旬。"
+  ],
+  "trends": [
+    "投稿数の急増：本会議の有効投稿は 2023 年 12,345 → 2024 年 15,671 → 2025 年 21,575 → 2026 年 30,709（2 年でほぼ倍増）。採択率は 24.5〜26% で安定（Fact Sheet、RIKEN AIP 2026）。",
+    "会場の分散：2025 は San Diego に加え Mexico City を公式第 2 会場とし、Copenhagen の EurIPS（ELLIS 主導、約 2,000〜2,200 人）を公認。2026 は Sydney を本会場に Atlanta・Paris を公式サテライトとする 3 都市開催。2027 は欧州との二次情報。",
+    "トラック再編：Position Paper Track 新設（2025）、Datasets & Benchmarks を Evaluations & Datasets に改称し「評価そのもの」を研究対象に拡張（2026）、Journal Track 開始（2026, 88 本）。",
+    "LLM と査読：2026 は Main Track で OpenReview 上の LLM による査読支援を試行（E&D は対象外）。Position Track では AI 生成疑いで 178 本（18.4%）を desk reject したとの二次情報、存在しない参考文献による desk reject の報道もある（いずれも公式未確認）。",
+    "トピック：2025 の受賞は LLM の注意機構（Gated Attention）、RLVR の限界、スケーリング則、拡散モデルの汎化、LLM 出力の均質化など「LLM 時代の基礎の理解」に集中。2026 の Oral でも視覚 CoT・言語条件付き世界モデル・具身ナビゲーションが目立つ。"
+  ],
+  "fields": [
+    {
+      "slug": "world-model",
+      "fit": "高",
+      "reason": "PETS・Director・MOPO・PLDM・WorldModelBench（D&B）など既存デッキに 9 本。2026 も AWM、Oral の LCVN（言語条件付き世界モデル）がある。"
+    },
+    {
+      "slug": "language-action",
+      "fit": "高",
+      "reason": "gSCAN・UniPi・TRA・Ground-Compose-Reinforce など既存 5 本。2026 Oral に LCVN・ProCompNav（言語での対話と探索）。"
+    },
+    {
+      "slug": "snn",
+      "fit": "高",
+      "reason": "SLAYER・SEW-ResNet・OTTT・PSN・Spike-driven Transformer など SNN 学習法の主要論文の発表先（既存 7 本）。"
+    },
+    {
+      "slug": "gnn",
+      "fit": "高",
+      "reason": "Interaction Networks・Graphormer・GPS・G1・GNN-SSM など既存 6 本。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "中",
+      "reason": "群知能そのものより、DeepACO・DIFUSCO・ReEvo・MetaBox-v2 など学習型組合せ最適化・メタ最適化の論文が多い（既存 9 本）。"
+    },
+    {
+      "slug": "open-endedness",
+      "fit": "中",
+      "reason": "BFM-QD（2026）、受賞の Artificial Hivemind（LLM 出力の多様性崩壊）、Oral の Control-Maximization（スキル発見）が関係。"
+    },
+    {
+      "slug": "hypernetworks",
+      "fit": "中",
+      "reason": "DFN・GHN-2・RPG・Drag-and-Drop LLMs など重み生成の論文（既存 4 本）。"
+    },
+    {
+      "slug": "neural-cellular-automata",
+      "fit": "中",
+      "reason": "Self-Assembling Agents・GNCA・ViTCA・DiffLogic 系など（既存 5 本）。"
+    },
+    {
+      "slug": "active-inference",
+      "fit": "中",
+      "reason": "DAIMC・Contrastive AIF など深層能動的推論の論文（既存 2 本）。計算論的神経科学の枠もある。"
+    },
+    {
+      "slug": "genetic-algorithm",
+      "fit": "中",
+      "reason": "WANN・SRBench（D&B）・PMO（D&B）・Genetic GFN など、進化計算と深層学習の接点（既存 4 本）。"
+    },
+    {
+      "slug": "neuromorphic-robotics",
+      "fit": "中",
+      "reason": "eVAE（イベントカメラ）など。ニューロモルフィック系は主にワークショップ。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "NeurIPS 2026 Oral（話題）",
+      "title": "Language-Conditioned World Modeling for Visual Navigation",
+      "authors": "Yifei Dong, Fengyi Wu ほか",
+      "link": "https://arxiv.org/abs/2603.26741",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "言語指示と開始画像だけから全軌道を予測する LCVN 課題とデータを作り、拡散世界モデル＋潜在 actor-critic と統一自己回帰モデルを比較。",
+      "basis": "著者の arXiv コメントに「NeurIPS 2026 Oral (0.36% acceptance)」。本アーカイブの world-model・language-action に直結。",
+      "source": "https://arxiv.org/abs/2603.26741"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "NeurIPS 2026 Oral（話題）",
+      "title": "Unifying Goal-Conditioned RL and Unsupervised Skill Learning via Control-Maximization",
+      "authors": "Alireza Modirshanechi, Benjamin Eysenbach, Peter Dayan, Eric Schulz",
+      "link": "https://arxiv.org/abs/2605.06145",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "GCRL の3定式化が異なる最適方策を持つことを示し、各定式化に対応する相互情報量スキル学習の目的を上下界で特定した理論研究。",
+      "basis": "著者の arXiv コメントに「Accepted at NeurIPS 2026 (Oral Presentation)」。open-endedness（スキル発見・エンパワーメント）に関係。",
+      "source": "https://arxiv.org/abs/2605.06145"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "NeurIPS 2026 Oral（話題）",
+      "title": "ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries",
+      "authors": "Junhyuk Kwon ほか",
+      "link": "https://arxiv.org/abs/2605.06223",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "曖昧な指示で個体を探すナビゲーションで、候補間を二分する属性の Yes/No 質問で絞り込む比較判断を提案。成功率向上と回答長の大幅削減。",
+      "basis": "著者の arXiv コメントに「Accepted to NeurIPS 2026 (Oral)」。language-action に関係。",
+      "source": "https://arxiv.org/abs/2605.06223"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "NeurIPS 2026 Oral（話題）",
+      "title": "Thinking with Images as Continuous Actions: Numerical Visual Chain-of-Thought",
+      "authors": "Kesen Zhao, Beier Zhu ほか",
+      "link": "https://arxiv.org/abs/2602.23959",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "MLLM の視覚 CoT で領域座標を連続値の行動として出し、ガウス／ラプラス方策で GRPO に組み込む。7B で 32B 超え。",
+      "basis": "著者の arXiv コメントに「Accepted at NeurIPS 2026, Oral (Top 0.4%)」。「thinking with images」は 2025〜2026 の主要トピック。",
+      "source": "https://arxiv.org/abs/2602.23959"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
+      "authors": "Zihan Qiu ほか（Qwen Team）",
+      "link": "https://arxiv.org/abs/2505.06708",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "SDPA 出力へのヘッド固有シグモイドゲートで、性能・学習安定性・長文外挿が向上し attention sink が消えることを大規模比較で示した。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "1000 Layer Networks for Self-Supervised RL: Scaling Depth Can Enable New Goal-Reaching Capabilities",
+      "authors": "Kevin Wang ほか, Benjamin Eysenbach",
+      "link": "https://arxiv.org/abs/2503.14858",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "Contrastive RL を最大1024層に深くすると性能が2〜50倍になり、臨界深さで新しい行動が創発する。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Why Diffusion Models Don't Memorize: The Role of Implicit Dynamical Regularization in Training",
+      "authors": "Tony Bonnaire, Raphaël Urfin, Giulio Biroli, Marc Mézard",
+      "link": "https://arxiv.org/abs/2505.17638",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "生成品質が上がる時刻と記憶が始まる時刻が分離し、後者のみがデータ数に比例して伸びることを実験と可解モデルで示した。",
+      "basis": null,
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award（Datasets & Benchmarks Track）",
+      "title": "Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)",
+      "authors": "Liwei Jiang ほか, Yejin Choi",
+      "link": "https://arxiv.org/abs/2510.22954",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "実利用の開かれた問い2.6万件で、LLM のモデル内反復とモデル間の均質化（人工の集合精神）を定量化し、密な人手評価を公開。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Runner-up",
+      "title": "Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?",
+      "authors": "Yang Yue ほか, Gao Huang",
+      "link": "https://arxiv.org/abs/2504.13837",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "pass@k を大きな k で測ると基盤モデルが RLVR 版を上回り、RLVR は新しい推論能力を生まずサンプリング効率を上げるだけだと示した。",
+      "basis": null,
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Runner-up",
+      "title": "Optimal Mistake Bounds for Transductive Online Learning",
+      "authors": "Zachary Chase, Steve Hanneke, Shay Moran, Jonathan Shafer",
+      "link": "https://arxiv.org/abs/2512.12567",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "トランスダクティブなオンライン学習の最適誤り回数が Littlestone 次元 d に対し Ω(√d) で、O(√d) が達成可能と示し、30年来の問題を解決。",
+      "basis": null,
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Runner-up",
+      "title": "Superposition Yields Robust Neural Scaling",
+      "authors": "Yizhou Liu, Ziming Liu, Jeff Gore",
+      "link": "https://arxiv.org/abs/2505.10465",
+      "slide": 11,
+      "status": "スライド化",
+      "summary": "表現の重ね合わせが強いと損失がモデル幅に反比例することを玩具モデルで示し、実 LLM のスケーリング則を説明。",
+      "basis": null,
+      "source": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+      "authors": "Shaoqing Ren, Kaiming He, Ross Girshick, Jian Sun",
+      "link": "https://proceedings.neurips.cc/paper/2015/hash/14bfa6bb14875e45bba028a21ed38046-Abstract.html",
+      "slide": 12,
+      "status": "スライド化",
+      "summary": "NIPS 2015 論文。検出網と特徴を共有する RPN とアンカーで候補生成をほぼ無料にし、二段式検出の標準を築いた。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2025/11/26/announcing-the-test-of-time-paper-award-for-neurips-2025/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Visual Autoregressive Modeling: Scalable Image Generation via Next-Scale Prediction",
+      "authors": "Keyu Tian, Yi Jiang, Zehuan Yuan, Bingyue Peng, Liwei Wang",
+      "link": "https://arxiv.org/abs/2404.02905",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "画像を「次のトークン」でなく「次の解像度」の予測として自己回帰生成する VAR（検索情報に基づく概要）。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Stochastic Taylor Derivative Estimator: Efficient amortization for arbitrary differential operators",
+      "authors": "Zekun Shi ほか",
+      "link": "https://arxiv.org/abs/2412.00088",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "高階微分を含む損失（物理情報 NN 等）を効率よく推定する確率的テイラー微分推定器 STDE（検索情報に基づく概要）。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Runner-up",
+      "title": "Not All Tokens Are What You Need for Pretraining（Rho-1）",
+      "authors": "Zhenghao Lin ほか",
+      "link": "https://arxiv.org/abs/2404.07965",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "事前学習で有用なトークンだけに損失をかける選択的言語モデリング（検索情報に基づく概要）。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Runner-up",
+      "title": "Guiding a Diffusion Model with a Bad Version of Itself",
+      "authors": "Tero Karras ほか",
+      "link": "https://arxiv.org/abs/2406.02507",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "劣化版の自分自身で拡散モデルを誘導する autoguidance。テキスト画像生成の推論法（検索情報に基づく概要）。",
+      "basis": "受賞区分（Runner-up）は検索結果で「text2image 拡散の推論法に関する Runner-up」と記述されたもので、題名の明示は未確認。",
+      "source": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Best Paper Award（Datasets & Benchmarks Track）",
+      "title": "The PRISM Alignment Dataset: What Participatory, Representative and Individualised Human Feedback Reveals About the Subjective and Multicultural Alignment of Large Language Models",
+      "authors": "Hannah Rose Kirk ほか",
+      "link": "https://arxiv.org/abs/2404.16019",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "参加型・個人化された人間フィードバックで LLM アライメントの主観性・多文化性を調べるデータセット（題名と調査者の既知情報に基づく概要）。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Generative Adversarial Nets",
+      "authors": "Ian Goodfellow ほか",
+      "link": "https://arxiv.org/abs/1406.2661",
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "NIPS 2014 の GAN。2024 年は例外的に2本が受賞。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/11/27/announcing-the-neurips-2024-test-of-time-paper-awards/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Sequence to Sequence Learning with Neural Networks",
+      "authors": "Ilya Sutskever, Oriol Vinyals, Quoc V. Le",
+      "link": "https://arxiv.org/abs/1409.3215",
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "NIPS 2014 の Seq2Seq。符号化器・復号器の枠組みを確立。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2024/11/27/announcing-the-neurips-2024-test-of-time-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Award（Main Track）",
+      "title": "Privacy Auditing with One (1) Training Run",
+      "authors": "Thomas Steinke, Milad Nasr, Matthew Jagielski",
+      "link": "https://arxiv.org/abs/2305.08846",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "1回の学習で差分プライバシーの監査を行う手法（検索情報に基づく概要）。",
+      "basis": null,
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Award（Main Track）",
+      "title": "Are Emergent Abilities of Large Language Models a Mirage?",
+      "authors": "Rylan Schaeffer, Brando Miranda, Sanmi Koyejo",
+      "link": "https://arxiv.org/abs/2304.15004",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "LLM の「創発能力」は評価指標の選び方による見かけの現象だと論じた（調査者の既知情報に基づく概要）。",
+      "basis": "受賞は二次情報（TopBots）で確認。公式ブログの本文は到達不可。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Runner-up（Main Track）",
+      "title": "Scaling Data-Constrained Language Models",
+      "authors": "Niklas Muennighoff ほか",
+      "link": "https://arxiv.org/abs/2305.16264",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "データが限られる場合の反復学習を含むスケーリング則（調査者の既知情報に基づく概要）。",
+      "basis": "Runner-up であることは検索結果では未照合（公式ブログで Runner-up 2本の構成は確認）。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Runner-up（Main Track）",
+      "title": "Direct Preference Optimization: Your Language Model is Secretly a Reward Model",
+      "authors": "Rafael Rafailov ほか",
+      "link": "https://arxiv.org/abs/2305.18290",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "報酬モデルと RL を介さず選好データから直接方策を最適化する DPO（検索情報に基づく概要）。",
+      "basis": "公式ブログに掲載あり（検索スニペット）。区分見出しは未確認。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Award（Datasets & Benchmarks Track）",
+      "title": "ClimSim: A large multi-scale dataset for hybrid physics-ML climate emulation",
+      "authors": "Sungduk Yu ほか",
+      "link": "https://arxiv.org/abs/2306.08754",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "物理と機械学習を組み合わせた気候エミュレーション用の大規模多尺度データセット（検索情報に基づく概要）。",
+      "basis": "arXiv コメントと UCI のニュースで受賞を確認。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Outstanding Paper Award（Datasets & Benchmarks Track）",
+      "title": "DecodingTrust: A Comprehensive Assessment of Trustworthiness in GPT Models",
+      "authors": "Boxin Wang ほか",
+      "link": "https://arxiv.org/abs/2306.11698",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "GPT 系モデルの信頼性（毒性・偏見・頑健性・プライバシー等）の総合評価（検索情報に基づく概要）。",
+      "basis": "arXiv コメント「NeurIPS 2023 Outstanding Paper (Datasets and Benchmarks Track)」で確認。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Distributed Representations of Words and Phrases and their Compositionality",
+      "authors": "Tomas Mikolov ほか",
+      "link": "https://arxiv.org/abs/1310.4546",
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "NIPS 2013 の word2vec（skip-gram・負例サンプリング）。",
+      "basis": "受賞は調査者の既知情報。検索結果では未照合。",
+      "source": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    }
+  ],
+  "unknowns": [
+    "NeurIPS 2026 の Best Paper / Runner-up / Test of Time は未発表（例年 11 月末〜12 月上旬に公式ブログで発表。2025 は 11/26、2024 は Test of Time が 11/27・Best Paper が 12/10）。",
+    "NeurIPS 2026 の Oral 一覧は公式サイト・OpenReview API に到達できず取得不可。本資料の Oral は著者の arXiv コメントによる。",
+    "NeurIPS 2027 の開催地・会期・締切は未発表（地域は欧州との二次情報のみ）。",
+    "2026 のリバッタル期間・カメラレディの公式日付（二次情報では 10/24）。",
+    "2025・2024 の受賞選考委員会コメントの本文（公式ブログに到達できず、評価ポイントは調査者の見立て）。",
+    "2024 Runner-up「Guiding a Diffusion Model with a Bad Version of Itself」は検索結果で題名の明示を確認できず（「text2image 拡散の推論法」の記述のみ）。",
+    "2023 の受賞のうち DPO・Scaling Data-Constrained LMs の区分（Runner-up）と Test of Time（word2vec）は検索結果で未照合（調査者の既知情報）。",
+    "2023 と 2022 の採否通知日、2022 の投稿数・採択数。",
+    "2023 の投稿数は 12,345（Paper Copilot）で、公式 Fact Sheet では未確認。"
+  ],
+  "sources": [
+    {
+      "label": "NeurIPS 2026 Meeting Dates",
+      "url": "https://neurips.cc/Conferences/current/Dates"
+    },
+    {
+      "label": "NeurIPS 2026 Call for Papers",
+      "url": "https://neurips.cc/Conferences/2026/CallForPapers"
+    },
+    {
+      "label": "NeurIPS Newsletter – May 2026",
+      "url": "https://blog.neurips.cc/2026/05/29/neurips-newsletter-may-2026/"
+    },
+    {
+      "label": "Announcing the NeurIPS 2026 Workshops",
+      "url": "https://blog.neurips.cc/2026/08/10/announcing-the-neurips-2026-workshops/"
+    },
+    {
+      "label": "Announcing the NeurIPS 2026 Journal Track",
+      "url": "https://blog.neurips.cc/2026/10/15/announcing-the-neurips-2026-journal-track/"
+    },
+    {
+      "label": "Introducing the Evaluations & Datasets Track at NeurIPS 2026",
+      "url": "https://blog.neurips.cc/2026/03/23/introducing-the-evaluations-datasets-track-at-neurips-2026/"
+    },
+    {
+      "label": "NeurIPS E&D 2026 Reviewing Guidelines",
+      "url": "https://neurips.cc/Conferences/2026/EvaluationsDatasetsReviewerGuidelines"
+    },
+    {
+      "label": "RIKEN AIP: 81 Papers Accepted for NeurIPS 2026（投稿・採択数）",
+      "url": "https://aip.riken.jp/news/neurips2026/"
+    },
+    {
+      "label": "Announcing the NeurIPS 2025 Best Paper Awards",
+      "url": "https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/"
+    },
+    {
+      "label": "Announcing the Test of Time Paper Award for NeurIPS 2025",
+      "url": "https://blog.neurips.cc/2025/11/26/announcing-the-test-of-time-paper-award-for-neurips-2025/"
+    },
+    {
+      "label": "NeurIPS 2025 Fact Sheet",
+      "url": "https://media.neurips.cc/Conferences/NeurIPS2025/press/NeurIPS2025-Fact_Sheet.pdf"
+    },
+    {
+      "label": "NeurIPS 2025 Call for Papers",
+      "url": "https://neurips.cc/Conferences/2025/CallForPapers"
+    },
+    {
+      "label": "NeurIPS 2025 Mexico City",
+      "url": "https://neurips.cc/Conferences/2025/MXCityRegistrationDetails"
+    },
+    {
+      "label": "ELLIS: EurIPS 2025 Copenhagen",
+      "url": "https://ellis.eu/news/eurips-2025-europe-welcomes-a-new-stage-for-world-class-ai-research"
+    },
+    {
+      "label": "Announcing the NeurIPS 2024 Best Paper Awards",
+      "url": "https://blog.neurips.cc/2024/12/10/announcing-the-neurips-2024-best-paper-awards/"
+    },
+    {
+      "label": "Announcing the NeurIPS 2024 Test of Time Paper Awards",
+      "url": "https://blog.neurips.cc/2024/11/27/announcing-the-neurips-2024-test-of-time-paper-awards/"
+    },
+    {
+      "label": "NeurIPS 2024 Fact Sheet",
+      "url": "https://media.neurips.cc/Conferences/NeurIPS2024/NeurIPS2024-Fact_Sheet.pdf"
+    },
+    {
+      "label": "NeurIPS 2024 Dates",
+      "url": "https://nips.cc/Conferences/2024/Dates"
+    },
+    {
+      "label": "Announcing the NeurIPS 2023 Paper Awards",
+      "url": "https://blog.neurips.cc/2023/12/11/announcing-the-neurips-2023-paper-awards/"
+    },
+    {
+      "label": "ccf-deadlines nips.yml",
+      "url": "https://raw.githubusercontent.com/ccfddl/ccf-deadlines/main/conference/AI/nips.yml"
+    },
+    {
+      "label": "Paper Copilot NeurIPS statistics",
+      "url": "https://papercopilot.com/statistics/neurips-statistics/"
+    },
+    {
+      "label": "OpenCurious: NeurIPS 2027（地域の二次情報）",
+      "url": "https://www.opencurious.com/ai-conference-deadlines/neurips-2027"
+    }
+  ]
+}

@@ -1,0 +1,510 @@
+{
+  "slug": "aistats",
+  "name": "AISTATS",
+  "fullName": "International Conference on Artificial Intelligence and Statistics",
+  "organizer": "AISTATS 組織委員会（各回の General Chairs・Program Chairs が運営）",
+  "area": "統計的機械学習・確率モデル・最適化",
+  "aliases": [
+    "AISTATS",
+    "Artificial Intelligence and Statistics"
+  ],
+  "website": "https://aistats.org/",
+  "summary": "1985 年に始まる、人工知能・機械学習と統計学の交差点を扱う国際会議。論文集は PMLR。投稿 2,000 前後・採録 500〜600 本の中規模会議で、ベイズ推論・ガウス過程・バンディット・最適化理論など確率的手法の理論と方法論が中心。毎年春（4〜5 月）に開催し、締切は前年の 9 月末〜10 月中旬。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "AISTATS 2028",
+    "location": "未発表",
+    "dates": "2028-05 上旬（推定）",
+    "status": "推定",
+    "deadlines": [
+      {
+        "label": "アブストラクト締切",
+        "date": "2027-09-28",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "2023〜2027 回は 2022-10-06、2023-10-06、2024-10-03、2025-09-25、2026-09-29 と前倒し傾向。直近 2 回（9/25 木、9/29 火）に合わせ 2027-09-28（火）前後、幅は 2027-09-23〜10-07。",
+        "source": null
+      },
+      {
+        "label": "論文締切（補足資料込み）",
+        "date": "2027-10-05",
+        "time": "23:59 AoE",
+        "status": "推定",
+        "basis": "2023〜2027 回は 10-13、10-16、10-10、10-02、10-06（アブストラクトの 7〜10 日後）。2027 回から補足資料も同日締切。2027-10-05（火）前後、幅は 2027-09-30〜10-14。",
+        "source": null
+      },
+      {
+        "label": "査読結果の公開",
+        "date": "2027-11-中旬",
+        "status": "推定",
+        "basis": "2023〜2027 回は 11-21、11-27、11-27、（2026 回は不明）、11-16。2027 回からは AI 査読も同時に公開。",
+        "source": null
+      },
+      {
+        "label": "著者–査読者ディスカッション（リバッタル）",
+        "date": "2027-11-下旬〜12-上旬",
+        "status": "推定",
+        "basis": "2025 回は 2024-11-27〜12-09（著者応答締切 12-10）、2027 回は 2026-11-23〜12-03。",
+        "source": null
+      },
+      {
+        "label": "採否通知",
+        "date": "2028-01-20",
+        "status": "推定",
+        "basis": "2023〜2027 回は 2023-01-19、2024-01-19、2025-01-21、2026-01-22、2027-01-20（予定）といずれも 1 月 19〜22 日。",
+        "source": null
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2028-03-上旬",
+        "status": "推定",
+        "basis": "2025 回は 2025-03-10（公式）。2026・2027 回の値は確認できず。",
+        "source": null
+      },
+      {
+        "label": "会期",
+        "date": "2028-05-上旬",
+        "status": "推定",
+        "basis": "2023〜2027 回は 4/25-27、5/2-4、5/3-5、5/2-5、5/3-6（予定）。",
+        "source": null
+      }
+    ],
+    "notes": "AISTATS 2027（30th, Montréal, 2027-05-03〜06）の締切は 2026-09-29（アブストラクト）と 2026-10-06（論文）で、今日（2026-10-27）時点ですでに過ぎており審査中（査読と AI 査読の公開 2026-11-16、著者–査読者ディスカッション 11-23〜12-03、通知 2027-01-20）。したがって次に投稿できるのは AISTATS 2028 で、開催地・日程は未発表。2027 回は 2026 回に続き 2 回目のワークショップ日を設ける。"
+  },
+  "history": [
+    {
+      "edition": "AISTATS 2027（審査中）",
+      "location": "Montréal, Canada",
+      "dates": "2027-05-03〜05-06",
+      "abstract": "2026-09-29（AoE）",
+      "paper": "2026-10-06（AoE、補足資料込み）",
+      "notification": "2027-01-20（予定）",
+      "submissions": null,
+      "accepted": null,
+      "acceptanceRate": null,
+      "source": "https://virtual.aistats.org/Conferences/2027/SubmissionFAQ"
+    },
+    {
+      "edition": "AISTATS 2026",
+      "location": "Tangier, Morocco（Hilton Tangier Al Houara）",
+      "dates": "2026-05-02〜05-05",
+      "abstract": "2025-09-25（AoE）",
+      "paper": "2025-10-02（AoE、補足資料 10-09）",
+      "notification": "2026-01-22",
+      "submissions": null,
+      "accepted": 588,
+      "acceptanceRate": null,
+      "source": "https://virtual.aistats.org/Conferences/2026/Dates"
+    },
+    {
+      "edition": "AISTATS 2025",
+      "location": "Mai Khao, Thailand",
+      "dates": "2025-05-03〜05-05",
+      "abstract": "2024-10-03（AoE）",
+      "paper": "2024-10-10（AoE、付録 10-17）",
+      "notification": "2025-01-21",
+      "submissions": 1861,
+      "accepted": 583,
+      "acceptanceRate": "31.3%",
+      "source": "https://github.com/aistats/aistats2025"
+    },
+    {
+      "edition": "AISTATS 2024",
+      "location": "Valencia, Spain",
+      "dates": "2024-05-02〜05-04",
+      "abstract": "2023-10-06（AoE）",
+      "paper": "2023-10-16（AoE、付録 10-23）",
+      "notification": "2024-01-19",
+      "submissions": 1980,
+      "accepted": 546,
+      "acceptanceRate": "27.6%",
+      "source": "https://github.com/aistats/aistats2024"
+    },
+    {
+      "edition": "AISTATS 2023",
+      "location": "Valencia, Spain（Palau de Congressos）",
+      "dates": "2023-04-25〜04-27",
+      "abstract": "2022-10-06（AoE）",
+      "paper": "2022-10-13（AoE、補足資料 10-20）",
+      "notification": "2023-01-19",
+      "submissions": 1686,
+      "accepted": 496,
+      "acceptanceRate": "29.4%",
+      "source": "https://github.com/aistats/aistats2023"
+    }
+  ],
+  "format": [
+    "ダブルブラインド査読。2025 回から OpenReview で投稿を受け付け、著者–査読者ディスカッション（リバッタル）期間がある。",
+    "本文 8 ページ（参考文献・再現性チェックリスト・付録を除く）、カメラレディは 9 ページ（2025・2026 回 CFP）。",
+    "論文集は PMLR（Proceedings of Machine Learning Research）。2026 回は Volume 300（2026-08-30 刊行、588 本）。",
+    "各投稿は著者 1 名以上を reciprocal reviewer として登録（2026 回は最大 3 本を担当）。2027 回は ICML/NeurIPS 2026 と同様の方針で、割当超過の投稿は無作為にデスクリジェクトされうる。",
+    "2027 回は全投稿に AI 査読（主張・証明・表図の事実的な誤りを指摘、スコアや推薦はなし、決定は人間）。査読者の生成 AI 使用は禁止、著者は AI Use Statement の提出が必須。",
+    "ポスター発表が中心で、口頭発表は少数（2023 回 32 本、2024 回 40 本、2025 回 37 本）。2025 回には Journal-to-Conference トラック、2026 回からはワークショップ日がある。"
+  ],
+  "features": [
+    "1985 年開始の老舗で、統計学と AI/ML の橋渡しを目的とする。参加者は統計・ML 双方の研究者で、ICML・NeurIPS より理論・方法論寄り。",
+    "規模は投稿約 1,700〜2,400、採録 500〜600 本（2023〜2026）の中規模。採択率は 27〜31% で CFP は「概ね 25%」と案内。",
+    "格付けは CORE A、CCF C（ccf-deadlines のデータ）。",
+    "Test of Time Award（10 年前の論文が対象）は少なくとも 2023 回以降毎年授与され、Deep GP・BBVI・DSN・Successive Halving と、確率的推論と深層学習・最適化の基盤研究が選ばれている。",
+    "2025・2026 回は Best Paper / Best Student Paper を授与。2023 回は口頭発表 32 本を Notable papers、2024 回は口頭発表中の学生論文 7 本を Outstanding Student Paper Highlights として顕彰した。",
+    "開催地は欧州・アジア・アフリカ・北米を回る（Valencia 2023/2024、タイ 2025、モロッコ 2026、モントリオール 2027）。"
+  ],
+  "trends": [
+    "投稿数は 1,686（2023）→ 1,980（2024）→ 1,861（2025）→ 2,100 超（2026、UCI の受賞報道）。採録本数は 496 → 546 → 583 → 588（PMLR 収録数）。",
+    "PMLR の題名集計（調査者による）で、言語モデル関連が 2 → 3 → 15 → 27 本（2023→2026）、拡散モデル関連が 3 → 9 → 13 → 19 本、flow matching が 0 → 2 → 1 → 7 本と、生成モデルと LLM の分析が急増。",
+    "一方でバンディット（約 30 本/年）、因果推論、変分推論、カーネル法、ガウス過程といった確率的手法は安定した主力で、受賞もこの系統（VI 理論、GP 近似の汎化保証、高次元 BO、点過程の flow matching）。",
+    "運営面では 2025 回に OpenReview へ移行、2026 回にワークショップ日を新設、2027 回は reciprocal reviewing の強化と全投稿への AI 査読を導入。",
+    "締切は前倒し傾向で、2023・2024 回の 10 月上〜中旬から、2026・2027 回は 9 月末（アブストラクト）・10 月初め（論文）になった。"
+  ],
+  "fields": [
+    {
+      "slug": "gnn",
+      "fit": "中",
+      "reason": "GNN の表現力理論（The Power of Recursion in Graph Neural Networks for Counting Substructures, 2023 Notable）や Convexified Message-Passing Graph Neural Networks（2026）など毎年 5〜10 本程度。応用より理論・統計的解析が中心。"
+    },
+    {
+      "slug": "genetic-algorithm",
+      "fit": "中",
+      "reason": "進化計算そのものは少ないが、ブラックボックス最適化・ハイパーパラメータ最適化（Successive Halving, 2026 Test of Time）や高次元ベイズ最適化（2026 Best Student Paper）など、CMA-ES と競合・補完する連続最適化の研究が多い。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "中",
+      "reason": "既存デッキの Ant Colony Sampling with GFlowNets for Combinatorial Optimization（AISTATS 2025）のように、確率的サンプリングと組み合わせた群知能手法が載る。件数は少ない。"
+    },
+    {
+      "slug": "active-inference",
+      "fit": "中",
+      "reason": "能動的推論そのものの論文はほぼないが、その基盤である変分推論（Black Box Variational Inference, 2024 Test of Time；Variational Inference in Location-Scale Families, 2025 Best Paper）は AISTATS の中心テーマ。"
+    },
+    {
+      "slug": "world-model",
+      "fit": "中",
+      "reason": "世界モデルの名を冠した論文は少ないが、時系列・点過程の生成モデル（EventFlow, 2026 Best Paper）や状態空間モデル、モデルベース RL の理論が継続的に載る。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "EventFlow: Forecasting Temporal Point Processes with Flow Matching",
+      "authors": "Gavin Kerrigan, Kai Nelson, Padhraic Smyth（UC Irvine）",
+      "link": "https://proceedings.mlr.press/v300/kerrigan26a.html",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "時間点過程を非自己回帰で生成する flow matching。事象数の等しい列を対にする balanced coupling を導入し、多段予測誤差を最良既存法より 20〜53% 削減。",
+      "basis": null,
+      "source": "https://cml.ics.uci.edu/2026/05/best-paper-award-at-aistats-2026/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Best Student Paper Award",
+      "title": "We Still Don’t Understand High-Dimensional Bayesian Optimization",
+      "authors": "Colin Doumont, Donney Fan, Natalie Maus, Jacob R. Gardner, Henry Moss, Geoff Pleiss（Vector Institute / UBC ほか）",
+      "link": "https://proceedings.mlr.press/v300/doumont26a.html",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "入力を超球へ写した線形カーネル GP（ベイズ線形回帰）が 60〜6,392 次元の高次元 BO で SOTA に並ぶことを示し、従来の直観の見直しを迫った。",
+      "basis": null,
+      "source": "https://stat.ubc.ca/node/30539"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Non-stochastic Best Arm Identification and Hyperparameter Optimization",
+      "authors": "Kevin Jamieson, Ameet Talwalkar（UC Berkeley / UCLA）｜ AISTATS 2016",
+      "link": "https://proceedings.mlr.press/v51/jamieson16.html",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "HPO を非確率的最良腕同定として定式化し Successive Halving を解析。一様割当より一桁速く、Hyperband の前身。",
+      "basis": null,
+      "source": "https://www.cs.washington.edu/research/award-papers/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "Test of Time Award, Honorable Mention",
+      "title": "Deep Kernel Learning",
+      "authors": "Andrew Gordon Wilson, Zhiting Hu, Ruslan Salakhutdinov, Eric P. Xing（CMU / Toronto）｜ AISTATS 2016",
+      "link": "https://proceedings.mlr.press/v51/wilson16.html",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "深層ネットで入力を変換した基底カーネルを GP 周辺尤度で同時学習し、KISS-GP で学習 O(n) に拡張。",
+      "basis": null,
+      "source": "https://cims.nyu.edu/ai/news/148/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Paper Award",
+      "title": "Variational Inference in Location-Scale Families: Exact Recovery of the Mean and Correlation Matrix",
+      "authors": "Charles C. Margossian, Lawrence K. Saul（Flatiron Institute）",
+      "link": "https://proceedings.mlr.press/v258/margossian25a.html",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "標的が偶対称なら平均、楕円対称なら相関行列を、位置尺度族の VI が誤指定下でも正確に回復することを証明（583 本中から選出）。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2025/awards.html"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Best Student Paper Award",
+      "title": "Pick-to-Learn and Self-Certified Gaussian Process Approximations",
+      "authors": "Daniel Marks, Dario Paccagnan（Imperial College London）",
+      "link": "https://proceedings.mlr.press/v258/marks25a.html",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "Pick-to-Learn を早期停止・ベイズ化に拡張し、貪欲な部分データ GP 近似が自己証明付きの鋭い汎化上界を持つことを示した（学生論文 420 本中から選出）。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2025/awards.html"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Deeply-Supervised Nets",
+      "authors": "Chen-Yu Lee, Saining Xie, Patrick W. Gallagher, Zhengyou Zhang, Zhuowen Tu（UCSD / MSR）｜ AISTATS 2015",
+      "link": "https://proceedings.mlr.press/v38/lee15a.html",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "CNN の各隠れ層に補助分類器を付けて同時学習し、勾配消失を緩和。MNIST・CIFAR・SVHN で当時の SOTA。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2025/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Black Box Variational Inference",
+      "authors": "Rajesh Ranganath, Sean Gerrish, David M. Blei（Princeton）｜ AISTATS 2014",
+      "link": "https://proceedings.mlr.press/v33/ranganath14.html",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "スコア関数勾配と Rao-Blackwell 化・制御変量による分散削減で、モデル固有の導出なしに使える汎用変分推論を確立。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Functional Flow Matching",
+      "authors": "Gavin Kerrigan, Giosue Migliorini, Padhraic Smyth（UC Irvine）",
+      "link": "https://proceedings.mlr.press/v238/kerrigan24a.html",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "flow matching を無限次元の関数空間へ一般化した初の関数空間正規化フロー。2026 年 Best Paper の EventFlow の前身。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Learning-Based Algorithms for Graph Searching Problems",
+      "authors": "Adela F DePavia, Erasmo Tani, Ali Vakilian",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "グラフ探索問題に対する学習（予測）付きアルゴリズム（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "End-to-end Feature Selection Approach for Learning Skinny Trees",
+      "authors": "Shibal Ibrahim, Kayhan Behdin, Rahul Mazumder",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "特徴選択を組み込んだ決定木学習（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Online Learning of Decision Trees with Thompson Sampling",
+      "authors": "Ayman Chaouki, Jesse Read, Albert Bifet",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "Thompson サンプリングによる決定木のオンライン学習（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Learning to Defer to a Population: A Meta-Learning Approach",
+      "authors": "Dharmesh Tailor, Aditya Patra, Rajeev Verma, Putra Manggala, Eric Nalisnick",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "専門家集団への判断委譲（learning to defer）のメタ学習（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Mixed Models with Multiple Instance Learning",
+      "authors": "Jan P. Engelmann, Alessandro Palma, Jakub M Tomczak, Fabian Theis, Francesco Paolo Casale",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "混合モデルと多インスタンス学習の統合（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "Outstanding Student Paper Highlight",
+      "title": "Deep Classifier Mimicry without Data Access",
+      "authors": "Steven Braun, Martin Mundt, Kristian Kersting",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "データにアクセスせずに分類器を模倣・蒸留する手法（題名と著者のみ確認）",
+      "basis": null,
+      "source": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Test of Time Award",
+      "title": "Deep Gaussian Processes",
+      "authors": "Andreas C. Damianou, Neil D. Lawrence（Sheffield）｜ AISTATS 2013",
+      "link": "https://proceedings.mlr.press/v31/damianou13a.html",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "GP を階層化し、誘導点による変分周辺化で周辺尤度の下界を得て層数・次元を選べるようにした deep GP の原典。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2023/awards.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Notable Paper（口頭発表 32 本）",
+      "title": "The Power of Recursion in Graph Neural Networks for Counting Substructures",
+      "authors": "Behrooz Tahmasebi, Derek Lim, Stefanie Jegelka（MIT CSAIL）",
+      "link": "https://proceedings.mlr.press/v206/tahmasebi23a.html",
+      "slide": 11,
+      "status": "スライド化",
+      "summary": "純粋な再帰的近傍プーリング GNN の表現力を解析し、再帰の深さで任意の小部分構造を数えられること、疎グラフでほぼ線形の計算量で済むことを示した。",
+      "basis": null,
+      "source": "https://aistats.org/aistats2023/accepted.html"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Notable Paper（口頭発表 32 本）",
+      "title": "Inducing Point Allocation for Sparse Gaussian Processes in High-Throughput Bayesian Optimisation",
+      "authors": "Henry B. Moss, Sebastian W. Ober, Victor Picheny",
+      "link": "https://proceedings.mlr.press/v206/moss23a.html",
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "高スループット BO における疎 GP の誘導点の配置法（Cambridge ICCS の発表で Notable＝上位 2% と紹介）。",
+      "basis": null,
+      "source": "https://iccs.cam.ac.uk/news/henry-moss-awarded-notable-paper-aistats-2023"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "既存デッキ収録の AISTATS 2025 論文",
+      "title": "Ant Colony Sampling with GFlowNets for Combinatorial Optimization",
+      "authors": "Minsu Kim ほか（Mila / KAIST）",
+      "link": "https://arxiv.org/abs/2403.07041",
+      "slide": null,
+      "status": "既存：swarm-intelligence/deep-learning-fusion",
+      "summary": "DeepACO の事前分布を GFlowNet で学習する GFACS。本アーカイブの群知能分野で既に調査済み。",
+      "basis": "公式の賞ではない。本アーカイブの既存デッキで唯一の AISTATS 論文のため参照として掲載",
+      "source": null
+    }
+  ],
+  "unknowns": [
+    "AISTATS 2026 の投稿数・採択率の公式値（UCI の受賞報道の「2,100 超」と IMS の催事案内の「約 2,400」のみ確認。PMLR 収録は 588 本）。",
+    "AISTATS 2026 に Best Paper の Honorable Mention や Notable Paper など他の賞があるか（公式 awards ページに到達できず、検索では 4 件のみ確認）。",
+    "AISTATS 2023・2024 に Best Paper 賞があったか（公式サイトのソースには Test of Time と Notable papers / Outstanding Student Paper Highlights の記載のみ）。",
+    "2024 Outstanding Student Paper Highlights のうち Functional Flow Matching 以外 6 本の本文（題名・著者のみ確認）。",
+    "2023 Notable papers（口頭発表 32 本）のうち RNP-GNN と Moss らの論文以外の個別の受賞扱い。",
+    "AISTATS 2027 のカメラレディ締切、AISTATS 2026 の査読公開日、AISTATS 2028 の開催地・日程（未発表）。",
+    "AISTATS 2027 のワークショップ提案締切（第三者の投稿で 2026-10-30 とあるのみで、公式は未確認）。"
+  ],
+  "sources": [
+    {
+      "label": "AISTATS 2027 Submission FAQ（検索スニペット）",
+      "url": "https://virtual.aistats.org/Conferences/2027/SubmissionFAQ"
+    },
+    {
+      "label": "AISTATS 2027 公式サイトのソース（_config.yml の日程・開催地）",
+      "url": "https://github.com/aistats/aistats2027"
+    },
+    {
+      "label": "AISTATS 2026 Dates（検索スニペット）",
+      "url": "https://virtual.aistats.org/Conferences/2026/Dates"
+    },
+    {
+      "label": "AISTATS 2026 Awards（検索スニペット）",
+      "url": "https://virtual.aistats.org/virtual/2026/awards_detail"
+    },
+    {
+      "label": "PMLR Volume 300（AISTATS 2026）",
+      "url": "https://proceedings.mlr.press/v300/"
+    },
+    {
+      "label": "UCI CML: Best Paper Award at AIStats 2026",
+      "url": "https://cml.ics.uci.edu/2026/05/best-paper-award-at-aistats-2026/"
+    },
+    {
+      "label": "UBC Statistics: Geoff Pleiss Awarded AISTATS 2026 Best Student Paper Award",
+      "url": "https://stat.ubc.ca/node/30539"
+    },
+    {
+      "label": "NYU CIMS: Wilson Honored with AISTATS 2026 Test of Time Award（Honorable Mention）",
+      "url": "https://cims.nyu.edu/ai/news/148/"
+    },
+    {
+      "label": "UW Allen School Award Papers（2026 AISTATS Test of Time）",
+      "url": "https://www.cs.washington.edu/research/award-papers/"
+    },
+    {
+      "label": "AISTATS 2025 Awards（GitHub aistats/aistats2025 の awards.md）",
+      "url": "https://aistats.org/aistats2025/awards.html"
+    },
+    {
+      "label": "AISTATS 2024 Awards（GitHub aistats/aistats2024 の awards.md）",
+      "url": "https://aistats.org/aistats2024/awards.html"
+    },
+    {
+      "label": "AISTATS 2023 Awards / Notable papers（GitHub aistats/aistats2023）",
+      "url": "https://aistats.org/aistats2023/awards.html"
+    },
+    {
+      "label": "AISTATS 2026 Call for Papers（検索スニペット）",
+      "url": "https://virtual.aistats.org/Conferences/2026/CallForPapers"
+    },
+    {
+      "label": "AISTATS 2025 Call for Papers",
+      "url": "https://aistats.org/aistats2025/call-for-papers.html"
+    },
+    {
+      "label": "conference-acceptance-rate（採択率の集計）",
+      "url": "https://github.com/lixin4ever/conference-acceptance-rate"
+    },
+    {
+      "label": "ccf-deadlines aistats.yml",
+      "url": "https://github.com/ccfddl/ccf-deadlines/blob/main/conference/AI/aistats.yml"
+    }
+  ]
+}

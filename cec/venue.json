@@ -1,0 +1,428 @@
+{
+  "slug": "cec",
+  "name": "IEEE CEC",
+  "fullName": "IEEE Congress on Evolutionary Computation",
+  "organizer": "IEEE CIS（Computational Intelligence Society）",
+  "area": "進化計算",
+  "aliases": [
+    "CEC",
+    "IEEE CEC",
+    "Congress on Evolutionary Computation",
+    "WCCI/CEC",
+    "WCCI CEC"
+  ],
+  "website": "https://ieeecec.org/2027",
+  "summary": "IEEE CIS が主催する進化計算の旗艦会議。偶数年は IEEE WCCI として IJCNN・FUZZ-IEEE と合同開催、奇数年は単独開催。遺伝的アルゴリズム・進化戦略・群知能・多目的・転移最適化から LLM との融合まで幅広く扱い、毎年多数の最適化競技会と特別セッションを併催する。採択率は長く 5〜6 割台だったが、2025・2026 年は約 4 割に下がった。",
+  "date": "2026-10-27",
+  "upcoming": {
+    "edition": "IEEE CEC 2027",
+    "location": "Edinburgh International Conference Centre, Edinburgh, Scotland, UK",
+    "dates": "2027-07-25〜28",
+    "status": "公式",
+    "deadlines": [
+      {
+        "label": "フルペーパー締切",
+        "date": "2027-02-28",
+        "time": "23:59 AoE（推定。2026 年は UTC-12）",
+        "status": "公式",
+        "basis": "公式サイトに Feb 28, 2027 Full Paper Submission Deadline（延長なし）と記載（検索スニペット）。IEEE CIS のカンファレンスカレンダー、ccf-deadlines（UTC-12）も同日。一方、Tanabe の ecconf と aconf.org は第一報 CFP の値として 2027-01-15 を載せており、初期告知から後ろ倒しになった可能性がある。",
+        "source": "https://ieeecec.org/2027"
+      },
+      {
+        "label": "ショートペーパー締切",
+        "date": "2027-03-15",
+        "status": "公式",
+        "basis": "公式サイトに Short paper deadline Mar 15, 2027（延長なし）と記載（検索スニペット）。ショートペーパーは companion proceedings に収録。",
+        "source": "https://ieeecec.org/2027"
+      },
+      {
+        "label": "採否通知",
+        "date": "2027-04-07",
+        "status": "公式",
+        "basis": "公式サイトに Paper acceptance notification Apr 07, 2027 と記載（検索スニペット）。ccf-deadlines の decision 2027-04-07 とも一致。",
+        "source": "https://ieeecec.org/2027"
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-05-上旬",
+        "status": "推定",
+        "basis": "公式値は未確認。2024 は通知 3/15→最終稿 5/1、2026 は通知 3/16〜22→カメラレディ 4/15 で、通知の約 4〜6 週後。2027 は通知 4/7 なので 5 月上旬〜中旬と推定（幅：2027-05-05〜05-20）。",
+        "source": null
+      }
+    ],
+    "notes": "General Chairs：Amir Hussain, Xin Yao。Programme Chairs：Ke Li（University of Exeter）, Bing Xue（Victoria University of Wellington）。2027 年はフルペーパーに加えショートペーパー（companion proceedings）を受け付ける。特別セッション・競技会・チュートリアル提案の締切は未確認。公式サイト（ieeecec.org）には本環境から到達できず、日付は検索結果のスニペットで確認した。"
+  },
+  "history": [
+    {
+      "edition": "IEEE CEC 2026（WCCI 2026）",
+      "location": "MECC Maastricht, Maastricht, the Netherlands",
+      "dates": "2026-06-21〜26（WCCI 全体。CEC 本体は 06-22〜26 とする資料あり）",
+      "abstract": null,
+      "paper": "2026-01-31（23:59 AoE / UTC-12、延長なし）",
+      "notification": "2026-03-16〜22",
+      "submissions": 625,
+      "accepted": 235,
+      "acceptanceRate": "38%",
+      "source": "https://attend.ieee.org/wcci-2026/important-dates-deadlines（締切・通知）; https://ryojitanabe.github.io/ecconf/（投稿・採択数）"
+    },
+    {
+      "edition": "IEEE CEC 2025",
+      "location": "Hangzhou, China",
+      "dates": "2025-06-08〜12",
+      "abstract": null,
+      "paper": "2025-01-15（初回告知。延長後の最終締切は未確認：ccf-deadlines は 1/31 と 2/10 の食い違いを注記）",
+      "notification": null,
+      "submissions": 365,
+      "accepted": 142,
+      "acceptanceRate": "39%",
+      "source": "https://www.getpaperpilot.com/deadlines/ieee-cec-2025.html（締切）; https://ryojitanabe.github.io/ecconf/（投稿・採択数）"
+    },
+    {
+      "edition": "IEEE CEC 2024（WCCI 2024）",
+      "location": "Pacifico Yokohama, Yokohama, Japan（ハイブリッド）",
+      "dates": "2024-06-30〜07-05",
+      "abstract": null,
+      "paper": "2024-01-29（当初 01-15 から延長）",
+      "notification": "2024-03-15",
+      "submissions": 665,
+      "accepted": 350,
+      "acceptanceRate": "53%",
+      "source": "https://lists.cnsorg.org/hyperkitty/list/comp-neuro@lists.cnsorg.org/thread/KKVJZYELYTYACTWP7VIERKPIXZJZKH3W/（締切延長）; https://ryojitanabe.github.io/ecconf/（投稿・採択数）"
+    },
+    {
+      "edition": "IEEE CEC 2023",
+      "location": "Chicago, USA",
+      "dates": "2023-07-01〜05",
+      "abstract": null,
+      "paper": "2023-01-27（AoE、ccf-deadlines の値。検索では未確認）",
+      "notification": null,
+      "submissions": 230,
+      "accepted": 130,
+      "acceptanceRate": "57%",
+      "source": "https://github.com/ccfddl/ccf-deadlines（締切）; https://ryojitanabe.github.io/ecconf/（投稿・採択数）"
+    },
+    {
+      "edition": "IEEE CEC 2022（WCCI 2022）",
+      "location": "Padua, Italy",
+      "dates": "2022-07-19〜23（ccf-deadlines。WCCI 2022 全体は 07-18〜23）",
+      "abstract": "2022-01-31",
+      "paper": "2022-02-14",
+      "notification": null,
+      "submissions": null,
+      "accepted": 223,
+      "acceptanceRate": null,
+      "source": "https://github.com/ccfddl/ccf-deadlines（締切）; https://ryojitanabe.github.io/ecconf/（採択数）"
+    }
+  ],
+  "format": [
+    "査読：WCCI 2026 の著者向け案内でダブルブラインドと明記（著者名を除去）。リバッタル期間の告知は確認できなかった。",
+    "ページ数：WCCI 2022 は 8 ページ（参考文献込み）＋有料で最大 2 ページ追加。WCCI 2026 の第一報では最大 6 ページと告知（最終的な規定は未確認）。",
+    "論文集：IEEE Xplore に収録（カメラレディに著者 1 名以上の有料正規登録が必要）。2027 年からショートペーパーを companion proceedings に収録。",
+    "トラック：一般投稿のほか多数の特別セッション、最適化競技会（競技会トラックの論文も採録）、Late-breaking papers（2026）、Position papers（2026、7 件投稿）。",
+    "併催：偶数年は IEEE WCCI として IJCNN・FUZZ-IEEE と合同開催（2024 横浜、2026 マーストリヒト、2028 ニューデリー予定）。奇数年は単独開催。"
+  ],
+  "features": [
+    "IEEE CIS の旗艦 3 会議の 1 つで、進化計算では ACM GECCO と並ぶ最大級の国際会議（2026 年の投稿 625 件）。",
+    "格付けは CORE B（CORE2021）、CCF C。GECCO・PPSN・FOGA（いずれも CORE A）より採択率が高く、裾野の広い発表の場とされてきた。",
+    "毎年多数の最適化競技会（単目的・多目的・制約付き・ニッチング・エネルギー管理など）を併催し、CEC2017/2020/2022 などの CEC ベンチマーク関数群は実験の事実上の標準になっている。",
+    "特別セッションの数が多く、転移・マルチタスク最適化、ランドスケープ解析、LLM との融合など、時々の話題がセッション単位で集まる。",
+    "2024・2025 年の受賞は香港の大学（CityU・PolyU）、2026 年の Best Student Paper はスロベニアの JSI。転移最適化の Tan・Ong・Feng らのグループが継続的に発表している。"
+  ],
+  "trends": [
+    "投稿数は 2023 年 230 → 2024 年 665 → 2025 年 365 → 2026 年 625 件で、WCCI 合同の偶数年に大きく増える（Tanabe ecconf 集計）。",
+    "採択率は 2023 年 57%、2024 年 53% から、2025 年 39%、2026 年 38% に急低下し、GECCO（35〜36%）に近づいた（同上）。",
+    "LLM と進化計算の融合が主題化：CEC 2024 で LMEA（LLM を進化演算子に使う）、CEC 2025 で LLM as PSO や MAP-Elites によるプロンプト探索、2026 年の CEC トピックには Large language models for optimization が入り、特別セッション「Evolutionary Computation Meets Large Language Models」も設置された。",
+    "GPU・テンソル化（EvoX 系の TensorNSGA-III など）や Transformer を演算子に使う手法（CGP-TR）など、深層学習の基盤技術を EC に取り込む研究が増えている（2025〜2026 年の arXiv 採録論文）。",
+    "受賞はランドスケープ表現の比較（2026 Best Student Paper）や進化的転移最適化の理論（2025 Best Paper）など、方法論・理論寄り。",
+    "運営面では 2026 年に Position papers トラック、2027 年にショートペーパー（companion proceedings）を導入。2027 年は締切が例年の 1 月下旬から 2 月末へ後ろ倒し。"
+  ],
+  "fields": [
+    {
+      "slug": "genetic-algorithm",
+      "fit": "高",
+      "reason": "GA・進化戦略・GP・ニューロエボリューションの本流。CEC 2026 の CGP-TR（Transformer 変異の CGP）や ES-HyperNEAT の早期打ち切り、CEC 2026 競技会の RCMAES（CMA-ES）など。"
+    },
+    {
+      "slug": "swarm-intelligence",
+      "fit": "高",
+      "reason": "PSO・ACO・DE が CEC のトピックと競技会の中心。既存デッキの LLM as PSO（CEC 2025）や psoCNN（CEC 2018）は CEC 論文。"
+    },
+    {
+      "slug": "open-endedness",
+      "fit": "中",
+      "reason": "Quality-Diversity やオープンエンド進化の論文も載る。CEC 2024 の Non-Spatial Hash Chemistry（Sayama）、CEC 2025 の MAP-Elites によるプロンプト探索など。"
+    },
+    {
+      "slug": "immune-algorithm",
+      "fit": "中",
+      "reason": "CEC 2026 のトピック一覧の Algorithms 部に Artificial immune systems が明記されている。ただし近年の受賞・話題論文には見当たらない。"
+    }
+  ],
+  "awards": [
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "IEEE CEC 2026 Best Student Paper Award",
+      "title": "On the Structural (Dis)Agreement of Landscape Representations in Black-Box Optimization",
+      "authors": "Sara Gjorgjieva ほか（Jožef Stefan Institute）",
+      "link": "https://arxiv.org/abs/2605.28121",
+      "slide": 1,
+      "status": "スライド化",
+      "summary": "ELA・DeepELA・TransOptAS・DoE2Vec の 4 つの問題特徴表現が MA-BBOB の問題空間をどう分割するかを教師なしで比較し、どの表現も単独では性能構造を捉えきれないと示した。",
+      "basis": null,
+      "source": "https://www.mps.si/en/o-nas/aktualno/doktorska-studentka-sara-gjorgjieva-prejela-nagrado-za-najboljsi-studentski-prispevek-na-ieee-cec-2026/"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IEEE CEC 2026（話題）",
+      "title": "Early-Stopping Thresholds for ES-HyperNEAT: A Data-Driven Approach from Fitness Dynamics",
+      "authors": "Romain Claret ほか（University of Neuchâtel）",
+      "link": "https://arxiv.org/abs/2609.13533",
+      "slide": 2,
+      "status": "スライド化",
+      "summary": "序盤の適応度推移の二値分類から打ち切り規則（第 3 世代で 0.140 以下なら停止）を導き、解の質を保って計算量を 41.6% 削減。",
+      "basis": "arXiv で CEC 2026 採録（accepted version）と明記。NEAT 系ニューロエボリューションの実務課題を扱い、本アーカイブの genetic-algorithm/neat と直結（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2609.13533"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IEEE CEC 2026（話題）",
+      "title": "Genetic Programming with Transformer-Based Mutation for Approximate Circuit Design",
+      "authors": "Ondrej Galeta, Lukas Sekanina（Brno University of Technology）",
+      "link": "https://arxiv.org/abs/2605.21055",
+      "slide": 3,
+      "status": "スライド化",
+      "summary": "EvoApproxLib で学習した Transformer が CGP の突然変異分布を提案し、一部の誤差条件で EvoApproxLib を上回る近似乗算器を得た。",
+      "basis": "arXiv で WCCI/CEC 2026 掲載予定と明記。ML（Transformer）で EC を強化する 2026 年の流れの代表例（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2605.21055"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IEEE CEC 2026（話題）",
+      "title": "Solving Few-Shot Multiobjective Multitask Optimization via Iterative Sequential Transfer",
+      "authors": "Tingyang Wei ほか（Nanyang Technological University）",
+      "link": "https://arxiv.org/abs/2609.11228",
+      "slide": 4,
+      "status": "スライド化",
+      "summary": "少数ショットの多目的マルチタスク最適化を、毎反復 1 タスクを選んで逐次転移する問題の列に変換し、負の転移を抑えた。",
+      "basis": "arXiv で WCCI/CEC 2026 採録と明記。CEC の主要テーマである転移・マルチタスク最適化（2025 Best Paper と同系統）の 2026 年の代表例（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2609.11228"
+    },
+    {
+      "year": 2026,
+      "kind": "topic",
+      "award": "IEEE CEC 2026 競技会トラック（話題）",
+      "title": "RCMAES: A Robust CMA-ES Variant for CEC2026 Competition",
+      "authors": "Khoirul Faiq Muzakka ほか（Forschungszentrum Jülich）",
+      "link": "https://arxiv.org/abs/2604.27138",
+      "slide": 5,
+      "status": "スライド化",
+      "summary": "CEC 2026 単目的境界制約付き競技会（CEC2017, D=30）向けの CMA-ES 変種。非線形な集団縮小と再始動で DE 系の強豪に迫る。",
+      "basis": "arXiv で CEC 2026 競技会トラックの accepted manuscript と明記。CEC の特色である競技会の 2026 年の例（調査者の見立て）。競技会の最終順位は未確認。",
+      "source": "https://arxiv.org/abs/2604.27138"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IEEE CEC 2025 Best Paper Award",
+      "title": "A Theoretical Analysis of Analogy-Based Evolutionary Transfer Optimization",
+      "authors": "Xiaoming Xue ほか（The Hong Kong Polytechnic University）",
+      "link": "https://arxiv.org/abs/2503.21156",
+      "slide": 6,
+      "status": "スライド化",
+      "summary": "類推推論の 3 過程を転移の 3 課題に対応づけ、評価過程が負の転移回避の必要十分条件であること、正の転移の条件などを定理化した。受賞題名は A Theoretical Analysis of Evolutionary Transfer Optimization と報じられている。",
+      "basis": null,
+      "source": "https://www.polyu.edu.hk/dsai/news-and-events/news/2025/20250624-ieee-best-paper-award/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "IEEE CEC 2025 Best Poster Award",
+      "title": "Physics-Informed Optimization via Ising Spin System Evolution",
+      "authors": "NUS ECE のチーム（著者名は未確認）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "Ising スピン系の発展に基づく物理に着想を得た最適化手法 EvoIsing（検索情報に基づく）。",
+      "basis": null,
+      "source": "https://cde.nus.edu.sg/ece/news/nus-ece-team-wins-best-poster-award-at-ieee-cec-2025-for-physics-inspired-optimization-research/"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "IEEE CEC 2025（話題）",
+      "title": "GPU-accelerated Evolutionary Many-objective Optimization Using Tensorized NSGA-III",
+      "authors": "Hao Li, Zhenyu Liang, Ran Cheng（SUSTech）",
+      "link": "https://arxiv.org/abs/2504.06067",
+      "slide": 7,
+      "status": "スライド化",
+      "summary": "NSGA-III を近似なしで完全テンソル化し、CPU 版比最大 3629 倍の高速化と集団 1 万規模の多目的最適化を実現。",
+      "basis": "arXiv で CEC 2025 採録と明記。EvoX 系 GPU 化の代表例。責任著者の Ran Cheng は CEC 2025 で IEEE CIS Outstanding Early Career Award を受賞（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2504.06067"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "IEEE CEC 2025（話題）",
+      "title": "Diverse Prompts: Illuminating the Prompt Space of Large Language Models with MAP-Elites",
+      "authors": "Gabriel Machado Santos ほか（Federal University of Uberlândia）",
+      "link": "https://arxiv.org/abs/2504.14367",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "文法生成プロンプトを MAP-Elites で探索し、プロンプト構造と LLM 性能の関係を地図化した。",
+      "basis": "arXiv で CEC 2025 採録と明記。QD×LLM の融合例で本アーカイブの open-endedness と関連（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2504.14367"
+    },
+    {
+      "year": 2025,
+      "kind": "topic",
+      "award": "IEEE CEC 2025（話題）",
+      "title": "Large Language Models as Particle Swarm Optimizers",
+      "authors": "（既存デッキ参照）",
+      "link": "https://arxiv.org/abs/2504.09247",
+      "slide": null,
+      "status": "既存：swarm-intelligence/ga-hybrid",
+      "summary": "LLM を PSO の更新に組み込む CEC 2025 論文。既存デッキ（swarm-intelligence/ga-hybrid, deep-learning-fusion）で取り上げ済み。",
+      "basis": "既存デッキの venue 欄が IEEE CEC 2025。",
+      "source": "https://arxiv.org/abs/2504.09247"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "IEEE CEC 2024 Best Student Paper Award",
+      "title": "MOEA/D-CMA Made Better with (1+1)-CMA-ES",
+      "authors": "Chengyu Lu, Yilu Liu, Qingfu Zhang（City University of Hong Kong）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "分解型多目的進化アルゴリズム MOEA/D に (1+1)-CMA-ES を組み込み、ブラックボックス多目的最適化での性能を高めた（検索情報に基づく）。arXiv 版・著者公開版が見つからず本文未確認。",
+      "basis": null,
+      "source": "https://scholars.cityu.edu.hk/en/prizes/ieee-congress-on-evolutionary-computation-2024-best-student-paper/"
+    },
+    {
+      "year": 2024,
+      "kind": "topic",
+      "award": "IEEE CEC 2024（話題）",
+      "title": "Large Language Models as Evolutionary Optimizers",
+      "authors": "Shengcai Liu ほか（CFAR, A*STAR）",
+      "link": "https://arxiv.org/abs/2310.19046",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "LLM に親選択・交叉・変異を自然言語で指示する LMEA。小規模 TSP ではほぼ最適解に到達するが 20 ノード超で劣化。",
+      "basis": "arXiv で CEC 2024 採録と明記。LLM を進化演算子に使う初期の例（著者は初の試みと主張）で、CEC で LLM×EC が主題化する流れの起点の 1 つ（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2310.19046"
+    },
+    {
+      "year": 2024,
+      "kind": "topic",
+      "award": "IEEE CEC 2024（話題）",
+      "title": "Non-Spatial Hash Chemistry as a Minimalistic Open-Ended Evolutionary System",
+      "authors": "Hiroki Sayama（Binghamton University）",
+      "link": "https://arxiv.org/abs/2404.18027",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "空間を取り除いた最小の人工化学で、複製する高次実体のサイズが非有界に増え続けることを統計的に示した。",
+      "basis": "arXiv で CEC 2024（WCCI 2024）採録と明記。オープンエンド進化の研究が CEC に載る例で、本アーカイブの open-endedness と関連（調査者の見立て）。",
+      "source": "https://arxiv.org/abs/2404.18027"
+    }
+  ],
+  "unknowns": [
+    "IEEE CEC 2026 の Best Paper Award（学生以外）の受賞論文。検索では Best Student Paper（Gjorgjieva ほか）しか見つからなかった。CEC Awards Committee は Bing Xue, Efrén Mezura-Montes, Sanaz Mostaghim, Simone Ludwig（WCCI 2026 プログラムの検索スニペット）。",
+    "IEEE CEC 2025 の Best Student Paper Award の受賞論文。",
+    "IEEE CEC 2024 の Best Paper Award（学生以外）の受賞論文。",
+    "IEEE CEC 2023 の Best Paper / Best Student Paper の受賞論文（検索で見つからず）。",
+    "CEC 2024 Best Student Paper「MOEA/D-CMA Made Better with (1+1)-CMA-ES」の本文（arXiv 版・著者公開版が見つからず、IEEE Xplore には到達不可）。",
+    "CEC 2025 Best Paper の採録版の正確な題名（PolyU の発表は A Theoretical Analysis of Evolutionary Transfer Optimization、arXiv 版は Analogy-Based を含む）。",
+    "CEC 2027 のカメラレディ締切、特別セッション・競技会・チュートリアル提案の締切、ページ数規定（公式サイトに到達できず）。",
+    "CEC 2027 の締切時刻のタイムゾーン（2026 年は UTC-12 / AoE。2027 年の表記は未確認）。",
+    "CEC 2025 の延長後の最終締切と採否通知日、CEC 2023 の締切（ccf-deadlines の値のみ）と採否通知日。",
+    "CEC 2022 の投稿数・採択率（Tanabe の集計でも NaN）。",
+    "WCCI 2026 の最終的なページ数規定（第一報では最大 6 ページ）とリバッタルの有無。",
+    "CEC 2026 競技会（単目的境界制約付きなど）の最終順位と受賞アルゴリズム。"
+  ],
+  "sources": [
+    {
+      "label": "IEEE CEC 2027 公式サイト（検索スニペットで日付を確認）",
+      "url": "https://ieeecec.org/2027"
+    },
+    {
+      "label": "IEEE CIS Conference Calendar",
+      "url": "https://cis.ieee.org/conferences/conference-calendar"
+    },
+    {
+      "label": "IEEE WCCI 2026 Important Dates",
+      "url": "https://attend.ieee.org/wcci-2026/important-dates-deadlines"
+    },
+    {
+      "label": "IEEE WCCI 2026 Call for Papers",
+      "url": "https://attend.ieee.org/wcci-2026/call-for-papers"
+    },
+    {
+      "label": "IEEE WCCI 2026 Information for Authors",
+      "url": "https://attend.ieee.org/wcci-2026/information-for-authors"
+    },
+    {
+      "label": "IEEE CEC 2026 Topics",
+      "url": "https://attend.ieee.org/wcci-2026/ieee-cec-2025"
+    },
+    {
+      "label": "IEEE CEC 2026 Position Papers",
+      "url": "https://attend.ieee.org/wcci-2026/cec-position-papers/"
+    },
+    {
+      "label": "IEEE WCCI 2026 Competitions",
+      "url": "https://attend.ieee.org/wcci-2026/competitions/"
+    },
+    {
+      "label": "WCCI 2026 Full Program（PDF）",
+      "url": "https://attend.ieee.org/wcci-2026/wp-content/uploads/sites/689/WCCI-2026-Full-Program.pdf"
+    },
+    {
+      "label": "WCCI 2026 First Announcement（SIPTA メーリングリスト）",
+      "url": "https://lists.sipta.org/hyperkitty/list/news@lists.sipta.org/thread/7BKJ5FZNDKM563NXSPG6LDRT3AWQMD53/"
+    },
+    {
+      "label": "Ryoji Tanabe: Statistics of acceptance rates of the main EC conferences（GitHub ryojitanabe/ecconf を取得）",
+      "url": "https://ryojitanabe.github.io/ecconf/"
+    },
+    {
+      "label": "ccf-deadlines cec.yml",
+      "url": "https://github.com/ccfddl/ccf-deadlines"
+    },
+    {
+      "label": "WCCI 2024 締切延長の告知",
+      "url": "https://lists.cnsorg.org/hyperkitty/list/comp-neuro@lists.cnsorg.org/thread/KKVJZYELYTYACTWP7VIERKPIXZJZKH3W/"
+    },
+    {
+      "label": "CEC 2026 Best Student Paper（Jožef Stefan International Postgraduate School）",
+      "url": "https://www.mps.si/en/o-nas/aktualno/doktorska-studentka-sara-gjorgjieva-prejela-nagrado-za-najboljsi-studentski-prispevek-na-ieee-cec-2026/"
+    },
+    {
+      "label": "CEC 2025 Best Paper（PolyU DSAI）",
+      "url": "https://www.polyu.edu.hk/dsai/news-and-events/news/2025/20250624-ieee-best-paper-award/"
+    },
+    {
+      "label": "CEC 2025 Best Paper（PolyU 研究ポータル）",
+      "url": "https://research.polyu.edu.hk/en/prizes/2025-ieee-cec-best-paper-award/"
+    },
+    {
+      "label": "CEC 2025 Best Poster（NUS ECE）",
+      "url": "https://cde.nus.edu.sg/ece/news/nus-ece-team-wins-best-poster-award-at-ieee-cec-2025-for-physics-inspired-optimization-research/"
+    },
+    {
+      "label": "CEC 2024 Best Student Paper（CityU）",
+      "url": "https://scholars.cityu.edu.hk/en/prizes/ieee-congress-on-evolutionary-computation-2024-best-student-paper/"
+    },
+    {
+      "label": "CEC 2025 締切（PaperPilot）",
+      "url": "https://www.getpaperpilot.com/deadlines/ieee-cec-2025.html"
+    },
+    {
+      "label": "CORE Conference Portal: CEC",
+      "url": "https://portal.core.edu.au/conf-ranks/2061/"
+    }
+  ]
+}
