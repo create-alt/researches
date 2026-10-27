@@ -24,6 +24,16 @@
 
 合計：スライド化 567 本（12 分野・55 テーマ）。
 
+## 学会ブランチ（conferences）
+
+[`conferences`](https://github.com/create-alt/researches/tree/conferences) ブランチに、9 学会（ACM GECCO、IEEE CEC、IJCNN、ICML、ACM ICONS、NeurIPS、AAAI、ICLR、AISTATS）の調査をまとめています。学会ごとのフォルダ（`<学会>/`）に次を置いています。
+
+- `venue.json`：次回の論文締切（公式／推定と根拠）、過去の回の締切・会期・開催地・投稿数・採択率、形式・特徴・傾向、よく当てはまる分野、受賞・話題の論文の一覧、調べても分からなかった点、出典
+- `<学会>.pptx` / `<学会>.pdf`：受賞・注目論文のデッキ（落合陽一フォーマット＋詳細・評価ポイントのスライド）
+- `spec.json`・`figures/`・`README.md`：デッキの元データ、代表図、調査メモ
+
+調査日 2026-10-27、受賞・注目論文のスライド 100 本、受賞・話題の一覧 222 件。サイトでは「学会」（`#/venues`）から締切の一覧と各学会のページを見られます。
+
 > 分野ブランチを作成・更新したら、この表にも追記します。各ブランチの README に、調査履歴・系譜・引用論文一覧・次の推奨テーマがあります。
 
 ## 候補分野メモ（candidates/）
@@ -108,7 +118,7 @@ node build.js <theme>/spec.json <theme>/<theme>.pptx  # テーマのデッキ（
 
 ## Web サイト（GitHub Pages）
 
-スライドにまとめた内容を、分野 → テーマ → 論文の順にブラウザで読めるサイトを `tools/site/` で生成します。全論文の検索もできます。pptx・pdf・README はこれまでどおり各分野ブランチに残し、サイトはそれらから毎回作り直します。
+スライドにまとめた内容を、分野 → テーマ → 論文の順にブラウザで読めるサイトを `tools/site/` で生成します。全論文の検索もできます。学会ブランチがあれば「学会」欄（締切・特徴・受賞論文）も生成します。pptx・pdf・README はこれまでどおり各分野ブランチに残し、サイトはそれらから毎回作り直します。
 
 - 公開手順：リポジトリを public にしたあと、Settings → Pages → Source を「GitHub Actions」にして、Actions の「Deploy research site」を実行する。公開先は `https://create-alt.github.io/researches/`。
 - 更新：main または分野ブランチへの push で自動的に作り直される（`.github/workflows/`）。
