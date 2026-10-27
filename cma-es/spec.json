@@ -1,0 +1,240 @@
+{
+  "field": "遺伝的アルゴリズム",
+  "theme": "CMA-ES とその発展",
+  "date": "2026-10-27",
+  "summary": "CMA-ES（Hansen & Ostermeier 2001）は正規分布の平均・共分散・ステップサイズを順位だけで適応する。NES で自然勾配として再解釈され、大規模化・多目的・混合整数へ拡張された。\n2024〜2026 年は学習率適応、BO・LLM との協調、混合整数 ES の収束理論、停止基準の定量評価、モジュール化と自動設定が焦点。",
+  "papers": [
+    {
+      "title": "The CMA Evolution Strategy: A Tutorial",
+      "short": "CMA-ES Tutorial (Hansen 2016)",
+      "authors": "Nikolaus Hansen（Inria）｜ arXiv プレプリント 2016（2023 改訂 v2）",
+      "year": 2016,
+      "venue": "arXiv プレプリント 2016",
+      "link": "https://arxiv.org/abs/1604.00772",
+      "lineage": "原典",
+      "s1": "CMA-ES（Hansen & Ostermeier 2001）の決定版解説。正規分布から λ 点を標本し、順位だけで平均・共分散・ステップサイズを更新する (μ/μw, λ)-CMA-ES を、rank-μ・rank-one 更新と累積ステップサイズ制御 (CSA) の導出、既定パラメータ付きでまとめた。",
+      "s2": "EMNA や Cross-Entropy 法は選ばれた点の散らばりで共分散を推定し、勾配方向の分散が幾何級数的に縮んで早期収束する（Fig. 3）。CMA は旧平均を基準に「選ばれたステップ」を推定して分散を伸ばせ、λ=4+⌊3 ln n⌋ の小集団でも退化しない。",
+      "s3": "C ← (1−c1−cμΣw)C + c1·pc pcᵀ + cμ·Σ wi yi yiᵀ。進化パス pc が連続ステップの符号相関を蓄え、c1≈2/n² でも cigar 型の適応を O(n) 評価に短縮する。σ は共役進化パス pσ の長さを E‖N(0,I)‖ と比べて増減。",
+      "s4": "チュートリアルのため新規の比較実験はない。線形関数で C_μ と EMNA の推定を比較し（Fig. 3, λ=150, μ=50）、cμ≈μeff/n² は sphere で経験的に決めたと述べる。性能の根拠は原典と BBOB の文献に委ね、付録に終了判定と MATLAB 実装を載せる。",
+      "s5": "著者：凸二次関数で C は逆ヘッセ行列に近づき準ニュートン法に相当するが厳密な証明はない。CSA は強い雑音で最適 σ を外す。\n所感：単調変換・アフィン変換への不変性と不偏性を設計原理として明示した点が、後続研究の共通言語になった。",
+      "s6": "・CMA-ES 原典 (Hansen & Ostermeier 2001)（本文未確認）\n・NES (Wierstra+ 2014)（本資料）\n・IGO (Ollivier+ 2017)（既存：swarm-intelligence/particle-theory）",
+      "figure": {
+        "file": "figures/tutorial_fig3.png",
+        "caption": "出典：CMA-ES Tutorial (Hansen 2016) Fig. 3（線形関数での共分散推定。上 C_μ、下 EMNA）"
+      },
+      "scope": "全文（本文 0〜5 章と付録 A・B。実験は図示のみ）",
+      "notes": "arXiv 1604.00772v2（2023 改訂）を通読。原典 Hansen & Ostermeier (2001, ECJ) は OA 版が見つからず本文未確認のため、内容を最もよく伝えるこのチュートリアルを原典枠に置いた。"
+    },
+    {
+      "title": "Natural Evolution Strategies",
+      "short": "NES (Wierstra+ 2014)",
+      "authors": "Daan Wierstra, Tom Schaul, Tobias Glasmachers ほか（IDSIA / EPFL）｜ JMLR 2014",
+      "year": 2014,
+      "venue": "JMLR 2014",
+      "link": "https://arxiv.org/abs/1106.4487",
+      "lineage": "発展",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "探索分布の期待適応度を自然勾配で上昇させる Natural Evolution Strategies を体系化した。局所座標で自然勾配を O(d³) で計算する xNES、対角版 SNES、Cauchy 版を導出し、xNES の更新が CMA-ES の rank-μ 更新とほぼ一致すると示した。",
+      "s2": "CMA-ES（Hansen & Ostermeier 2001）は平均・共分散・σ を別々の経験則で更新し、第一原理による導出を欠いていた。素の探索勾配は σ→0 で更新が発散しスケール不変でない（Fig. 1）。Fisher 計量で正規化する自然勾配でこれを解消した。",
+      "s3": "∇J = E[f(z)∇log π(z|θ)] を順位ベースの効用で推定し θ ← θ + ηF⁻¹∇J。現在の分布が標準正規になる自然座標では F=I となり、A ← A·exp(η/2·Σ uk(sk skᵀ−I)) と書ける。重要度混合と適応サンプリングで学習率も調整する。",
+      "s4": "BBOB 2010 の無雑音 24・雑音 30 関数で (1,4)-CMA-ES と比較。単峰では同等、多峰（d=5）と雑音の多くで再始動付き xNES が成功率で上回った（Fig. 7–10）。二重倒立振子では CoSyNE（中央値 410 評価）の約 2 倍速く、SNES は Lennard-Jones を d=201 まで解いた。",
+      "s5": "著者：xNES は進化パスを持たず小集団で不安定になりうる。SNES は回転楕円体 f10 で 4 桁遅い。\n所感：CMA-ES を自然勾配として読む視点が IGO と学習率適応（LRA）の土台になった。比較相手が (1,4)-CMA-ES のみなのは割り引きたい。",
+      "s6": "・IGO (Ollivier+ 2017)（既存：swarm-intelligence/particle-theory）\n・CMA-ES と NES の双方向関係 (Akimoto+ 2010)（未調査）\n・Integer NES (de Nobel+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/nes_fig2.png",
+        "caption": "出典：NES (Wierstra+ 2014) Fig. 2（左：素の勾配、右：自然勾配。赤破線の自然勾配は不確かな方向を縮める）"
+      },
+      "notes": "arXiv 1106.4487v1（JMLR 2014 掲載版の元原稿）を全章読了。"
+    },
+    {
+      "title": "LM-CMA: an Alternative to L-BFGS for Large Scale Black-box Optimization",
+      "short": "LM-CMA (Loshchilov 2017)",
+      "authors": "Ilya Loshchilov（EPFL）｜ Evolutionary Computation 2017",
+      "year": 2017,
+      "venue": "Evolutionary Computation 2017",
+      "link": "https://arxiv.org/abs/1511.00221",
+      "lineage": "発展",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "共分散行列を持たず、間隔を空けて保存した m 本の進化パスからコレスキー因子を再構成して標本する限定メモリ CMA-ES（LM-CMA）を改良した。空間 O(mn)、1 評価あたり約 25 回のスカラー×ベクトル演算で、10 万次元まで動かした。",
+      "s2": "CMA-ES は O(n²) のメモリと計算を要し、n>10,000 では行列を保持できない。sep-CMA（Ros & Hansen 2008）、R1-NES、VD-CMA（Akimoto+ 2014）は線形だが非分離・悪条件で弱い。L-BFGS は勾配の差分推定に n+1 評価を要する。",
+      "s3": "Cholesky-CMA の rank-one 更新 A ← aA + b·pc vᵀ を m 組の (pc, v) で逐次再現し、Az を O(mn) で計算する。保存ベクトルは約 n 世代の間隔を保ち、標本ごとに使う本数 m* を乱数で選ぶ。Rademacher 標本・鏡像標本・母集団成功則で σ を制御。",
+      "s4": "8 関数で aCMA・VD-CMA・L-BFGS（厳密勾配に n+1 評価を課金）・中心差分 CL-BFGS と比較（11 試行の中央値）。回転楕円体で評価数が n に線形となり、n≈1000 以上で aCMA を逆転（Fig. 5）。10 万次元では最初の 10n〜20n 評価で L-BFGS より速い（Fig. 6）。",
+      "s5": "著者：m や学習率の設定は問題依存で、非滑らかな Nesterov 関数では既定値で解けず手調整が要った。\n所感：Discus のように固有値構造が複雑だと m=√n でも aCMA に劣る。行列を持たない CMA-ES（Arabas+ 2025）や dd-CMA と比べたい。",
+      "s6": "・sep-CMA-ES (Ros & Hansen 2008)（本文未確認）\n・dd-CMA (Akimoto & Hansen 2020)（未調査）\n・CMA-ES without a matrix (Arabas+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/lmcma_fig5.png",
+        "caption": "出典：LM-CMA (Loshchilov 2017) Fig. 5 上段（目標到達までの評価数/次元と次元の関係）"
+      },
+      "notes": "arXiv 1511.00221v1 を全章読了。"
+    },
+    {
+      "title": "Uncrowded Hypervolume Improvement: COMO-CMA-ES and the Sofomore framework",
+      "short": "COMO-CMA-ES (Touré+ 2019)",
+      "authors": "Cheikh Touré, Nikolaus Hansen, Anne Auger, Dimo Brockhoff（Inria / École Polytechnique）｜ GECCO 2019",
+      "year": 2019,
+      "venue": "GECCO 2019",
+      "link": "https://arxiv.org/abs/1904.08823",
+      "lineage": "発展",
+      "parent": "MO-CMA-ES (Igel+ 2007)",
+      "s1": "単目的最適化器 p 個を組み合わせて多目的最適化器を作る Sofomore 枠組みと、支配された解にもパレートフロントへの距離で探索方向を与える UHVI 適応度を提案。CMA-ES で具体化した COMO-CMA-ES は 2 目的凸二次問題で線形収束した。",
+      "s2": "MO-CMA-ES（Igel+ 2007）や SMS-EMOA は非支配ソート＋超体積寄与のため、支配解の探索方向が既存の非支配解を向き、同じ領域を奪い合う（Fig. 1 中）。NSGA-II は混雑距離のせいで収束せず周期的になりうる。素の HVI は支配領域で平坦。",
+      "s3": "UHVI(s) は非支配なら超体積改善量、支配されるなら経験パレートフロントまでの距離の負値。他の p−1 解を固定し、各カーネルをランダム順に ask-tell で 1 世代ずつ更新する。非エリートの (μ/μ, λ)-CMA-ES の平均を推奨解とする。",
+      "s4": "n=5, 10、p=11, 31 の 2 目的凸二次問題（sphere・elli・cigtab と回転版）で MO-CMA-ES・NSGA-II・SMS-EMOA と比較。収束ギャップは線形に減り（Fig. 3）、bi-sphere 以外で MO-CMA-ES 以上。アーカイブギャップもほぼ全条件で最良（Fig. 4）。",
+      "s5": "著者：比較は各 4 試行と限られる。cigtab では CSA が大きな σ を減らせず停滞区間が出る。\n所感：多目的を「動的な単目的の集まり」に還元し、単目的 CMA-ES の進歩をそのまま流用できる設計が効く。混合変数版（COMO-CatCMAwM）もこの枠組みに乗った。",
+      "s6": "・Covariance Matrix Adaptation for Multi-objective Optimization (Igel+ 2007)（本文未確認）\n・CatCMA with Margin (Hamano+ 2025)（未調査）\n・CMA-MAE (Fontaine & Nikolaidis 2023)（既存：open-endedness/quality-diversity）",
+      "figure": {
+        "file": "figures/como_fig1.png",
+        "caption": "出典：COMO-CMA-ES (Touré+ 2019) Fig. 1（適応度の等高線。左 HVI、中 非支配ソート、右 UHVI）"
+      },
+      "notes": "arXiv 1904.08823v1（GECCO 2019 著者版）を全文読了。"
+    },
+    {
+      "title": "CMA-ES with Margin: Lower-Bounding Marginal Probability for Mixed-Integer Black-Box Optimization",
+      "short": "CMA-ES with Margin (Hamano+ 2022)",
+      "authors": "Ryoki Hamano, Shota Saito, Masahiro Nomura, Shinichi Shirakawa（横浜国立大学）｜ GECCO 2022",
+      "year": 2022,
+      "venue": "GECCO 2022",
+      "link": "https://arxiv.org/abs/2205.13482",
+      "lineage": "発展",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "連続・整数・2 値変数が混在するブラックボックス最適化で、整数次元が単一の値に固定される停滞を、周辺確率に下限 α を課す「マージン」で防ぐ CMA-ES with Margin を提案。2 値を含む問題でも次元によらず成功率 100% を保った。",
+      "s2": "標本を丸めるだけだと整数次元の標準偏差が離散化幅より小さくなり探索が止まる。Hansen の整数変異注入（CMA-ES-IM）は、2 値変数で平均がしきい値から遠ざかると効かない（Fig. 1）。PBIL など EDA のマージンを CMA-ES へ移した。",
+      "s3": "標本 v=m+σAy を評価し、対角行列 A と平均 m を補正して min(Pr(v_j<0.5), Pr(v_j≥0.5)) ≥ α を保つ（Fig. 2）。補正は標本のアフィン変換なので CMA-ES の更新式と不変性は保たれる。既定 α=(Nλ)⁻¹ は感度実験で決定（Fig. 4）。",
+      "s4": "6 関数、N=20/40/60 の各 100 試行で CMA-ES-IM（箱制約あり・なし）と比較。提案法は全条件で成功率 100%。EllipsoidLeadingOnes N=60 では既存法 0/100 に対し 91,496 評価で解き、EllipsoidInt N=60 は 89,200 → 42,000 評価に短縮（Table 2）。",
+      "s5": "著者：回転した悪条件の非分離凸二次（回転楕円体）は未解決で、次元間相関の扱いと実問題での評価が課題。\n所感：SphereOneMax では既存法より遅く、マージンが連続変数の収束を鈍らせる懸念がある。2026 年の収束解析（本資料）がこれを理論で裏づけた。",
+      "s6": "・CatCMA (Hamano+ 2024)（未調査）\n・CatCMA with Margin (Hamano+ 2025)（未調査）\n・Convergence Analysis of ES for Mixed-Integer Optimization (Hamano+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/margin_fig2.png",
+        "caption": "出典：CMA-ES with Margin (Hamano+ 2022) Fig. 2（周辺確率が α 未満なら平均を補正）"
+      },
+      "notes": "arXiv 2205.13482v2（GECCO 2022 版＋補足）を全文読了。"
+    },
+    {
+      "title": "CMA-ES with Learning Rate Adaptation",
+      "short": "LRA-CMA-ES (Nomura+ 2024)",
+      "authors": "Masahiro Nomura, Youhei Akimoto, Isao Ono（東京工業大学 / 筑波大学）｜ ACM TELO 2024",
+      "year": 2024,
+      "venue": "ACM TELO 2024",
+      "link": "https://arxiv.org/abs/2401.15876",
+      "lineage": "発展",
+      "parent": "NES (Wierstra+ 2014)",
+      "s1": "平均と共分散の学習率 η を、更新の信号雑音比 (SNR) が一定になるよう自動調整する LRA-CMA-ES を提案。既定の小さな集団サイズのまま、多峰関数と加法雑音問題を学習率の手調整なしに解けるようにした（GECCO 2023 版の拡張）。",
+      "s2": "多峰・雑音問題では集団サイズ λ を増やすのが定石で、IPOP や PSA-CMA-ES（Nishida & Akimoto 2018）が λ を適応する。だが可変 λ は並列ワーカー数と合わない。既存の学習率適応（Gissler+ 2022 など）は高速化が目的だった。",
+      "s3": "IGO の SDE 近似では η と λ は η/λ の形でしか現れず、η→0 で ODE 軌道に沿えば Rastrigin も解ける（Fig. 3）。最適 η はほぼ SNR に比例するとし、Fisher 計量の局所座標で更新の移動平均から SNR を推定、SNR=αη を保つよう η を更新。",
+      "s4": "8 関数（d=10〜40）と加法雑音版で、固定 η∈{1, 0.1, 0.01} の CMA-ES と PSA-CMA-ES に比較。既定 λ（d=40 で 15）のまま Rastrigin で全試行成功（Fig. 6）。強雑音 σn²=10⁶ でも改善を続けた（Fig. 8）。無雑音の多峰では PSA が上回る（Fig. 14）。",
+      "s5": "著者：40 次元 Schaffer で失敗が残り、α・β の設定理解も不十分。弱構造の多峰問題には再始動との併用が要る。\n所感：単峰では既定 η より遅い。λ を固定できる利点は大規模並列で価値が高い。",
+      "s6": "・Learning Rate Adaptation by Line Search in ES with Recombination (Gissler+ 2022)（未調査）\n・PSA-CMA-ES (Nishida & Akimoto 2018)（未調査）\n・Beyond IGO-Flow (Kimura & Akimoto 2026)（既存：swarm-intelligence/particle-theory）",
+      "figure": {
+        "file": "figures/lra_fig4.png",
+        "caption": "出典：LRA-CMA-ES (Nomura+ 2024) Fig. 4 抜粋（10 次元での f(m)・ηm・ηΣ の推移）"
+      },
+      "notes": "arXiv 2401.15876v2（TELO 採録版）の本文 1〜6 章を読了。付録 A〜C は概略のみ。"
+    },
+    {
+      "title": "High-dimensional Bayesian Optimization via Covariance Matrix Adaptation Strategy",
+      "short": "CMA-BO (Ngo+ 2024)",
+      "authors": "Lam Ngo, Huong Ha, Jeffrey Chan, Vu Nguyen, Hongyu Zhang（RMIT 大学 ほか）｜ TMLR 2024",
+      "year": 2024,
+      "venue": "TMLR 2024",
+      "link": "https://arxiv.org/abs/2402.03104",
+      "lineage": "発展",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "CMA の探索分布の 3σ 楕円体を局所領域とし、その中だけで BO（GP＋Thompson sampling）が評価点を選ぶメタアルゴリズムを提案。BO・TuRBO・BAxUS に被せた CMA-BO / CMA-TuRBO / CMA-BAxUS が 100〜500 次元で既存手法を上回った。",
+      "s2": "BO は高次元で過探索と大域 GP の当てはめ困難に陥る。TuRBO（Eriksson+ 2019）の信頼領域は固定規則の超直方体で、LA-MCTS は少数データで領域学習が不安定。CMA-ES は高次元に強いが多くの評価を要する（Loshchilov & Hutter 2016）。",
+      "s3": "局所領域 S={x | (x−m)ᵀΣ⁻¹(x−m) ≤ χ²_{1−α,d}}、α=99.73%。分布から引いた候補プールから BO が λ 点を選び、その λ 点で m・C・σ を CMA 更新する。TuRBO 版は成否で楕円を L 倍に伸縮し、CMA の再始動も併用。",
+      "s4": "Levy・Rastrigin 100D、Branin2 500D など合成 8 問と Half-cheetah 102D・LassoDNA 180D・Rover 100D（各 10 試行、約 1000 評価）。CMA-BO と CMA-TuRBO は 11 問すべてで元手法を大差で上回り、CMA-ES・DTS-CMAES・BADS にも勝った（Fig. 2–4）。",
+      "s5": "著者：BO が選んだ点で CMA を更新すると分布が偏る懸念があるが、候補数を 2〜3 倍にしても性能は不変（Fig. 8）。\n所感：CMA-ES の過探索（Fig. 9）を BO で補う逆向きの組合せ。予算 1000 前後の比較で、評価数を増やした場合の CMA-ES との差は不明。",
+      "s6": "・CMA-ES for HPO of DNNs (Loshchilov & Hutter 2016)（未調査）\n・Warm Starting CMA-ES (Nomura+ 2021)（未調査）\n・TuRBO (Eriksson+ 2019)（未調査）",
+      "figure": {
+        "file": "figures/cmabo_fig1.png",
+        "caption": "出典：CMA-BO (Ngo+ 2024) Fig. 1（CMA の楕円局所領域の中で BO が点を選び、CMA 更新で領域が大域最適へ移る）"
+      },
+      "notes": "arXiv 2402.03104v1（TMLR 掲載版）の本文と付録 A.3〜A.6 を読了。"
+    },
+    {
+      "title": "Can LLMs Beat Classical Hyperparameter Optimization Algorithms? A Study on autoresearch",
+      "short": "Centaur (Ferreira+ 2026)",
+      "authors": "Fabio Ferreira, Lucca Wobbe, Arjun Krishnakumar ほか（ELLIS Institute Tübingen）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2603.24647",
+      "lineage": "最新",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "小型言語モデル学習（autoresearch）の 14 ハイパーパラメータ調整で古典 HPO と LLM エージェントを比べ、CMA-ES の内部状態（平均・σ・共分散）を LLM に渡して 30% の試行だけ提案させるハイブリッド Centaur を提案、全 9 手法で最良とした。",
+      "s2": "LLAMBO・SLLMBO など LLM を HPO に使う研究はあるが、古典最適化器の内部状態を LLM と共有するものはない。純 LLM 手法は試行をまたいだ状態の追跡が苦手で、OOM 率がランダム探索並み（LLAMBO 48%、ランダム 56%）だった。",
+      "s3": "毎試行 CMA-ES が提案し、確率 r=0.3 で LLM が μ・σ・C・上位 5 件・直近 20 試行を見て上書きする（27B では 100% 上書き）。CMA-ES は LLM 提案を含む全結果で更新する。状態が数値で解釈しやすいことが CMA-ES を選んだ理由。",
+      "s4": "nanochat（約 50M）を H200 で 1 試行 5 分、24 時間×3 シードで比較。val_bpb は Centaur 0.9763、TPE 0.9768、SMAC 0.9778、CMA-ES 0.9785、コード編集エージェント 0.9814（Fig. 1）。シード間 std は 0.0036→0.0005 に減り、Opus 4.6 版は 0.9739。",
+      "s5": "著者：単一タスク・3 シードのみで一般性は未確認。r=0.8 では CMA-ES 単体より悪化し、主導権は CMA-ES に残すべき。\n所感：LLM を「時々の知識付き摂動」として使う設計を支持する結果。差は小さく検定がほしい。",
+      "s6": "・LLaMA tunes CMA-ES (Kramer 2024)（未調査）\n・LES (Lange+ 2023)（既存：swarm-intelligence/metabbo）\n・LLAMBO (Liu+ 2024)（未調査）",
+      "figure": {
+        "file": "figures/centaur_fig1.png",
+        "caption": "出典：Centaur (Ferreira+ 2026) Fig. 1（累積学習時間に対する最良 val_bpb。赤 Centaur、緑 CMA-ES、青 TPE）"
+      },
+      "notes": "arXiv 2603.24647v5 の本文 1〜7 章と付録の手法説明を読了。"
+    },
+    {
+      "title": "Convergence Analysis of Evolution Strategies for Mixed-Integer Optimization",
+      "short": "Mixed-integer ES convergence (Hamano+ 2026)",
+      "authors": "Ryoki Hamano, Kento Uchida, Shinichi Shirakawa（CyberAgent / 横浜国立大学）｜ GECCO 2026",
+      "year": 2026,
+      "venue": "GECCO 2026",
+      "link": "https://arxiv.org/abs/2605.21000",
+      "lineage": "最新",
+      "parent": "CMA-ES with Margin (Hamano+ 2022)",
+      "s1": "整数次元の標準偏差に下限を課す混合整数 ES の収束をドリフト解析で示した。下限だけの (1+1)-LB-ES は整数変数が多いと連続変数が早期収束し、上限も加えた (1+1)-LUB-ES は E[T_ε]=Θ(d_co·log(1/ε)) で線形収束することを証明。",
+      "s2": "CMA-ES with Margin（Hamano+ 2022）など離散化型の混合整数 ES は下限 σ_LB の調整に頼り、その連続変数への影響は理論的に説明されていなかった。連続空間の (1+1)-ES のドリフト解析（Akimoto+ 2018）を混合整数へ拡張した。",
+      "s3": "整数を先に比べる辞書式の LexicoSphereInt で、整数が最適に達した後を解析。LB-ES は劣った整数変異で σ が下がり続け ‖m‖/σ が指数的に増える（Thm 1）。LUB-ES は整数の分散に上限を入れ、1/s 成功則で s>2/p_in,LB なら線形収束（Thm 2）。",
+      "s4": "α=1.5、p_mut=1/(d_co+d_in)、各 10 試行。LB-ES は (d_co, d_in)=(10, 10) 程度から早期収束し（Fig. 1）、LUB-ES は条件を満たす s で (100, 100) まで線形に収束、到達時間は d_co に比例（Fig. 2）。SphereInt では上限付き (1+1)-CMA-ESwM も停滞を回避（Fig. 3）。",
+      "s5": "著者：整数変数そのものの最適化時間の解析と、混合カテゴリ手法（CatCMA）への拡張が課題。\n所感：Margin 系の経験則（劣った整数変異による σ の振れの抑制）を理論で裏づけた。ただし (1+1) 型に限られ、共分散適応や (μ/μw, λ) への拡張はまだ遠い。",
+      "s6": "・Drift Theory in Continuous Search Spaces (Akimoto+ 2018)（未調査）\n・CMA-ES with Margin (Hamano+ 2022)（本資料）\n・Integer Natural Evolution Strategies (de Nobel+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/hamano26_fig2.png",
+        "caption": "出典：Mixed-integer ES convergence (Hamano+ 2026) Fig. 2 抜粋（LUB-ES の log‖m_t‖）"
+      },
+      "scope": "全文（問題提起・手法・定理・数値実験・考察。付録の証明は概略）",
+      "notes": "arXiv 2605.21000v1 の本文を読了。付録 B・C の証明は流れのみ確認。"
+    },
+    {
+      "title": "Quantitative Performance Analysis of Stopping Criteria for CMA-ES",
+      "short": "Stopping criteria (Tanabe 2026)",
+      "authors": "Ryoji Tanabe（横浜国立大学）｜ PPSN 2026",
+      "year": 2026,
+      "venue": "PPSN 2026",
+      "link": "https://arxiv.org/abs/2606.09220",
+      "lineage": "最新",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "IPOP / BIPOP の再始動の引き金となる CMA-ES の停止基準 11 種（pycma 実装）を BBOB で初めて定量評価した。最初に発火するのは tolflatfitness と tolfun が多く、最適停止点への近さでは tolfunhist と全基準のポートフォリオが最良だった。",
+      "s2": "停止基準は Hansen & Kern（2004）以降、IPOP（Auger & Hansen 2005）、BIPOP（Hansen 2009）で継ぎ足され、pycma では 12 種ある。どれが効いているかは未検証で、irace による IPOP-CMA-ES の調整研究も停止基準そのものは分析しなかった。",
+      "s3": "最良値が最後に更新された評価数 FE* を最適停止点とし、POSE=|FE*−FE_stop|/FE_max で各基準を評価する。基準が発火しても FE_max=10⁵n まで走らせ続け、全基準の発火時点を記録する。",
+      "s4": "bbob 24 関数×15 インスタンス、n=2〜40、λ は既定の 1〜256 倍。λ=1λdef では 360 試行中約 250 で tolflatfitness が最初に発火（Fig. 2）。POSE は tolfunhist とポートフォリオが最小の条件が多い（Fig. 3）。tolfun 系は高次元で早く止めがち（Fig. 4）。",
+      "s5": "著者：収束・発散系の基準は既定値では遅すぎ、tolfun 系は攻撃的すぎる。tolfun は単調変換に不変でない。\n所感：再始動 CMA-ES を左右する地味な部品を初めて測った。IPOP で λ が増えると効く基準が切り替わる点が示唆的。",
+      "s6": "・IPOP-CMA-ES (Auger & Hansen 2005)（本文未確認）\n・BIPOP-CMA-ES (Hansen 2009)（本文未確認）\n・MSC-CMA-ES (Nedanovski+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/tanabe_fig3.png",
+        "caption": "出典：Stopping criteria (Tanabe 2026) Fig. 3 (a)–(f)（基準ごとの平均 POSE。横軸は次元 n、小さいほど最適停止点に近い）"
+      },
+      "notes": "arXiv 2606.09220v1（PPSN 2026 採録版）を全文読了。"
+    },
+    {
+      "title": "The Modular CMA-ES: A Framework for Modern Evolution Strategies",
+      "short": "ModCMA (de Nobel+ 2026)",
+      "authors": "Jacob de Nobel, Diederick Vermetten, Anna V. Kononova, Thomas Bäck, Carola Doerr（Leiden 大学 ほか）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2610.09699",
+      "lineage": "最新",
+      "parent": "CMA-ES Tutorial (Hansen 2016)",
+      "s1": "CMA-ES を標本化・選択と組換え・ステップサイズ適応・行列適応・再始動の 14 モジュールに分け、約 1486 万通りの変種を一つの C++/Python 実装で組める ModCMA を発表。関数ごとの自動設定で BBOB-2009 の最良手法群と半数の関数で並ぶか上回った。",
+      "s2": "鏡像・直交標本、TPA・MSR・PSR などの σ 制御、sep-CMA・MA-ES・Cholesky-CMA、IPOP / BIPOP 再始動は個別に提案・評価され、組合せの相互作用は未検討だった。前身の ModEA（van Rijn+ 2016）と modular CMA-ES（2021）を大幅に拡張した。",
+      "s3": "各モジュールに選択肢を持たせ（例：行列適応＝Covariance / Separable / Cholesky / Matrix / CMSA / 自然勾配 / None）、ConfigSpace 経由で SMAC などから探索できる。得られた設定と性能の組を SHAP で解釈し、効くモジュールを特定する。",
+      "s4": "行列適応 7 種を d≤1000 の計算時間と BBOB の ERT（各 100 試行）で比較。Cholesky・Matrix は性能を保ちつつ高速で、f13 では標準版が解けない d>10 も解いた（Fig. 1, 2）。d=5 で関数ごとに SMAC で調整すると、多峰 f15–f20 で 2.5〜5 倍改善（Fig. 3）。",
+      "s5": "著者：混合整数・制約への対応、局所探索や代理モデルとの組合せ、動的なアルゴリズム選択が課題。\n所感：CMA-ES の部品を実験台に載せる基盤で、LRA やマージン、LLM による設計探索を同じ土俵で比べる受け皿になりうる。調整実験は d=5 のみ。",
+      "s6": "・Modular CMA-ES での選択と設定 (Vermetten+ 2019)（未調査）\n・BIPOP-CMA-ES (Hansen 2009)（本文未確認）\n・LLaMEA (van Stein & Bäck 2024)（既存：swarm-intelligence/ga-hybrid）",
+      "figure": {
+        "file": "figures/modcma_fig1.png",
+        "caption": "出典：ModCMA (de Nobel+ 2026) Fig. 1（行列適応方式ごとの計算時間。左：1000 世代の総時間、右：更新 1 回あたり）"
+      },
+      "notes": "arXiv 2610.09699v1 の本文 1〜10 章を読了（付録 A・B の追加図は概観のみ）。"
+    }
+  ]
+}

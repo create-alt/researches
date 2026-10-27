@@ -1,0 +1,208 @@
+{
+  "field": "遺伝的アルゴリズム",
+  "theme": "遺伝的アルゴリズムの応用",
+  "date": "2026-10-27",
+  "summary": "GA が実問題で深層学習に勝る・補完する場面を、分子設計（GB-GA→GuacaMol→PMO→Genetic GFN / MolLEO / SynGA）、配送計画（HGS→EARLI）、結晶構造予測、ロボット形態進化で追う。\n鍵はドメイン知識を込めた変異・交叉と、評価回数を揃えた公正な比較。\n最新の流れは GA を捨てず、学習モデルを初期化・演算子・評価器として GA に組み込む方向。",
+  "papers": [
+    {
+      "title": "A graph-based genetic algorithm and generative model/Monte Carlo tree search for the exploration of chemical space",
+      "short": "GB-GA (Jensen 2019)",
+      "authors": "Jan H. Jensen（University of Copenhagen）｜ Chemical Science 2019",
+      "year": 2019,
+      "venue": "Chemical Science 2019",
+      "link": "https://doi.org/10.1039/C8SC05372C",
+      "lineage": "原典",
+      "s1": "分子グラフ上で交叉（結合で切って断片をつなぐ）と変異を行う GB-GA を RDKit で実装・公開。罰則付き logP 最適化で、評価 1,000 回・30 秒の GA が、約2万回評価・8 時間の深層生成モデル（ChemTS 等）を上回った。",
+      "s2": "2017〜18 年に VAE・RNN・GCPN などの分子生成モデルが相次いだが、GA との比較はほぼなかった（GA 実装が非公開だったことも一因）。本論文は Brown らと ACSESS の演算子を組み合わせた GA を公開し、ML 手法と同じ課題で直接比べた。",
+      "s3": "目的は J(m) = logP − SA − 環罰則。交叉は環/非環の結合を等確率で切断して2親の断片を結合（7員環以上や原子数超過は破棄）。変異は原子の付加・挿入・削除や結合次数の変更など。分子サイズは比較先に合わせ平均 39 重原子に制限。",
+      "s4": "ZINC の 20 分子から開始し、集団 20×50 世代（評価 1,000 回）×10 試行。平均最大 J(m) は 7.4±0.9（変異率1%）で、ChemTS 5.6±0.5、RNN+BO 4.5、CVAE+BO 0.0（Table 2）。最良分子 8.8 は GCPN の 7.8〜8.0 を上回った（Fig. 3）。",
+      "s5": "著者：対象は logP 1性質だけで、一般化には他の性質での比較が必要。新しい ML 生成モデルは GA と比べるべき。\n所感：高得点分子は長い脂肪族鎖で、指標の抜け穴を突いた面もある。GA の強さは「化学知識入りの局所編集」にあると読める。",
+      "s6": "・GuacaMol (Brown+ 2019)（本資料）\n・GA+D (Nigam+ 2020)（未調査）\n・PMO (Gao+ 2022)（本資料）",
+      "figure": {
+        "file": "figures/gbga_table2.png",
+        "caption": "出典：GB-GA Table 2 の数値を調査者が図示（平均最大 J(m) と評価回数・計算時間）"
+      },
+      "notes": "本文は PMC の OAI-PMH（JATS XML）で全文を読んだ。PMC の図画像は reCAPTCHA で取得できず、Table 2 を再描画した。"
+    },
+    {
+      "title": "GuacaMol: Benchmarking Models for De Novo Molecular Design",
+      "short": "GuacaMol (Brown+ 2019)",
+      "authors": "Nathan Brown, Marco Fiscato, Marwin H. S. Segler, Alain C. Vaucher（BenevolentAI）｜ J. Chem. Inf. Model. 2019",
+      "year": 2019,
+      "venue": "J. Chem. Inf. Model. 2019",
+      "link": "https://arxiv.org/abs/1811.09621",
+      "lineage": "発展",
+      "parent": "GB-GA",
+      "s1": "de novo 分子設計の標準ベンチマーク GuacaMol を提案（分布学習5課題＋目的指向20課題＋化合物品質）。古典手法と深層生成モデルを同じ条件で比べ、最適化性能の首位は Graph GA（GB-GA の実装）、2位は SMILES LSTM だった。",
+      "s2": "VAE・RNN・GAN などの生成モデルは評価課題がばらばらで、logP や QED のような易しい目的が多く、GA など確立した手法との比較もほぼなかった。本研究は類似性・再発見・異性体・MPO などの課題をそろえ、比較の土台を作った。",
+      "s3": "目的指向課題は、類似度・物性・部分構造を修飾関数で [0,1] に写して平均したスコアを与え、上位分子の加重平均で採点する。Graph GA は ChEMBL の上位100分子から始め、交叉と確率 0.5 の変異で集団100を最大1000世代更新。",
+      "s4": "目的指向20課題の合計（Table 2）：Graph GA 17.983、SMILES LSTM 17.340、SMILES GA 14.396、データセット最良 12.144、Graph MCTS 9.009。品質フィルタの通過率は LSTM 77%、Graph GA 40%（Fig. 3）。",
+      "s5": "著者：GA は最適化に強いが分子分布の知識がなく、品質がばらつく。事前学習した LSTM は品質と性能を両立。課題が易しすぎ、サンプル効率の考慮が今後必要。\n所感：評価回数に上限がなく、GA の評価数の多さが見えない。これが PMO の問題提起につながった。",
+      "s6": "・GB-GA (Jensen 2019)（本資料）\n・PMO (Gao+ 2022)（本資料）\n・MOSES (Polykovskiy+ 2020)（未調査）",
+      "figure": {
+        "file": "figures/guacamol_table2.png",
+        "caption": "出典：GuacaMol Table 2（目的指向20課題のスコアと合計。太字が各課題の最良）"
+      }
+    },
+    {
+      "title": "Hybrid Genetic Search for the CVRP: Open-Source Implementation and SWAP* Neighborhood",
+      "short": "HGS-CVRP (Vidal 2022)",
+      "authors": "Thibaut Vidal（Polytechnique Montréal / PUC-Rio）｜ Computers & Operations Research 2022",
+      "year": 2022,
+      "venue": "Computers & Operations Research 2022",
+      "link": "https://arxiv.org/abs/2012.10384",
+      "lineage": "原典",
+      "parent": "HGS (Vidal+ 2012)",
+      "s1": "容量制約付き配送計画（CVRP）の最強クラス解法 HGS を、簡潔な C++ のオープンソース実装 HGS-CVRP として公開し、新しい近傍 SWAP* を追加。Uchoa らの100問で OR-Tools・LKH-3・FILO などを解の質と収束速度の両方で上回った。",
+      "s2": "CVRP の解法は高度化して再実装が難しく、応用研究や ML 研究が使える強い公開ソルバーがなかった。2012 年版 HGS から周期 VRP 用の要素を外し、線形時間の Split と SWAP* で単純化・高速化。以後の学習型ソルバーの比較基準になった。",
+      "s3": "順序交叉（OX）で訪問順を受け継ぎ、Split で最適に経路へ分割し、局所探索で改良する（メメティック法）。容量違反は罰則付きで許す。適応度＝コストの順位＋多様性の順位（broken-pairs 距離）で、集団の多様性を保つ。",
+      "s4": "Uchoa らの X 系100問（100〜1000顧客）、同一計算機・単一スレッド・制限 n×2.4 秒、各10試行。最良既知解との平均ギャップは HGS-CVRP 0.11%、SISR 0.19%、FILO 0.20%、LKH-3 1.00%、OR-Tools 4.01%（Table 2〜4）。",
+      "s5": "著者：近年の性能向上は新しいメタヒューリスティック概念より、効率的な局所探索による。単純さを優先し、集合分割などの追加はあえて控えた。\n所感：GA は局所探索と多様性管理の「器」として優秀という例。ML 側の比較対象として事実上の標準になった。",
+      "s6": "・HGS (Vidal+ 2012)（本文未確認）\n・PyVRP (Wouda+ 2024)（未調査）\n・EARLI (Greenberg+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/hgs_fig1.png",
+        "caption": "出典：HGS-CVRP Fig. 1（HGS の全体構造：選択→OX 交叉と Split→局所探索→集団管理）"
+      }
+    },
+    {
+      "title": "Sample Efficiency Matters: A Benchmark for Practical Molecular Optimization",
+      "short": "PMO (Gao+ 2022)",
+      "authors": "Wenhao Gao, Tianfan Fu, Jimeng Sun, Connor W. Coley（MIT）｜ NeurIPS 2022 Datasets and Benchmarks",
+      "year": 2022,
+      "venue": "NeurIPS 2022 (D&B)",
+      "link": "https://arxiv.org/abs/2206.12411",
+      "lineage": "発展",
+      "parent": "GuacaMol",
+      "s1": "分子最適化の25手法を23課題で、評価（オラクル）回数を1万回に制限して比べるベンチマーク PMO を提案。評価回数に対する上位10分子の曲線下面積で測ると、首位 REINVENT、2位 Graph GA と古い手法が強く、新しい深層手法の多くは及ばなかった。",
+      "s2": "GuacaMol や TDC はオラクル呼び出し回数を考えず、論文ごとに自作の易しい課題や単発の試行で報告されていた。実験や高精度計算は高価なので、評価回数を揃えた比較が要る。PMO は評価予算・多数課題・複数シードを統一した。",
+      "s3": "指標は AUC Top-10：上位10分子の平均スコアを評価回数に対して描いた曲線の面積（[0,1] に正規化）。少ない評価で高得点に届くほど高い。各手法のハイパーパラメータを2課題で調整し、5シードで報告した。",
+      "s4": "23課題の AUC Top-10 合計（Table 2）：REINVENT 14.196、Graph GA 13.751、SELFIES-REINVENT 13.471、GP BO 13.156、STONED 13.024。順位の平均は REINVENT 1、Graph GA 2.33（Table 3）。異性体課題では文字列 GA が強い（Fig. 3）。",
+      "s5": "著者：数百回の評価で解ける手法はまだない。課題の地形で向く手法が違う。類似度系課題への偏りが限界。\n所感：GA を「強いベースライン」として定着させた決定打。ただし Graph GA は試行間のばらつきが大きい。",
+      "s6": "・GuacaMol (Brown+ 2019)（本資料）\n・mol_ga (Tripp+ 2023)（未調査）\n・Genetic GFN (Kim+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/pmo_fig1.png",
+        "caption": "出典：PMO Fig. 1（評価回数と上位10平均の推移。紺が Graph GA、桃が REINVENT）"
+      }
+    },
+    {
+      "title": "Genetic-guided GFlowNets for Sample Efficient Molecular Optimization",
+      "short": "Genetic GFN (Kim+ 2024)",
+      "authors": "Hyeonah Kim, Minsu Kim, Sanghyeok Choi, Jinkyoo Park（KAIST）｜ NeurIPS 2024",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2402.05961",
+      "lineage": "最新",
+      "parent": "PMO / GB-GA",
+      "s1": "SMILES を生成する方策（GRU）を GFlowNet で学習し、方策が出した分子を Graph GA の交叉・変異で改良して学習データに戻す Genetic GFN を提案。PMO で合計 16.213 と全手法を上回り、23課題中14課題で首位。",
+      "s2": "PMO で GFlowNet は GA や REINVENT に大きく劣っていた。GA の出力を最尤で模倣する GEGL は、高報酬サンプルを一律に学ぶため局所解にはまりやすい。本手法は GA を GFlowNet のオフポリシー探索として使い、報酬に比例したサンプリングを学ぶ。",
+      "s3": "損失は L = L_TB + α KL(π_θ‖π_pre)（軌跡バランス損失＋事前学習方策からの KL 正則化）。順位で重み付けしたバッファから再生学習する。GA から見ると、方策が報酬比例で多様な個体を供給する「集団の再初期化」になる。",
+      "s4": "PMO（評価1万回、5シード）の AUC Top-10 合計：Genetic GFN 16.213、Mol GA 15.686、REINVENT 15.185、GEGL 14.354、GFlowNet 9.929（Table 1）。GA を外すと性能が落ちる（Table 2）。SARS-CoV-2 標的設計では 1/10 のステップで最良（Table 5）。",
+      "s5": "著者：有効な GA 演算子があることが前提で、分子以外では設計が難しい。HGS を使った経路問題への拡張が今後の課題。\n所感：GA を深層モデルの「探索エンジン」として蒸留し、GA と DL の対立を補完関係に変えた。分子の評価は代理指標のみ。",
+      "s6": "・GEGL (Ahn+ 2020)（未調査）\n・PMO (Gao+ 2022)（本資料）\n・MolLEO (Wang+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/ggfn_fig1.png",
+        "caption": "出典：Genetic GFN Fig. 1（a: 方策による SMILES 生成、b: グラフ GA による改良、バッファ経由で GFlowNet を学習）"
+      }
+    },
+    {
+      "title": "Efficient Evolutionary Search Over Chemical Space with Large Language Models",
+      "short": "MolLEO (Wang+ 2025)",
+      "authors": "Haorui Wang, Marta Skreta, Cher-Tian Ser ほか（Georgia Tech / University of Toronto）｜ ICLR 2025",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2406.16976",
+      "lineage": "最新",
+      "parent": "GB-GA",
+      "s1": "Graph GA の交叉・変異を化学に詳しい LLM（GPT-4、BioT5、MoleculeSTM）に置き換えた MolLEO を提案。目的を文章で指示して分子を編集させ、PMO で GPT-4 版が合計 17.862 と首位、23課題中15課題で最良だった。",
+      "s2": "GA の演算子はランダムで課題の情報を使わず、評価回数がかさむ。逆に LLM 単独では数値目標を満たせず、無効な SMILES も出す。MolLEO は GA の選択圧と LLM の化学知識を組み合わせ、LLM を EA の演算子にした初の分子設計とする。",
+      "s3": "交叉：2親の SMILES とスコアを示し「より高スコアの分子を提案せよ」と GPT-4 に指示。変異：上位個体を BioT5 / MoleculeSTM で目的文に沿って編集。LLM の編集が改善とは限らないため、最良分子との Tanimoto 類似度で子を絞る。",
+      "s4": "PMO 23課題（評価1万回）の AUC Top-10 合計：GPT-4 版 17.862、BioT5 版 15.424、Augmented Memory 15.356、REINVENT 14.036、Graph GA 13.823（Table 1）。ドッキング3課題（評価1000回）でも、ほぼ全ての LLM が Graph GA より良かった（Fig. 3）。",
+      "s5": "著者：課題はすべて実物性の代理で、実世界での有効性は未検証。多目的では公開 LLM の性能が落ちる。\n所感：JNK3 の実行時間は Graph GA 12分に対し GPT-4 版 約4時間（Table A12）。評価が安い課題では割に合わず、高価なオラクルでこそ意味がある。",
+      "s6": "・LMX (Meyerson+ 2023)（既存：open-endedness/llm-driven-evolution）\n・Genetic GFN (Kim+ 2024)（本資料）\n・SynGA (Lo+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/molleo_fig1.png",
+        "caption": "出典：MolLEO Fig. 1（交配プール選択→LLM による変異/交叉→オラクル評価→集団更新）"
+      }
+    },
+    {
+      "title": "Accelerating Vehicle Routing via AI-Initialized Genetic Algorithms",
+      "short": "EARLI (Greenberg+ 2025)",
+      "authors": "Ido Greenberg, Piotr Sielski, Hugo Linsenmaier ほか（NVIDIA）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2504.06126",
+      "lineage": "最新",
+      "parent": "HGS-CVRP",
+      "s1": "同じ分布の配送計画を繰り返し解く場面向けに、過去の事例で学習した強化学習エージェントが初期解を作り、GA（HGS・cuOpt・PyVRP）が改良する EARLI を提案。500顧客で、HGS が10秒以上かかる品質に1秒で到達した。",
+      "s2": "GA 系ソルバーは最高品質だが毎回ゼロから解き、ランダム初期化で立ち上がりが遅い。学習型ソルバーは推論が速いが品質で GA に及ばず、時間を足しても改善しにくい。両者を「速い直感（RL）＋じっくり探索（GA）」に分担させる。",
+      "s3": "Attention Model 型の方策を PPO で学習し、K 個の解を局所探索してから GA の初期集団に入れる。台数を減らすため、経路の終わりに残り容量 λ(Q−Σd) を罰する容量正則化を導入。50顧客から段階的に大きくして500顧客まで学習。",
+      "s4": "サンパウロの実 EC 配送データ（OSRM の走行時間）と合成データ、各256問・500顧客。HGS 単体比で6秒時点のコストを 7.7% 改善（Fig. 3）。数秒の予算では 85% 超の問題で勝った（Fig. 5）。リオへの都市移転でも効果が残った（Fig. 7）。",
+      "s5": "著者：主要な GA ソルバーには初期化の口がなく、HGS・PyVRP 用に実装して公開した。解の多様性を強制すると品質が下がり、今後の課題。\n所感：数分の予算では差が縮み、GA 単体の最終品質はなお強い。DL は GA を置き換えず「立ち上がりを速める」役。",
+      "s6": "・HGS-CVRP (Vidal 2022)（本資料）\n・Attention Model (Kool+ 2019)（既存：swarm-intelligence/aco-neural）\n・PyVRP+ (Malik+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/earli_fig3.png",
+        "caption": "出典：EARLI Fig. 3（500顧客での実行時間とコストギャップ。実線が EARLI、破線が既定の初期化）"
+      }
+    },
+    {
+      "title": "Efficient Crystal Structure Prediction Using Universal Neural Network Potential with Diversity Preservation in Genetic Algorithms",
+      "short": "GA-CSP with PFP (Shibayama+ 2025)",
+      "authors": "Takuya Shibayama, Hideaki Imamura, Katsuhiko Nishimra ほか（Preferred Networks / MIT）｜ arXiv プレプリント 2025",
+      "year": 2025,
+      "venue": "arXiv プレプリント 2025",
+      "link": "https://arxiv.org/abs/2503.21201",
+      "lineage": "最新",
+      "parent": "USPEX / CHGA",
+      "s1": "汎用ニューラルネットワークポテンシャル PFP でエネルギーを評価し、組成を変えながら凸包（安定相の集合）全体を広げる GA 型の結晶構造予測を提案。3〜8元系の4系でランダム探索と CHGA を上回り、Materials Project 未登録の安定構造候補も得た。",
+      "s2": "USPEX などの GA 型予測は少数の低エネルギー組成に探索が偏る（Ti–O では TiO2 付近に集中、Fig. 1）。凸包を直接最適化する CHGA も2元系・約1万試行での検証にとどまる。DFT より安い NNP なら5万試行の長い探索ができる。",
+      "s3": "凸包からの距離に世代差の重み α^(n−n*) を掛けた「エイジング」付きの絞り込みで、最近改善した組成を優先する。凸包の非優越ソートに NSGA-II/III 風のニッチングを加え、組成の偏りを防ぐ。交叉は組成の異なる親同士の cut-and-splice。",
+      "s4": "3〜8元系の4系、集団250・5万試行・5回。正規化凸包体積は O–Sr–Ti で 5.068（ランダム 5.054、CHGA 5.066）、8元系で 1.601（1.577、1.601）（Table III, Fig. 8）。MP 構造の約8割を再現し、4系で DFT でも安定な新候補を得た。",
+      "s5": "著者：初期集団の作り方に依らないので、結晶の生成モデルとの組合せが今後。8元系では Cr2Ti などの安定相を見逃した。\n所感：深層学習は「評価器」として GA を加速する役。CHGA との差は系によって小さく、改善幅の統計的な裏付けは弱い。",
+      "s6": "・USPEX (Oganov & Glass 2006)（本文未確認）\n・CHGA（凸包 GA）（未調査）\n・GNoME (Merchant+ 2023)（未調査）",
+      "figure": {
+        "file": "figures/csp_fig8.png",
+        "caption": "出典：GA-CSP Fig. 8（世代ごとの正規化凸包体積。青が提案法、緑が CHGA、赤がランダム、点線が MP）"
+      }
+    },
+    {
+      "title": "Evolutionary Brain-Body Co-Optimization Consistently Fails to Select for Morphological Potential",
+      "short": "Brain-Body Landscape (Mertan & Cheney 2025)",
+      "authors": "Alican Mertan, Nick Cheney（University of Vermont）｜ Artificial Life 誌（採録決定、ALIFE 2025 の拡張版）",
+      "year": 2025,
+      "venue": "Artificial Life（ALIFE 2025 拡張版）",
+      "link": "https://arxiv.org/abs/2508.17464",
+      "lineage": "最新",
+      "parent": "Sims 1994 / Evolution Gym",
+      "s1": "3×3 の voxel ソフトロボット全 1,305,840 形態それぞれに制御器を学習させ、形態と適応度の地形を網羅的に作った。そのうえで AFPO・MAP-Elites・MIP による脳と身体の同時進化を調べ、100 試行中ほぼ最適に届くのは 13〜22 回と示した。",
+      "s2": "形態進化では「形態が早く収束してしまう」問題が指摘されてきたが、真の適応度が分からず原因を確かめられなかった。NAS-Bench に倣って探索空間全体を測ることで、アルゴリズムが何を見落としているかを直接検証できるようにした。",
+      "s3": "各形態に AFPO で300世代制御器を学習し、最良値を推定真値とする。進化中の選択を、真値を知っていた場合の選択と比べる。体の変異直後は制御器が合わず適応度が急落し（fragile co-adaptation）、有望な形態が淘汰されることを示した。",
+      "s4": "ほぼ最適（上位30%）に届いたのは AFPO 17、MAP-Elites 22、MIP 13 回/100（Fig. 4）。局所最大ですらない形態で止まった試行は 38〜78 回（Fig. 5）。真値で形態だけを進化させると、少ない計算でほぼ常に最適付近に届いた（Fig. 6）。",
+      "s5": "著者：同時進化は有望な形態を過小評価するが、形態の変化を経た制御器が固定形態での学習より強くなる利点もある。\n所感：GA の失敗要因を評価ノイズに特定した点が重要。3×3 の小空間なので一般化は今後の検証待ち。",
+      "s6": "・Evolving Virtual Creatures (Sims 1994)（本文未確認）\n・Evolution Gym (Bhatia+ 2021)（未調査）\n・MAP-Elites (Mouret & Clune 2015)（既存：open-endedness/quality-diversity）",
+      "figure": {
+        "file": "figures/brainbody_fig6.png",
+        "caption": "出典：Brain-Body Landscape Fig. 6（同時進化3手法と真値で形態のみ進化した場合の最良個体。破線はほぼ最適の閾値）"
+      }
+    },
+    {
+      "title": "A Genetic Algorithm for Navigating Synthesizable Molecular Spaces",
+      "short": "SynGA (Lo+ 2026)",
+      "authors": "Alston Lo, Connor W. Coley, Wojciech Matusik（MIT）｜ ICLR 2026",
+      "year": 2026,
+      "venue": "ICLR 2026",
+      "link": "https://arxiv.org/abs/2509.20719",
+      "lineage": "最新",
+      "parent": "GB-GA / PMO",
+      "s1": "分子そのものでなく合成経路（購入可能な building block と反応テンプレートの木）を遺伝子とする GA、SynGA を提案。出す分子はすべて合成経路付き。ML によるブロック絞り込みを加えた SynGBO は PMO で 16.426 と、合成制約のない最良手法も上回った。",
+      "s2": "Graph GA などは強いが、合成できない分子も出す。合成可能な空間に戻す射影モデル（SynNet、SynFormer）は学習コストが高く、射影の精度に依存する。SynGA は合成制約を交叉・変異そのものに組み込み、学習なしで動く単純な基準手法にした。",
+      "s3": "交叉：2本の合成木から、二分子反応で結合できる部分木の組を選び、新しい根でつなぐ。変異：Grow・Shrink・Rerun（同じ材料で別の生成物）・反応やブロックの変更。MLP 分類器や加法モデル（NAM）で約20万ブロックを課題ごとに絞る。",
+      "s4": "PMO 22課題の合計：SynGBO 16.426、GPBO 16.304、f-RAG 16.301、Genetic GFN 16.078、SynGA 13.366、SynNet 12.610（Table 4）。LIT-PCBA のドッキングでは、SynGA が 1/4 の評価回数で GFlowNet 系の大半を上回った（Table 5）。",
+      "s5": "著者：類似分子探索では SynFormer より3倍以上遅く、学習分布内のクエリでは SynFormer が勝つ。ML と組み合わせる部品としての利用を想定。\n所感：GA の強みは「表現と演算子に制約を入れやすいこと」だと明確に示した。テンプレートの網羅性が上限を決める。",
+      "s6": "・SynNet (Gao+ 2022)（未調査）\n・SynFormer (Gao+ 2024)（未調査）\n・Genetic GFN (Kim+ 2024)（本資料）",
+      "figure": {
+        "file": "figures/synga_fig1.png",
+        "caption": "出典：SynGA Fig. 1（合成木上の交叉・変異（Grow / Shrink / Rerun / Change）と選択）"
+      }
+    }
+  ]
+}

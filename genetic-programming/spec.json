@@ -1,0 +1,213 @@
+{
+  "field": "遺伝的アルゴリズム",
+  "theme": "遺伝的プログラミングとシンボリック回帰",
+  "date": "2026-10-27",
+  "summary": "GP は数式やプログラム自体を進化させ、主戦場はシンボリック回帰（SR）。\n木構造 GP から CGP・lexicase 選択・意味論的 GP へ発展し、AI Feynman 以降は SRBench を軸に GP 系と深層学習系が競合。\n2025〜26 年は LLM が式や GP 演算子を生成し、暗記を防ぐ公平な評価が焦点。",
+  "papers": [
+    {
+      "title": "An empirical study of the efficiency of learning boolean functions using a Cartesian Genetic Programming approach",
+      "short": "CGP (Miller 1999)",
+      "authors": "Julian F. Miller（Napier University）｜ GECCO 1999",
+      "year": 1999,
+      "venue": "GECCO 1999",
+      "link": "https://dl.acm.org/doi/10.5555/2934046.2934074",
+      "lineage": "原典",
+      "parent": "Koza の木構造 GP（本文未確認）",
+      "s1": "プログラムを格子状ノードの「入力アドレスと関数番号」の整数列で表す Cartesian GP (CGP) を提案。偶数パリティ（3〜5bit）と2bit乗算器の学習で、Koza の GP や EP より最大で約20倍少ない評価回数で正解回路を得た。",
+      "s2": "Koza (1992/94) の木構造 GP は LISP 式の構文を守る交叉が必要で、ADF も明示的に設計していた。CGP は固定長の線形整数染色体なので構文制約がなく、ノードの再利用（暗黙の ADF）や多出力を自然に表せる。",
+      "s3": "各ノード＝（入力アドレス群, 関数番号）。levels-back で接続可能な列を制限し、未接続ノードを冗長として許す（有効長は0〜最大で可変）。探索は一様交叉＋変異の小集団 GA と、最良個体の変異体だけで世代を作る確率的山登り (PH)。",
+      "s4": "指標は成功確率 z=0.99 に必要な評価数。5bit 偶数パリティで GP（ADF付）464,000・EP 126,000 に対し GA 49,204・PH 33,005。2bit 乗算器で GA 124,002・PH 37,124（Table 13, 15）。集団は小さいほど有利。",
+      "s5": "著者：ブール関数学習は局所探索で十分解けるので、GP/EP の大域探索性能を比べる問題として不適切だと指摘。\n所感：比較相手の数値は文献値の転載で条件が揃っていない。CGP の汎用性の主張は本論文ではブール問題でしか検証されていない。",
+      "s6": "・Cartesian Genetic Programming (Miller & Thomson 2000)（未調査）\n・Runtime Analysis of CGP (Dang+ 2026)（未調査）\n・TSGP (Anthes+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/cgp_fig1.png",
+        "caption": "出典：CGP (Miller 1999) Fig. 1（遺伝子型の整数列と、それが表すノード網＝表現型）"
+      },
+      "notes": "GP bibliography がホストする GECCO 1999 予稿（gpbib.pmacs.upenn.edu/gecco1999/GP-411.ps）を PDF 化して全文確認。"
+    },
+    {
+      "title": "Epsilon-Lexicase Selection for Regression",
+      "short": "ε-lexicase (La Cava+ 2016)",
+      "authors": "William La Cava, Lee Spector, Kourosh Danai（University of Massachusetts Amherst）｜ GECCO 2016",
+      "year": 2016,
+      "venue": "GECCO 2016",
+      "link": "https://arxiv.org/abs/1905.13266",
+      "lineage": "発展",
+      "parent": "Lexicase (Spector 2012 / Helmuth+ 2015)",
+      "s1": "テストケースを1つずつ篩として親を選ぶ lexicase selection を、連続値の回帰向けに拡張した ε-lexicase を提案。合格判定に閾値 ε を入れ、母集団誤差の MAD で ε を自動設定する版が6問題すべてで最良のテスト誤差を得た。",
+      "s2": "lexicase (Spector 2012; Helmuth+ 2015) は離散で「妥協できない」問題に強いが、連続誤差では最良誤差と一致する個体がほぼいないため1ケースで親が決まり性能が落ちていた。ε で合格条件を緩め、回帰に使えるようにした。",
+      "s3": "選択1回ごとにケース順をシャッフルし、各ケース t で e_t(i) < e*_t + λ(e_t) を満たさない個体を除く。λ(e_t)＝median|e_t − median(e_t)|（MAD）でケースの難しさに応じて閾値が変わり、ユーザ設定の ε は不要。",
+      "s4": "Housing・Tower・Wind・ENH・ENC・UBall5D で各30試行。テスト MAE 中央値は Tower でトーナメント 0.402 → Lex ε_eλ 0.233、Housing で 0.408 → 0.309。平均順位 1.67 で AFP に 5/6 問題で有意に勝つ（Table 2）。所要時間はトーナメントの約105%。",
+      "s5": "著者：lexicase 系はランダム選択より行動多様性が高く、ε版は選択に使うケース数が増えることが性能向上の説明になる。\n所感：検証は6問題と少ないが、後の SRBench で EPLEX として上位に入り、大規模比較でも主張が裏付けられた。",
+      "s6": "・Solving Uncompromising Problems with Lexicase Selection (Helmuth+ 2015)（参照のみ）\n・SRBench (La Cava+ 2021)（本資料）\n・LLM 生成の親選択 (Zhang+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/eplex_fig6.png",
+        "caption": "出典：ε-lexicase Fig. 6（3問題での最良個体のテスト誤差。右端2本が ε 自動設定版）"
+      },
+      "notes": "arXiv 版は GECCO'16 版の式 (2)(5) を訂正したもの（ε は選択プールでなく母集団の最良誤差基準）。"
+    },
+    {
+      "title": "AI Feynman: a Physics-Inspired Method for Symbolic Regression",
+      "short": "AI Feynman (Udrescu & Tegmark 2020)",
+      "authors": "Silviu-Marian Udrescu, Max Tegmark（MIT）｜ Science Advances 2020",
+      "year": 2020,
+      "venue": "Science Advances 2020",
+      "link": "https://arxiv.org/abs/1905.11481",
+      "lineage": "発展",
+      "parent": "Schmidt & Lipson 2009（本文未確認）",
+      "s1": "ニューラルネットで関数の対称性・分離可能性を見つけ、問題を再帰的に小さく分ける物理着想の SR、AI Feynman を提案。Feynman 講義由来の100式をすべて復元し（Eureqa は71%）、難しい追加20式では 15% → 90% に改善した。",
+      "s2": "当時最強とされた GP ベースの商用 Eureqa（Schmidt & Lipson 2009 系）は近似を少しずつ良くするため、誤った関数形の局所解に捕まりやすい。本手法は変数を確実に減らす変換を重ね、各段階が正しい方向への一歩になる。",
+      "s3": "次元解析 → 多項式フィット → 総当たり（逆ポーランド記法の記号列を短い順に列挙）を試し、解けなければ NN で補間して並進対称性・積/和の分離可能性・変数の同一視を検定し、変数を減らした新問題に再帰する。勝者は記述長最小の式。",
+      "s4": "自作の Feynman SR データベース（各10^5点）。1問2時間の CPU 予算で Eureqa 71/100、AI Feynman 100/100、追加20式は 15% 対 90%（Table IV–VI）。次元解析なしでも 93%。多くの式は10^2点・1%ノイズでも解けるが、NN 依存の式は多データ・低ノイズが必要。",
+      "s5": "著者：失敗2例は分離判定の閾値や記号集合の工夫で解ける見込みで、定数最適化の導入が課題。\n所感：本文中で Eureqa の成功率が 71% と 68% で食い違う。後の SRBench では実データで最下位級となり、物理式特化の脆さが出た。",
+      "s6": "・Distilling Free-Form Natural Laws (Schmidt & Lipson 2009)（本文未確認）\n・AI Feynman 2.0 (Udrescu+ 2020)（未調査）\n・SRBench (La Cava+ 2021)（本資料）",
+      "figure": {
+        "file": "figures/aifeynman_fig1_2.png",
+        "caption": "出典：AI Feynman Fig. 1・Fig. 2（左：再帰的アルゴリズムの流れ、右：重力の式を分解して解く例）"
+      },
+      "notes": "Fig. 2 のキャプション部分は白で塗りつぶして掲載。"
+    },
+    {
+      "title": "Contemporary Symbolic Regression Methods and their Relative Performance",
+      "short": "SRBench (La Cava+ 2021)",
+      "authors": "William La Cava, Patryk Orzechowski, Bogdan Burlacu ほか（University of Pennsylvania）｜ NeurIPS 2021 D&B",
+      "year": 2021,
+      "venue": "NeurIPS 2021 (D&B)",
+      "link": "https://arxiv.org/abs/2107.14351",
+      "lineage": "発展",
+      "parent": "ε-lexicase / AI Feynman",
+      "s1": "14 の SR 手法と 7 の ML 手法を 252 問題で比較する再現可能なオープンベンチマーク SRBench を構築。実データでは定数最適化や意味論的選択を持つ GP 系（Operon 等）が勾配ブースティングに並び、1〜3桁小さいモデルを出すことを示した。",
+      "s2": "従来の SR 研究は少数の低次元トイ問題と古い Koza 型 GP との比較が多く、ブラックリスト提案 (White+ 2012) 後も改善されなかった。Eureqa は閉源で条件を揃えられない。SRBench は共通 API・固定環境・CI で手法追加を受け付ける。",
+      "s3": "2トラック構成。①PMLB の黒箱回帰122問：5分割の半減探索で調整し、テスト R² とモデルサイズを評価。②Feynman 式と Strogatz ODE の真値問題130問：目標ノイズ0〜0.1で、定数差・定数倍を除いて一致する記号解の割合を測る。",
+      "s4": "黒箱問題で Operon の R² が全手法中有意に最高 (p≤6.5e-5)、上位5手法中4つが GP 系（Fig. 1）。Pareto 前線は Operon・GP-GOMEA・DSR（Fig. 2）。真値問題はノイズなしで AI Feynman 53%（次点 GP-GOMEA 27%）だが、ノイズ0.01超では DSR・gplearn・AFP 系が上回る（Fig. 3）。",
+      "s5": "著者：並列性を活かす設定や、真の式が既知の実測データ（ばね-質量系など）が未収録で、今後追加したい。\n所感：評価回数・時間の上限が手法ごとに揃いにくい。黒箱問題の約半数が Friedman 系という偏りは後に批判され、SRBench 2.0 で修正された。",
+      "s6": "・SRSD (Matsubara+ 2022)（未調査）\n・SRBench++ (de Franca+ 2024)（未調査）\n・SRBench 2.0 (Imai Aldeia+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/srbench_fig1.png",
+        "caption": "出典：SRBench Fig. 1（黒箱回帰でのテスト R² とモデルサイズ。* が SR 手法、学習時間の列は省略）"
+      }
+    },
+    {
+      "title": "Interpretable Machine Learning for Science with PySR and SymbolicRegression.jl",
+      "short": "PySR (Cranmer 2023)",
+      "authors": "Miles Cranmer（Princeton University / Flatiron Institute）｜ arXiv プレプリント 2023",
+      "year": 2023,
+      "venue": "arXiv プレプリント 2023",
+      "link": "https://arxiv.org/abs/2305.01582",
+      "lineage": "発展",
+      "parent": "SRBench / Eureqa 系 GP",
+      "s1": "科学向けの実用 SR ライブラリ PySR（中身は Julia 製 SymbolicRegression.jl）を提示。多集団の進化計算に「進化→簡約→定数最適化」ループを組み込み、実在の経験則9式を集めた EmpiricalBench で7式を5回中5回復元した。",
+      "s2": "Eureqa は閉源化して廃れ、Feynman 等の既存ベンチマークは物理定数が既知でノイズも単純だった。科学利用には未知の実数定数、精度と簡潔さの両立、不均一ノイズ、独自演算子、OSS であることが要ると論じ、それを満たす実装を出した。",
+      "s3": "トーナメント選択に、最古個体を置換する age-regularized 進化と焼きなましによる変異の棄却を導入。一定数の変異ごとに式を簡約し BFGS で定数を最適化。適応的節約度 ℓ(E)=ℓ_pred(E)·exp(frecency[C(E)]) で各複雑度を均等に探索し、島モデルで並列化。",
+      "s4": "EmpiricalBench（Hubble・Kepler・Planck など9式、8コア・1時間・5試行）。正解数は PySR 35/45、DSR 22/45、Operon 9/45、QLattice 5/45、EQL と SR-Transformer は 0/45（Table 3）。Planck と Rydberg は全手法が失敗。",
+      "s5": "著者：事前学習した深層モデルは実データの長い裾に弱い。自作ソフトは安定した環境で走らせやすく有利な可能性も明記。\n所感：9式×5試行と小規模で、評価回数や精度は測っていない。自作ベンチマークでの評価なので、第三者評価の SRBench 2.0 と併せて読むべき。",
+      "s6": "・LaSR (Grayeli+ 2024)（未調査）\n・LLM-SR (Shojaee+ 2025)（本資料）\n・SRBench 2.0 (Imai Aldeia+ 2025)（本資料）",
+      "figure": {
+        "file": "figures/pysr_fig3.png",
+        "caption": "出典：PySR Fig. 3（内側ループ：部分抽出→選択→変異/交叉/簡約/定数最適化→最古個体を置換）"
+      }
+    },
+    {
+      "title": "LLM-SR: Scientific Equation Discovery via Programming with Large Language Models",
+      "short": "LLM-SR (Shojaee+ 2025)",
+      "authors": "Parshin Shojaee, Kazem Meidani, Shashank Gupta, Amir Barati Farimani, Chandan K. Reddy（Virginia Tech）｜ ICLR 2025 (Oral)",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://arxiv.org/abs/2404.18400",
+      "lineage": "最新",
+      "parent": "FunSearch（既存：swarm-intelligence/metabbo）/ PySR",
+      "s1": "LLM に方程式の「骨格」を Python プログラムとして提案させ、係数は BFGS/Adam で当てはめ、良い仮説を島モデルのバッファで進化させる LLM-SR を提案。振動子・大腸菌増殖・応力ひずみの4問題で既存 SR を上回り、特に領域外 (OOD) で差が大きい。",
+      "s2": "GP 系 SR（PySR 等）は式木表現と知識なしの変異で巨大な空間を探索し、領域知識を使えない。FunSearch や LMX など汎用の LLM 最適化も知識の統合と多様な探索が弱い。変数の物理的意味を含むプロンプトで科学的事前知識を探索に入れた。",
+      "s3": "各反復でバッファから k=2 例を取りプロンプトを作り、LLM が b=4 個の骨格 def f(x, params) を生成。係数最適化後に s=−MSE で採点し、島内をスコアでクラスタ化、Boltzmann 抽出と短いプログラム優先で次の文脈例を選ぶ。",
+      "s4": "約2.5K 反復（基線は2M 反復超）。大腸菌増殖の OOD NMSE は LLM-SR(Mixtral) 0.0037、PySR 1.01、uDSR 5.46（Table 1）。Oscillation 2 では問題記述・反復改善・骨格と最適化の分離を外すと大きく悪化（Fig. 6）。LMX・FunSearch も下回る。",
+      "s5": "著者：性能が LLM の学習データの範囲に依存し偏りがあり得る。LLM の反復呼び出しと最適化は大規模問題では高コスト。\n所感：「反復数」の比較は1反復の計算量が大きく違い公平でない。自作4問題だけの評価なので、LLM-SRBench での再評価が必要。",
+      "s6": "・LLM-SRBench (Shojaee+ 2025)（本資料）\n・LaSR (Grayeli+ 2024)（未調査）\n・FunSearch (Romera-Paredes+ 2024)（既存：swarm-intelligence/metabbo）",
+      "figure": {
+        "file": "figures/llmsr_fig1.png",
+        "caption": "出典：LLM-SR Fig. 1（仮説生成・データ駆動の評価・経験管理の3段ループ）"
+      }
+    },
+    {
+      "title": "Transformer Semantic Genetic Programming for Symbolic Regression",
+      "short": "TSGP (Anthes+ 2025)",
+      "authors": "Philipp Anthes, Dominik Sobania, Franz Rothlauf（Johannes Gutenberg University Mainz）｜ GECCO 2025",
+      "year": 2025,
+      "venue": "GECCO 2025",
+      "link": "https://arxiv.org/abs/2501.18479",
+      "lineage": "最新",
+      "parent": "Geometric Semantic GP (Moraglio+ 2012)（本文未確認）",
+      "s1": "意味（出力ベクトル）が近い式の対を学習したトランスフォーマを、GP の変異演算子として使う TSGP を提案。一度学習すれば未知問題に転用でき、5つの黒箱回帰のうち3つで stdGP・SLIM_GSGP・DSR・DAE-GP を有意に上回った。",
+      "s2": "構文を操作する stdGP は意味への影響が読めない。幾何学的意味論的 GP（GSGP; Moraglio+ 2012）は親の線形結合で意味空間を直接探索するが解が指数的に肥大し、SLIM_GSGP の deflate でも構造の自由度は低い。TSGP は構造を柔軟に変えつつ意味を保つ。",
+      "s3": "①合成問題で stdGP を走らせ多数の式と意味 s(f)=f(X) を得る、②FAISS の k-NN (k=3) で意味距離 SD=‖s(f_i)−s(f_j)‖ が近い対を500万組作る、③SD を条件入力とする encoder-decoder を学習。探索時は SD_d=0.1 を与えて子を生成する。",
+      "s4": "PMLB の4特徴量データ5種、母集団100・50世代・30試行。テスト RMSE 中央値は ESL で TSGP 0.379、stdGP 0.502、SLIM 0.418、DSR 0.507（Table 2）。解サイズは全データで SLIM より有意に小さく（Pollen で最大42%減, Table 3）、親子の意味距離も最小（Fig. 4）。",
+      "s5": "著者：特徴量4次元の問題にしか使えず、任意次元への拡張、学習データの多様化、ステップ幅の制御が課題。\n所感：予算が50世代と非常に小さく、Galaxy・Pollen では差が出ない。SRBench 級の規模・時間予算での比較がなく、実用上の優位は未確定。",
+      "s6": "・Geometric Semantic GP (Moraglio+ 2012)（本文未確認）\n・SLIM_GSGP (Vanneschi 2024)（未調査）\n・TSGP の d 次元拡張 (Anthes+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/tsgp_fig1.png",
+        "caption": "出典：TSGP Fig. 1（解の生成→意味的類似探索→SD 付きの対でトランスフォーマを学習）"
+      },
+      "notes": "採録先は検索結果（GECCO '25, DOI 10.1145/3712256.3726412）で確認。"
+    },
+    {
+      "title": "LLM-SRBench: A New Benchmark for Scientific Equation Discovery with Large Language Models",
+      "short": "LLM-SRBench (Shojaee+ 2025)",
+      "authors": "Parshin Shojaee, Ngoc-Hieu Nguyen, Kazem Meidani, Amir Barati Farimani ほか（Virginia Tech）｜ ICML 2025 (Oral)",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2504.10415",
+      "lineage": "最新",
+      "parent": "LLM-SR",
+      "s1": "LLM による方程式発見を暗記で解けないよう設計した239問のベンチマーク LLM-SRBench を構築。Feynman 式を別の変数について解き直した LSR-Transform（111問）と、既知項に新規項を混ぜた LSR-Synth（128問）からなり、最良手法でも記号正解率は31.5%。",
+      "s2": "SRBench や SRSD の Feynman 問題は教科書の式で、LLM は変数名と説明だけで暗唱できる（数反復で誤差が急落, Fig. 1）。LLM-SR が手作りした数問では規模も多様性も足りず、LLM 系手法を正しく比較できなかった。",
+      "s3": "Transform は入出力を入れ替え、SymPy で解析的に解ける変形だけを残し、複雑度を元と同程度に制限。Synth は GPT-4o に既知項と新規項を出させ、可解性・新規性・専門家2名の確認を通す。評価は Acc_0.1・NMSE（ID/OOD）と GPT-4o 判定の記号正解率 SA。",
+      "s4": "1問あたり LLM 呼び出し1k回に統一。LSR-Transform の SA は LLM-SR（GPT-4o-mini）31.53% が最高、LaSR 12.61%、SGA 9.91%、直接プロンプト 7.21%（Table 1）。PySR は SA 8.11% だが Acc_0.1 は 56.76% で LLM-SR の 39.64% より高い（付録 Table 3）。",
+      "s5": "著者：SA は OOD 精度と強く相関し、OOD 評価は汎化する式の発見を測る有力な手段。分野ごとに難しさが異なる。\n所感：SA の判定は GPT-4o 頼み（人手との一致 94.6%）。PySR が数値精度で勝つ結果は、記号的な正しさと当てはまりが別物であることを示す。",
+      "s6": "・SRSD (Matsubara+ 2022)（未調査）\n・LaSR (Grayeli+ 2024)（未調査）\n・DIGEST (Jin+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/llmsrbench_fig3.png",
+        "caption": "出典：LLM-SRBench Fig. 3（(a) LSR-Transform と (b) LSR-Synth の問題生成パイプライン）"
+      }
+    },
+    {
+      "title": "Call for Action: towards the next generation of symbolic regression benchmark",
+      "short": "SRBench 2.0 (Imai Aldeia+ 2025)",
+      "authors": "Guilherme S. Imai Aldeia, Hengzhe Zhang, Geoffrey Bomarito ほか（Federal University of ABC）｜ GECCO 2025 Workshop",
+      "year": 2025,
+      "venue": "GECCO 2025 (Workshop)",
+      "link": "https://arxiv.org/abs/2505.03977",
+      "lineage": "最新",
+      "parent": "SRBench",
+      "s1": "SRBench を改訂し、25 手法を 24 データセット・各30試行で同一条件比較した SRBench 2.0 を提示。全データで最良の手法はない「ノーフリーランチ」状態を示し、ハイパラ調整・時間/資源の制約・保守されない手法の廃止基準の標準化を呼びかけた。",
+      "s2": "SRBench 1.0 は200超のデータを集約指標だけで順位付けし、半数が Friedman 系に偏り、評価回数予算も手法間で揃えにくかった。SRBench++ や SRSD の批判を受け、データを課題別に精選し、時間・CPU1コア・メモリを固定して比べた。",
+      "s3": "黒箱トラック12問は既存結果のメタ特徴を t-SNE＋k-means で12クラスタ化し中心に近いデータを選ぶ（Friedman 系は25%以下）。第一原理/現象論トラック12問は PySR の EmpiricalBench 等から。調整6時間＋学習1時間で、R² 性能プロファイルの AUC・サイズ・電力を評価。",
+      "s4": "上位は定数最適化を持つ GP 系の Brush・GP-GOMEA・GPZGD など（Fig. 2）。データ×手法の AUC 地図では各データの勝者がばらばら（Fig. 3）。第一原理トラックで既知の式を正確に再発見できたのは ITEA の Leavitt のみ（Table 3）。総計算は単一コア換算で約1年43週。",
+      "s5": "著者：多くの実装にバグ修正が必要で保守されていない。パラメータ不要の使い勝手と公平な時間管理が必要。\n所感：LLM 系 SR（LLM-SR 等）は対象外で、LLM-SRBench と評価軸が分断している。両者を同一予算で比べる枠組みが次の課題。",
+      "s6": "・SRBench++ (de Franca+ 2024)（未調査）\n・Current Challenges of SR (Imai Aldeia 2025)（未調査）\n・SymbolicArena (Zhang+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/srbench2_fig3.png",
+        "caption": "出典：SRBench 2.0 Fig. 3（データ×手法の性能 AUC。枠が各データの最良手法、マスの大きさが式サイズ）"
+      }
+    },
+    {
+      "title": "Benchmarking Zero-Shot LLM-Generated Parent Selection in Genetic Programming for Symbolic Regression",
+      "short": "LLM 生成の親選択 (Zhang+ 2026)",
+      "authors": "Hengzhe Zhang, Qi Chen, Bing Xue, Wolfgang Banzhaf, Mengjie Zhang（Victoria University of Wellington）｜ PPSN 2026",
+      "year": 2026,
+      "venue": "PPSN 2026",
+      "link": "https://arxiv.org/abs/2607.23505",
+      "lineage": "最新",
+      "parent": "ε-lexicase / LLM による演算子設計",
+      "s1": "8種の LLM に同じプロンプトで GP の親選択演算子を1回で書かせ（ゼロショット）、記号回帰 GP の選択部だけを差し替えて比べるベンチマークを提案。Claude Sonnet 4.6 と Gemini 3.1 Pro が安定して強く、Kimi K2.5 の最良演算子は訓練 R² で自動 lexicase を上回った。",
+      "s2": "FunSearch・EoH・ReEvo・LLaMEA などは外側の進化ループが弱い生成を補うため、LLM 自体の設計能力を切り分けられない。GPT-4 世代では反復なしの選択演算子設計は不振との報告もあり、現行 LLM を同条件で並べた比較がなかった。",
+      "s3": "演算子は custom_selection(population, k, status) を30行以内で実装し、ケース別誤差・予測値・木サイズ・進化段階 t∈[0,1] を参照できる。各 LLM で動作確認を通った10個を、SRBench の12データ×5分割（母集団200・100世代）で評価し、自動 lexicase・トーナメントと比べる。",
+      "s4": "訓練 R²（演算子平均の平均）は Claude 0.7019・Gemini Pro 0.7015 に対し自動 lexicase 0.7298（Table 2）。最良演算子の中央値は Kimi 0.8798 が lexicase 0.8640 を上回る。テストでは lexicase 0.6425 を超える LLM はなく、最良は GPT-5.4 の 0.6373（Table 3）。",
+      "s5": "著者：最良演算子はすべて進化段階に応じて選択圧を変え、多くがケース難易度の重み付けや行動多様性を自発的に使う。\n所感：平均では専門家設計の lexicase に届かず、訓練での優位はテストに移らない。「上回った」は最良1個の訓練値に限られる点に注意。",
+      "s6": "・LLM-Meta-SR (Zhang+ 2025)（未調査）\n・Automating Parent Selection with Agentic AI (Hernandez+ 2026)（未調査）\n・LLaMEA (van Stein & Bäck 2024)（既存：swarm-intelligence/ga-hybrid）",
+      "figure": {
+        "file": "figures/zeroshot_fig4.png",
+        "caption": "出典：LLM 生成の親選択 Fig. 4（LLM ごとの10演算子の訓練/テスト R²。横線が lexicase とトーナメント）"
+      },
+      "notes": "生成コストは10演算子で約0.003〜0.10ドル（Fig. 8）。HLE・SWE-bench の順位が訓練 R² と相関（Table 5）。"
+    }
+  ]
+}

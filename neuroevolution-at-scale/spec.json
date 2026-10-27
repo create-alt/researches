@@ -1,0 +1,238 @@
+{
+  "field": "遺伝的アルゴリズム",
+  "theme": "進化戦略・ニューロエボリューションの大規模化",
+  "date": "2026-10-27",
+  "summary": "OpenAI-ES と Deep GA（2017）が、ES・GA で数百万パラメータの深層方策を千コア規模で並列学習できると示した原典。\nPES で勾配推定器へ一般化、EvoJAX で GPU に載り、進化的マージで LLM に入った。\n2025〜26年は ES で数十億パラメータの LLM を直接微調整し、GRPO との違い（忘却・幾何・被覆）を問う段階。",
+  "papers": [
+    {
+      "title": "Evolution Strategies as a Scalable Alternative to Reinforcement Learning",
+      "short": "OpenAI-ES (Salimans+ 2017)",
+      "authors": "Tim Salimans, Jonathan Ho, Xi Chen, Szymon Sidor, Ilya Sutskever（OpenAI）｜ arXiv プレプリント 2017",
+      "year": 2017,
+      "venue": "arXiv プレプリント 2017",
+      "link": "https://arxiv.org/abs/1703.03864",
+      "lineage": "原典",
+      "s1": "NES を単純化した等方ガウス ES（OpenAI-ES）を深層 RL に適用し、乱数シードの共有で通信を報酬スカラーだけにして 1,440 CPU コアまで線形に高速化した。3D Humanoid を 10 分で解き、Atari では A3C と互角に戦えることを示した。",
+      "s2": "当時の主流は Q 学習・方策勾配で、ブラックボックス最適化は難しい RL に弱いと見なされていた。方策勾配は勾配全体の通信と価値関数を要するが、ES はエピソードの総報酬だけで学べ、割引も価値関数近似も要らないとした。",
+      "s3": "目的をガウスでぼかした E[F(θ+σε)] の勾配を ∇≈(1/nσ)Σ F_i ε_i で推定する。各ワーカーは共通シードから他者の摂動を再構成でき、送るのは報酬スカラーだけ。対称サンプリング・順位変換・仮想 BN で安定化した。",
+      "s4": "MuJoCo では TRPO の 5M ステップ時点の性能に、難しい Hopper・Walker2d でも 10 倍未満のデータで到達（Table 1）。Atari 51 ゲームは 720 CPU・約 1 時間で A3C に 23 勝 28 敗。Humanoid は 18 コア 657 分 → 1,440 コア 10 分（Fig. 1）。",
+      "s5": "著者：方策勾配の分散は行動数 T にほぼ比例して増えるが、ES は T に依らず長い時間幅・遅延報酬で有利。\n所感：一部の MuJoCo 課題では行動の離散化や VBN が必要で、成功は工夫込み。パラメータ空間探索の利点は LLM 微調整で再び問われる。",
+      "s6": "・Deep GA (Such+ 2017)（本資料）\n・ES と SGD の関係 (Zhang+ 2017)（本資料）\n・NES (Wierstra+ 2014)（未調査）\n・ES at Scale (Qiu+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/openai_es.png",
+        "caption": "出典：OpenAI-ES Fig. 1（3D Humanoid を解くまでの時間と CPU コア数。18 コア 657 分 → 1,440 コア 10 分）"
+      },
+      "notes": "本文・付録の Atari 表まで確認。σ は固定（適応させても効果なし）、重み減衰を併用。"
+    },
+    {
+      "title": "Deep Neuroevolution: Genetic Algorithms are a Competitive Alternative for Training Deep Neural Networks for Reinforcement Learning",
+      "short": "Deep GA (Such+ 2017)",
+      "authors": "Felipe Petroski Such, Vashisht Madhavan, Edoardo Conti ほか（Uber AI Labs）｜ arXiv プレプリント 2017",
+      "year": 2017,
+      "venue": "arXiv プレプリント 2017",
+      "link": "https://arxiv.org/abs/1712.06567",
+      "lineage": "発展",
+      "parent": "OpenAI-ES",
+      "s1": "勾配を一切近似しない単純な GA（ガウス変異・切り捨て選択・エリート保存、交叉なし）で 4M 超パラメータの DQN 型 CNN を進化させ、Atari で DQN・A3C・ES と互角に戦えることを示した。当時 GA で進化させた最大のネットワーク。",
+      "s2": "OpenAI-ES も有限差分に近い勾配近似であり、勾配に従わない進化計算が DNN 規模で動くかは未検証だった。さらにランダム探索すら一部のゲームで DQN・A3C・ES を上回ることを示し、勾配に従う必要性そのものに疑問を投げた。",
+      "s3": "個体を「初期化シード＋変異シード列」で表す圧縮符号化 θ_n=θ_{n-1}+σε(τ_n) により、4M パラメータのネットを数千バイトでやり取りできる（8,000〜50,000 倍圧縮）。これが分散 GA の鍵で、新奇性探索（GA-NS）もそのまま載る。",
+      "s4": "Atari 13 ゲーム（1B フレーム）で DQN・ES・A3C・GA が最良なのは各 3・3・4・3 ゲーム。6B フレームの GA は A3C・ES・DQN に 7・8・7 勝（Table 1）。Image Hard Maze では GA-NS だけがゴールに到達（Fig. 1）。Humanoid は ES の約 15 倍遅い。",
+      "s5": "著者：原点付近を密にサンプルするだけで良い解が見つかる領域があり、勾配が常に最善とは限らない。\n所感：計算条件はそろっておらず比較は予備的。ただ「シードで個体を表す」発想は ES at Scale や EGGROLL の省メモリ実装に直結している。",
+      "s6": "・Novelty Search (Lehman & Stanley 2011)（既存：open-endedness/quality-diversity）\n・NS-ES (Conti+ 2018)（未調査）\n・EvoJAX (Tang+ 2022)（本資料）",
+      "figure": {
+        "file": "figures/deep_ga.png",
+        "caption": "出典：Deep GA Fig. 1（Image Hard Maze と学習曲線。報酬最大化の GA・ES は罠に捕まり、GA-NS だけがゴールに到達）"
+      },
+      "notes": "1 台のデスクトップ（4 GPU・48 CPU コア）で Atari を約 4 時間、720 コアで約 1 時間。"
+    },
+    {
+      "title": "On the Relationship Between the OpenAI Evolution Strategy and Stochastic Gradient Descent",
+      "short": "ES と SGD の関係 (Zhang+ 2017)",
+      "authors": "Xingwen Zhang, Jeff Clune, Kenneth O. Stanley（Uber AI Labs）｜ arXiv プレプリント 2017",
+      "year": 2017,
+      "venue": "arXiv プレプリント 2017",
+      "link": "https://arxiv.org/abs/1712.06564",
+      "lineage": "発展",
+      "parent": "OpenAI-ES",
+      "s1": "真の勾配が計算できる MNIST（3.27M パラメータの CNN）を実験台に、OpenAI-ES の推定勾配と SGD の勾配の相関を測った。相関わずか 3.9% でも精度 96.99%（SGD は 98.69%）に達し、ES は「ノイズの大きい SGD」として振る舞うと示した。",
+      "s2": "OpenAI-ES の成功は驚きをもって迎えられたが、ES が SGD とどう関係するかは曖昧だった。RL には環境ノイズや欺瞞があって比較できないため、正解勾配が得られる教師あり課題で ES の勾配追従能力を切り分けた。",
+      "s3": "真の勾配に独立ノイズを足し、ES と同じ相関 ρ になる倍率を決めた「ES プロキシ」（ノイズ入り SGD）を作り、集団サイズごとの ES の性能を安価に予測する。一部のパラメータだけ摂動する ES、ミニバッチなし ES も提案した。",
+      "s4": "プロキシは集団 10k の ES の学習曲線を細かな揺れまで再現（Fig. 2）。相関 20% で SGD 並みの 99% に届き（Table 1）、それには約 27.4 万個体が要る。5,000 パラメータだけ摂動する ES は集約を 64 倍高速化（Fig. 3）。進化計算で初の MNIST 99%。",
+      "s5": "著者：σ が小さいと ES は有限差分に近いが、大きいと分布全体を最適化する（Lehman+ 2017）。\n所感：「相関が低くても学べる」は、LLM で集団 30 でも動く現象（ES at Scale）の伏線として読める。MNIST からの一般化には著者も慎重。",
+      "s6": "・ES ≠ 有限差分 (Lehman+ 2017)（未調査）\n・MeZO (Malladi+ 2023)（未調査）\n・ES vs GRPO の幾何 (Hoy+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/es_sgd.png",
+        "caption": "出典：ES と SGD の関係 Fig. 2（ES（集団 10k）と ES プロキシ（ノイズ入り SGD）の検証精度。揺れまでほぼ一致）"
+      },
+      "notes": "99% は 28,938 パラメータの小型 CNN・ミニバッチなし・集団 5 万で達成（Fig. 5）。"
+    },
+    {
+      "title": "Unbiased Gradient Estimation in Unrolled Computation Graphs with Persistent Evolution Strategies",
+      "short": "PES (Vicol+ 2021)",
+      "authors": "Paul Vicol, Luke Metz, Jascha Sohl-Dickstein（University of Toronto / Google Brain）｜ ICML 2021",
+      "year": 2021,
+      "venue": "ICML 2021",
+      "link": "https://arxiv.org/abs/2112.13835",
+      "lineage": "発展",
+      "parent": "OpenAI-ES",
+      "s1": "RNN の学習・ハイパラ調整・学習済み最適化器のメタ学習など「展開計算グラフ」で、短い部分展開ごとに更新しつつ打ち切りバイアスのない勾配を得る PES を提案した。ES の摂動を展開をまたいで累積するだけの小さな修正で実現した。",
+      "s2": "BPTT はメモリが展開長に比例し更新も遅い。TBPTT や部分展開に ES を当てる truncated ES は短期バイアスを持ち、RTRL・UORO は計算が重いか分散が大きい。PES は並列・省メモリ・不偏・平滑化・微分不要をすべて満たす（Table 1）。",
+      "s3": "粒子の状態を展開ごとにリセットせず、受けた摂動の累積 ξ=Σε_τ を保持して ĝ=(1/Nσ²)Σ ξ^(i) L^(i) で更新する。二次損失では不偏であることを証明。直近の展開の解析勾配を使う PES+Analytic で分散を 1〜2 桁下げる。",
+      "s4": "influence balancing では TBPTT（K=1, 10）が発散する中、厳密な RTRL とほぼ同じ曲線（Fig. 4）。学習率スケジュールのメタ最適化では TBPTT・UORO・RTRL・ES が局所解やバイアスで止まり、PES だけが最良域へ（Fig. 6）。Swimmer で全展開 ES と同等。",
+      "s5": "著者：分散は展開数 T を増やすと一度下がった後に線形に増える（Fig. 3）。オンライン更新に伴うヒステリシスも残る。\n所感：ES を「RL の代替」から「勾配推定の部品」へ広げた転換点。evosax にも実装され、学習済み最適化器や LES のメタ学習を支えた。",
+      "s6": "・Learned optimizers (Metz+ 2019)（未調査）\n・LES (Lange+ 2023)（既存：swarm-intelligence/metabbo）\n・EGGROLL (Sarkar+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/pes.png",
+        "caption": "出典：PES Fig. 6（2 次元回帰の学習率スケジュールのメタ目的地形と各手法の軌跡。PES だけが最良域に収束）"
+      },
+      "notes": "ICML 2021 Outstanding Paper Award。実験はすべて JAX。学習済み最適化器のメタ学習（Fig. 5）でも truncated ES より低い損失。"
+    },
+    {
+      "title": "EvoJAX: Hardware-Accelerated Neuroevolution",
+      "short": "EvoJAX (Tang+ 2022)",
+      "authors": "Yujin Tang, Yingtao Tian, David Ha（Google Brain）｜ GECCO 2022（Companion）",
+      "year": 2022,
+      "venue": "GECCO 2022",
+      "link": "https://arxiv.org/abs/2202.05008",
+      "lineage": "発展",
+      "parent": "Deep GA / OpenAI-ES",
+      "s1": "進化アルゴリズム・方策ネット・タスクのすべてを JAX（NumPy 互換・JIT コンパイル）で書き、1 台の GPU/TPU 上で集団全体を並列評価する汎用のニューロエボリューション基盤。CPU クラスタで数時間かかった課題を数分で解く。",
+      "s2": "従来のニューロエボリューションは CPU プロセスを多数立てて個体を評価し、GPU の利用は Deep GA の Atari 実装のような課題特化型にとどまっていた。プロセスごとに同じ計算グラフを複製する無駄もあった。",
+      "s3": "SPMD の考えで「大域方策」を 1 つだけ作り、観測と集団のパラメータをデータとしてまとめて流す。タスクも状態を持たない純関数としてベクトル化し、デバイス並列でほぼ線形に拡張する。アルゴリズムは ask/tell の共通 API で差し替える。",
+      "s4": "従来実装（96 CPU）比で MNIST 36 分 → 3 分、Cart-Pole Swing Up（Hard）37 分 → 2 分、Ant 歩行 201 分 → 9 分（Table 1、V100 または TPU）。MNIST は 5 分以内に 98% 超、LSTM の seq2seq（足し算）は 99% 超。",
+      "s5": "著者：JAX の習得コストと、ベクトル化できない既存タスク（プロセス間通信が律速）が限界。\n所感：4 ページの短報で厳密な比較は少ないが、evosax・QDax・進化的マージの DFS 探索まで、以後の「GPU 上の進化計算」の土台になった。",
+      "s6": "・evosax (Lange 2022)（参照のみ）\n・Evolutionary Model Merge (Akiba+ 2025)（本資料）\n・EGGROLL (Sarkar+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/evojax.png",
+        "caption": "出典：EvoJAX Fig. 2（従来のプロセス並列評価と、大域方策＋ベクトル化タスクをアクセラレータ上で回す EvoJAX の構成）"
+      },
+      "notes": "当時の同梱アルゴリズムは PGPE。evosax（同年 12 月）が 30 種の ES/GA を JAX で提供し、EvoJAX の ES バックエンドにもなった。"
+    },
+    {
+      "title": "Evolutionary Optimization of Model Merging Recipes",
+      "short": "Evolutionary Model Merge (Akiba+ 2025)",
+      "authors": "Takuya Akiba, Makoto Shing, Yujin Tang, Qi Sun, David Ha（Sakana AI）｜ Nature Machine Intelligence 2025",
+      "year": 2025,
+      "venue": "Nature Machine Intelligence 2025",
+      "link": "https://arxiv.org/abs/2403.13187",
+      "lineage": "発展",
+      "parent": "EvoJAX",
+      "s1": "既存のオープンモデルの「混ぜ方」を進化計算で自動探索する Evolutionary Model Merge を提案した。重み空間（PS）と層の通り道（DFS）の両方を探索し、7B の日本語数学 LLM が MGSM-JA で 52.0% に達し 70B 級の日本語 LLM を上回った。",
+      "s2": "モデルマージは追加学習なしで新モデルを作れるが、モデル選びとレシピ（TIES・DARE の係数など）は人の勘に頼る「錬金術」だった。Automerger のようなランダム合成はリーダーボードに過適合しやすく、異分野（言語×数学、言語×視覚）の合成は未開拓だった。",
+      "s3": "PS では層ごとの DARE-TIES の密度と重みを CMA-ES（Optuna）で最適化する。DFS では層の並びを指示配列 I と層間スケール W で表し、EvoJAX の CMA-ES で探索する（探索空間 2^T、T=192）。PS 合成モデルを候補に戻して DFS も重ねる。",
+      "s4": "MGSM-JA で元モデル 9.6〜30.0% に対し PS 52.0%、PS+DFS 55.2%（Table 1）。JP-LMEH 平均は PS で 70.5 と Japanese StableLM 70B（68.3）を上回る。日本語 VLM も JA-VLM-Bench で ROUGE-L 51.2（LLaVA 41.1、Table 5）。",
+      "s5": "著者：元モデルの限界（論理の破綻など）も受け継ぎ、指示調整や整合は行っていない。\n所感：最適化するのは数十〜数百次元の「レシピ」で、重みそのものではない。次元を落として進化を LLM に持ち込んだ代表例。",
+      "s6": "・Model Swarms (Feng+ 2024)（既存：swarm-intelligence/deep-learning-fusion）\n・TIES-Merging (Yadav+ 2023)（未調査）\n・ES at Scale (Qiu+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/evomerge.png",
+        "caption": "出典：Evolutionary Model Merge Fig. 1（パラメータ空間 PS、データフロー空間 DFS、両方での合成の概念図）"
+      },
+      "notes": "arXiv 初版 2024-03。PS の最適化結果では重みの和が 2 近くになり、単純な内挿でなく増幅が効いた（Fig. 3）。MergeKit・Optuna Hub に実装済み。"
+    },
+    {
+      "title": "Evolution Strategies at Scale: LLM Fine-Tuning Beyond Reinforcement Learning",
+      "short": "ES at Scale (Qiu+ 2026)",
+      "authors": "Xin Qiu, Yulu Gan, Conor F. Hayes ほか（Cognizant AI Lab / MIT）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2509.24372",
+      "lineage": "最新",
+      "parent": "OpenAI-ES",
+      "s1": "次元削減なしで数十億パラメータの LLM 全体を ES で微調整できることを初めて示した。集団わずか 30・全モデル共通のハイパラで、Countdown では Qwen2.5 と Llama 3 の 0.5〜8B のすべてで PPO・GRPO を上回った。",
+      "s2": "ES は数百万パラメータ・集団 1 万以上が常識で、LLM では最終層（325 次元）や LoRA（〜1,600 次元）への適用にとどまっていた。一方 RL 微調整は長期の結果報酬、ベースモデル依存、報酬ハッキング、実行間のばらつきに弱い。",
+      "s3": "OpenAI-ES をさらに削ぎ、順位変換・対称サンプル・Adam を使わない。乱数シードで摂動を再生成し、層ごとにその場で加算・評価・復元してメモリを抑える。報酬は集団内で z 正規化し、生成は貪欲デコードで探索をパラメータ空間に寄せる。",
+      "s4": "Countdown で Qwen2.5-7B は ES 66.8% 対 GRPO 最良 57.5%、Llama-3.1-8B は 61.2% 対 51.3%（Table 1）。簡潔さ課題では KL 罰則なしで GRPO より良い報酬-KL 前線、実行間の標準偏差は GRPO の 1/15.5（Fig. 1, Table 2）。Sudoku 2.5→69.5%。",
+      "s5": "著者：集団 30 で足りる理由は未解明で、LLM の内在次元の低さが関係するかもしれない。\n所感：Abdi+ 2026 は同じ実装の追試で GRPO 優位と報告しており、優劣は実装と評価条件に強く依存する。「動く」と示したこと自体の価値が大きい。",
+      "s6": "・EGGROLL (Sarkar+ 2026)（本資料）\n・ES と破滅的忘却 (Abdi+ 2026)（本資料）\n・ES vs GRPO の幾何 (Hoy+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/es_at_scale.png",
+        "caption": "出典：ES at Scale Fig. 1（Qwen2.5-7B の簡潔さ微調整における報酬と KL。ES の前線（青）が GRPO（黒）より上・左）"
+      },
+      "notes": "arXiv 初版 2025-09。数学ベンチ（Qwen2.5-Math-7B）では SimpleRL-Zero・OAT-Zero・OpenReasoner-Zero と同等（Fig. 2）。ARC-AGI 0.2→29.5%（14B）。"
+    },
+    {
+      "title": "Evolution Strategies at the Hyperscale",
+      "short": "EGGROLL (Sarkar+ 2026)",
+      "authors": "Bidipta Sarkar, Mattie Fellows, Juan Agustin Duque ほか（University of Oxford / Mila / NVIDIA）｜ ICML 2026",
+      "year": 2026,
+      "venue": "ICML 2026",
+      "link": "https://arxiv.org/abs/2511.16652",
+      "lineage": "最新",
+      "parent": "OpenAI-ES / ES at Scale",
+      "s1": "各個体の行列摂動を低ランク E=AB^T/√r（多くは r=1）に置き換える EGGROLL で、ES の GPU スループットを素朴な ES の約 100 倍、純粋なバッチ推論の 91% まで引き上げた。集団 100 万超で int8 だけの RNN 言語モデルを事前学習した。",
+      "s2": "素朴な ES は個体ごとに全パラメータの摂動が要り、バッチ行列積の演算強度が 1 以下に縛られる。ES at Scale も集団は百程度で、1 摂動に多数のロールアウトを割り当てて GPU を埋めていた。OpenAI-ES の最大集団は 1,440。",
+      "s3": "u(M+σE)^T=uM^T+(σ/√r)(uB)A^T と分解し、共通の行列積に安価な低ランク項を足すだけにする（LoRA のバッチ推論と同じ形）。更新は N 個の rank-r 行列の加重和なのでフルランク。更新が ES 勾配に O(1/r) で収束することも証明した。",
+      "s4": "RL 16 環境で OpenES に 7 勝 2 敗 7 分（Fig. 4a）。RWKV-7 1.5B の Countdown は同じ GPU・時間で 35% 対 GRPO 23%（Fig. 4b）。14B は 32 GPU・12 時間で AIME25 7→33%。int8 RNN（集団 2^20）は 3.40 bits/byte で fp32 Transformer（3.58）を上回る。",
+      "s5": "著者：r=1 でも性能低下はわずか。非微分モジュールを含む神経記号系の端から端までの学習へ広げたい。\n所感：LLM 実験は RWKV が中心で、Transformer では GRPO と同等止まり（App. L）。後続研究は低ランク摂動が安定性を変えうると指摘。",
+      "s6": "・EGGROLL, Unrolled (Kaya & Hashemi 2026)（未調査）\n・QES (Xu+ 2026)（未調査）\n・PBT-NCA (Berdica+ 2026)（既存：open-endedness/foundation-model-alife）",
+      "figure": {
+        "file": "figures/eggroll.png",
+        "caption": "出典：EGGROLL Fig. 1（rank-1 摂動で各個体を評価し、適応度で加重平均してフルランクの更新を得る流れ）"
+      },
+      "notes": "arXiv 初版 2025-11。高次元 ES の理論として σ_d=o(d^{-1/2}) で更新が線形化し 1 次導関数に収束することを示す（5.1 節）。最大集団の int8 事前学習は backprop 基準の約 180 倍の GPU 時間。"
+    },
+    {
+      "title": "Evolutionary Strategies lead to Catastrophic Forgetting in LLMs",
+      "short": "ES と破滅的忘却 (Abdi+ 2026)",
+      "authors": "Immanuel Abdi, Akshat Gupta, Micah Mok ほか（UC Berkeley）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2601.20861",
+      "lineage": "最新",
+      "parent": "ES at Scale",
+      "s1": "ES at Scale の実装を GRPO と同条件で追試し、精度は GRPO に 3〜4 ポイント差まで迫るが、学習を続けると既存能力（HellaSwag）が約 10% 落ちる「破滅的忘却」が起きると報告した。原因を更新の大きさと密さに求めた。",
+      "s2": "ES は勾配や最適化器状態を持たず省メモリなので、デプロイ後の継続学習の候補とされた。しかし Qiu+ は主に Countdown 1 課題で、既存能力が保たれるかは評価していなかった。本論文は課題を 4 つに広げ、忘却曲線を測った。",
+      "s3": "新課題（Countdown）と旧課題（HellaSwag）の精度をチェックポイントごとに追う。さらに更新 ΔW のフロベニウスノルムと、絶対値 10^-6 未満の要素の割合（疎性）を、層・成分ごとに ES と GRPO で比べる。",
+      "s4": "Qwen2.5-1.5B のピーク精度は ES/GRPO で Countdown 53.0/56.4、MATH 59.1/63.2（Table 1）。ES は約 200 反復で収束した後も HellaSwag が下がり続ける（Fig. 2）。500 反復で更新ノルムは GRPO の約 1,000 倍、GRPO 更新の疎性は約 95%（Fig. 3, 4）。",
+      "s5": "著者：集団 30 のばらつきが大きく、旧能力の評価は 1 課題のみ。\n所感：「ES は壊しにくい」という Qiu+ の主張と食い違う。ただ Ba+ 2026 は、200 例への過学習で説明でき、ドリフト＝忘却ではないと反論。",
+      "s6": "・Overcoming Forgetting with ES (Schweighofer+ 2026)（未調査）\n・ES vs GRPO の幾何 (Hoy+ 2026)（本資料）\n・RL's Razor (Shenfeld+ 2025)（未調査）",
+      "figure": {
+        "file": "figures/es_forgetting.png",
+        "caption": "出典：ES と破滅的忘却 Fig. 1（新課題 Countdown と旧課題 HellaSwag の精度。色は反復数。ES（丸）は学習が進むほど左へ移る）"
+      },
+      "notes": "Llama-3.2-1B の Countdown は ES 15.2% 対 GRPO 37.6% と大差。短い論文（本文 4 ページ＋付録）。"
+    },
+    {
+      "title": "Matching Accuracy, Different Geometry: Evolution Strategies vs GRPO in LLM Post-Training",
+      "short": "ES vs GRPO の幾何 (Hoy+ 2026)",
+      "authors": "William Hoy, Binxu Wang, Xu Pan（University of Miami / Harvard University）｜ COLM 2026",
+      "year": 2026,
+      "venue": "COLM 2026",
+      "link": "https://arxiv.org/abs/2604.01499",
+      "lineage": "最新",
+      "parent": "ES at Scale",
+      "s1": "Qwen3-4B で ES と GRPO を 4 課題の単独・逐次学習で比べ、精度は同等以上なのに ES の更新は GRPO の約 100 倍のノルムで、方向はほぼ直交していると示した。この差を「平坦な方向でのランダムウォーク」として理論で統一的に説明した。",
+      "s2": "Qiu+ は ES が KL を小さく保つと述べ、Abdi+ は ES が忘却を招くと述べるなど評価が割れていた。精度が同じ解が重み空間でも同じなのか、ノルム・ランク・モード接続・方向まで調べた研究はなかった。",
+      "s3": "ES の変位を、曲率のある課題関連方向の「信号」と平坦方向の「拡散」に分解する。平坦方向の ES は純粋なランダムウォークで E‖θ_T−θ_0‖²=α²Td/N（d：次元、T：反復、N：集団）。N≪d なので変位の大半は課題と無関係な方向に向く。",
+      "s4": "単独学習では ES（300 反復）が全 4 課題で最良（Countdown 78.6 対 GRPO 74.5、Table 1）。逐次学習で MMLU は ES −3.7、GRPO +0.8（Table 2）。ノルム比 87〜107 倍、疎性 2〜4% 対 88%、安定ランク約 1,100 対 60〜103（Table 3, 4）。両解の間に損失障壁なし。",
+      "s5": "著者：重み行列は理論のランダムウォーク則に R²≈0.9999 で従い、LayerNorm の利得だけが外れる。\n所感：集団 30 で動く理由（信号は低次元）と、忘却が起きる理由（拡散は高次元）を一つの式で説明し、両陣営の主張を整理できる。",
+      "s6": "・ES の推論被覆 (Ba+ 2026)（本資料）\n・Blessing of Dimensionality (Liang+ 2026)（未調査）\n・Asynchrony Is Nearly Free (Hoy+ 2026)（未調査）",
+      "figure": {
+        "file": "figures/es_vs_grpo_geometry.png",
+        "caption": "出典：ES vs GRPO の幾何 Fig. 6（A：ES の変位が α²Td/N に沿って線形に増える。D：GRPO は課題方向、ES は平坦方向へ大きく拡散する模式図）"
+      },
+      "notes": "ES は前向き転移（未学習課題の精度上昇）も示す。IFEval では ES +2.2、GRPO −1.3 と逆転（Table 2）。"
+    },
+    {
+      "title": "Understanding Evolution Strategies for LLM Reasoning: Broader Reasoning Coverage than GRPO",
+      "short": "ES の推論被覆 (Ba+ 2026)",
+      "authors": "Yunpeng Ba, Zhi Zheng, Yue Xie ほか（南方科技大学 / NUS / Huawei Noah's Ark Lab）｜ arXiv プレプリント 2026",
+      "year": 2026,
+      "venue": "arXiv プレプリント 2026",
+      "link": "https://arxiv.org/abs/2608.27351",
+      "lineage": "最新",
+      "parent": "ES vs GRPO の幾何",
+      "s1": "ES は GRPO より Pass@1 の伸びは小さいが、エントロピー崩壊を起こさず Pass@16・Pass@32 で上回り、推論の被覆を広く保つことを理論と実験で示した。大きなパラメータのドリフトは必ずしも忘却を意味しないとも報告した。",
+      "s2": "GRPO はエントロピー崩壊で推論経路の多様性を狭め、大きな K の Pass@K がベースを下回ることが知られる（Yue+ 2025）。ES は効率面の代替とみなされるだけで、どんな性質の解を見つけるのか、忘却が本当に起きるのかは整理されていなかった。",
+      "s3": "摂動が生む方策の多様性を Fisher 情報で表し、検証器から見た Jensen–Shannon 多様性があれば「集団から 1 回ずつ引く」成功率が単一方策を上回る（P_pop≥P_same）ことを示す。報酬重み付けの条件下で更新後の中心モデルも Pass@K が改善しうる。",
+      "s4": "GSM8K 学習（3 モデル）で GRPO は 18 比較中 15 で Pass@16/32 がベース未満、ES は平均で全指標がベース超（Table 2）。DeepScaleR では ES→GRPO が数学平均 Pass@32 で 79.2 と最高（Table 3）。ES の小さな更新 77〜93% を捨てても精度を保つ（Table 4, Fig. 4）。",
+      "s5": "著者：継続学習では能力の保たれ方が課題ごとに不均一になる懸念が残る。大きなモデルほど小さな集団で足りる。\n所感：FLOP をそろえた比較で、ES の価値を「省メモリ版 GRPO」から「探索の幅」へ移した点が重要。GRPO と順に組み合わせる設計は実用的。",
+      "s6": "・Beyond the Best Guess (2026)（未調査）\n・Hyper-ES (Gu+ 2026)（未調査）\n・EGGROLL (Sarkar+ 2026)（本資料）",
+      "figure": {
+        "file": "figures/es_coverage.png",
+        "caption": "出典：ES の推論被覆 Fig. 1（3 つの研究課題の概要：ES は Pass@K を保つ、ドリフトは忘却と同じでない、z 正規化と集団サイズ）"
+      },
+      "notes": "ES の最大更新は LayerNorm と注意射影に集中、GRPO は埋め込みと出力層に集中。2 点推定（対称サンプル）は推論課題では利点なし（5.2 節）。"
+    }
+  ]
+}
