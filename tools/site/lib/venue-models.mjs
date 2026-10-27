@@ -98,9 +98,13 @@ export class Venue {
   get pdfPath() { return `${this.dir}/${this.slug}.pdf`; }
   get deadlines() { return (this.meta.upcoming?.deadlines ?? []).map((d) => new Deadline(d)); }
 
-  /** today（YYYY-MM-DD）以降で最も早い締切。採否通知などは除き「締切」と付く項目だけを見る */
+  /**
+   * today（YYYY-MM-DD）以降で最も早い投稿締切。論文・アブストラクトの締切を優先し、
+   * 無ければ「締切」と付く他の項目（ワークショップ提案など）を見る。採否通知などは対象外
+   */
   nextDeadline(today) {
-    return this.deadlines.filter((d) => /締切|deadline/i.test(d.label) && d.isAfter(today)).sort((a, b) => a.sortKey.localeCompare(b.sortKey))[0] ?? null;
+    const open = this.deadlines.filter((d) => /締切|deadline/i.test(d.label) && d.isAfter(today)).sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+    return open.find((d) => /論文|アブスト|abstract|paper/i.test(d.label)) ?? open[0] ?? null;
   }
 
   /** 既存デッキの論文のうち、発表先（venue 欄）がこの学会のもの */
