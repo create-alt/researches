@@ -41,6 +41,14 @@ G.infoH = G.bodyY + 3 * G.cardH + 2 * G.gap - G.infoY;
 const BODY = { dx: 0.18, dy: 0.52, w: G.cardW - 0.36, h: G.cardH - 0.6 };
 const INFO = { x: G.sideX + 0.15, y: G.infoY + 0.48, w: G.sideW - 0.3, h: G.infoH - 0.56 };
 
+// 詳細スライド：左に「詳細」、右上に「受賞」、右下に「評価ポイント」
+const DETAIL_BOX = {
+  detail: { x: G.mx, y: G.bodyY, w: G.sideX - G.gap - G.mx, h: 3 * G.cardH + 2 * G.gap, label: "詳細" },
+  award: { x: G.sideX, y: G.bodyY, w: G.sideW, h: 1.35, label: "受賞・注目" },
+  points: { x: G.sideX, y: G.bodyY + 1.35 + G.gap, w: G.sideW, h: 3 * G.cardH + G.gap - 1.35, label: "評価ポイント" },
+};
+const DETAIL = Object.fromEntries(Object.entries(DETAIL_BOX).map(([k, b]) => [k, { x: b.x + 0.18, y: b.y + 0.52, w: b.w - 0.36, h: b.h - 0.6 }]));
+
 function cardPos(i) {
   const col = i % 2;
   const row = Math.floor(i / 2);
@@ -146,6 +154,27 @@ function defineLayouts(pres) {
   objects.push(ph("footer", G.mx, 7.05, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }));
   pres.defineSlideMaster({ title: "OCHIAI_PAPER", background: { color: COLORS.white }, objects, slideNumber });
 
+  // 詳細・評価ポイントのスライド
+  const detailObjects = [];
+  Object.entries(DETAIL_BOX).forEach(([key, b]) => {
+    detailObjects.push({ rect: { x: b.x, y: b.y, w: b.w, h: b.h, fill: { color: COLORS.card }, rectRadius: 0.08 } });
+    detailObjects.push({
+      text: {
+        text: b.label,
+        options: {
+          x: b.x + 0.18, y: b.y + 0.1, w: b.w - 0.36, h: 0.38, fontFace: FONT,
+          fontSize: 13, bold: true, color: COLORS.teal, valign: "middle", margin: 0,
+        },
+      },
+    });
+    detailObjects.push(ph(key, DETAIL[key].x, DETAIL[key].y, DETAIL[key].w, DETAIL[key].h, { fontSize: 12 }));
+  });
+  detailObjects.push(ph("tag", G.mx, 0.3, 12.333, 0.28, { fontSize: 11, bold: true, color: COLORS.teal, valign: "middle" }));
+  detailObjects.push(ph("title", G.mx, 0.58, 12.333, TITLE_H, { fontSize: 24, bold: true, valign: "middle" }));
+  detailObjects.push(ph("meta", G.mx, 1.22, 12.333, 0.3, { fontSize: 12, color: COLORS.muted, valign: "middle" }));
+  detailObjects.push(ph("footer", G.mx, 7.05, 10, 0.3, { fontSize: 10, color: COLORS.muted, valign: "middle" }));
+  pres.defineSlideMaster({ title: "OCHIAI_PAPER_DETAIL", background: { color: COLORS.white }, objects: detailObjects, slideNumber });
+
   // テーマ表紙（調査論文の一覧）
   pres.defineSlideMaster({
     title: "OCHIAI_COVER",
@@ -174,7 +203,7 @@ function infoRuns(info) {
   const rows = [
     ["発表", info.venue],
     ["リンク", info.link],
-    ["系譜", info.lineage],
+    [info.lineageLabel || "系譜", info.lineage],
     ["調査日", info.date],
     ["確認範囲", info.scope],
   ];
@@ -237,8 +266,32 @@ function addPaperSlide(pres, paper) {
   return { slide, overflow };
 }
 
+// 論文スライドの補足：「詳細」と「評価ポイント」（学会の受賞論文デッキで使う）
+// detail: { tag, title, authors, footer, award, detail, points }
+function addDetailSlide(pres, d) {
+  const slide = pres.addSlide({ masterName: "OCHIAI_PAPER_DETAIL" });
+  const overflow = [];
+  slide.addText(d.tag, { placeholder: "tag" });
+  const titleFit = fitSize([d.title], 12.333, TITLE_H, [24, 22, 20, 18, 17, 16], 0.62);
+  if (titleFit.overflow) overflow.push("title");
+  slide.addText([{ text: d.title, options: { bold: true, fontSize: titleFit.size, lineSpacing: lineSpacingFor(titleFit.size) } }], { placeholder: "title" });
+  const metaFit = fitSize([d.authors], 12.333, 0.3, [12, 11, 10], 0.64);
+  slide.addText([{ text: d.authors, options: { fontSize: metaFit.size } }], { placeholder: "meta" });
+  const fill = (key, text, sizes) => {
+    const t = String(text || "");
+    const { size, overflow: of } = fitSize(t.split("\n"), DETAIL[key].w, DETAIL[key].h - FIT_PAD, sizes);
+    if (of) overflow.push(key);
+    slide.addText(paragraphRuns(t, size), { placeholder: key });
+  };
+  fill("detail", d.detail, [14, 13, 12.5, 12, 11.5, 11, 10.5]);
+  fill("award", d.award, [13, 12, 11, 10.5, 10]);
+  fill("points", d.points, [13, 12.5, 12, 11.5, 11, 10.5, 10]);
+  slide.addText(d.footer, { placeholder: "footer" });
+  return { slide, overflow };
+}
+
 // テーマ表紙：概要と調査論文の一覧表
-// cover: { tag, title, summary, footer, rows: [[#, 年, タイトル, 発表, 系譜], ...] }
+// cover: { tag, title, summary, footer, rows: [[#, 年, タイトル, 発表, 系譜], ...], kindLabel?: 最終列の見出し }
 function addCoverSlide(pres, cover) {
   const slide = pres.addSlide({ masterName: "OCHIAI_COVER" });
   slide.addText(cover.tag, { placeholder: "tag" });
@@ -253,7 +306,7 @@ function addCoverSlide(pres, cover) {
   const tableTop = 2.7;
   const rowH = Math.min(0.4, (6.9 - tableTop) / (n + 1));
   const size = rowH >= 0.36 ? 11 : rowH >= 0.3 ? 10 : 9;
-  const head = ["#", "年", "論文", "発表", "系譜"].map((t) => ({
+  const head = ["#", "年", "論文", "発表", cover.kindLabel || "系譜"].map((t) => ({
     text: t, options: { bold: true, color: COLORS.white, fill: { color: COLORS.teal } },
   }));
   const body = cover.rows.map((r, i) =>
@@ -267,4 +320,4 @@ function addCoverSlide(pres, cover) {
   return slide;
 }
 
-module.exports = { COLORS, FONT, G, SECTIONS, newDeck, addPaperSlide, addCoverSlide, fitSize };
+module.exports = { COLORS, FONT, G, SECTIONS, newDeck, addPaperSlide, addDetailSlide, addCoverSlide, fitSize };

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // GitHub Pages 用の静的サイトを生成する
 //
-//   node tools/site/build.mjs                 remote（既定 origin）の全ブランチから field.json を持つものを集めて _site/ に出力
+//   node tools/site/build.mjs                 remote（既定 origin）の全ブランチから field.json を持つもの（分野）と
+//                                             conferences.json を持つもの（学会欄）を集めて _site/ に出力
 //   node tools/site/build.mjs --out dir       出力先を変更
 //   node tools/site/build.mjs --remote name   読み出す remote を変更
 //   node tools/site/build.mjs --local         remote ではなくローカルブランチから読む（push 前の確認用）
@@ -12,6 +13,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GitRefSource } from "./lib/sources.mjs";
 import { FieldRepository } from "./lib/repository.mjs";
+import { VenueRepository } from "./lib/venue-repository.mjs";
 import { SiteBuilder } from "./lib/site-builder.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -29,9 +31,10 @@ if (process.env.GITHUB_REPOSITORY) config.repo = process.env.GITHUB_REPOSITORY;
 
 const sources = args.includes("--local") ? GitRefSource.fromLocal(repoDir) : GitRefSource.fromRemote(repoDir, remote);
 const fields = new FieldRepository(sources).loadFields({ log: (m) => console.log(m) });
+const venues = new VenueRepository(sources).load({ log: (m) => console.log(m) });
 new SiteBuilder({
   sourceDir: path.resolve(here, config.sourceDir),
   outDir,
   config,
   sources: new Map(sources.map((s) => [s.name, s])),
-}).build(fields);
+}).build(fields, venues);

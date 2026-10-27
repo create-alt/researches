@@ -212,6 +212,23 @@ input[type="search"], select {
 
 .pager { display: flex; justify-content: space-between; align-items: center; margin: 0.8rem 0; font-size: 0.92rem; gap: 1rem; }
 
+/* ---- 学会 ---- */
+.table-wrap { overflow-x: auto; }
+.table td.nowrap, .table .nowrap { white-space: nowrap; }
+.table.compact { font-size: 0.85rem; }
+.table.deadlines th[scope="row"] { color: var(--ink); }
+.small { font-size: 0.85rem; }
+.plain-list { padding-left: 1.2rem; }
+.plain-list li { margin-bottom: 0.35rem; }
+.fit-list { list-style: none; padding-left: 0; }
+.venue-full { font-size: 0.6em; font-weight: 600; }
+.field-card-link h3 .venue-full { font-size: 0.75em; }
+.venue-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+.chip-link { font-size: 0.85rem; background: var(--teal-soft); border-radius: 999px; padding: 0.05rem 0.7rem; text-decoration: none; }
+.slide-detail { display: grid; grid-template-columns: minmax(0, 2.25fr) minmax(0, 1fr); gap: 1rem; margin-top: 1rem; }
+.slide-detail h3 { color: var(--teal); }
+.detail-award { font-size: 0.9rem; font-weight: 600; }
+
 /* ---- README（Markdown） ---- */
 .markdown { overflow-wrap: anywhere; }
 .markdown h3 { margin-top: 1.6rem; color: var(--teal); }
@@ -226,7 +243,7 @@ input[type="search"], select {
 
 /* ---- 狭い画面 ---- */
 @media (max-width: 900px) {
-  .slide-body { grid-template-columns: 1fr; }
+  .slide-body, .slide-detail { grid-template-columns: 1fr; }
   .slide-side { order: -1; }
 }
 @media (max-width: 640px) {
@@ -238,3 +255,4 @@ input[type="search"], select {
   .header-search input { width: 100%; }
   .menu ul { min-width: min(20rem, calc(100vw - 32px)); }
 }
+details.archive > summary { cursor: pointer; color: var(--teal); margin-bottom: 0.5rem; }

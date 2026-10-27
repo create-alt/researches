@@ -23,6 +23,21 @@ export class FieldView extends View {
     );
   }
 
+  /** この分野がよく当てはまる学会（学会欄の venue.json の fields から） */
+  venues(f) {
+    const list = this.catalog.venues?.venuesForField(f.slug) ?? [];
+    if (!list.length) return null;
+    return h(
+      "p",
+      { class: "venue-links" },
+      h("span", { class: "muted" }, "よく当てはまる学会："),
+      list.map((v) => {
+        const fit = v.fields.find((x) => x.slug === f.slug)?.fit;
+        return [" ", h("a", { href: link("venue", v.slug), class: "chip-link", title: `適合：${fit}` }, v.name)];
+      }),
+    );
+  }
+
   async render() {
     const f = this.field;
     if (!f) return new NotFoundView(this.app, { params: {}, query: this.query, path: this.path }).render();
@@ -38,6 +53,7 @@ export class FieldView extends View {
         ["引用論文一覧", f.citedCount],
       ]),
       h("p", { class: "actions" }, externalLink(f.links.readme, "GitHub で README を見る", "button"), " ", externalLink(f.links.tree, `ブランチ ${f.branch}`, "button ghost")),
+      this.venues(f),
       f.rounds.map(([round, themes]) =>
         h("section", {}, h("h2", {}, `第${round}回の調査`), h("ul", { class: "theme-grid" }, themes.map((t) => this.themeCard(t)))),
       ),

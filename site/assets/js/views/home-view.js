@@ -2,6 +2,7 @@ import { h } from "../core/dom.js";
 import { link } from "../core/router.js";
 import { View } from "./view.js";
 import { statTiles } from "./components.js";
+import { deadlineTable } from "./venues-view.js";
 
 /** トップ: 分野一覧と全体の統計 */
 export class HomeView extends View {
@@ -41,6 +42,19 @@ export class HomeView extends View {
     );
   }
 
+  /** 学会欄があれば、締切の近い学会を出す */
+  venues() {
+    const idx = this.catalog.venues;
+    if (!idx) return null;
+    return h(
+      "section",
+      {},
+      h("h2", {}, "学会の締切"),
+      h("p", { class: "muted" }, `${idx.list.length} 学会の論文締切・特徴・受賞論文をまとめています（「推定」は過去の回からの見積もり）。 `, h("a", { href: link("venues") }, "学会の一覧へ →")),
+      deadlineTable(idx.byNextDeadline.slice(0, 5)),
+    );
+  }
+
   async render() {
     const s = this.catalog.stats;
     const site = this.catalog.site;
@@ -65,6 +79,7 @@ export class HomeView extends View {
         ]),
       ),
       h("section", {}, h("h2", {}, "分野"), h("ul", { class: "field-grid" }, this.catalog.fields.map((f) => this.fieldCard(f)))),
+      this.venues(),
       h("section", {}, h("h2", {}, "最近調査したテーマ"), this.recentList()),
     );
   }

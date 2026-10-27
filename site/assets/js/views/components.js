@@ -14,10 +14,18 @@ export function breadcrumbs(items) {
   );
 }
 
-const LINEAGE_CLASS = { 原典: "origin", 発展: "growth", 最新: "latest" };
+// 系譜（分野のデッキ）と区分（学会の受賞論文デッキ）のバッジの色
+const LINEAGE_CLASS = { 原典: "origin", 発展: "growth", 最新: "latest", 受賞: "latest", 話題: "growth" };
 
 export function lineageBadge(lineage) {
   return h("span", { class: ["badge", `badge-${LINEAGE_CLASS[lineage] ?? "other"}`] }, lineage ?? "—");
+}
+
+// 締切などの日付の確度（公式／推定／不明）
+const STATUS_CLASS = { 公式: "origin", 一部公式: "origin", 推定: "growth", 不明: "other" };
+
+export function statusBadge(status) {
+  return h("span", { class: ["badge", `badge-${STATUS_CLASS[status] ?? "other"}`] }, status ?? "不明");
 }
 
 export function statTiles(stats) {
@@ -121,21 +129,31 @@ export class PaperSlide {
     );
   }
 
-  bibliography() {
+  /** 書誌情報の行（サブクラスで差し替える） */
+  bibRows() {
     const p = this.paper;
-    const rows = [
+    return [
       ["発表", p.venue],
       ["リンク", p.link ? externalLink(p.link, p.link) : "—"],
       ["系譜", p.parent ? `${p.lineage}（← ${p.parent}）` : p.lineage],
       ["調査日", p.date],
       ["確認範囲", p.scope],
     ];
+  }
+
+  bibliography() {
+    const rows = this.bibRows();
     return h(
       "section",
       { class: "slide-bib" },
       h("h3", {}, "書誌情報"),
       h("dl", {}, rows.map(([k, v]) => [h("dt", {}, k), h("dd", {}, v ?? "—")])),
     );
+  }
+
+  /** スライドの下に続ける要素（サブクラスで追加する） */
+  extras() {
+    return [];
   }
 
   render() {
@@ -156,7 +174,51 @@ export class PaperSlide {
         h("div", { class: "slide-cards" }, OCHIAI_SECTIONS.map((_, i) => this.card(i))),
         h("aside", { class: "slide-side" }, this.figure(), this.bibliography()),
       ),
+      this.extras(),
       p.notes ? h("details", { class: "slide-notes" }, h("summary", {}, "発表者ノート"), sectionText(p.notes)) : null,
+    );
+  }
+}
+
+/** 学会の受賞・注目論文：落合フォーマットのスライドに「詳細」と「評価ポイント」を加える */
+export class AwardPaperSlide extends PaperSlide {
+  /**
+   * @param {object} paper  venue.json の papers[i]
+   * @param {import("../models/catalog.js").VenueDetail} venue
+   */
+  constructor(paper, venue) {
+    super(paper, null);
+    this.venue = venue;
+  }
+
+  get tagLine() {
+    return `学会 › ${this.venue.name} ｜ ${this.paper.award || this.paper.kind}`;
+  }
+
+  bibRows() {
+    const p = this.paper;
+    return [
+      ["発表", p.published],
+      ["リンク", p.link ? externalLink(p.link, p.link) : "—"],
+      ["受賞", p.award || p.kind],
+      ["調査日", p.date],
+      ["確認範囲", p.scope],
+    ];
+  }
+
+  extras() {
+    const p = this.paper;
+    return h(
+      "div",
+      { class: "slide-detail" },
+      h("section", { class: "slide-card detail-main" }, h("h3", {}, "詳細"), h("div", { class: "slide-card-body" }, sectionText(p.detail))),
+      h(
+        "section",
+        { class: "slide-card detail-points" },
+        h("h3", {}, "評価ポイント"),
+        h("p", { class: "detail-award" }, lineageBadge(p.kind), " ", p.award),
+        h("div", { class: "slide-card-body" }, sectionText(p.points)),
+      ),
     );
   }
 }

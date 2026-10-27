@@ -1,4 +1,5 @@
-// サイトのデータモデル。data/catalog.json（全体の要約）と data/fields/<f>/<t>/theme.json（テーマ詳細）を読む。
+// サイトのデータモデル。data/catalog.json（全体の要約）と data/fields/<f>/<t>/theme.json（テーマ詳細）、
+// data/venues/<v>/venue.json（学会の詳細）を読む。
 
 export class PaperSummary {
   constructor(json, catalog) {
@@ -58,13 +59,52 @@ export class ThemeDetail {
   paper(number) { return this.papers.find((p) => p.number === number) ?? null; }
 }
 
+/** 学会欄の一覧にある学会 1 つ（締切の要約つき） */
+export class VenueSummary {
+  constructor(json, index) {
+    Object.assign(this, json);
+    this.index = index;
+  }
+  get dataDir() { return `data/venues/${this.slug}`; }
+}
+
+/** 学会欄（conferences ブランチ）全体 */
+export class VenueIndex {
+  constructor(json) {
+    Object.assign(this, json);
+    this.list = json.list.map((v) => new VenueSummary(v, this));
+  }
+  venue(slug) { return this.list.find((v) => v.slug === slug) ?? null; }
+
+  /** 次の締切が近い順（締切が分からない学会は最後） */
+  get byNextDeadline() {
+    return [...this.list].sort((a, b) => (a.nextDeadline?.sortKey ?? "9999").localeCompare(b.nextDeadline?.sortKey ?? "9999"));
+  }
+
+  /** 分野 slug → その分野がよく当てはまる学会 */
+  venuesForField(fieldSlug) {
+    return this.list.filter((v) => v.fields.some((f) => f.slug === fieldSlug));
+  }
+}
+
+/** 学会の詳細（締切・特徴・受賞論文・README の HTML） */
+export class VenueDetail {
+  constructor(json, model) {
+    Object.assign(this, json);
+    this.model = model;
+  }
+  paper(number) { return this.papers.find((p) => p.number === number) ?? null; }
+}
+
 export class Catalog {
   constructor(json) {
     this.site = json.site;
     this.generatedAt = json.generatedAt;
     this.fields = json.fields.map((f) => new FieldSummary(f, this)).sort((a, b) => a.order - b.order);
     this.papers = json.papers.map((p) => new PaperSummary(p, this));
+    this.venues = json.venues ? new VenueIndex(json.venues) : null;
     this.themeCache = new Map();
+    this.venueCache = new Map();
   }
 
   static async load(url = "data/catalog.json") {
@@ -103,6 +143,24 @@ export class Catalog {
       );
     }
     return this.themeCache.get(key);
+  }
+
+  /** 学会の詳細を読み込む（キャッシュする） */
+  async loadVenue(slug) {
+    const summary = this.venues?.venue(slug);
+    if (!summary) return null;
+    if (!this.venueCache.has(slug)) {
+      this.venueCache.set(
+        slug,
+        fetch(`${summary.dataDir}/venue.json`)
+          .then((r) => {
+            if (!r.ok) throw new Error(`${slug}: ${r.status}`);
+            return r.json();
+          })
+          .then((json) => new VenueDetail(json, summary)),
+      );
+    }
+    return this.venueCache.get(slug);
   }
 
   /**

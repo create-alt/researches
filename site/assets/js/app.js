@@ -8,6 +8,9 @@ import { FieldView } from "./views/field-view.js";
 import { ThemeView } from "./views/theme-view.js";
 import { PaperView } from "./views/paper-view.js";
 import { SearchView } from "./views/search-view.js";
+import { VenuesView } from "./views/venues-view.js";
+import { VenueView } from "./views/venue-view.js";
+import { VenuePaperView } from "./views/venue-paper-view.js";
 import { NotFoundView } from "./views/not-found-view.js";
 
 /** 表示テーマ（ライト／ダーク）の切り替え。設定は端末ごとに localStorage へ保存する */
@@ -84,6 +87,7 @@ class Layout {
             h("summary", {}, "分野"),
             h("ul", {}, this.catalog.fields.map((f) => h("li", {}, h("a", { href: `#/field/${f.slug}` }, f.name)))),
           ),
+          this.catalog.venues ? h("a", { href: "#/venues" }, "学会") : null,
           h("a", { href: "#/search" }, "論文検索"),
         ),
         h(
@@ -105,7 +109,7 @@ class Layout {
       h(
         "p",
         {},
-        "データは各分野ブランチの field.json / spec.json / README.md から生成しています。",
+        "データは各分野ブランチの field.json / spec.json / README.md と、学会ブランチの venue.json から生成しています。",
         " ",
         h("a", { href: `https://github.com/${repo}`, target: "_blank", rel: "noopener" }, repo),
         ` ・ 生成 ${d.toLocaleDateString("ja-JP")}`,
@@ -137,6 +141,9 @@ export class App {
       .add("/field/:field", FieldView)
       .add("/field/:field/:theme", ThemeView)
       .add("/field/:field/:theme/:number", PaperView)
+      .add("/venues", VenuesView)
+      .add("/venue/:venue", VenueView)
+      .add("/venue/:venue/:number", VenuePaperView)
       .otherwise(NotFoundView);
   }
 

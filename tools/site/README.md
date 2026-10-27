@@ -13,6 +13,7 @@
 ```
 
 - ビルダーは remote（`origin`）の全ブランチを走査し、ルートに `field.json` があるブランチを分野として取り込む。分野の表示順は `field.json` の `order`。
+- ルートに `conferences.json` があるブランチ（`conferences`）は「学会」欄として取り込む（締切・特徴・受賞論文。`#/venues`, `#/venue/<学会>/<n>`）。
 - 画面はハッシュルーティングの 1 ページアプリ（`#/field/<分野>/<テーマ>/<n>`）。サーバー側の設定は不要。
 - データは `_site/data/catalog.json`（全分野の要約と全論文の検索用一覧）と、テーマごとの `_site/data/fields/<分野>/<テーマ>/theme.json`（論文全文と README の HTML）に分けて、テーマを開いたときに読み込む。
 
@@ -26,9 +27,12 @@
 | `lib/markdown.mjs` | `MarkdownRenderer` | テーマ README を HTML に変換 |
 | `lib/site-builder.mjs` | `SiteBuilder` | `_site/` への書き出し |
 | `lib/readme-writer.mjs` | `FieldReadmeWriter` | 分野ブランチの `README.md` を生成 |
-| `site/assets/js/models/catalog.js` | `Catalog`, `FieldSummary`, `ThemeSummary`, `ThemeDetail`, `PaperSummary` | 画面側のデータモデルと検索 |
+| `lib/venue-models.mjs` | `VenueCollection`, `Venue`, `VenuePaper`, `Deadline` | 学会ブランチのファイル構成と、サイト用データへの変換（次の締切の判定を含む） |
+| `lib/venue-repository.mjs` | `VenueRepository` | 読み出し元から学会欄を組み立てる |
+| `lib/venue-readme-writer.mjs` | `VenueReadmeWriter` | 学会ブランチの `README.md` を生成 |
+| `site/assets/js/models/catalog.js` | `Catalog`, `FieldSummary`, `ThemeSummary`, `ThemeDetail`, `PaperSummary`, `VenueIndex`, `VenueSummary`, `VenueDetail` | 画面側のデータモデルと検索 |
 | `site/assets/js/core/router.js` | `Router`, `Route` | ハッシュルーティング |
-| `site/assets/js/views/*.js` | `View` と各画面（`HomeView`, `FieldView`, `ThemeView`, `PaperView`, `SearchView`） | 画面ごとの描画。部品は `components.js`（`PaperSlide` など） |
+| `site/assets/js/views/*.js` | `View` と各画面（`HomeView`, `FieldView`, `ThemeView`, `PaperView`, `SearchView`, `VenuesView`, `VenueView`, `VenuePaperView`） | 画面ごとの描画。部品は `components.js`（`PaperSlide` と、詳細・評価ポイントを加えた `AwardPaperSlide` など） |
 | `site/assets/js/app.js` | `App`, `Layout`, `ColorScheme` | ルートと画面クラスの対応、共通レイアウト |
 
 画面を足すときは `View` のサブクラスを `site/assets/js/views/` に作り、`App.routes()` に 1 行追加する。
@@ -78,6 +82,13 @@ python3 -m http.server -d _site 8000   # → http://localhost:8000/
 ```
 
 3. テーマを上の手順で追加して push する。サイトのコードの変更は不要。
+
+## 学会を追加する（conferences ブランチ）
+
+1. `conferences.json` の `venues` に学会の slug を足す（並び順もこの配列の順）。
+2. `<slug>/venue.json`（締切・形式・特徴・傾向・対応分野・受賞論文の一覧。書式は `lib/venue-models.mjs` 冒頭と既存の学会を参照）、`<slug>/spec.json`（受賞・注目論文。分野と同じ書式に `award` / `detail` / `points` を加える）、`<slug>/README.md`、`<slug>/figures/` を置く。
+3. `node tools/ochiai/build.js <slug>/spec.json <slug>/<slug>.pptx` でデッキ（論文ごとに落合スライド＋詳細スライド）を作り PDF に変換、`node tools/site/readme.mjs .` でブランチの README を作り直して push する。
+4. 締切の「次の締切」はサイトのビルド日を基準に判定する（毎日のビルドで自動的に次の回へ進む）。`venue.json` の `upcoming` は回が終わったら次の回に書き換える。
 
 ## 公開の手順（リポジトリを public にした後）
 
