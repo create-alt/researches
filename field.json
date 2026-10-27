@@ -1,0 +1,51 @@
+{
+  "slug": "open-endedness",
+  "name": "オープンエンド学習・人工生命",
+  "order": 5,
+  "overview": "固定した目的に収束せず、新しく興味深い解・環境・生命様の構造を生み続けるシステム（オープンエンド性）について、Quality-Diversity、LLM 駆動の進化と自己改善、基盤モデル×人工生命の観点から系譜をまとめる。群知能（GA との融合・自動設計）と世界モデル（内発的報酬）にまたがる分野。",
+  "themes": [
+    {
+      "slug": "quality-diversity",
+      "name": "Quality-Diversity の基礎と DL・群知能との融合",
+      "scope": "新奇性探索・MAP-Elites から、CVT-ME・AURORA・CMA-MAE・DCRL-ME、Dominated Novelty Search、潜在空間 QD まで",
+      "round": 1,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "llm-driven-evolution",
+      "name": "LLM 駆動の進化的探索と自己改善エージェント",
+      "scope": "LMX・OMNI から、Promptbreeder・OMNI-EPIC・Darwin Gödel Machine・ShinkaEvolve・HGM・AI Scientist、ハーネス比較まで",
+      "round": 1,
+      "date": "2026-10-24"
+    },
+    {
+      "slug": "foundation-model-alife",
+      "name": "基盤モデル × 人工生命とオープンエンド性の評価",
+      "scope": "Lenia・Flow-Lenia・Swarm Chemistry から、ASAL・ASAL++・Digital Red Queen、オープンエンド性の定義とベンチマークまで",
+      "round": 1,
+      "date": "2026-10-24"
+    }
+  ],
+  "history": [
+    {
+      "date": "2026-10-24",
+      "round": 1,
+      "text": "第1回調査（分野新設）。main の候補分野メモ（candidates/）を出発点に、「Quality-Diversity の基礎と DL・群知能との融合」、「LLM 駆動の進化的探索と自己改善エージェント」、「基盤モデル × 人工生命とオープンエンド性の評価」 の各テーマについて、2024〜2026 年の最新動向から系譜を原典まで遡って調査。本文は arXiv と正規のオープンアクセス版（OpenReview・学会予稿集・OA 誌・著者公開版など）で全文を確認した論文のみスライド化。出版社サイトのみで公開されている原典は ⚠️ 本文未確認として一覧に記載。 既存デッキ（他分野を含む）でスライド化済みの論文は再掲せず、一覧で `↪ 既存：<theme> p.N` として参照。同じ回の別テーマで同じ論文を別の観点からスライド化した例が一部ある。"
+    }
+  ],
+  "next": [
+    {
+      "title": "LLM 駆動の進化・発見系の評価方法論と単純な基準法",
+      "body": "アーカイブや非貪欲な親選択は各論文の中ではほぼ一貫して効くが、多くは1〜数回の実行で、予算を揃えた比較ではどの固定構成も一貫して勝たなかった（Gupta+ 2026）。群知能分野の評価基盤テーマとも合わせ、評価の作法を1テーマにする。"
+    },
+    {
+      "title": "オープンエンド性の指標の比較と頑健性",
+      "body": "FM 埋め込みによる新奇性、進化活性度、情報理論的指標が並立し、Open-Endedness Bench のような評価も出始めた。指標同士の整合性と、基盤モデルの偏りへの頑健性を調べる。"
+    },
+    {
+      "title": "記述子・多様性を学習する QD と、QD・多目的最適化・GA の選択機構の統一理論",
+      "body": "AURORA から基盤モデル埋め込みを使う QD、DNS（QD＝局所競争 GA）や QD を多目的最適化として見る研究まで、多様性の定義と選択機構を統一的に整理する。"
+    }
+  ],
+  "done": []
+}

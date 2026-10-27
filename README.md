@@ -2,7 +2,7 @@
 
 固定した目的に収束せず、新しく興味深い解・環境・生命様の構造を生み続けるシステム（オープンエンド性）について、Quality-Diversity、LLM 駆動の進化と自己改善、基盤モデル×人工生命の観点から系譜をまとめる。群知能（GA との融合・自動設計）と世界モデル（内発的報酬）にまたがる分野。
 
-落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/ochiai/`）は main ブランチから引き継いでいる。
+落合陽一フォーマット（1論文1スライド）のデッキをテーマごとに置いている。テンプレートと生成ツール（`template/`, `tools/`）は main ブランチから引き継いでいる。
 
 ## テーマ一覧
 
@@ -44,7 +44,7 @@
 
 ## Quality-Diversity の基礎と DL・群知能との融合（quality-diversity/）
 
-資料：[quality-diversity.pptx](quality-diversity/quality-diversity.pptx) ／ [quality-diversity.pdf](quality-diversity/quality-diversity.pdf) ／ 生成元 [spec.json](quality-diversity/spec.json)
+資料：[quality-diversity.pptx](quality-diversity/quality-diversity.pptx) ／ [quality-diversity.pdf](quality-diversity/quality-diversity.pdf) ／ 生成元 [spec.json](quality-diversity/spec.json) ／ [テーマ README](quality-diversity/README.md)
 
 
 ### 調査履歴
@@ -117,7 +117,7 @@
 
 ## LLM 駆動の進化的探索と自己改善エージェント（llm-driven-evolution/）
 
-資料：[llm-driven-evolution.pptx](llm-driven-evolution/llm-driven-evolution.pptx) ／ [llm-driven-evolution.pdf](llm-driven-evolution/llm-driven-evolution.pdf) ／ 生成元 [spec.json](llm-driven-evolution/spec.json)
+資料：[llm-driven-evolution.pptx](llm-driven-evolution/llm-driven-evolution.pptx) ／ [llm-driven-evolution.pdf](llm-driven-evolution/llm-driven-evolution.pdf) ／ 生成元 [spec.json](llm-driven-evolution/spec.json) ／ [テーマ README](llm-driven-evolution/README.md)
 
 
 ### 調査履歴
@@ -226,7 +226,7 @@
 
 ## 基盤モデル × 人工生命とオープンエンド性の評価（foundation-model-alife/）
 
-資料：[foundation-model-alife.pptx](foundation-model-alife/foundation-model-alife.pptx) ／ [foundation-model-alife.pdf](foundation-model-alife/foundation-model-alife.pdf) ／ 生成元 [spec.json](foundation-model-alife/spec.json)
+資料：[foundation-model-alife.pptx](foundation-model-alife/foundation-model-alife.pptx) ／ [foundation-model-alife.pdf](foundation-model-alife/foundation-model-alife.pdf) ／ 生成元 [spec.json](foundation-model-alife/spec.json) ／ [テーマ README](foundation-model-alife/README.md)
 
 
 ### 調査履歴
