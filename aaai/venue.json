@@ -9,7 +9,7 @@
   ],
   "website": "https://aaai.org/conference/aaai/",
   "summary": "1980 年から続く AI 全般の総合学会で、知識表現・探索・計画・計算社会選択から機械学習・視覚・NLP・ロボティクスまで扱う。例年 1〜2 月開催で 7 月下旬〜8 月に締切。AAAI-26 は本会議投稿が約 2.9 万本に倍増し、全論文に AI レビューを付ける試行を行った。",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "upcoming": {
     "edition": "AAAI-28",
     "location": "未発表",
@@ -21,7 +21,7 @@
         "date": "2027-07-20",
         "time": "23:59 UTC-12 (AoE)",
         "status": "推定",
-        "basis": "AAAI-23〜27 の締切は 2022-08-08, 2023-08-08, 2024-08-07, 2025-07-25, 2026-07-21 と前倒し傾向。直近 2 回は 7 月下旬の火曜〜金曜。2027-07-20（火）前後、幅は 7 月中旬〜8 月上旬",
+        "basis": "AAAI-23〜27 のアブストラクト締切は 2022-08-08, 2023-08-08, 2024-08-07, 2025-07-25, 2026-07-21 と前倒し傾向。直近 2 回は 7 月下旬の火曜〜金曜。2027-07-20（火）前後、幅は 7 月中旬〜8 月上旬。AAAI-24〜27 の日付は aaai.org の各回日程表で確認",
         "source": null
       },
       {
@@ -44,21 +44,21 @@
         "label": "Phase 1 不採択通知",
         "date": "2027-09-下旬",
         "status": "推定",
-        "basis": "2023-09-27, 2024-10-14, 2025-09-08（または 9/15）, 2026-09-24",
+        "basis": "公式日程表で 2023-09-27（AAAI-24）, 2024-10-14（AAAI-25）, 2025-09-15（AAAI-26）, 2026-09-24（AAAI-27）",
         "source": null
       },
       {
         "label": "著者フィードバック（リバッタル）",
-        "date": "2027-10-中旬",
+        "date": "2027-10-中旬〜下旬",
         "status": "推定",
-        "basis": "2024-11-04〜08, 2025-10-02〜08, 2026-10-19〜25",
+        "basis": "公式日程表で 2023-11-02〜07, 2024-11-04〜08, 2025-10-07〜13, 2026-10-24〜31（AAAI-27 は 10-19〜25 から変更）",
         "source": null
       },
       {
         "label": "採否通知",
         "date": "2027-11-下旬",
         "status": "推定",
-        "basis": "2023-12-09, 2024-12-09, 2025-11-08, 2026-11-30",
+        "basis": "公式日程表で 2023-12-09, 2024-12-09, 2025-11-08, 2026-11-30",
         "source": null
       },
       {
@@ -83,7 +83,7 @@
         "source": "https://warwick.ac.uk/fac/sci/dcs/aamas2027/calls/call-for-aaai-fast-track/"
       }
     ],
-    "notes": "AAAI-27（2027-02-16〜23、モントリオール）の本会議投稿は 2026-07-28 に締切済みのため、次に本会議へ投稿できるのは AAAI-28。AAAI-28 の開催地・日程は未発表（例年 CFP は 5〜6 月に公開）。AAAI-27 の未到来日程（Journal Track、最終通知、ワークショップ投稿 2026-11-20）を参考として併記した。"
+    "notes": "AAAI-27（2027-02-16〜23、モントリオール）の本会議投稿は 2026-07-28 に締切済みで、現在は著者フィードバック期間（2026-10-24〜31。公式日程表で 10-19〜25 から変更）。次に本会議へ投稿できるのは AAAI-28。2026-10-28 時点で aaai.org に AAAI-28 のページはなく（/conference/aaai/aaai-28/ は 404）、開催地・日程・締切は公式未発表のため推定のまま（例年 CFP は 5〜6 月に公開）。AAAI-27 の未到来日程（Journal Track、最終通知、ワークショップ投稿 2026-11-20）を参考として併記した。2027 Classic Paper Award（AAAI-12 の論文が対象）の推薦は 2026-10-16 に締切済み。"
   },
   "history": [
     {
@@ -92,11 +92,11 @@
       "dates": "2027-02-16〜23",
       "abstract": "2026-07-21",
       "paper": "2026-07-28",
-      "notification": "2026-11-30（Phase 1 不採択 2026-09-24、著者フィードバック 10-19〜25）",
+      "notification": "2026-11-30（Phase 1 不採択 2026-09-24、著者フィードバック 2026-10-24〜31〔10-19〜25 から変更〕）",
       "submissions": null,
       "accepted": null,
       "acceptanceRate": null,
-      "source": "https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/"
+      "source": "https://aaai.org/conference/aaai/aaai-27/ ; https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/"
     },
     {
       "edition": "AAAI-26",
@@ -104,11 +104,11 @@
       "dates": "2026-01-20〜27（本会議 1/22〜25）",
       "abstract": "2025-07-25",
       "paper": "2025-08-01",
-      "notification": "2025-11-08（別ページでは 11-03）",
+      "notification": "2025-11-08（Phase 1 不採択 2025-09-15、著者フィードバック 2025-10-07〜13、カメラレディ 11-13→11-16 に変更）",
       "submissions": 23680,
       "accepted": 4167,
       "acceptanceRate": "17.6%",
-      "source": "https://aaai.org/conference/aaai/aaai-26/main-technical-track-call/ ; 投稿数・採択数は https://aip.riken.jp/news/aaai26 ほか二次情報（初回投稿は約 2.9 万本、方針審査後に査読へ回ったのが約 2.3 万本）"
+      "source": "https://aaai.org/conference/aaai/aaai-26/ ; 投稿数は論文集序文（https://ojs.aaai.org/index.php/AAAI/issue/archive）：本会議投稿 約 29,000、方針審査後の査読対象 約 23,000。採択 4,167・17.6%（分母 23,680）は https://aip.riken.jp/news/aaai26 ほか二次情報で公式文書では未確認。論文集の本会議（Technical Track）掲載は 4,055 本（ほか AI Alignment 106、AISI 162）"
     },
     {
       "edition": "AAAI-25",
@@ -116,11 +116,11 @@
       "dates": "2025-02-25〜03-04",
       "abstract": "2024-08-07",
       "paper": "2024-08-15",
-      "notification": "2024-12-09",
+      "notification": "2024-12-09（Phase 1 不採択 2024-10-14、著者フィードバック 2024-11-04〜08）",
       "submissions": 12957,
       "accepted": 3032,
       "acceptanceRate": "23.4%",
-      "source": "https://aaai.org/conference/aaai/aaai-25/ ; https://papercopilot.com/venue-overview/aaai-2025-venue-overview/"
+      "source": "https://aaai.org/conference/aaai/aaai-25/ ; 投稿・採択数は https://papercopilot.com/venue-overview/aaai-2025-venue-overview/（二次情報）。論文集の本会議掲載は 3,028 本（Technical Tracks 3,182 から AI Alignment 66・AISI 88 を除く）で採択数と整合"
     },
     {
       "edition": "AAAI-24",
@@ -128,11 +128,11 @@
       "dates": "2024-02-20〜27",
       "abstract": "2023-08-08",
       "paper": "2023-08-15",
-      "notification": "2023-12-09",
+      "notification": "2023-12-09（Phase 1 不採択 2023-09-27、著者フィードバック 2023-11-02〜07）",
       "submissions": null,
       "accepted": null,
       "acceptanceRate": "23.75%",
-      "source": "https://aaai.org/aaai-24-conference/ ; 採択率は https://aigs.unist.ac.kr/7-papers-were-accpeted-at-aaai-2024-the-top-ai-conference-in-the-world/"
+      "source": "https://aaai.org/aaai-24-conference/ ; 採択率 23.75% は https://aigs.unist.ac.kr/7-papers-were-accpeted-at-aaai-2024-the-top-ai-conference-in-the-world/（二次情報）。論文集の本会議掲載は 2,331 本（Technical Tracks 2,501 から Safe, Robust and Responsible AI 109・AISI 77 を除き、ROB 16 を加算）"
     },
     {
       "edition": "AAAI-23",
@@ -148,7 +148,7 @@
     }
   ],
   "format": [
-    "ダブルブラインド査読。二段階査読：Phase 1（人間 2 名＋AI レビュー 1 件）で明確に否定的な論文を早期不採択、Phase 2 で査読者を追加し最大 5 名。",
+    "ダブルブラインド査読。二段階査読：Phase 1（CFP では人間 2 名＋AI レビュー 1 件、review-process ページでは「3 名」と記載）で明確に否定的な論文を早期不採択、Phase 2 で査読者を追加し最大 5 名。",
     "著者フィードバック（リバッタル）期間あり（Phase 2 の論文のみ）。投稿は OpenReview（AAAI-27）。査読は非公開。",
     "本文 7 ページ＋参考文献（カメラレディは追加ページ可）。論文集は Proceedings of the AAAI Conference on Artificial Intelligence（ojs.aaai.org、オープンアクセス）。",
     "トラック：Main Technical Track のほか、AI for Social Impact（AISI）、AI Alignment（AIA）の特別トラック、Journal Track、Senior Member、New Faculty Highlights、学生アブストラクト、デモ。",
@@ -163,22 +163,22 @@
     "例年 1〜2 月開催で、6 月締切の NeurIPS・ICML 系とずれるため、NeurIPS 不採択論文の再投稿先にもなる（過去には NeurIPS fast track もあった）。"
   ],
   "trends": [
-    "投稿数の急増：本会議は AAAI-23 で 8,777 本（採択率 19.6%）、AAAI-25 で 12,957 本（23.4%）、AAAI-26 は初回投稿約 2.9 万本・査読対象約 2.3 万本と倍増し、採択 4,167 本・17.6% と報じられた（AAAI-26 論文集序文、RIKEN AIP ほか）。",
+    "投稿数の急増：本会議は AAAI-23 で 8,777 本（採択率 19.6%）、AAAI-25 で 12,957 本（23.4%）。AAAI-26 は論文集序文によれば投稿約 2.9 万本・方針審査後の査読対象約 2.3 万本（AAAI-25 の約 2 倍）、著者 7.5 万人超、うち中国から約 2 万本。採択 4,167 本・17.6% は二次情報で、論文集の本会議掲載は 4,055 本（数値は二次情報・ojs.aaai.org の集計）。",
     "査読体制の膨張：AAAI-26 は PC・SPC・AC が 2.8 万人超で AAAI-25 の約 3 倍（arXiv 2604.13940）。AAAI-27 は 1 著者 10 本の投稿上限と著者の査読参加を導入し、相互査読の談合（2-cycle）を排除する割当制約と監査を告知。",
     "LLM による査読支援：AAAI-26 は本会議の全 22,977 本に、スコアや推薦を含まない AI レビューを 1 件ずつ付ける試行を実施（1 本 1 ドル未満、1 日以内）。回答 5,834 件の調査で有用 53.9%、不要 20.2%。採否は人間のみが判断。AAAI-27 も継続（arXiv 2604.13940、AAAI-27 CFP）。",
     "二段階査読（Phase 1 早期不採択）は AAAI-24 以降定着し、締切は 8 月中旬（2022〜2024）から 7 月下旬（2025〜2026）へ前倒し。開催も 2026 はアジア（シンガポール）、2027 はモントリオールと北米外にも広がった。",
-    "受賞の傾向：2023〜2025 は IRL の誤指定、比例的集約、distortion、POMDP の決定可能性、神経記号推論など理論・KR・社会選択が中心。AAAI-26 は KR と因果探索に加え、VLA（ReconVLA）・CLIP×LLM（LLM2CLIP）・ハイパーグラフ NN と深層学習系も受賞。"
+    "受賞の傾向：2023〜2025 は IRL の誤指定、比例的集約、distortion、POMDP の決定可能性、神経記号推論など理論・KR・社会選択が中心。AAAI-26 は KR と因果探索に加え、VLA（ReconVLA）・CLIP×LLM（LLM2CLIP）・ハイパーグラフ NN と深層学習系も受賞。特別トラック（AISI・AI Alignment）に別枠の Best Paper があり、2026 は LLM の意見の国際的整合（AI Alignment Track）が受賞。Classic Paper（15 年前の論文）は 2026 に知識グラフ埋め込みと言語接地の 2 本。"
   ],
   "fields": [
     {
       "slug": "gnn",
       "fit": "高",
-      "reason": "グラフ学習の論文が非常に多く、AAAI-26 の受賞 HyperSheaflets（ハイパーグラフ NN）、AAAI-23 Distinguished Paper の DropMessage、既存デッキの Graph Transformer（AAAI 2021 WS）・Att-GCN+MCTS（AAAI 2021）がある。"
+      "reason": "グラフ学習の論文が非常に多く、AAAI-26 の受賞 HyperSheaflets（ハイパーグラフ NN）、AAAI-23 Distinguished Paper の DropMessage、知識グラフ埋め込みの源流 Structured Embeddings（2026 Classic Paper）、既存デッキの Graph Transformer（AAAI 2021 WS）・Att-GCN+MCTS（AAAI 2021）がある。"
     },
     {
       "slug": "language-action",
-      "fit": "中",
-      "reason": "AAAI-26 で VLA の ReconVLA が受賞し、ロボット操作と言語接地の論文が増えている。ただしロボティクスの中心は CoRL・RSS・ICRA。"
+      "fit": "高",
+      "reason": "AAAI-26 で VLA の ReconVLA が Outstanding Paper、言語命令をロボット行動に接地する G3（Tellex+、AAAI-11）が 2026 Classic Paper を受賞し、言語接地の古典から VLA まで受賞が続く。ただしロボティクスの中心は CoRL・RSS・ICRA。"
     },
     {
       "slug": "genetic-algorithm",
@@ -225,7 +225,7 @@
       "kind": "award",
       "award": "AAAI-26 Outstanding Paper Award",
       "title": "Causal Structure Learning for Dynamical Systems with Theoretical Score Analysis",
-      "authors": "Nicholas Tagliapietra ほか",
+      "authors": "Nicholas Tagliapietra, Katharina Ensinger, Christoph Zimmer, Osman Mian",
       "link": "https://arxiv.org/abs/2512.14361",
       "slide": 2,
       "status": "スライド化",
@@ -275,7 +275,7 @@
     {
       "year": 2026,
       "kind": "award",
-      "award": "AAAI-26 Outstanding Paper Award（AI for Social Impact 特別トラック）",
+      "award": "AAAI-26 Best Paper Award（AI for Social Impact Track）",
       "title": "PlantTraitNet: An Uncertainty-Aware Multimodal Framework for Global-Scale Plant Trait Inference from Citizen Science Data",
       "authors": "Ayushi Sharma ほか",
       "link": "https://arxiv.org/abs/2511.06943",
@@ -283,12 +283,12 @@
       "status": "スライド化",
       "summary": "市民科学の植物写真から 4 形質を推定し全球地図化。既存の全球形質地図を 4 形質中 3 形質で上回る。",
       "basis": null,
-      "source": "https://aihub.org/2026/01/22/congratulations-to-the-aaai2026-outstanding-paper-award-winners/"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2026,
       "kind": "award",
-      "award": "AAAI-26 Outstanding Paper Award（AI for Social Impact 特別トラック）",
+      "award": "AAAI-26 Best Paper Award（AI for Social Impact Track）",
       "title": "Generalizable Slum Detection from Satellite Imagery with Mixture-of-Experts",
       "authors": "Sumin Lee ほか",
       "link": "https://arxiv.org/abs/2511.10300",
@@ -296,7 +296,20 @@
       "status": "スライド化",
       "summary": "地域別専門家の MoE と専門家間一致度による疑似ラベル選別で、未学習のアフリカ都市でのスラム検出を改善。",
       "basis": null,
-      "source": "https://aihub.org/2026/01/22/congratulations-to-the-aaai2026-outstanding-paper-award-winners/"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Paper Award（AI Alignment Track）",
+      "title": "On the Alignment of Large Language Models with Global Human Opinion",
+      "authors": "Yang Liu, Masahiro Kaneko, Chenhui Chu",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/41102",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "世界価値観調査で 8 つの LLM の意見分布と 66 か国・8 言語・3 時代の人々との一致を測り、少数国への偏りと言語による誘導の効果を示した。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2026,
@@ -304,12 +317,116 @@
       "award": "AAAI Classic Paper Award 2026（AAAI-11 の論文）",
       "title": "Learning Structured Embeddings of Knowledge Bases",
       "authors": "Antoine Bordes, Jason Weston, Ronan Collobert, Yoshua Bengio",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/7917",
+      "slide": 9,
+      "status": "スライド化",
+      "summary": "実体ベクトルと関係ごとの左右行列で知識ベースを埋め込み、KDE で三つ組の尤度を推定。知識グラフ埋め込みの源流。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI Classic Paper Award 2026（AAAI-11 の論文）",
+      "title": "Understanding Natural Language Commands for Robotic Navigation and Mobile Manipulation",
+      "authors": "Stefanie Tellex, Thomas Kollar, Steven Dickerson, Matthew Walter, Ashis Banerjee, Seth Teller, Nicholas Roy",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/7979",
+      "slide": 10,
+      "status": "スライド化",
+      "summary": "命令文の構造に応じて因子グラフを組む Generalized Grounding Graphs で、フォークリフトへの自然言語命令を物体・場所・行動に接地。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Demonstration Award",
+      "title": "Next-Generation Metalens Vision System: Powered by AI and Applied to AI",
+      "authors": "Fen Fang, Muli Yang, Henan Wang ほか",
       "link": null,
       "slide": null,
       "status": "本文未確認",
-      "summary": "知識ベースの構造化埋め込み（2011）。知識グラフ埋め込みの源流として AAAI-26 で表彰（検索情報に基づく）。",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
       "basis": null,
-      "source": "https://helsing.ai/newsroom/chief-scientist-antoine-bordes-receives-aaai-classic-paper-award"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Demonstration Award（Runner Up）",
+      "title": "Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting",
+      "authors": "Yolo Yunlong Tang, Jing Bi, Chao Huang ほか",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Poster Award",
+      "title": "MindCross: Fast New Subject Adaptation with Limited Data for Cross-subject Video Reconstruction from Brain Signals",
+      "authors": "Xuan-Hao Liu, Yan-Kai Liu, Tianyi Zhou, Bao-Liang Lu, Wei-Long Zheng",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Poster Award",
+      "title": "CAMAR: Continuous Actions Multi-Agent Routing",
+      "authors": "Artem Pshenitsyn, Aleksandr Panov, Alexey Skrynnik",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Poster Award",
+      "title": "Preference Elicitation for Step-Wise Explanations in Logic Puzzles",
+      "authors": "Marco Foschini, Marianne Defresne, Emilio Gamba, Bart Bogaerts, Tias Guns",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Best Poster Award",
+      "title": "Fractured Glass, Failing Cameras: Simulating Physics-Based Adversarial Samples for Autonomous Driving Systems",
+      "authors": "Manav Prabhakar, Jwalandhar Girnar, Arpan Kusari",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2026,
+      "kind": "award",
+      "award": "AAAI-26 Student Abstract Program Award",
+      "title": "Cumulant Attention in Vision Transformers",
+      "authors": "Yuto Morimoto, Zhipeng Wang, Koji Yasuda",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2025,
@@ -318,11 +435,11 @@
       "title": "Every Bit Helps: Achieving the Optimal Distortion with a Few Queries",
       "authors": "Soroush Ebadian, Nisarg Shah",
       "link": "https://ojs.aaai.org/index.php/AAAI/article/view/33507",
-      "slide": 8,
+      "slide": 11,
       "status": "スライド化",
       "summary": "各エージェントへ λ 回の効用問い合わせで distortion O(n^(1/λ)) を達成し、マッチングと選挙で最適界を確定。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2025,
@@ -331,37 +448,89 @@
       "title": "Efficient Rectification of Neuro-Symbolic Reasoning Inconsistencies by Abductive Reflection",
       "authors": "Wen-Chao Hu, Wang-Zhou Dai, Yuan Jiang, Zhi-Hua Zhou",
       "link": "https://arxiv.org/abs/2412.08457",
-      "slide": 9,
+      "slide": 12,
       "status": "スライド化",
       "summary": "反省ベクトルで誤り位置を示し記号推論で直す ABL-Refl。数独で 97.4%。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2025,
       "kind": "award",
       "award": "AAAI-25 Outstanding Paper Award",
       "title": "Revelations: A Decidable Class of POMDPs with Omega-Regular Objectives",
-      "authors": "Marius Belly ほか",
+      "authors": "Marius Belly, Nathanaël Fijalkow, Hugo Gimbert, Florian Horn, Guillermo Perez, Pierre Vandenhove",
       "link": "https://arxiv.org/abs/2412.12063",
-      "slide": 10,
+      "slide": 13,
       "status": "スライド化",
       "summary": "状態がいずれ明かされる啓示条件の下で POMDP の概確実戦略の存在が EXPTIME 完全に決定可能になることを示す。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2025,
       "kind": "award",
-      "award": "AAAI-25 Outstanding Paper Award（AI for Social Alignment 系トラック）",
+      "award": "AAAI-25 Outstanding Paper Award（AI for Social Alignment Track）",
       "title": "DivShift: Exploring Domain-Specific Distribution Shifts in Large-Scale, Volunteer-Collected Biodiversity Datasets",
-      "authors": "Elena Sierra, Lauren Gillespie, Moises Exposito-Alonso",
+      "authors": "Elena Sierra, Lauren E. Gillespie, Salim Soltani, Moises Exposito-Alonso, Teja Kattenborn（公式受賞ページは 3 名表記）",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/35060",
+      "slide": 14,
+      "status": "スライド化",
+      "summary": "市民参加型の生物多様性画像の 5 種類の偏りを分布シフトとして扱い、約 730 万画像で種認識性能への影響を測った。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "AAAI-25 Best Poster Award",
+      "title": "Computing Game Symmetries and Equilibria That Respect Them",
+      "authors": "Emanuel Tewolde, Brian Hu Zhang, Caspar Oesterheld, Tuomas Sandholm, Vincent Conitzer",
       "link": null,
       "slide": null,
       "status": "本文未確認",
-      "summary": "市民科学の生物多様性データに含まれる分布シフト（地域・観察者・時期など）を分析（検索情報に基づく）。",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "AAAI-25 Best Poster Award",
+      "title": "BindGPT: A Scalable Framework for 3D Molecular Design via Language Modeling and Reinforcement Learning",
+      "authors": "Artem Zholus, Maksim Kuznetsov ほか",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "AAAI-25 Best Poster Award",
+      "title": "Eliminating Majority Illusion is Easy",
+      "authors": "Jack Dippel, Max Dupre la Tour, April Niu, Sanjukta Roy, Adrian Vetta",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2025,
+      "kind": "award",
+      "award": "AAAI Classic Paper Award 2025",
+      "title": "Toward an Architecture for Never-Ending Language Learning",
+      "authors": "Tom Mitchell, Andrew Carlson, Justin Betteridge, Bryan Kisiel, Burr Settles, Estevam Hruschka",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "NELL（AAAI-10）。ウェブから知識を継続的に読み取る学習アーキテクチャ（公式ページで題名のみ確認）。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
     },
     {
       "year": 2024,
@@ -370,24 +539,24 @@
       "title": "Proportional Aggregation of Preferences for Sequential Decision Making",
       "authors": "Nikhil Chandak, Shashwat Goel, Dominik Peters",
       "link": "https://arxiv.org/abs/2306.14858",
-      "slide": 11,
+      "slide": 15,
       "status": "スライド化",
       "summary": "逐次の投票で少数派も比例的に代表される公理と、それを満たす Phragmén・MES・PAV を示した。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2024,
       "kind": "award",
       "award": "AAAI-24 Outstanding Paper Award",
       "title": "Reliable Conflictive Multi-view Learning",
-      "authors": "Cai Xu ほか",
+      "authors": "Cai Xu, Jiajun Si, Ziyu Guan, Wei Zhao, Yue Wu, Xiyue Gao",
       "link": "https://arxiv.org/abs/2402.16897",
       "slide": null,
       "status": "参照のみ",
       "summary": "ビュー間で矛盾するマルチビューデータに対し、決定と信頼度を同時に出す学習法（検索情報に基づく）。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2024,
@@ -400,12 +569,12 @@
       "status": "参照のみ",
       "summary": "遺伝子発現プロファイルから候補分子を生成する 2 つの VAE の結合モデル（検索情報に基づく）。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2024,
       "kind": "award",
-      "award": "AAAI-24 Best Paper（AI for Social Impact トラック）",
+      "award": "AAAI-24 Best Paper（AI for Social Impact Track）",
       "title": "DISCount: Counting in Large Image Collections with Detector-Based Importance Sampling",
       "authors": "Gustavo Perez, Subhransu Maji, Daniel Sheldon",
       "link": "https://arxiv.org/abs/2306.03151",
@@ -413,7 +582,33 @@
       "status": "参照のみ",
       "summary": "検出器を提案分布とする重要度サンプリングで大規模画像集合の物体数を少ないラベルで推定（検索情報に基づく）。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "AAAI-24 Best Student Paper（AI for Social Impact Track）",
+      "title": "Scaling Up Pareto Optimization for Tree Structures with Affine Transformations: Evaluating Hybrid Floating Solar-Hydropower Systems in the Amazon",
+      "authors": "Marc Grimson, Rafael Almeida, Qinru Shi ほか（Carla Gomes）",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "公式受賞ページで題名・著者のみ確認（本文未読）。AISI トラックの Best Paper・Best Student Paper にはそれぞれ Honorable Mention が 1 本ずつある",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2024,
+      "kind": "award",
+      "award": "AAAI Classic Paper Award 2024",
+      "title": "Maximum Entropy Inverse Reinforcement Learning",
+      "authors": "Brian Ziebart, Andrew Maas, Andrew Bagnell, Anind Dey",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "最大エントロピー IRL（AAAI-08）。公式の受賞理由：強化学習にエントロピー正則化を導入し、予測・模倣学習・意思決定・人と AI のアラインメントの改善につながった。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
     },
     {
       "year": 2023,
@@ -422,24 +617,24 @@
       "title": "Misspecification in Inverse Reinforcement Learning",
       "authors": "Joar Skalse, Alessandro Abate",
       "link": "https://arxiv.org/abs/2212.03201",
-      "slide": 12,
+      "slide": 16,
       "status": "スライド化",
       "summary": "IRL の行動モデルの誤指定への頑健性を完全に特徴づけ、割引率・遷移の誤りにほぼ全モデルが非頑健と示した。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2023,
       "kind": "award",
       "award": "AAAI-23 Outstanding Student Paper Award",
       "title": "Decorate the Newcomers: Visual Domain Prompt for Continual Test Time Adaptation",
-      "authors": "Yulu Gan ほか",
+      "authors": "Yulu Gan, Yan Bai, Yihang Lou, Xianzheng Ma, Renrui Zhang, Nian Shi, Lin Luo",
       "link": "https://arxiv.org/abs/2212.04145",
       "slide": null,
       "status": "参照のみ",
       "summary": "入力画像に学習可能な視覚プロンプトを加えて継続的テスト時適応を行う（検索情報に基づく）。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
     },
     {
       "year": 2023,
@@ -450,21 +645,58 @@
       "link": "https://arxiv.org/abs/2204.10037",
       "slide": null,
       "status": "参照のみ",
-      "summary": "GNN のランダムドロップ手法（DropEdge, DropNode 等）をメッセージ単位に統一（検索情報に基づく）。Distinguished Paper は他に 6 本。",
+      "summary": "GNN のランダムドロップ手法（DropEdge, DropNode 等）をメッセージ単位に統一（検索情報に基づく）。AAAI-23 Distinguished Paper は公式ページで計 12 本（本論文ほか 11 本）。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-conference-paper-awards-and-recognition/"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "AAAI Classic Paper Award 2023",
+      "title": "Theta*: Any-Angle Path Planning on Grids",
+      "authors": "Kenny Daniel, Alex Nash, Sven Koenig, Ariel Felner",
+      "link": null,
+      "slide": null,
+      "status": "本文未確認",
+      "summary": "格子上で辺に沿わない任意角度の経路を探索する Theta*（AAAI-07）。公式ページで題名のみ確認。",
+      "basis": null,
+      "source": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
     }
   ],
   "unknowns": [
-    "AAAI-26 の最終採択数・採択率の公式値（4,167 本・17.6% は二次情報で、RIKEN AIP の記事では年の帰属に揺れがある）。分母が初回投稿約 2.9 万本か査読対象約 2.3 万本かも未確認。",
-    "AAAI-27 の投稿数・採択数（未公表）。AAAI-28 の開催地・日程・締切（未発表、上記は推定）。",
-    "AAAI-26 AI Alignment 特別トラックの受賞論文の有無と題名（検索要約に 1 件言及があったが別検索で確認できず）。",
-    "2026 Classic Paper Award のもう 1 本の題名。",
-    "AAAI-24 の投稿数・採択数（採択率 23.75% のみ二次情報で確認）、AAAI-23 の採否通知日。",
-    "2023〜2025 の受賞一覧は公式ページ本体に到達できず、検索スニペットと GitHub の二次リスト（FeijiangHan/Top-Conference-Best-Papers）で確認した。AAAI-25 の社会貢献系トラック名（AI for Social Impact か Social Alignment か）も表記が揺れる。",
-    "AAAI-27 の Phase 1 の査読者構成（CFP は人間 2＋AI 1、review-process ページは 3 名）の食い違い。"
+    "AAAI-26 の最終採択数・採択率の公式値。公式（論文集序文）は投稿約 29,000・査読対象約 23,000 のみで、採択 4,167・17.6%（分母 23,680）は二次情報（RIKEN AIP ほか）。ojs.aaai.org の論文集では本会議（Technical Track）掲載 4,055 本、AI Alignment 106 本、AISI 162 本で、4,167 とは一致しない（撤回・不掲載や集計範囲の違いか不明）。",
+    "AAAI-27 の投稿数・採択数（未公表）。AAAI-28 の開催地・日程・締切（aaai.org に未掲載、上記は推定）。",
+    "AAAI-24 の投稿数（二次情報で 9,862 本と 12,100 本の 2 説。採択 2,342 本・23.75% も二次情報）。論文集の本会議掲載は 2,331 本。AAAI-23 の採否通知日（aaai.org の AAAI-23 ページに日程表なし）。",
+    "受賞論文（Outstanding / Best Paper）の選考理由は AAAI 公式ページに掲載されていない。Classic Paper も 2026 年分は理由文なし（2024 年分のみ掲載）。",
+    "AAAI-25 DivShift の受賞トラック名：公式受賞ページは「AI for Social Alignment Track」だが、論文集では AI for Social Impact Track の節に掲載（AAAI-25 は別に AI Alignment トラックもある）。公式受賞ページの著者は 3 名、論文集版は 5 名。",
+    "AAAI-25 Outstanding Student Paper は公式ページに見出しのみで題名の記載がない。AAAI-23 Distinguished Paper（12 本）、AAAI-24 AISI の Honorable Mention、各年の Demo・Student Abstract 賞は一部のみ awards に載せた。",
+    "AAAI-27 の Phase 1 の査読者構成（CFP は人間 2＋AI 1、review-process ページは 3 名）と、review-process ページの著者フィードバック日程（10-19〜25 のまま。日程表は 10-24〜31 に変更）の食い違い。"
   ],
   "sources": [
+    {
+      "label": "AAAI-27 conference page（日程表）",
+      "url": "https://aaai.org/conference/aaai/aaai-27/"
+    },
+    {
+      "label": "AAAI-26 conference page（日程表）",
+      "url": "https://aaai.org/conference/aaai/aaai-26/"
+    },
+    {
+      "label": "AAAI-26 Award Talks（Classic Paper 受賞講演）",
+      "url": "https://aaai.org/conference/aaai/aaai-26/award-talks/"
+    },
+    {
+      "label": "AAAI Classic Paper Award",
+      "url": "https://aaai.org/about-aaai/aaai-awards/aaai-classic-paper-award/"
+    },
+    {
+      "label": "AAAI-25 conference page（日程表）",
+      "url": "https://aaai.org/conference/aaai/aaai-25/"
+    },
+    {
+      "label": "Proceedings of the AAAI Conference on AI（論文集・序文）",
+      "url": "https://ojs.aaai.org/index.php/AAAI/issue/archive"
+    },
     {
       "label": "AAAI-27 Main Technical Track Call",
       "url": "https://aaai.org/conference/aaai/aaai-27/main-technical-track-call/"

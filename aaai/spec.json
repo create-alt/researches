@@ -1,8 +1,8 @@
 {
   "field": "学会調査",
   "theme": "AAAI：受賞・注目論文",
-  "date": "2026-10-27",
-  "summary": "AAAI は AAAI（人工知能振興協会）主催の AI 全般の総合学会。AAAI-26（シンガポール）は本会議投稿が約 2.9 万本に倍増し、全論文に AI レビューを付ける試行を実施。\n受賞は知識表現・計算社会選択・計画などの理論系と、VLA・CLIP・ハイパーグラフ・社会貢献 AI まで幅広い。2023〜2025 の受賞も理論寄りが多い。",
+  "date": "2026-10-28",
+  "summary": "AAAI は AAAI（人工知能振興協会）主催の AI 全般の総合学会。AAAI-26（シンガポール）は本会議投稿が約 2.9 万本に倍増し、全論文に AI レビューを付ける試行を実施。\n受賞は知識表現・計算社会選択・計画などの理論系から VLA・CLIP・ハイパーグラフ、社会貢献・アラインメントまで幅広い。2026 Classic Paper は知識グラフ埋め込みと言語接地の源流。",
   "papers": [
     {
       "title": "Model Change for Description Logic Concepts",
@@ -25,7 +25,8 @@
         "file": "figures/modelchange_table1.png",
         "caption": "出典：Model Change for DL Table 1（EL⊥・ALC 概念の eviction／reception 互換性のまとめ）"
       },
-      "notes": "arXiv v1（49 ページ。本文 15 ページ＋証明付録）の本文を全文読んだ。付録の証明は概観のみ。図がない理論論文のため Table 1 を代表図とした。PDF テキストでは定理番号が崩れているため、本文中の参照（Thm. 30 など）に合わせて番号を記載。"
+      "notes": "arXiv v1（49 ページ。本文 15 ページ＋証明付録）の本文を全文読んだ。付録の証明は概観のみ。図がない理論論文のため Table 1 を代表図とした。PDF テキストでは定理番号が崩れているため、本文中の参照（Thm. 30 など）に合わせて番号を記載。",
+      "date": "2026-10-27"
     },
     {
       "title": "Causal Structure Learning for Dynamical Systems with Theoretical Score Analysis",
@@ -48,7 +49,8 @@
         "file": "figures/cadyt_fig1.png",
         "caption": "出典：CaDyT Fig. 1（連続時間の力学系から観測した軌跡で因果グラフを発見する概念図）"
       },
-      "notes": "arXiv v1 の本文を全文読んだ。付録（証明・擬似コード・計算量）は概観のみ。"
+      "notes": "arXiv v1 の本文を全文読んだ。付録（証明・擬似コード・計算量）は概観のみ。",
+      "date": "2026-10-27"
     },
     {
       "title": "ReconVLA: Reconstructive Vision-Language-Action Model as Effective Robot Perceiver",
@@ -71,7 +73,8 @@
         "file": "figures/reconvla_fig3.png",
         "caption": "出典：ReconVLA Fig. 3（行動部と再構成部。再構成トークンを条件に拡散で注視領域を復元）"
       },
-      "notes": "arXiv v1 の本文（手法・CALVIN 実験・実機・アブレーション）を全文読んだ。付録はない版。"
+      "notes": "arXiv v1 の本文（手法・CALVIN 実験・実機・アブレーション）を全文読んだ。付録はない版。",
+      "date": "2026-10-27"
     },
     {
       "title": "LLM2CLIP: Powerful Language Model Unlocks Richer Cross-Modality Representation",
@@ -94,7 +97,8 @@
         "file": "figures/llm2clip_fig1.png",
         "caption": "出典：LLM2CLIP Fig. 1（キャプション対照学習した LLM を CLIP 視覚器とアダプタで結合）"
       },
-      "notes": "arXiv v6（2026-02、AAAI 版）を全文読んだ。表は本文の Table 1〜9。"
+      "notes": "arXiv v6（2026-02、AAAI 版）を全文読んだ。表は本文の Table 1〜9。",
+      "date": "2026-10-27"
     },
     {
       "title": "High-Pass Matters: Theoretical Insights and Sheaflet-Based Design for Hypergraph Neural Networks",
@@ -117,7 +121,8 @@
         "file": "figures/hypersheaflets_fig1.png",
         "caption": "出典：HyperSheaflets Fig. 1（低域・高域へのシーフレット分解、帯域別の畳み込み、再構成の流れ）"
       },
-      "notes": "AAAI 論文集（ojs.aaai.org）の PDF 本文を全文読んだ。証明の付録（著者サイト）は未読。arXiv 版は見つからなかった。"
+      "notes": "AAAI 論文集（ojs.aaai.org）の PDF 本文を全文読んだ。証明の付録（著者サイト）は未読。arXiv 版は見つからなかった。",
+      "date": "2026-10-27"
     },
     {
       "title": "PlantTraitNet: An Uncertainty-Aware Multimodal Framework for Global-Scale Plant Trait Inference from Citizen Science Data",
@@ -127,20 +132,21 @@
       "venue": "AAAI 2026",
       "link": "https://arxiv.org/abs/2511.06943",
       "lineage": "受賞",
-      "award": "AAAI-26 Outstanding Paper Award（AI for Social Impact 特別トラック）",
+      "award": "AAAI-26 Best Paper Award（AI for Social Impact Track）",
       "s1": "iNaturalist・Pl@ntNet の市民科学写真から、植物の 4 形質（草丈・葉面積・比葉面積・葉窒素）を同時推定し、位置で集計して全球の形質地図を作る。不確実性を出す多モーダル・多タスクモデルと、不確実性で雑音データを除く学習ループが要点。",
       "s2": "従来の全球形質地図は現地測定が疎で、外挿に頼る。Schiller+ (2021) は写真から単一形質を弱教師で推定したが、多形質同時推定・雑音対策・植生調査による全球検証は不十分だった。市民科学写真は画質も種レベルのラベルも雑音が多い。",
       "s3": "種名を TRY 形質 DB に結び、種ごとの分布から形質値をサンプルする弱教師。DINOv2 画像＋Depth-Anything-V2 深度＋Climplicit 気候の埋め込みを連結し 4 ヘッドで予測。各ヘッドが平均と尺度を出し、高不確実かつ大残差の画像を反復除去。",
       "s4": "22 万枚で学習、30 万枚超で推論し 1° 格子 890 セル超を植生調査 sPlotOpen と比較（Table 1）。R²：草丈 0.18（既存 −0.32）、比葉面積 0.27（0.16）、葉面積 0.34（0.11）。葉窒素は −0.12 で既存（0.06）と同程度。気候埋め込みが一貫して有効（Table 2）。",
       "s5": "著者：相関 r に比べ R² が低く、全ての地図に系統的な偏りが残る。草本の過剰代表など空間・分類群の偏りがある。\n所感：種レベルの弱ラベルでも種内変異（同種の高さの違い）を捉えた点（Fig. 6）が生態学的に意義深い。",
-      "s6": "・Schiller+ 2021（市民科学写真からの形質推定）（未調査）\n・Wolf+ 2022（市民科学による全球形質地図）（未調査）\n・DivShift (Sierra+ 2025)（参照のみ）",
+      "s6": "・Schiller+ 2021（市民科学写真からの形質推定）（未調査）\n・Wolf+ 2022（市民科学による全球形質地図）（未調査）\n・DivShift (Sierra+ 2025)（本デッキ）",
       "detail": "問題設定：葉の窒素量や草丈などの植物形質は炭素・エネルギー循環の理解に欠かせないが、測定は高価で地理的に偏る。一方、市民科学には 5000 万枚以上の位置付き植物写真がある。写真には形質ラベルがないので、種名を形質データベース TRY と結んで「種の平均的な値」を弱いラベルとして与える。\n手法：画像・単眼深度・気候の 3 種の基盤モデル埋め込みを融合し、4 形質を同時に予測する。各予測に不確実性を付け、1 エポック学習後に不確実性の高い画像（冬景色、果実だけ、手が写る等）を除き、さらに雑音を覚え始める転換点を参照データで見つけ、不確実で残差の大きい画像を除く。\n結果：植生調査から作った群集加重平均と比較して、4 形質中 3 形質で既存の全球地図 7 種を上回った。誤差は系統樹上でほぼ無相関で、分類群に偏らない。多タスク化で学習コストを約 75% 削減。\n限界：R² は低く系統的な偏りが残り、葉窒素では既存手法と同等にとどまる。",
       "points": "・未活用の市民科学写真を全球の地球システム科学データに変えた（調査者の見立て）\n・雑音の多い弱教師を不確実性で自動清掃する実践的設計（調査者の見立て）\n・独立の植生調査で既存地図 7 種と比較した厳密な検証（調査者の見立て）\n・データとコードを公開し社会的インパクトが大きい（調査者の見立て）",
       "figure": {
         "file": "figures/planttraitnet_fig3.png",
         "caption": "出典：PlantTraitNet Fig. 3（画像・深度・気候の埋め込みを融合し 4 形質を予測するモデル構成）"
       },
-      "notes": "arXiv v3（2026-05）の本文を全文読んだ。付録（データ詳細・追加アブレーション）は概観のみ。"
+      "notes": "arXiv v3（2026-05）の本文を全文読んだ。付録（データ詳細・追加アブレーション）は概観のみ。 賞名は AAAI 公式受賞ページで「AAAI-26 Best Paper Award – AI for Social Impact Track」と確認（2026-10-28）。",
+      "date": "2026-10-27"
     },
     {
       "title": "Generalizable Slum Detection from Satellite Imagery with Mixture-of-Experts",
@@ -150,7 +156,7 @@
       "venue": "AAAI 2026",
       "link": "https://arxiv.org/abs/2511.10300",
       "lineage": "受賞",
-      "award": "AAAI-26 Outstanding Paper Award（AI for Social Impact 特別トラック）",
+      "award": "AAAI-26 Best Paper Award（AI for Social Impact Track）",
       "s1": "衛星画像からスラム（非正規居住地）を領域分割する GRAM を提案。地域ごとの専門家を持つ Mixture-of-Experts で学習し、ラベルのない新しい都市では「専門家間の予測一致度」で信頼できる疑似ラベルだけを選んで自己学習する（テスト時適応）。",
       "s2": "スラムの形態（屋根材・配置）は国や都市で大きく異なり、ある地域で学習したモデルは他地域に移らない。TENT・CoTTA・SAR など既存のテスト時適応はエントロピー最小化中心で、大きな地域差には弱い。大規模な画素ラベルも不足していた。",
       "s3": "4 大陸 12 都市の約 271 万タイルで SegFormer に MoE アダプタを挿入。地域別ゲートで top-2 専門家を選び、地域と専門家の相互情報量最大化で専門化。適応時は最も似た地域の専門家で疑似ラベルを作り、他地域経由の予測との一致度上位 50% で微調整。",
@@ -163,7 +169,77 @@
         "file": "figures/gram_fig3.png",
         "caption": "出典：GRAM Fig. 3（Transformer 主幹網に挿入した MoE ブロックと地域別ゲートによる専門家選択）"
       },
-      "notes": "arXiv v1 の本文を全文読んだ。付録（データ詳細・追加比較）は未読。受賞の採択規模（693 本中 2 本）は KAIST の発表（Economist Korea 記事）による。"
+      "notes": "arXiv v1 の本文を全文読んだ。付録（データ詳細・追加比較）は未読。受賞の採択規模（693 本中 2 本）は KAIST の発表（Economist Korea 記事）による。 賞名は AAAI 公式受賞ページで「AAAI-26 Best Paper Award – AI for Social Impact Track」と確認（2026-10-28）。",
+      "date": "2026-10-27"
+    },
+    {
+      "title": "On the Alignment of Large Language Models with Global Human Opinion",
+      "short": "Global Opinion Alignment (Liu+ 2026)",
+      "authors": "Yang Liu, Masahiro Kaneko, Chenhui Chu（京都大学・MBZUAI）｜ AAAI 2026（AI Alignment）",
+      "year": 2026,
+      "venue": "AAAI 2026",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/41102",
+      "lineage": "受賞",
+      "award": "AAAI-26 Best Paper Award（AI Alignment Track）",
+      "s1": "世界価値観調査（WVS）を基準に、LLM の意見分布が各国・各言語・各時代の人々の意見分布とどれだけ一致するかを測る評価枠組みを作り、8 つの LLM を「国」「言語」「時代」の 3 軸で調べた。",
+      "s2": "既存研究は米国内の属性集団や少数国が中心で、全球の国別比較・時代比較・言語による誘導の検討が欠けていた。次トークン確率で意見分布を測る方法は較正が悪く、logit を出せないモデルに使えない。",
+      "s3": "WVS 第 7 波（66 か国）から意見を問う 144 問を選び、LLM には選択肢の確率を JSON で答えさせる（言語化分布）。人との一致度は正規化 Wasserstein 距離に基づく alignment で測り、質問票の言語で尋ねる「言語ステアリング」も検証。",
+      "s4": "平均一致度は GPT-5 が最高 0.8621（Fig. 2a）。DeepSeek-R1 は米国 0.8972・チリ 0.8948 と高く、エジプト 0.7855・ミャンマー 0.7881 と低い（Fig. 2b）。言語ステアリングは 240 条件の 82% 超で有効で、中国では平均 0.8124→0.8771（Table 1）。",
+      "s5": "著者：LLM は少数国に適合・過適合し、大半の国には不足適合。最新の調査波と最も一致する（Fig. 3）。\n所感：意見は確率の自己申告で測っており、実際の生成応答の偏りとの関係は別途検証が要る。",
+      "s6": "・Whose Opinions Do LMs Reflect? (Santurkar+ 2023)（未調査）\n・Global Opinions in LMs (Durmus+ 2023)（未調査）\n・Distributional Alignment (Meister+ 2025)（未調査）",
+      "detail": "問題設定：多言語で使われる LLM が主観的な質問に答えるとき、その意見はどの国・どの時代の人々に近いのか。特定国の価値観への偏りは国際的な利用で不公平や信頼性の問題になる。\n手法：WVS の標準化された質問票と各国 1,000 人超の回答を基準に、RQ1（各国との一致）、RQ2（プロンプト言語で意見を誘導できるか、8 言語・10 か国）、RQ3（どの調査波に近いか、第 5〜7 波に共通の 75 問）を検証した。\n結果：英語・スペイン語圏（米国・カナダ・チリ）に一致し、非ラテン文字圏や情報統制のある国（ミャンマー・エジプト）では低い。平均的な人の分布と比べると大半の国で不足適合。対象言語で尋ねるとペルソナ指定や few-shot に上乗せでき、組み合わせが最良。最新の第 7 波と最も一致した。\n限界：国内の多様性は国平均に集約され、言語化分布の妥当性にも依存する。",
+      "points": "・66 か国・8 言語・3 時代の 3 軸で意見の整合を包括評価（調査者の見立て）\n・「対象言語で尋ねる」単純な操作の効果を定量化（調査者の見立て）\n・GPT-5・DeepSeek-R1 まで含む最新モデルで検証（調査者の見立て）\n・多元的な価値の調整という AIA トラックの主題に合致（調査者の見立て）",
+      "figure": {
+        "file": "figures/alignment_fig2.png",
+        "caption": "出典：Global Opinion Alignment Fig. 2（上左：各 LLM の国別一致度、上右：DeepSeek-R1 の上位・下位 6 か国、下：平均的な人との比較。パネル配置を変更）"
+      },
+      "notes": "ojs.aaai.org の論文集版 PDF（9 ページ）を全文読んだ。補足資料（全国リスト・プロンプト全文）は未読。受賞は AAAI 公式受賞ページ（AAAI-26 Best Paper Award – AI Alignment Track）で確認（2026-10-28）。"
+    },
+    {
+      "title": "Learning Structured Embeddings of Knowledge Bases",
+      "short": "Structured Embeddings (Bordes+ 2011)",
+      "authors": "Antoine Bordes, Jason Weston, Ronan Collobert, Yoshua Bengio（コンピエーニュ工科大・Google・IDIAP・モントリオール大）｜ AAAI 2011",
+      "year": 2011,
+      "venue": "AAAI 2011",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/7917",
+      "lineage": "受賞",
+      "award": "AAAI Classic Paper Award 2026（AAAI-11 の論文）",
+      "s1": "WordNet や Freebase などの記号的な知識ベースを、実体ごとの低次元ベクトルと関係ごとの左右 2 つの行列からなる連続空間に埋め込む構造化埋め込み（SE）を提案。カーネル密度推定で任意の三つ組の尤もらしさも与える。",
+      "s2": "知識ベースは膨大な知識を持つが、それぞれ硬直した記号的枠組みに基づくため、統計的学習や NLP・視覚など他の AI から使いにくかった。既存の関係埋め込みは小規模な課題に限られるか、実体ごとに複数の埋め込みを持ち汎化に弱かった。",
+      "s3": "三つ組（左実体・関係・右実体）の距離を ||R_lhs E_l − R_rhs E_r||_1 で測り、片側を壊した負例より 1 以上小さくなるようマージン損失で SGD 学習（d=50）。全関係で埋め込み行列 E を共有する多タスク学習が鍵。学習後に KDE で密度を推定。",
+      "s4": "WordNet（55,166 実体）の未見三つ組の上位 10 位以内率は、関係ごとに別埋め込みの EMB 4.0% に対し共有の EMB_MT 71.7%・76.7%（Table 4）。Freebase では KDE 併用で学習事実 99.2%、未見 17.0%。平均順位は 3414.7→87.8（Table 3）。",
+      "s5": "著者：汎化は多タスク（埋め込み共有）でのみ可能。KDE は学習事実の確度を上げるが汎化をやや損なう。\n所感：評価は順位指標のみで、生テキストからの知識抽出も例示にとどまる。",
+      "s6": "・TransE (Bordes+ 2013)（未調査）\n・Bayesian Clustered Tensor Factorization (Sutskever+ 2009)（未調査）\n・RESCAL (Nickel+ 2011)（未調査）",
+      "detail": "問題設定：知識ベースを実体と有向関係からなるグラフとみなし、その知識を保ったまま連続ベクトル空間に移して、機械学習の部品として使えるようにする。\n手法：実体は d 次元ベクトル、関係は左右非対称の類似度を表す 2 つの d×d 行列で表す（関係ごとに類似度が変わるシャム網の一般化）。正しい三つ組が、片側の実体をランダムに置換した三つ組より近くなるよう学習し、埋め込みのノルムを 1 に保つ。記号的知識の「確実に正しい」性質を補うため、同じ関係・共通実体の学習三つ組の上でガウス核の密度推定を行う。\n結果：頻度だけの方法や関係ごとに別埋め込みを持つ方法を大きく上回り、学習にない妥当な関係（everest part of hindu kush 等）を推論できた。SENNA で抽出した約 15 万の主語-動詞-目的語の三つ組にも適用した。\n限界：オントロジーの階層や推論規則は平坦化で失われる。",
+      "points": "・記号的事実を連続ベクトルで表しニューラル網から使えるようにした（受賞講演の要旨）\n・TransE などを経て LLM・RAG に至る系譜の起点（受賞講演の要旨）\n・関係を行列演算子とする知識グラフ埋め込みの原型（調査者の見立て）\n・埋め込み共有が汎化の鍵と実験で示した（調査者の見立て）",
+      "figure": {
+        "file": "figures/bordes_tables.png",
+        "caption": "出典：Structured Embeddings Table 3・4（WordNet・Freebase での平均順位〔上〕と上位 10 位以内率〔下〕）"
+      },
+      "notes": "ojs.aaai.org の AAAI-11 論文集版（6 ページ）を全文読んだ。受賞は AAAI 公式 Classic Paper Award ページで確認。公式の受賞理由文は 2026 年分が未掲載のため、評価ポイントの一部は AAAI-26 Award Talks ページの Bordes の受賞講演要旨による。"
+    },
+    {
+      "title": "Understanding Natural Language Commands for Robotic Navigation and Mobile Manipulation",
+      "short": "G3 (Tellex+ 2011)",
+      "authors": "Stefanie Tellex, Thomas Kollar, Steven Dickerson, Matthew R. Walter ほか（MIT CSAIL）｜ AAAI 2011",
+      "year": 2011,
+      "venue": "AAAI 2011",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/7979",
+      "lineage": "受賞",
+      "award": "AAAI Classic Paper Award 2026（AAAI-11 の論文）",
+      "s1": "自然言語の命令文の構造に応じて確率的グラフィカルモデルを動的に組み立てる Generalized Grounding Graphs（G3）を提案。「タイヤのパレットをトラックに載せて」から、物体・場所・経路への接地とフォークリフトの行動計画を推論する。",
+      "s2": "従来の命令理解は固定・平坦な系列構造のモデルで、「トラックの横のパレット」の関係語と物体を分けて学べず、動詞の項構造も無視していた。SHRDLU 以来の記号的手法は計画を静的に生成し、語の意味を学習できなかった。",
+      "s3": "命令を空間記述節（SDC：図・関係・目印）の木に分解し、EVENT・OBJECT・PLACE・PATH の型を付与。SDC ごとに接地変数と対応変数 φ を置く因子グラフを生成し、幾何特徴×単語の約 14.7 万の二値特徴で CRF を学習。推論はビーム幅 20 の 2 段探索。",
+      "s4": "AMT で 45 人・22 動画から集めた命令で、対応変数の予測は全体 F 値 0.89・正解率 0.86（Table 1）。模擬環境での実行を人が判定し、正解 SDC の上位 30 命令で 0.63、自動抽出 SDC で 0.54（乱数コスト 0.28、Table 3）。",
+      "s5": "著者：計画の事後確率が高い命令ほど成功率が高く、確認を求める判断に使える。\n所感：否定・照応・量化は未対応で、注釈データへの依存と探索空間の大きさが課題として残る。",
+      "s6": "・Toward Understanding Natural Language Directions (Kollar+ 2010)（未調査）\n・SayCan (Ahn+ 2022)（未調査）\n・ReconVLA (Song+ 2026)（本デッキ）",
+      "detail": "問題設定：ロボットが人の指示に従うには、命令中の行為（Put）・物体（the tire pallet）・場所（on the truck）を世界の具体物に対応づけ、組み合わせて行動列を決める必要がある。命令の言い回しは自由で、入れ子や複数の項を持つ。\n手法：命令を SDC の木に変換し、その形に従って二部因子グラフを生成する。葉の SDC は語と物体の対応を、内部の SDC は関係語と子の接地どうしの幾何関係（支持・距離・前後左右など）を評価する。CRF の重みは L-BFGS で学習し、推論では対応変数を真に固定して接地と行動列を探索する。\n結果：「put」「take」など複雑な動詞の意味をコーパスから自動で学び、ロボットフォークリフトの模擬環境で多くの命令を実行できた。失敗も左右のパレットの取り違えなど部分的に正しい例が多い。\n限界：注釈付きデータが必要で、解析誤りや照応に弱い。",
+      "points": "・言語構造に沿ってモデルを動的に組む「接地グラフ」を確立（調査者の見立て）\n・語の意味を物体・場所・行為への接地としてデータから学習（調査者の見立て）\n・クラウドソーシングで命令と行動の対を集める手法の先駆（調査者の見立て）\n・VLA など言語条件付きロボット制御の源流の一つ（調査者の見立て）",
+      "figure": {
+        "file": "figures/tellex_fig2.png",
+        "caption": "出典：G3 Fig. 2・3（「パレットをトラックに置け」と「トラック上のパレットへ行け」の SDC 木と、そこから誘導される因子グラフ）"
+      },
+      "notes": "ojs.aaai.org の AAAI-11 論文集版（8 ページ）を全文読んだ。受賞は AAAI 公式 Classic Paper Award ページで確認（2026 年の 2 本目）。公式の受賞理由文は未掲載。"
     },
     {
       "title": "Every Bit Helps: Achieving the Optimal Distortion with a Few Queries",
@@ -186,7 +262,8 @@
         "file": "figures/everybit_table1.png",
         "caption": "出典：Every Bit Helps Table 1（一方向マッチングで問い合わせ回数ごとの distortion 上界・下界。灰色が本論文の結果）"
       },
-      "notes": "著者サイトの PDF（AAAI 2025 版の拡張、20 ページ）の本文を全文読んだ。付録 A, B の証明は概観のみ。図がない理論論文のため Table 1 を代表図とした。"
+      "notes": "著者サイトの PDF（AAAI 2025 版の拡張、20 ページ）の本文を全文読んだ。付録 A, B の証明は概観のみ。図がない理論論文のため Table 1 を代表図とした。",
+      "date": "2026-10-27"
     },
     {
       "title": "Efficient Rectification of Neuro-Symbolic Reasoning Inconsistencies by Abductive Reflection",
@@ -209,7 +286,8 @@
         "file": "figures/ablrefl_fig2.png",
         "caption": "出典：ABL-Refl Fig. 2（主幹網の後に出力層と反省層を並べ、印の位置だけをアブダクションで修正）"
       },
-      "notes": "arXiv v2（AAAI 2025 版）の本文を全文読んだ。付録（ハイパラ C の検討、追加実験）は概観のみ。"
+      "notes": "arXiv v2（AAAI 2025 版）の本文を全文読んだ。付録（ハイパラ C の検討、追加実験）は概観のみ。",
+      "date": "2026-10-27"
     },
     {
       "title": "Revelations: A Decidable Class of POMDPs with Omega-Regular Objectives",
@@ -232,7 +310,31 @@
         "file": "figures/revelations_fig2.png",
         "caption": "出典：Revelations Fig. 2（決定可能な範囲のまとめ：全 POMDP、弱い啓示、強い啓示とパリティ優先度の関係）"
       },
-      "notes": "arXiv v1（AAAI 2025 の拡張版、証明付録つき）の本文を全文読んだ。付録の証明は概観のみ。"
+      "notes": "arXiv v1（AAAI 2025 の拡張版、証明付録つき）の本文を全文読んだ。付録の証明は概観のみ。",
+      "date": "2026-10-27"
+    },
+    {
+      "title": "DivShift: Exploring Domain-Specific Distribution Shifts in Large-Scale, Volunteer-Collected Biodiversity Datasets",
+      "short": "DivShift (Sierra+ 2025)",
+      "authors": "Elena Sierra, Lauren E. Gillespie, Salim Soltani ほか（スタンフォード大・フライブルク大）｜ AAAI 2025（AISI）",
+      "year": 2025,
+      "venue": "AAAI 2025",
+      "link": "https://ojs.aaai.org/index.php/AAAI/article/view/35060",
+      "lineage": "受賞",
+      "award": "AAAI-25 Outstanding Paper Award（AI for Social Alignment Track）",
+      "s1": "iNaturalist など市民参加型の生物多様性画像に含まれる空間・時間・分類群・観察者・社会政治的な偏りを分布シフトとして扱い、種認識の性能への影響を測る枠組み DivShift と、北米西海岸の約 730 万画像のデータセットを提案。",
+      "s2": "市民参加型データは量が多い反面、採集が非構造的で、都市近郊・週末・目立つ種・熱心な利用者・豊かな地域に偏る。偏りの存在は生態学で知られていたが、細粒度の種認識性能にどう効くかは不明だった。",
+      "s3": "データを偏りごとに 2 分割（原生地と改変地、City Nature Challenge 期間とそれ以外、熱心と気軽な観察者、州境など）し、各分割で ResNet-18 を学習。分割内外の精度差を、ラベル分布の Jensen-Shannon 距離（JSD）の差と比べる。",
+      "s4": "全分割で精度低下は JSD の差より小さい「弱い偏り」（Table 2）。改変地で学習し原生地で評価すると Top-1 画像精度 −11.3、逆向きは −35.3。熱心な観察者で学習すると気軽な観察者のデータで +4.9 と強く汎化（Table 2・3）。",
+      "s5": "著者：影響は想定より小さいが偏りごとに異なり、原生地は追加採集、観察 50 件未満の利用者のデータは除外を推奨。\n所感：画像単位の分割で同じ観察の画像が学習と評価に漏れる恐れを著者も認めている。",
+      "s6": "・iNat2021 (Van Horn+ 2021)（未調査）\n・Recognition in Terra Incognita (Beery+ 2018)（未調査）\n・PlantTraitNet (Sharma+ 2026)（本デッキ）",
+      "detail": "問題設定：生物多様性の自動監視に使う画像モデルは市民参加型データで学習されるが、データの偏りがモデルの使える範囲をどう制限するかは定量化されていなかった。\n手法：データを偏りに沿って分割 A・B に分け、A で学習したモデルの A・B での精度差と、ラベル分布の JSD の差を比べる。精度差が JSD より大きければ強い偏り、小さければ弱い偏りとする。DivShift-NAWC は 7,607 種・約 390 万観察で、5 種類の偏りの分割と iNat2021 型などの基準分割を用意し、頻出・普通・希少種別の再現率や土地利用別精度など 8 指標で評価した。\n結果：データの多い側で学習したモデルは少ない側へ強く汎化し、逆は過学習した。均衡化は希少種に、全データ使用は普通種に有利という二律背反も示した。ViT は ResNet-18 より約 15〜20 ポイント高いが、分割内外の差はほぼ同じ。\n限界：偏りの因果的な寄与は特定できず、生態的な違いをラベル分布だけで測っている。",
+      "points": "・市民科学データの偏りを分布シフトとして定量化する枠組み（調査者の見立て）\n・約 730 万画像のデータセットとコードを公開（調査者の見立て）\n・偏りごとの実務的な推奨を示し保全の現場に直結（調査者の見立て）\n・AAAI の社会系特別トラックで評価された生態学×AI（調査者の見立て）",
+      "figure": {
+        "file": "figures/divshift_fig1.png",
+        "caption": "出典：DivShift Fig. 1（空間・時間・分類群・観察者・社会政治の 5 種類の偏りの模式図）"
+      },
+      "notes": "ojs.aaai.org の論文集版 PDF（AAAI-25）を全文読んだ。公式受賞ページの著者表記は 3 名（Sierra, Gillespie, Exposito Alonso）だが論文集版は 5 名。論文集では AI for Social Impact Track の節に掲載され、受賞名は公式ページで「AI for Social Alignment Track」。拡張版 arXiv 2410.19816 は未読。"
     },
     {
       "title": "Proportional Aggregation of Preferences for Sequential Decision Making",
@@ -255,7 +357,8 @@
         "file": "figures/propagg_fig2.png",
         "caption": "出典：Proportional Sequential Decisions Fig. 2（公理を説明する 4 投票者・8 回の承認集合の例）"
       },
-      "notes": "arXiv v2（2025-03、AAAI 版の拡張）の本文と実験（6 章）を読んだ。付録の証明は概観のみ。v2 では AAAI 版の EJR を Weak EJR、Strong EJR を EJR と改名している。"
+      "notes": "arXiv v2（2025-03、AAAI 版の拡張）の本文と実験（6 章）を読んだ。付録の証明は概観のみ。v2 では AAAI 版の EJR を Weak EJR、Strong EJR を EJR と改名している。",
+      "date": "2026-10-27"
     },
     {
       "title": "Misspecification in Inverse Reinforcement Learning",
@@ -278,7 +381,8 @@
         "file": "figures/misspecirl_thm26.png",
         "caption": "出典：Misspecification in IRL Theorem 2.6（方策順序を保つ報酬変換の特徴づけ。図のない論文のため本文の定理部分）"
       },
-      "notes": "arXiv v2（AAAI 2023 版）の本文を全文読んだ。補足資料の証明は未読。図がない論文のため定理部分の紙面を代表図とした。"
+      "notes": "arXiv v2（AAAI 2023 版）の本文を全文読んだ。補足資料の証明は未読。図がない論文のため定理部分の紙面を代表図とした。",
+      "date": "2026-10-27"
     }
   ]
 }
