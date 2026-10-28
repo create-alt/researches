@@ -46,7 +46,7 @@
       "points": "・拡散サンプリングの精度依存を指数的に改善した（調査者の見立て）\n・密度不要・L2 スコア誤差のみという現実的な仮定（調査者の見立て）\n・同じ道具で対数凹サンプリングの課題も解いた（調査者の見立て）\n・長く参照される基礎理論という選考基準に合う（調査者の見立て）",
       "figure": {
         "file": "figures/hasamp_alg1.png",
-        "caption": "出典：High-Accuracy Sampling Algorithm 1（FORS の手順。理論論文で図はない）"
+        "caption": "出典：High-Accuracy Sampling Algorithm 1（FORS の手順。理論論文で図はない。行の折り返しを調整）"
       },
       "notes": "受賞発表：https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
     },
