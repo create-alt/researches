@@ -1,8 +1,8 @@
 {
   "field": "学会調査",
   "theme": "GECCO：受賞・注目論文",
-  "date": "2026-10-27",
-  "summary": "ACM SIGEVO 主催の進化計算の主要国際会議。フルペーパー採択率は 35〜37%。Best Paper はトラックごとに 2〜3 本の候補から参加者投票で決まる。\n2024〜2026 年は QD と強化学習の融合、学習による最適化器の選択、ベンチマークの見直し、交叉の理論が受賞。2026 年は実応用（全脳モデル）と記号回帰も受賞した。",
+  "date": "2026-10-28",
+  "summary": "ACM SIGEVO 主催の進化計算の主要国際会議。フルペーパー採択率は 35〜37%。Best Paper はトラックごとの候補から参加者投票で決まり、Humies（人間に匹敵する成果の賞）も併せて発表される。\n2024〜2026 年は QD と強化学習の融合、学習による最適化器の設計、ベンチマークの見直し、交叉の理論、実応用（全脳モデル・信号制御・古生物学）が受賞した。",
   "papers": [
     {
       "title": "Evolution With Purpose: Hierarchy-Informed Optimization of Whole-Brain Models",
@@ -25,7 +25,7 @@
         "file": "figures/hico.png",
         "caption": "出典：HICO (Shahrzad+ 2026) Fig. 3（被験者間 LOO の適応度）"
       },
-      "notes": "受賞の出典：Cognizant AI Lab ブログ https://www.cognizant.com/us/en/ai-lab/blog/gecco-best-paper-evolutionary-ai-whole-brain-modeling ／ ACM Best Paper Awards 一覧（検索スニペット）"
+      "notes": "受賞の出典：Cognizant AI Lab ブログ https://www.cognizant.com/us/en/ai-lab/blog/gecco-best-paper-evolutionary-ai-whole-brain-modeling ／ ACM Best Paper Awards 一覧（検索スニペット） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "Distributional Value Estimation Without Target Networks for Robust Quality-Diversity",
@@ -48,7 +48,7 @@
         "file": "figures/qdhuac.png",
         "caption": "出典：QDHUAC (Koohy & Bayne 2026) Fig. 1（最適化ループと critic の構造）"
       },
-      "notes": "EML トラックのノミネートは公式 Best Paper Nominations（検索スニペット）、受賞は ACM Best Paper Awards 一覧（検索スニペット）"
+      "notes": "EML トラックのノミネートは公式 Best Paper Nominations（検索スニペット）、受賞は ACM Best Paper Awards 一覧（検索スニペット） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "A Learning-Based Cooperative Coevolution Framework for Heterogeneous Large-Scale Global Optimization",
@@ -71,7 +71,7 @@
         "file": "figures/lhcc.png",
         "caption": "出典：LH-CC (Qiu+ 2026) Fig. 1（従来の協調共進化と LH-CC）"
       },
-      "notes": "L4EC ノミネートは公式ページ（検索スニペット）、受賞は ACM 一覧と共著者サイト https://sites.google.com/view/scnu-mzy（2026-07-18 付）"
+      "notes": "L4EC ノミネートは公式ページ（検索スニペット）、受賞は ACM 一覧と共著者サイト https://sites.google.com/view/scnu-mzy（2026-07-18 付） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "Introns and Templates Matter: Rethinking Linkage in GP-GOMEA",
@@ -94,7 +94,7 @@
         "file": "figures/gpgomea.png",
         "caption": "出典：GP-GOMEA linkage (Koch+ 2026) Fig. 10（補足資料：A が B より高い R² を出す確率）"
       },
-      "notes": "GP トラックのノミネートは公式ページ、受賞は ACM 一覧（いずれも検索スニペット）"
+      "notes": "GP トラックのノミネートは公式ページ、受賞は ACM 一覧（いずれも検索スニペット） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "Evolving Multi-Channel Confidence-Aware Activation Functions for Missing Data with Channel Propagation",
@@ -117,7 +117,7 @@
         "file": "figures/3cea.png",
         "caption": "出典：3C-EA (Shahabi Sani+ 2026) Fig. 2（PIMA の欠損率別のテスト精度）"
       },
-      "notes": "NE トラックのノミネートは公式ページ（Parameter-Efficient Neuroevolution for Diverse LLM Generation と同じ枠）、受賞は ACM 一覧（検索スニペット）"
+      "notes": "NE トラックのノミネートは公式ページ（Parameter-Efficient Neuroevolution for Diverse LLM Generation と同じ枠）、受賞は ACM 一覧（検索スニペット） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "Exploration of Pareto-preserving Search Space Transformations in Multi-objective Test Functions",
@@ -140,7 +140,7 @@
         "file": "figures/pareto.png",
         "caption": "出典：Pareto-preserving transforms (Vermetten & Rook 2026) Fig. 10（変換別の相対 HV）"
       },
-      "notes": "BBSR 受賞の出典：Paderborn MALEO ニュース https://math.uni-paderborn.de/nachricht/best-paper-award（検索スニペット）。BBSR の他候補は Assessing Reproducibility in Evolutionary Computation（Da Ros+）"
+      "notes": "BBSR 受賞の出典：Paderborn MALEO ニュース https://math.uni-paderborn.de/nachricht/best-paper-award（検索スニペット）。BBSR の他候補は Assessing Reproducibility in Evolutionary Computation（Da Ros+） 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "Parent Selection Mechanisms in Elitist Crossover-Based Algorithms",
@@ -163,7 +163,7 @@
         "file": "figures/opris.png",
         "caption": "出典：Furthest-parent (μ+1) GA (Opris & Antipov 2026) Fig. 1（補題 3.4 の構成）"
       },
-      "notes": "THEORY トラックのノミネートは公式ページ、受賞は ACM 一覧（検索スニペット）。DOI 10.1145/3795095.3805131"
+      "notes": "THEORY トラックのノミネートは公式ページ、受賞は ACM 一覧（検索スニペット）。DOI 10.1145/3795095.3805131 公式の候補一覧 https://gecco-2026.sigevo.org/Best+Paper+Nominations で候補を確認（2026-10-28）。"
     },
     {
       "title": "AutoNumerics-Zero: Automated Discovery of State-of-the-Art Mathematical Functions",
@@ -187,6 +187,29 @@
         "caption": "出典：AutoNumerics-Zero (Real+ 2026) Fig. 4（2^x 近似の演算数と精度）"
       },
       "notes": "Humies 2026 の出典：http://gpbib.cs.ucl.ac.uk/gp-html/Goodman_2026_sigevolution.html（検索スニペット、forthcoming）。Silver は Chao Qian ほか、Bronze は Berghegger ほか・Obidiegwu ほか（同出典）"
+    },
+    {
+      "title": "Complex marine ecological response during the Eocene-Oligocene revealed by global foraminiferal record",
+      "short": "CONOP.EA foraminifera (Lu+ 2026)",
+      "authors": "Zhengbo Lu, Ke Xue, ..., Chao Qian, ..., Zhi-Hua Zhou, Shuzhong Shen ほか（Nanjing University）｜ Nature Communications 2026",
+      "year": 2026,
+      "venue": "Nature Communications 2026",
+      "link": "https://doi.org/10.1038/s41467-026-70541-w",
+      "lineage": "受賞",
+      "award": "23rd Humies（2026）Silver Award（GECCO 2026 で発表）",
+      "s1": "始新世〜漸新世（4800 万〜2000 万年前）の有孔虫 1269 種の化石記録を、進化アルゴリズム CONOP.EA で 1 本の時間順序にまとめ、約 2.9 万年刻みの種の多様性の歴史を復元した。2026 年 Humies 銀賞。",
+      "s2": "従来の全球集成は時間解像度が粗く、始新世末の変化は「一度の絶滅」に見えていた。本研究は浮遊性・大型底生・小型底生の 3 群を同じ高解像度で比べ、群ごとに異なる応答を示した。",
+      "s3": "161 の地層断面の初出・終出イベントの並びを 1 個体とし、交叉（親の区間の入替）・変異（イベントの移動）・選択で、局所の観察と最もよく合う順序（ペナルティ最小）を探す。制約違反の子は捨てる。",
+      "s4": "合成した系列は 962 段階で解像度約 29 kyr。同条件で既存の CONOP.SAGA よりペナルティが平均約 538.5 低く、約 23 倍速い（13 時間 9 分対 34 分, Fig. S1）。浮遊性の種数は海面水温と ρ=0.85（Table 1）。",
+      "s5": "著者：環境と生物の関係は生息環境ごとに異なり、深時間の高解像度データで初めて検証できる。\n所感：進化計算の人間に匹敵する成果を、古生物学の第一線の発見で示した例。年代は推定（imputed）で、絶対年代の解像度ではない。",
+      "s6": "Sadler 2004 Quantitative biostratigraphy (Annu. Rev.)\nFan+ 2020 古生代〜三畳紀の多様性 (Science)\nZhou, Yu & Qian 2019 Evolutionary Learning",
+      "detail": "問題設定：始新世〜漸新世の境界（約 3400 万年前）は地球が氷室気候へ移った転換点。各地の地層は断片的で、化石の初出・終出を全球で 1 本の時間軸にまとめるのが難しい。\n手法：既存の CONOP（焼きなまし法）と CONOP.SAGA を、集団・交叉・変異・選択を持つ完全な進化アルゴリズム CONOP.EA に拡張した。集団の大きさは CPU コア数（例 24）。子と親の差分だけペナルティを計算して速くし、過去の解を親に再利用できる。SAGA の 10 解を親にすると平均 104.84 改善した。\n結果：浮遊性と大型底生は海水準・海面水温と強く相関し、境界直後に大きく減った。小型底生は約 900 万年かけて 2 段階で減り、炭素同位体と相関した。\n限界：解像度は推定値で、データは論文からの手作業の集成に依る。",
+      "points": "・進化計算で地質学の未解決問題に新しい知見を与えた（調査者の見立て）\n・Nature Communications 掲載で領域の専門家の水準を満たす（調査者の見立て）\n・既存手法より 23 倍速く、より良い解（調査者の見立て）\n・南京大学の進化学習の研究者と地球科学者の共同研究（調査者の見立て）",
+      "figure": {
+        "file": "figures/foram.png",
+        "caption": "出典：Lu+ 2026 Table 1 の値から調査者が作図（有孔虫 3 群の種数と環境指標の Spearman 相関）"
+      },
+      "notes": "Humies 2026 の出典：Goodman, SIGEVOlution 19(3)（gpbib: https://gpbib.pmacs.upenn.edu/gp-html/Goodman_2026_sigevolution.html）。本文は PMC13133226（HTML 全文）。図は PMC の画像 CDN に届かなかったため、Table 1 の数値を作図した。"
     },
     {
       "title": "Extract-QD Framework: A Generic Approach for Quality-Diversity in Noisy, Stochastic or Uncertain Domains",
@@ -235,6 +258,75 @@
       "notes": "受賞の出典：https://gecco-2025.sigevo.org/Best-Paper-Awards（検索スニペット）。既存デッキの TensorNEAT（genetic-algorithm/neat）と関連"
     },
     {
+      "title": "On Revealing the Hidden Problem Structure in Real-World and Theoretical Problems Using Walsh Coefficient Influence",
+      "short": "wdVIG / GBO-PHE (Przewozniczek+ 2025)",
+      "authors": "Michal W. Przewozniczek, Francisco Chicano, Renato Tinós ほか（Wroclaw University of Science and Technology）｜ GECCO 2025",
+      "year": 2025,
+      "venue": "GECCO 2025",
+      "link": "https://arxiv.org/abs/2504.13949",
+      "lineage": "受賞",
+      "award": "GECCO 2025 Best Paper Award（ECOM トラック）",
+      "s1": "グレーボックス最適化で使う変数依存グラフ（VIG）を、Walsh 係数の大きさで重み付けした wdVIG にし、ノイズ由来の弱い依存を無視してマスクを作る。実問題に隠れた構造があることも示した。",
+      "s2": "ほぼ全変数が依存し合う問題では、VIG が完全グラフになり、partition crossover（PX）などのマスクが全遺伝子を含んで役に立たない。依存の「強さ」を測り、関係の薄い依存を切る点が新しい。",
+      "s3": "wdVIG は、2 変数を覆う各 Walsh 係数の絶対値を、混ぜる 2 個体で異なる被覆遺伝子の対の数で割って足す。これを連鎖木（LT）でクラスタリングし、根の直下だけをマスクにする wPX を、P3 型の GBO-PHE に入れる。",
+      "s4": "ノイズ付き OneMax では非線形の VIG が完全グラフになるが、ノイズ除去後は依存がほぼ消える（Fig. 1）。2×10^6 評価・30 回で、GBO-PHE-LTop-wdVIG は 14 設定中 bim10 以外で最大の規模を解いた（Table 6）。",
+      "s5": "著者：弱い構造とされてきた実問題にも、ノイズの下に強い構造が隠れている。\n所感：ノイズ除去の検証は全 Walsh 係数を計算できる小さな問題に限られ、大規模な実問題への適用は今後の課題。",
+      "s6": "Whitley+ 2016 Partition crossover\nGoldman & Punch 2014 P3 (GECCO)\nThierens & Bosman 2013 LT-GOMEA (GECCO)\nTinós+ 2023 GA with Linkage Learning (GECCO)",
+      "detail": "問題設定：グレーボックス最適化は Walsh 分解で非線形の依存を見つけ、交叉のマスクに使う。だが実問題ではほぼ全ての変数対が依存するとされ、マスクが無意味になる。\n手法：混ぜる 2 個体の組ごとに依存の強さを計算する wdVIG を提案した。長いマスクの係数ほど、個々の変数対への影響は小さいとみなす。重みなし版や静的版（wsVIG）とも比べた。\n結果：衛星テレメトリの異常検知（OPS-SAT）や裸地検出の特徴選択など実問題の小さなインスタンスでは、元の VIG はすべて完全グラフだった。ノイズ除去後は 2DLED の依存の密度が平均 0.25〜0.47 に下がった。ノイズを入れた nkLand6k では、解ける最大規模が 150（P3・LT-GOMEA は 48）だった。\n限界：bim10 では P3 と LT-GOMEA に負けた。",
+      "points": "・グレーボックス最適化の適用範囲を実問題へ広げる道筋を示した（調査者の見立て）\n・「依存の強さ」という新しい観点を Walsh 分解に加えた（調査者の見立て）\n・ノイズの量を制御したベンチマークの作り方も示した（調査者の見立て）\n・コードと結果を公開し、再現しやすい（調査者の見立て）",
+      "figure": {
+        "file": "figures/walsh.png",
+        "caption": "出典：wdVIG (Przewozniczek+ 2025) Fig. 3（ノイズの量と最適解までの評価回数）"
+      },
+      "notes": "受賞の出典：gecco-2026.sigevo.org/Best-Paper-Awards（2025 年版がそのまま残る公式ページ）。同じ著者の 2026 年 ECOM 候補（SLL による PX マスク, arXiv 2604.11862）はこの研究の続き。"
+    },
+    {
+      "title": "On the Importance of Reward Design in Reinforcement Learning-based Dynamic Algorithm Configuration: A Case Study on OneMax with (1+(λ,λ))-GA",
+      "short": "Reward shifting for DAC (Nguyen+ 2025)",
+      "authors": "Tai Nguyen, Phong Le, André Biedenkapp, Carola Doerr, Nguyen Dang（University of St Andrews ほか）｜ GECCO 2025",
+      "year": 2025,
+      "venue": "GECCO 2025",
+      "link": "https://arxiv.org/abs/2502.20265",
+      "lineage": "受賞",
+      "award": "GECCO 2025 Best Paper Award（L4EC トラック）",
+      "s1": "(1+(λ,λ))-GA の集団サイズ λ を、深層強化学習（DDQN）で動的に設定する問題で、報酬の設計が学習の成否を決めることを示した。報酬に負の定数を足す「報酬シフト」で探索不足を解消した。",
+      "s2": "動的アルゴリズム設定（DAC）に強化学習を素朴に使うと、規模が大きい問題で失敗する。理論で最適方策が分かっている OneMax を使い、失敗の原因を報酬と探索の不足に特定した点が新しい。",
+      "s3": "報酬は適応度の改善から評価回数を引いたもの。評価回数は λ に比例するため、エージェントは小さな λ に偏る。報酬に負の定数 b を足すと楽観的な初期化と同じ効果で探索が増える。b は準備段階の報酬の中央値から自動で決める。",
+      "s4": "n=300 の期待実行時間は素朴な報酬で 2500.03、適応的シフトで 1829.65。理論方策 1883.42 を下回り、最適方策は 1725.01（Table 2）。最適に近い方策の割合は正のシフトで 0、負のシフトで 0.94〜0.99（n≤200, Fig. 7）。",
+      "s5": "著者：DAC に強化学習を使うときは、報酬の設計を最優先で検討すべき。\n所感：n=1000, 2000 では irace（評価の予算が桁違いに大きい）に及ばない。理論の土台がある課題で失敗の原因を一つずつ突き止めた方法が参考になる。",
+      "s6": "Doerr & Doerr 2018 (1+(λ,λ))-GA の最適パラメータ (Algorithmica)\nBiedenkapp+ 2020 DAC (ECAI)\nChen+ 2023 irace による OneMax-DAC\nSun+ 2022 Reward shifting (NeurIPS)",
+      "detail": "問題設定：DAC は探索中にパラメータを変える方策を学ぶ。OneMax 上の (1+(λ,λ))-GA の λ には理論上の最適方策 √(n/(n−f(x))) があり、学習結果を正解と比べられる。\n手法：λ の候補を 2 の冪に離散化し、DDQN（ε=0.2, 50 万ステップ, 10 回）で学ぶ。素朴な報酬では、学習の途中から λ=1 ばかり選ぶ発散が起きた。問題サイズで割る報酬の正規化は中規模まで効いた。ε を 0.5 まで上げても探索は増えなかった。報酬シフトは Q 値を相対的に楽観的にし、選ばなかった行動を試させる。\n結果：適応的シフトは 4 サイズとも離散化した理論方策より良かった。n=500〜2000 では、理論方策を超えるまでの学習ステップが irace の数千分の 1 以下だった（Table 3）。\n限界：状態は現在の適応度だけで、他の課題での検証は今後。",
+      "points": "・強化学習による DAC の失敗原因を、正解のある課題で特定した（調査者の見立て）\n・報酬シフトを自動化し、問題サイズごとの調整を不要にした（調査者の見立て）\n・理論家と学習研究者の共同で、EC の理論と RL をつないだ（調査者の見立て）\n・irace より桁違いに少ない試行で同等の方策に達した（調査者の見立て）",
+      "figure": {
+        "file": "figures/nguyen.png",
+        "caption": "出典：Nguyen+ 2025 Fig. 7（最適に近い方策の割合：左 正のシフト、右 負のシフト）"
+      },
+      "notes": "受賞の出典：gecco-2026.sigevo.org/Best-Paper-Awards（2025 年版がそのまま残る公式ページ）。L4EC はもう 1 本（Schede, Seiler, Tierney, Trautmann: Deep reinforcement learning for instance-specific algorithm configuration）と同時受賞。"
+    },
+    {
+      "title": "Unlocking the Potential of Global Human Expertise",
+      "short": "RHEA (Meyerson+ 2024)",
+      "authors": "Elliot Meyerson, Olivier Francon, Darren Sargent, Babak Hodjat, Risto Miikkulainen（Cognizant AI Labs / UT Austin）｜ NeurIPS 2024",
+      "year": 2025,
+      "venue": "NeurIPS 2024",
+      "link": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/d7ae378b9dfa7ff7bed35105fab03838-Abstract-Conference.html",
+      "lineage": "受賞",
+      "award": "22nd Humies（2025）Gold Award（GECCO 2025 で発表）",
+      "s1": "世界中の専門家が作った多様な政策モデルを、ニューラルネットに蒸留してから進化計算で組み合わせ・改良する枠組み RHEA。COVID-19 の対策コンペの 169 モデルから、人間だけ・AI だけより良い政策を見つけた。",
+      "s2": "専門家の知識を集めるだけでは、組み合わせの効果は引き出せない。混合エキスパートや重み付きアンサンブルは文脈ごとの切替や 1 通りの混合しかできないが、RHEA は内部の構造を組み替え、新しい要素も加える。",
+      "s3": "Define（予測器と処方器の定式化）、Gather（専門家の解の収集）、Distill（各解を行動模倣でニューラルネットに変換）、Evolve（蒸留したモデルを初期集団に入れ、NSGA-II 型の多目的進化 ESP で改良）の 4 段階。",
+      "s4": "XPRIZE Pandemic Response Challenge の 102 チーム（23 か国）の 169 処方器を蒸留し、20 地域の 90 日間で進化させた。意思決定者がその方法の解を選ぶ割合（REM）はほぼ 100%。蒸留モデルの前線の約 75% を支配した（Fig. 3）。",
+      "s5": "著者：AI は人間の多様な専門知識の潜在力を引き出す触媒になれる。\n所感：評価は予測器（代理モデル）上で、現実の政策での検証や利用者の研究はない。成績の低いチームの解が最終解に大きく貢献した分析は興味深い。",
+      "s6": "Francon+ 2020 ESP (GECCO)\nMiikkulainen+ 2021 COVID-19 の進化的政策探索 (IEEE TEVC)\nDeb+ 2002 NSGA-II (IEEE TEVC)\nJacobs+ 1991 Mixture of Experts",
+      "detail": "問題設定：社会問題の解決には多様な専門家の知恵を組み合わせる必要があるが、規模が大きくなるほど最良の組合せを見つけにくい。要件は、形式の違う解を取り込めること、多目的であること、最終解の由来をたどれること。\n手法：各処方器を 212,400 組の入出力で自己回帰型のネットワークに蒸留した（元のモデルとの順位相関は約 0.7）。集団 200 のうち 169 を蒸留モデルにし、100 世代を 10 回進化させた。合成例では、混合エキスパート・アンサンブル・進化のみ・多目的強化学習のいずれも最適な前線に届かなかった。\n結果：蒸留モデルはランダム初期化より良く、進化でさらに改善した。系譜をたどると、各専門家の最終解への貢献は試行間で一貫していた。\n限界：政策のコストは一様とし、代理モデルの誤差が積み重なりうる。",
+      "points": "・国際コンペの専門家モデルを組み合わせ、人間にも AI にも勝る政策を示した（調査者の見立て）\n・解の系譜から各専門家の貢献を測れ、説明責任に役立つ（調査者の見立て）\n・Humies 2026 金賞の AutoNumerics-Zero と同じく、ML の主要会議の論文が受賞（調査者の見立て）\n・2026 年 RWA 受賞と同じ Miikkulainen 研の成果（調査者の見立て）",
+      "figure": {
+        "file": "figures/rhea.png",
+        "caption": "出典：RHEA (Meyerson+ 2024) Fig. 1（Define・Gather・Distill・Evolve の 4 段階）"
+      },
+      "notes": "受賞の出典：gecco-2026.sigevo.org/Humies+Awards（2025 年版がそのまま残る公式ページ）と Goodman, SIGEVOlution 18(3)。Silver は LLaMEA（既存：swarm-intelligence/ga-hybrid）。"
+    },
+    {
       "title": "Quality with Just Enough Diversity in Evolutionary Policy Search",
       "short": "JEDi (Templier+ 2024)",
       "authors": "Paul Templier, Luca Grillotti, Emmanuel Rachelson ほか（ISAE-SUPAERO）｜ GECCO 2024",
@@ -256,6 +348,29 @@
         "caption": "出典：JEDi (Templier+ 2024) Fig. 1（Walker2D のアーカイブ：左 MAP-Elites、右 JEDi）"
       },
       "notes": "受賞の出典：https://gecco-2024.sigevo.org/Best-Paper-Awards.html（検索スニペット）。既存デッキの CMA-MAE（open-endedness/quality-diversity）と関連"
+    },
+    {
+      "title": "Learning Traffic Signal Control via Genetic Programming",
+      "short": "GPLight (Liao+ 2024)",
+      "authors": "Xiao-Cheng Liao, Yi Mei, Mengjie Zhang（Victoria University of Wellington）｜ GECCO 2024",
+      "year": 2024,
+      "venue": "GECCO 2024",
+      "link": "https://arxiv.org/abs/2403.17328",
+      "lineage": "受賞",
+      "award": "GECCO 2024 Best Paper Award（GP トラック）",
+      "s1": "交差点の各信号フェーズの「緊急度」を計算する関数を遺伝的プログラミング（GP）で進化させ、最も緊急なフェーズを青にする信号制御 GPLight。深層強化学習より短い旅行時間と、読める式を両立した。",
+      "s2": "深層強化学習の信号制御は、報酬の設計に専門知識が要り、学んだ方策を説明できない。GPLight は平均旅行時間を直接の適応度にして報酬設計を不要にし、木の式として方策を出す。8 フェーズの多交差点に GP を初めて適用した。",
+      "s3": "フェーズごとに、流入 2 車線と流出 6 車線の待ち台数と総台数の 16 特徴を決まった順に並べる。木の関数（＋, −, ×, ÷, min, max）で緊急度を出し、10 秒ごとに最大のフェーズを選ぶ。CityFlow で全車の平均旅行時間を適応度にする。",
+      "s4": "済南・杭州・ニューヨーク（196 交差点）の 6 データで 10 回。平均旅行時間は ニューヨークで 1227.38（MPLight 1277.48, Max Pressure 1335.79）。MPLight との差は平均 5.95%、済南 1 以外で有意に勝った（Table 3, 4）。",
+      "s5": "著者：GP は信号制御で深層強化学習の有力な対抗馬になりうる。\n所感：交差点どうしの協調は扱わず、同じ種類の車線の衝突も残る。進化した式から、流入車線の待ち台数が最重要と読み取れる点が実用的。",
+      "s6": "Varaiya 2013 Max Pressure\nChen+ 2020 MPLight (AAAI)\nWei+ 2019 CoLight (CIKM)\nRicalde & Banzhaf 2017 GP による信号制御",
+      "detail": "問題設定：都市の信号は多くが固定周期で、交通状況に合わせて切り替えられていない。深層強化学習は有望だが、報酬の設計が難しく、方策がブラックボックスになる。\n手法：緊急度関数の入力の意味がフェーズで変わらないよう、特徴の並びを車線の役割で固定した（右折車線は除外）。集団 100、50 世代、トーナメント 3、交叉 0.9・変異 0.1。黄 3 秒・全赤 2 秒。\n結果：固定時間・Max Pressure・MPLight のすべてに対し、最小値ではすべてのデータで最良だった。進化した式の一例は、流入 2 車線の待ち台数の和を中心に、下流の混雑で補正する形だった。特徴の出現頻度でも流入車線の待ち台数が最多だった。\n限界：分散制御のみで、通信による協調は今後の課題。Humies 2024 の最終候補にも選ばれた。",
+      "points": "・深層強化学習が主流の課題で、GP が性能と説明可能性の両方で勝った（調査者の見立て）\n・報酬設計を不要にし、目的（旅行時間）を直接最適化した（調査者の見立て）\n・特徴の並べ方の工夫で、可変な入力の意味の問題を解いた（調査者の見立て）\n・公開データと公開コードで比較しやすい（調査者の見立て）",
+      "figure": {
+        "file": "figures/gplight.png",
+        "caption": "出典：GPLight (Liao+ 2024) Fig. 2（交差点の特徴と GP の流れ）"
+      },
+      "notes": "受賞の出典：GP bibliography（Langdon）の Liao:2024:GECCO の注記「Best Paper Award」と「HUMIES 2024 FINALIST」（https://gpbib.pmacs.upenn.edu/）。GECCO 2024 の公式受賞ページには届かず、トラックは論文の分類（GECCO-2024 GP）による。"
     }
   ]
 }
