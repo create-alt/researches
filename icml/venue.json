@@ -8,8 +8,8 @@
     "ICML"
   ],
   "website": "https://icml.cc/",
-  "summary": "IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月開催、論文は PMLR に掲載）。理論・最適化・強化学習・生成モデルから LLM の安全性まで扱い、2026 年（ソウル）は査読対象 23,918 本・採択 6,352 本（26.6%）と 2 年で約 2.5 倍に膨らんだ。2024 年からポジションペーパー・トラックを設けている。",
-  "date": "2026-10-27",
+  "summary": "IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月開催、論文は PMLR に掲載）。理論・最適化・強化学習・生成モデルから LLM の安全性まで扱い、2026 年（ソウル）は投稿 24,661 本（本会議 23,918、ポジション 743）・採択 6,552 本（26.6%）と 2 年で約 2.5 倍に膨らんだ。2024 年からポジションペーパー・トラックを設けている。",
+  "date": "2026-10-28",
   "upcoming": {
     "edition": "ICML 2027",
     "location": "南米（都市は未発表。ICML Future Meetings による地域のみ）",
@@ -21,51 +21,58 @@
         "date": "2027-01-21",
         "time": "23:59 AoE",
         "status": "推定",
-        "basis": "2025・2026 は論文締切の 5〜7 日前（2025-01-23、2026-01-23）。論文締切の推定から 1 週間前とした。幅は 2027-01-15〜01-25。第三者トラッカー（OpenCurious）は 2027-01-16 と推定。",
-        "source": null
+        "basis": "2025・2026 は論文締切の 5〜7 日前（2025-01-23、2026-01-23、公式 Dates）。2023・2024 はアブストラクト締切なし（論文締切のみ）。論文締切の推定から 1 週間前とした。幅は 2027-01-15〜01-25。第三者トラッカー（OpenCurious）は 2027-01-16 と推定。",
+        "source": "https://icml.cc/Conferences/2026/Dates"
       },
       {
         "label": "論文締切",
         "date": "2027-01-28",
         "time": "23:59 AoE",
         "status": "推定",
-        "basis": "2023〜2026 は 2023-01-26（木）、2024-02-01（木）、2025-01-30（木）、2026-01-28（水）といずれも 1 月最終週〜2 月初め。曜日を合わせると 2027-01-28（木）前後、幅は 2027-01-21〜02-02。第三者トラッカーは 2027-01-22 と推定。",
-        "source": null
+        "basis": "公式 Dates ページで 2023-01-26（木）、2024-02-01（木）、2025-01-30（木）、2026-01-28（水）と、いずれも 1 月最終週〜2 月初め。曜日を合わせると 2027-01-28（木）前後、幅は 2027-01-21〜02-02。第三者トラッカーは 2027-01-22 と推定。",
+        "source": "https://icml.cc/Conferences/2026/Dates"
       },
       {
         "label": "リバッタル（著者応答）",
         "date": "2027-03-下旬",
         "status": "推定",
-        "basis": "2026 は著者応答締切が 2026-03-30 AoE（公式 Dates ページ）。",
-        "source": null
+        "basis": "著者応答の締切は 2024-03-28（rebuttal 終了）、2025-03-31、2026-03-30（いずれも公式 Dates）。",
+        "source": "https://icml.cc/Conferences/2026/Dates"
       },
       {
         "label": "採否通知",
         "date": "2027-04-30",
         "status": "推定",
-        "basis": "2023-04-24、2024-05-01、2025-05-01、2026-04-30。4 月末〜5 月 1 日。",
-        "source": null
+        "basis": "公式 Dates で 2023-04-24、2024-05-01、2025-05-01、2026-04-30（AoE）。4 月末〜5 月 1 日。",
+        "source": "https://icml.cc/Conferences/2026/Dates"
+      },
+      {
+        "label": "カメラレディ",
+        "date": "2027-05-下旬〜06-上旬",
+        "status": "推定",
+        "basis": "公式で 2023-05-31、2024-05-29、2025-06-09、2026-05-28（AoE、2026 は Author Instructions）。",
+        "source": "https://icml.cc/Conferences/2026/AuthorInstructions"
       },
       {
         "label": "会期",
         "date": "2027-07-中旬",
         "status": "推定",
-        "basis": "2023〜2026 はいずれも 7 月の第 2〜4 週（7/23-29、7/21-27、7/13-19、7/6-11）。",
+        "basis": "公式 Dates で 2023-07-23〜29、2024-07-21〜27、2025-07-13〜19、2026-07-06〜11。いずれも 7 月で、近年は前倒し傾向。初日がチュートリアル・Expo、続く 3 日が本会議、最後の 2 日がワークショップ。",
         "source": "https://icml.cc/Conferences/FutureMeetings"
       }
     ],
-    "notes": "2026-10-27 時点で ICML 2027 の Call for Papers・会期・都市は未発表（検索で確認）。公式の Future Meetings は 2027 年を南米、2028 年を米国東部としている。ICML 2026 の CFP は 2025 年末に公開され、OpenReview の投稿受付は締切の約 3 週間前（2026-01-08）に始まった。"
+    "notes": "2026-10-28 に公式サイトで確認：https://icml.cc/Conferences/2027 、/Conferences/2027/CallForPapers 、/Conferences/2027/Dates はいずれも 404 で、ICML 2027 の CFP・会期・都市は未発表。Future Meetings ページは「2027 -- South America」「2028 -- Eastern United States」のみ。ICML 2026 の CFP は 2025 年末に公開され、OpenReview の投稿受付は締切の約 3 週間前（2026-01-08）に始まった。"
   },
   "history": [
     {
       "edition": "ICML 2026",
       "location": "Seoul, Korea（COEX）",
-      "dates": "2026-07-06〜07-11",
+      "dates": "2026-07-06〜07-11（7/6 チュートリアル・Expo、7/7〜9 本会議、7/10〜11 ワークショップ）",
       "abstract": "2026-01-23（AoE）",
       "paper": "2026-01-28（AoE）",
       "notification": "2026-04-30",
-      "submissions": 23918,
-      "accepted": 6352,
+      "submissions": 24661,
+      "accepted": 6552,
       "acceptanceRate": "26.6%",
       "source": "https://icml.cc/Conferences/2026/Dates"
     },
@@ -79,31 +86,31 @@
       "submissions": 12107,
       "accepted": 3260,
       "acceptanceRate": "26.9%",
-      "source": "https://media.icml.cc/Conferences/ICML2025/ICML2025_Fact_Sheet.pdf"
+      "source": "https://icml.cc/Conferences/2025/Dates"
     },
     {
       "edition": "ICML 2024",
       "location": "Vienna, Austria",
       "dates": "2024-07-21〜07-27",
-      "abstract": null,
+      "abstract": "なし（論文締切のみ）",
       "paper": "2024-02-01（AoE）",
       "notification": "2024-05-01",
       "submissions": 9473,
       "accepted": 2610,
       "acceptanceRate": "27.5%",
-      "source": "https://media.icml.cc/Conferences/ICML2024/ICML2024_Fact_Sheet.pdf"
+      "source": "https://icml.cc/Conferences/2024/Dates"
     },
     {
       "edition": "ICML 2023",
       "location": "Honolulu, Hawaii, USA",
       "dates": "2023-07-23〜07-29",
-      "abstract": null,
-      "paper": "2023-01-26（単一締切）",
+      "abstract": "なし（論文締切のみ）",
+      "paper": "2023-01-26（公式 Dates の表示は 19:59 UTC）",
       "notification": "2023-04-24",
       "submissions": 6538,
       "accepted": 1827,
       "acceptanceRate": "27.9%",
-      "source": "https://github.com/lixin4ever/conference-acceptance-rate"
+      "source": "https://icml.cc/Conferences/2023/Dates"
     },
     {
       "edition": "ICML 2022",
@@ -111,20 +118,20 @@
       "dates": "2022-07-17〜07-23",
       "abstract": "2022-01-20",
       "paper": "2022-01-27",
-      "notification": null,
+      "notification": "2022-05-14",
       "submissions": null,
-      "accepted": null,
+      "accepted": 1233,
       "acceptanceRate": null,
-      "source": "https://github.com/ccfddl/ccf-deadlines"
+      "source": "https://icml.cc/Conferences/2022/Dates"
     }
   ],
   "format": [
-    "ダブルブラインド査読、OpenReview で運用。著者応答（リバッタル）あり。",
-    "本文 8 ページ（参考文献・付録は無制限）、採択後は 1 ページ追加。Impact Statement の記載が必須。",
-    "論文集は PMLR（Proceedings of Machine Learning Research、2026 年は Vol. 306）。",
-    "トラック：メイントラック（研究論文）と、2024 年新設のポジションペーパー・トラック（主張の重要性と論拠で評価）。",
+    "ダブルブラインド査読、OpenReview で運用（2022 年までは CMT）。著者応答（リバッタル）と著者・査読者の議論期間あり。",
+    "本文 8 ページ（参考文献・付録は無制限）、採択後は 1 ページ追加。Impact Statement の記載が必須。2026 年からはカメラレディで利益相反の開示と一般向け要約（lay summary）も求める。",
+    "論文集は PMLR（Proceedings of Machine Learning Research、2026 年は Vol. 306）。2026 年から採択論文の投稿時版と査読も公開。",
+    "トラック：メイントラック（研究論文）と、2024 年新設のポジションペーパー・トラック（2025 年から別の OpenReview 窓口、2026 年は本会議と別の査読者・AC プール。主張の重要性と論拠で評価）。TMLR・JMLR 等の論文を発表するジャーナル・トラックもある。",
     "相互査読（reciprocal reviewing）：投稿著者の一部に査読義務。2026 年は査読者が LLM 利用方針 A（禁止）/ B（理解補助と推敲のみ可）を選択。",
-    "本会議の前後にチュートリアル・ワークショップ（約 2 日）を併催。採択論文から Oral（2026 年は約 0.7%）・Spotlight を選ぶ。"
+    "会期は 6 日間（チュートリアル・Expo 1 日、本会議 3 日、ワークショップ 2 日）。採択論文から Oral（2026 年は 168 本、約 0.7%）・Spotlight を選ぶ。2026 年は採択論文の現地発表が任意になった。"
   ],
   "features": [
     "IMLS（International Machine Learning Society）主催、1980 年に始まる機械学習で最も歴史ある国際会議の一つ。NeurIPS・ICLR と並ぶ三大会議で、CORE A*、CCF A。",
@@ -134,11 +141,12 @@
     "毎年 7 月に開催地を大陸間で回す（2023 ハワイ、2024 ウィーン、2025 バンクーバー、2026 ソウル、2027 南米）。"
   ],
   "trends": [
-    "投稿数の急増：6,538（2023）→ 9,473（2024）→ 12,107（2025）→ 23,918（2026、desk reject・取下げ後の査読対象。総投稿は 24,661）。採択率は 27.9% → 27.5% → 26.9% → 26.6% とほぼ一定（各年 Fact Sheet、RIKEN AIP、arXiv 2609.19420）。",
+    "投稿数の急増：6,538（2023）→ 9,473（2024）→ 12,107（2025）→ 24,661（2026、本会議 23,918・ポジション 743）。採択率は 27.9% → 27.5% → 26.9% → 26.6%（2026 は採択 6,552 本）とほぼ一定（2024・2025 は Fact Sheet、2023・2026 は ICML 2026 のプログラム委員長 4 名が共著の arXiv 2609.19420）。",
     "LLM 利用ポリシーの厳格化：2026 年は査読者が方針 A（LLM 禁止）か B（限定的に可）を選び、投稿 PDF に埋め込んだ隠し指示で違反を検出。方針 A に違反した相互査読者の投稿 497 本（約 2%）を desk reject した（ICML ブログ 2026-03-18）。同年の無作為化実験では方針の違いは採否・スコアにほぼ影響せず、方針 A でも 22.5% が LLM 利用を自己申告（arXiv 2609.19420）。",
-    "ポジションペーパー・トラックの定着：2025 年は 73 本採択、2026 年は投稿 743 本。受賞は査読危機（2025）、AI 安全性と労働（2025）、アラインメントの検閲転用（2026）、ディープフェイク研究と AIG-NCII（2026）と、研究コミュニティへの批判的な主張が多い。",
+    "ポジションペーパー・トラックの定着：採択は 2025 年 73 本、2026 年 213 本（投稿 743 本、公式 virtual サイトの採択一覧で集計）。受賞は査読危機（2025）、AI 安全性と労働（2025）、アラインメントの検閲転用（2026）、ディープフェイク研究と AIG-NCII（2026）と、研究コミュニティへの批判的な主張が多い。",
     "主題の流れ：2024 年は生成モデル（SD3、VideoPoet、Genie、SEDD）と LLM の安全性、2025 年はマスク拡散・創造性・共同作業型 LLM、2026 年は拡散言語モデル（JustGRPO）と拡散の理論、RLVR の安全性へ。拡散と LLM の交差が 3 年連続で受賞の中心。",
-    "Test of Time は深層学習初期の基盤技術が続く：Learning Fair Representations（2023、2013 年論文）、DeCAF（2024）、Batch Normalization（2025）、A3C（2026）。"
+    "Test of Time は深層学習初期の基盤技術が続く：Learning Fair Representations（2023、2013 年論文）、DeCAF（2024）、Batch Normalization（2025）、A3C（2026）。",
+    "運営の変化（2026）：採択論文の著者の現地参加を任意にし、投稿時版と査読を公開。公式の「サテライト会合」は置かないと明言。OpenReview への年間拠出を 10 万ドルから 20 万ドルに倍増（2025-12、公式ブログ）。"
   ],
   "fields": [
     {
@@ -199,7 +207,7 @@
       "status": "スライド化",
       "summary": "拡散言語モデルの任意順序生成は数学・コードの推論では解の探索を狭めると示し、RL 時だけ AR 順にして標準 GRPO を使う JustGRPO（GSM8K 89.1%）を提案。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
@@ -212,7 +220,7 @@
       "status": "スライド化",
       "summary": "勾配のみの棄却サンプリング FORS により、拡散モデルのサンプリングを polylog(1/δ) ステップで達成。対数凹分布にも適用。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
@@ -225,7 +233,7 @@
       "status": "スライド化",
       "summary": "複数 actor-learner の非同期更新で replay なしに深層 RL を安定化した A3C。CPU 16 コアで Atari の当時の最高性能。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/test-of-time-award"
     },
     {
       "year": 2026,
@@ -238,7 +246,7 @@
       "status": "スライド化",
       "summary": "アラインメント手法（データ選別・事後学習・推論時制御）が検閲と世論操作に転用されうるデュアルユース技術だと論じ、監査・ベンチマーク・多元性を提言。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
@@ -251,7 +259,7 @@
       "status": "スライド化",
       "summary": "嘘検出プローブを報酬に入れた RLVR の結果を正直・露骨な欺瞞・出力の難読化・活性の難読化の 4 類型に整理し、十分な KL と検出ペナルティで正直な方策が得られると示した。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
@@ -264,33 +272,33 @@
       "status": "スライド化",
       "summary": "動画生成の動きを学習クリップへ帰属させる Motive。選んだ 10% のデータで全データ微調整を超える動きの質。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
       "title": "How much can language models memorize?",
-      "authors": "John X. Morris ほか（FAIR at Meta / Cornell）",
+      "authors": "John Morris, Chawin Sitawarin, Narine Kokhlikyan, Chuan Guo ほか（FAIR at Meta / Cornell）",
       "link": "https://arxiv.org/abs/2505.24832",
       "slide": 7,
       "status": "スライド化",
       "summary": "意図しない記憶と汎化を圧縮で分離し、GPT 型モデルの記憶容量を約 3.6 bits/param と測定。容量超過で汎化と double descent が始まる。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
-      "title": "A Random Matrix Theory Perspective on the Consistency of Diffusion Models",
+      "title": "A Random Matrix Perspective on the Consistency of Diffusion Models",
       "authors": "Binxu Wang, Jacob A. Zavatone-Veth, Cengiz Pehlevan（Harvard）",
       "link": "https://arxiv.org/abs/2602.02908",
       "slide": 8,
       "status": "スライド化",
       "summary": "別データで学習した拡散モデルの出力が一致する理由を線形デノイザのランダム行列理論で説明（ノイズの繰り込み、過収縮、異方性）。",
       "basis": null,
-      "source": "https://pehlevan.seas.harvard.edu/news/2026/07/icml-2026-outstanding-paper-honorable-mention"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
@@ -303,14 +311,14 @@
       "status": "スライド化",
       "summary": "リッジ回帰＋weight decay の勾配降下でグロッキングが起きることを end-to-end に証明し、遅れが 1/(ηλ) に比例することを示した。",
       "basis": null,
-      "source": "https://blog.icml.cc/2026/07/05/announcing-the-icml-2026-awards/"
+      "source": "https://icml.cc/virtual/2026/awards_detail"
     },
     {
       "year": 2026,
       "kind": "award",
       "award": "Outstanding Position Paper Honorable Mention",
-      "title": "Position: AI/ML Deepfake Research is Misaligned with AI-Generated Non-Consensual Intimate Imagery (AIG-NCII)",
-      "authors": "Li Qiwei, Wells Lucas Santo, Sarita Schoenebeck, Eric Gilbert（University of Michigan）",
+      "title": "Position: AI/ML Deepfake Research is Misaligned with AI Generated Non-Consensual Intimate Imagery (AIG-NCII)",
+      "authors": "Qiwei Li, Wells Lucas Santo, Sarita Schoenebeck, Eric Gilbert（University of Michigan）",
       "link": "https://arxiv.org/abs/2607.18263",
       "slide": 10,
       "status": "スライド化",
@@ -351,9 +359,9 @@
       "title": "CollabLLM: From Passive Responders to Active Collaborators",
       "authors": "Shirley Wu ほか（Stanford / Microsoft）",
       "link": "https://arxiv.org/abs/2502.00640",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "多ターン先の対話への影響を見込んだ報酬で LLM を学習し、受け身の応答ではなく能動的に協働するアシスタントにする手法。",
+      "slide": 13,
+      "status": "スライド化",
+      "summary": "応答の後の会話を擬似ユーザーと数ターン先まで試し打ちして評価する Multiturn-aware Reward で Llama-3.1-8B を学習。課題性能 +18.5%、対話性 +46.3%、201 人の実験で満足度 +17.6%。",
       "basis": null,
       "source": "https://icml.cc/virtual/2025/awards_detail"
     },
@@ -364,11 +372,11 @@
       "title": "Score Matching with Missing Data",
       "authors": "Josh Givens, Song Liu, Henry Reeve（University of Bristol）",
       "link": "https://arxiv.org/abs/2506.00557",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "欠損のあるデータからスコアマッチングでスコア関数を学ぶ方法の提案と理論。",
+      "slide": 14,
+      "status": "スライド化",
+      "summary": "座標の一部が欠けたデータからスコアを学ぶため、周辺スコアを重要度重み付け（Marg-IW）または変分近似（Marg-Var）で推定。切断版で有限標本の上界、グラフィカルモデル推定で Marg-Var が最良。",
       "basis": null,
-      "source": "https://research-information.bris.ac.uk/en/prizes/outstanding-paper-at-icml2025/"
+      "source": "https://icml.cc/virtual/2025/awards_detail"
     },
     {
       "year": 2025,
@@ -377,9 +385,9 @@
       "title": "Conformal Prediction as Bayesian Quadrature",
       "authors": "Jake Snell, Thomas Griffiths（Princeton）",
       "link": "https://arxiv.org/abs/2502.13228",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "コンフォーマル予測をベイズ求積の観点から捉え直し、保証の解釈と拡張を与えた。",
+      "slide": 15,
+      "status": "スライド化",
+      "summary": "split conformal と conformal risk control をベイズ求積の特殊例として復元し、分位間隔の Dirichlet 分布から期待損失の上界の分布 L+ を導出。目標リスク超過を 21.20% から 0.03% に抑えた。",
       "basis": null,
       "source": "https://icml.cc/virtual/2025/awards_detail"
     },
@@ -394,7 +402,7 @@
       "status": "参照のみ",
       "summary": "公共政策で最も困窮した人を特定するとき、予測精度の向上と支援対象の拡大のどちらが価値を持つかを比較分析した。",
       "basis": null,
-      "source": "https://mcml.ai/news/2025-07-18-fischer-abaigar-icml/"
+      "source": "https://icml.cc/virtual/2025/awards_detail"
     },
     {
       "year": 2025,
@@ -472,7 +480,7 @@
       "status": "既存：world-model/foundation-world-model",
       "summary": "ラベルなし動画から潜在行動を学び、操作可能な 2D 環境を生成する世界モデル。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -481,11 +489,11 @@
       "title": "Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution",
       "authors": "Aaron Lou, Chenlin Meng, Stefano Ermon（Stanford）",
       "link": "https://arxiv.org/abs/2310.16834",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "スコアエントロピー損失による離散拡散モデル SEDD。拡散言語モデルの流れの起点の一つ。",
+      "slide": 16,
+      "status": "スライド化",
+      "summary": "score entropy 損失で確率比を学ぶ離散拡散 SEDD。GPT-2 の zero-shot perplexity の多数の課題で上回り、温度調整なしの生成で GPT-2 の 6〜8 倍良い。",
       "basis": null,
-      "source": "https://ai.stanford.edu/news/congratulations-to-aaron-lou-chenlin-meng-and-stefano-ermon-for-an-icml-2024-best-paper-award"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -498,7 +506,7 @@
       "status": "参照のみ",
       "summary": "Rectified Flow と MM-DiT による高解像度画像生成のスケーリング（Stable Diffusion 3）。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -511,7 +519,7 @@
       "status": "参照のみ",
       "summary": "多様なモダリティをトークン化した LLM でゼロショット動画生成を行う VideoPoet。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -524,7 +532,7 @@
       "status": "参照のみ",
       "summary": "より説得力のある LLM 同士の討論を判定することで、弱い判定者でも真実に近づけることを示したスケーラブル監督の研究。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -537,7 +545,7 @@
       "status": "参照のみ",
       "summary": "API 経由の問い合わせだけで本番 LLM の埋め込み射影層の一部を復元する攻撃。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -550,7 +558,7 @@
       "status": "参照のみ",
       "summary": "Twisted SMC で LLM の条件付き生成・推論を確率的に扱う枠組み。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -563,7 +571,7 @@
       "status": "参照のみ",
       "summary": "確率的凸最適化における汎化と記憶の情報量的なトレードオフを解析した理論研究。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -576,7 +584,7 @@
       "status": "参照のみ",
       "summary": "データセットの「多様性」を測定理論に基づいて定義・検証すべきと主張。",
       "basis": null,
-      "source": "https://ai.stanford.edu/news/congratulations-to-stanford-ai-lab-phd-student-dora-zhao-for-an-icml-2024-best-paper-award"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -589,7 +597,7 @@
       "status": "参照のみ",
       "summary": "大規模な公開データで事前学習した差分プライバシー学習の評価と前提を問い直した。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -602,7 +610,7 @@
       "status": "参照のみ",
       "summary": "ImageNet で学習した CNN の中間特徴を汎用の画像特徴として転用し、転移学習の有効性を示した。",
       "basis": null,
-      "source": "https://aihub.org/?p=15502"
+      "source": "https://icml.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2023,
@@ -615,7 +623,7 @@
       "status": "参照のみ",
       "summary": "学習率の調整を不要にする D-Adaptation。凸最適化で最適な収束率を保証。",
       "basis": null,
-      "source": "https://aihub.org/2023/07/26/congratulations-to-the-icml2023-outstanding-paper-award-winners"
+      "source": "https://icml.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -628,7 +636,7 @@
       "status": "参照のみ",
       "summary": "生成時に語彙の一部を優遇する統計的な透かしで、LLM 生成文を検出可能にする。",
       "basis": null,
-      "source": "https://aihub.org/2023/07/26/congratulations-to-the-icml2023-outstanding-paper-award-winners"
+      "source": "https://icml.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -641,7 +649,7 @@
       "status": "参照のみ",
       "summary": "未見領域への汎化でネットワークが最小次数の補間解に偏ることを示し、次数カリキュラムを提案。",
       "basis": null,
-      "source": "https://actu.epfl.ch/news/icml-outstanding-paper-award-for-an-apple-math-epf"
+      "source": "https://icml.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -654,7 +662,7 @@
       "status": "参照のみ",
       "summary": "不完全情報ゼロ和ゲームで木構造に適応して ε 最適戦略を学ぶアルゴリズムと下界。",
       "basis": null,
-      "source": "https://www.omron.com/sinicx/en/activity/news/post-141/"
+      "source": "https://icml.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -666,8 +674,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "訪問済みノードを避ける非線形マルコフ連鎖でグラフ上のサンプリング分散を下げる。",
-      "basis": null,
-      "source": "https://or.ncsu.edu/news/2023/doshi-wins-outstanding-paper-award/"
+      "basis": "公式 virtual の Awards ページ（icml.cc/virtual/2023/awards_detail）には Outstanding Paper が 4 本しか掲載されておらず、本論文は載っていない（Oral として採択）。受賞は AIhub の発表記事と大学・研究機関のニュースで確認。",
+      "source": "https://aihub.org/2023/07/26/congratulations-to-the-icml2023-outstanding-paper-award-winners"
     },
     {
       "year": 2023,
@@ -679,7 +687,7 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "ベイズ的な設計原理から頻度論的な逐次意思決定（バンディット等）のアルゴリズムを導く一般枠組み。",
-      "basis": null,
+      "basis": "公式 virtual の Awards ページ（icml.cc/virtual/2023/awards_detail）には Outstanding Paper が 4 本しか掲載されておらず、本論文は載っていない（Oral として採択）。受賞は AIhub の発表記事と大学・研究機関のニュースで確認。",
       "source": "https://aihub.org/2023/07/26/congratulations-to-the-icml2023-outstanding-paper-award-winners"
     },
     {
@@ -691,7 +699,7 @@
       "link": "https://proceedings.mlr.press/v28/zemel13.html",
       "slide": null,
       "status": "参照のみ",
-      "summary": "保護属性の情報を除きつつ有用性を保つ表現学習で、集団・個人の公平性を機械学習に導入した。",
+      "summary": "保護属性の情報を除きつつ有用性を保つ表現学習で、集団・個人の公平性を機械学習に導入し、ML と公平性という分野を形作った（公式の選考理由より）。",
       "basis": null,
       "source": "https://icml.cc/Conferences/2023/Test-of-Time"
     },
@@ -704,19 +712,32 @@
       "link": "https://proceedings.mlr.press/v28/andrew13.html",
       "slide": null,
       "status": "参照のみ",
-      "summary": "2 つのビューを深層ネットで非線形変換し、相関を最大化する深層 CCA。",
+      "summary": "2 つのビューを深層ネットで非線形変換し相関を最大化する深層 CCA。深層マルチモーダル表現学習と、再構成を使わない自己教師あり学習（対照学習など）の先駆とされた（公式の選考理由より）。",
       "basis": null,
+      "source": "https://icml.cc/Conferences/2023/Test-of-Time"
+    },
+    {
+      "year": 2023,
+      "kind": "award",
+      "award": "Test of Time Runner-up",
+      "title": "Making a Science of Model Search: Hyperparameter Optimization in Hundreds of Dimensions for Vision Architectures",
+      "authors": "James Bergstra, Daniel Yamins, David Cox ｜ ICML 2013",
+      "link": "https://proceedings.mlr.press/v28/bergstra13.html",
+      "slide": null,
+      "status": "参照のみ",
+      "summary": "数百次元のハイパーパラメータ探索をブラックボックス最適化で自動化し、調整を職人技から科学的な手続きへ変えた（公式の選考理由より）。",
+      "basis": "公式 Test-of-Time ページに選考理由つきで掲載。",
       "source": "https://icml.cc/Conferences/2023/Test-of-Time"
     }
   ],
   "unknowns": [
-    "ICML 2027 の公式な締切・会期・開催都市（2026-10-27 時点で未発表。Future Meetings は「南米」のみ）。",
-    "ICML 2026 の受賞選考の laudatio（各論文の選考理由）の原文。公式ブログ（blog.icml.cc）に到達できず、A3C と Censor's Toolkit の選考理由は二次報道の引用に依拠した。他の論文の評価ポイントは調査者の見立て。",
-    "ICML 2026 の採択数は 6,352（多くの報道）と 6,552（arXiv 2609.19420）で食い違う。本調査は 6,352・採択率 26.6% を採用。ポジション・トラックの採択数も不明。",
-    "ICML 2026 の会期は公式ホームで 7/6〜7/11、Dates ページで 7/6〜7/12 の表記がある（ワークショップの扱いの違いと思われる）。カメラレディ締切（第三者サイトでは 2026-05-28）は公式で未確認。",
-    "ICML 2024 のアブストラクト締切の有無・日付、ICML 2022 の投稿数・採択数（本表では null）。2024 年の採択数は 2,609 と 2,610 の表記がある。",
-    "ICML 2023 の Test of Time のもう 1 本の Runner-up の題名、ICML 2024・2026 の Test of Time の Honorable Mention の有無。",
-    "2025 年の Outstanding Paper のうち本文未読の 4 本（CollabLLM、Score Matching with Missing Data、Conformal Prediction as Bayesian Quadrature、The Value of Prediction）と 2023〜2024 年の受賞論文の概要は、検索情報と一般的な知見に基づく短い要約で、数値は記載していない。"
+    "ICML 2027 の公式な締切・会期・開催都市（2026-10-28 に icml.cc で 2027 のページが 404 であることを確認。Future Meetings は「South America」のみ）。",
+    "ICML 2026 受賞論文ごとの選考理由（laudatio）。icml.cc の Awards ページ・各論文ページには賞名のみで理由の記載がなく、選考理由を載せたと思われる公式ブログ（blog.icml.cc）には到達できない。検索で得られたのは選考の流れ（候補 53 本→22 本に絞り込み）と基準（strong accept の品質、長く参照される可能性、ニッチを超える関心、トピックの多様性）だけ。A3C と Censor's Toolkit の選考理由は二次報道の引用のまま。他の論文の評価ポイントは調査者の見立て。",
+    "ICML 2026 の採択数：本調査はプログラム委員長 4 名（Dudík、Jaggi、Agarwal、Sharon Li）が共著の arXiv 2609.19420 にある「投稿 24,661 本・採択 6,552 本（26.6%）」を採用した。報道で多く見られた 6,352 本は出典の一次資料に届かず、誤記か本会議だけの数かは確定できない（公式 virtual サイトの採択一覧では本会議 6,341 本・ポジション 213 本で、合計 6,554 本は 6,552 本とほぼ一致）。同年の公式 Fact Sheet（media.icml.cc）には到達できなかった。",
+    "ICML 2022 の投稿数・採択率（公式 Dates には記載なし。採択 1,233 本は公式 virtual サイトの採択一覧で集計）。2024 年の採択数は Fact Sheet で 2,610、2023 年は 1,827（公式 virtual では 1,828）、2025 年は 3,260（公式 virtual では本会議 3,258・ポジション 73）と、出典ごとに数本の差がある。",
+    "ICML 2023 の Outstanding Paper のうち Self-Repellent Random Walks と Bayesian Design Principles の 2 本は、公式 virtual の Awards ページに載っていない（AIhub と大学ニュースでは受賞）。公式ブログの発表記事は未確認。",
+    "2025 年の Outstanding Paper のうち The Value of Prediction in Identifying the Worst-Off、2025 年のポジション論文賞 2 本、2024 年の Best Paper（SEDD 以外）、2023 年の受賞論文の概要は、本文を読んでいない検索情報ベースの短い要約で、数値は記載していない。",
+    "2024・2026 年の Test of Time に Honorable Mention はない（公式 Awards ページ・Test of Time ページに掲載なし）。2025 年は TRPO と正規化フローの 2 本が Honorable Mention（公式で確認）。"
   ],
   "sources": [
     {
@@ -794,6 +815,54 @@
     {
       "label": "OpenCurious：ICML 2027 締切の推定（第三者）",
       "url": "https://www.opencurious.com/ai-conference-deadlines/icml-2027"
+    },
+    {
+      "label": "ICML 2026 Test of Time Award（virtual site）",
+      "url": "https://icml.cc/virtual/2026/test-of-time-award"
+    },
+    {
+      "label": "ICML 2026 Author Instructions（カメラレディ締切）",
+      "url": "https://icml.cc/Conferences/2026/AuthorInstructions"
+    },
+    {
+      "label": "ICML 2026 Committees（プログラム委員長）",
+      "url": "https://icml.cc/Conferences/2026/Committees"
+    },
+    {
+      "label": "ICML 2026 Press（Fact Sheet へのリンク）",
+      "url": "https://icml.cc/Conferences/2026/Press"
+    },
+    {
+      "label": "ICML 2026 採択論文データ（virtual site）",
+      "url": "https://icml.cc/static/virtual/data/icml-2026-orals-posters.json"
+    },
+    {
+      "label": "ICML 2025 Dates",
+      "url": "https://icml.cc/Conferences/2025/Dates"
+    },
+    {
+      "label": "ICML 2024 Dates",
+      "url": "https://icml.cc/Conferences/2024/Dates"
+    },
+    {
+      "label": "ICML 2024 Awards（virtual site）",
+      "url": "https://icml.cc/virtual/2024/awards_detail"
+    },
+    {
+      "label": "ICML 2023 Dates",
+      "url": "https://icml.cc/Conferences/2023/Dates"
+    },
+    {
+      "label": "ICML 2023 Awards（virtual site）",
+      "url": "https://icml.cc/virtual/2023/awards_detail"
+    },
+    {
+      "label": "ICML 2022 Dates",
+      "url": "https://icml.cc/Conferences/2022/Dates"
+    },
+    {
+      "label": "ICML Blog（icml.cc/public/blog）",
+      "url": "https://icml.cc/public/blog"
     }
   ]
 }

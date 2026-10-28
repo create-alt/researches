@@ -1,8 +1,8 @@
 {
   "field": "学会調査",
   "theme": "ICML：受賞・注目論文",
-  "date": "2026-10-27",
-  "summary": "ICML は IMLS が主催する機械学習基礎の最高峰会議（2026 年はソウル開催、査読対象 23,918 本・採択率 26.6%）。2026 年の Outstanding Paper は拡散言語モデルと拡散サンプリング理論の 2 本、Test of Time は A3C。\n近年は拡散モデル・LLM の理論と安全性、ポジション論文の受賞が目立つ。",
+  "date": "2026-10-28",
+  "summary": "ICML は IMLS が主催する機械学習基礎の最高峰会議（2026 年はソウル開催、投稿 24,661 本・採択 6,552 本・採択率 26.6%）。2026 年の Outstanding Paper は拡散言語モデルと拡散サンプリング理論の 2 本、Test of Time は A3C。\n近年は拡散モデル・LLM の理論と安全性、ポジション論文の受賞が目立つ。",
   "papers": [
     {
       "title": "The Flexibility Trap: Rethinking the Value of Arbitrary Order in Diffusion Language Models",
@@ -166,7 +166,7 @@
       "notes": "受賞発表での題名は How much can language models memorize?、arXiv（v3）の題名は How much do language models memorize?。本スライドは arXiv v3 を読んで作成。"
     },
     {
-      "title": "A Random Matrix Theory Perspective on the Consistency of Diffusion Models",
+      "title": "A Random Matrix Perspective on the Consistency of Diffusion Models",
       "short": "RMT Consistency (Wang+ 2026)",
       "authors": "Binxu Wang, Jacob A. Zavatone-Veth, Cengiz Pehlevan（Harvard University）｜ ICML 2026",
       "year": 2026,
@@ -211,9 +211,9 @@
       }
     },
     {
-      "title": "Position: AI/ML Deepfake Research is Misaligned with AI-Generated Non-Consensual Intimate Imagery (AIG-NCII)",
+      "title": "Position: AI/ML Deepfake Research is Misaligned with AI Generated Non-Consensual Intimate Imagery (AIG-NCII)",
       "short": "Deepfake Research vs AIG-NCII (Li+ 2026)",
-      "authors": "Li Qiwei, Wells Lucas Santo, Sarita Schoenebeck, Eric Gilbert（University of Michigan）｜ ICML 2026",
+      "authors": "Qiwei Li, Wells Lucas Santo, Sarita Schoenebeck, Eric Gilbert（University of Michigan）｜ ICML 2026",
       "year": 2026,
       "venue": "ICML 2026",
       "link": "https://arxiv.org/abs/2607.18263",
@@ -276,6 +276,98 @@
         "file": "figures/roll_fig12.png",
         "caption": "出典：Roll the Dice Fig. 1, 2（組合せ的・探索的創造性を抽象化した 4 つの最小課題）"
       }
+    },
+    {
+      "title": "CollabLLM: From Passive Responders to Active Collaborators",
+      "short": "CollabLLM (Wu+ 2025)",
+      "authors": "Shirley Wu, Michel Galley, Baolin Peng, Hao Cheng ほか, Jure Leskovec, Jianfeng Gao（Stanford / Microsoft）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2502.00640",
+      "lineage": "受賞",
+      "award": "ICML 2025 Outstanding Paper Award",
+      "s1": "次の 1 ターンの報酬で学習した LLM は、曖昧な依頼にも聞き返さず即答しがちだ。数ターン先の会話をユーザーシミュレータで試し打ちし、その結果で応答を評価する Multiturn-aware Reward（MR）で LLM を強化学習し、意図を引き出す協働型にする。",
+      "s2": "聞き返しを促すプロンプトや、確認質問だけを学ぶ既存手法は、決まった型の行動しか生まない。本研究は応答が会話全体の成果に与える因果的な寄与を報酬にすることで、質問・提案・簡潔化をタスクに応じて使い分ける汎用の枠組みにした。",
+      "s3": "MR：応答の後の会話を GPT-4o-mini の擬似ユーザーと w ターン先まで試し、課題の成否（外的報酬）と読む量・LLM 審査の対話性（内的報酬）の和の期待値を取る（Eq. 1〜4）。Llama-3.1-8B を LoRA で DPO・PPO 学習。",
+      "s4": "3 課題で最良の基準より課題性能 +18.5%、対話性 +46.3%（Table 1、文書編集の対話性 0.46→0.92）。即時報酬より w=2,3 の MR が良い（Fig. 4）。201 人の実験で満足度 +17.6%、所要時間 −10.4%（Fig. 7）。",
+      "s5": "著者：実ユーザーからは単調さ、最新知識の不足、個人化の手間が弱点として挙がった。安全性は通常の学習と同等。\n所感：「聞き返すべき時だけ聞く」振る舞いを報酬設計で学ばせた点が新しく、エージェントの対話設計にも使える。",
+      "s6": "・MTPO（Shani+ 2024）\n・STaR-GATE（Andukuri+ 2024）\n・Learning to Clarify（Chen+ 2024）\n・Roll the Dice（Nagarajan+ ICML 2025）",
+      "detail": "問題設定：利用者は最初から意図を言い切れないことが多いが、RLHF は各ターンの応答を単独で採点するため、確認や提案で遠回りする応答が損をする。目標 g を持つ多ターン会話の最終的な成果を、各応答の報酬に引き戻すことが課題。\n手法：応答 m_j の後の会話を擬似ユーザーで w ターン先まで複数回サンプルし、最終成果物の質（BLEU、テスト合格率、正答率）と、トークン数の罰則・LLM 審査の対話性を合わせて期待値を取る。この MR で応答を順位付けし、合成会話の SFT・オフライン DPO、さらにオンライン DPO・PPO で学習する。\n結果と限界：3 課題すべてで課題性能・効率・対話性が上がり、曖昧質問の判別（Abg-CoQA）にもゼロショットで転移した。ただし報酬は擬似ユーザーと LLM 審査に依存し、実ユーザー実験は文書作成のみ。",
+      "points": "・RLHF の「次の 1 ターンだけ」という盲点を突いた（調査者の見立て）\n・先読みシミュレーションという単純で汎用の解決策（調査者の見立て）\n・201 人の実ユーザー実験で効果を確かめた（調査者の見立て）\n・コード・データ・擬似ユーザーを公開し再現しやすい（調査者の見立て）",
+      "figure": {
+        "file": "figures/collab_fig1.png",
+        "caption": "出典：CollabLLM Fig. 1（文脈・応答・協働シミュレーション・多ターン報酬による学習の流れ）"
+      },
+      "notes": "第2段階（2026-10-28）で追加。受賞は ICML 2025 公式 awards_detail で確認。選考理由の公式コメントは見つからず。"
+    },
+    {
+      "title": "Score Matching with Missing Data",
+      "short": "Missing Score Matching (Givens+ 2025)",
+      "authors": "Josh Givens, Song Liu, Henry W. J. Reeve（University of Bristol / Nanjing University）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2506.00557",
+      "lineage": "受賞",
+      "award": "ICML 2025 Outstanding Paper Award",
+      "s1": "スコアマッチング（密度の対数勾配を学ぶ手法）を、座標の一部が欠けたデータから学べるように拡張した。周辺スコアを推定する重要度重み付け版（Marg-IW）と変分近似版（Marg-Var）を提案し、切断・sliced・denoising 版にも適用した。",
+      "s2": "MissDiff や Ambient Diffusion はスコアをニューラルネットに限り、EM 型の Uehara+ 2020 は収束の理解が乏しく推定に偏りが入った。本手法は任意のパラメトリックなスコアに使え、欠損パターンも座標ごとに自由でよい。",
+      "s3": "観測座標 λ だけの周辺 Fisher divergence を部分積分で観測量の式に直す（Prop. 4.3）。周辺スコアは補完分布からの r 個のサンプルによる重要度重みで推定（Eq. 7）、または勾配を先に取り条件付き分布を変分モデルで近似する（Cor. 4.9）。",
+      "s4": "切断 10 次元ガウスでは Marg-IW と EM が最良、欠損を 0 で埋める素朴法は収束しない（Fig. 1）。非ガウスでは次元が増えるほど Marg-Var が有利（Fig. 2）。グラフ推定（スター型、S&P 100、酵母）の AUC は Marg-Var が最良（Fig. 3, 6, 7）。",
+      "s5": "著者：有限標本の誤差上界は周辺の divergence に対するもので、全体のスコア精度にどう効くかは未解明。拡散モデルへの応用は今後。\n所感：欠損の多い科学・医療データで拡散モデルを学ぶ際の理論的な足場になる。",
+      "s6": "・MissDiff（Ouyang+ 2023）\n・Ambient Diffusion（Daras+ 2023）\n・Sliced Score Matching（Song+ 2020）\n・High-Accuracy Sampling（Chen+ ICML 2026）",
+      "detail": "問題設定：スコアマッチングは正規化定数を計算せずに分布を学べ、拡散モデルやエネルギーモデル、グラフィカルモデル推定の基礎になっている。しかし訓練データの一部の座標が欠けている場合の扱いはほとんど研究されていなかった。\n手法：完全ランダム欠損（MCAR）を仮定し、観測された座標の周辺スコアを周辺 Fisher divergence で合わせる。周辺化の積分は、重要度重み付けで近似するか、勾配の式を条件付き期待値と共分散に書き換えて変分分布で推定する。切断版では有限標本の誤差上界も示した。\n結果と限界：低次元・少データでは Marg-IW、高次元で構造の強い問題では Marg-Var が優れる。ただし実験は明示的なパラメトリックモデルが中心で、ニューラルネットの拡散モデルでは試していない。",
+      "points": "・基礎手法の空白（欠損データ）を一般的な形で埋めた（調査者の見立て）\n・理論保証と実データ実験の両方を備える（調査者の見立て）\n・sliced・denoising など主要な派生に一括で適用できる（調査者の見立て）\n・拡散モデルを欠損データで学ぶ道を開く（調査者の見立て）",
+      "figure": {
+        "file": "figures/smmd_fig12.png",
+        "caption": "出典：Missing Score Matching Fig. 1, 2（左：サンプル数と Fisher divergence、右：次元と推定誤差）"
+      },
+      "notes": "第2段階（2026-10-28）で追加。受賞は ICML 2025 公式 awards_detail で確認。Fig. 2 のキャプションは原文で Fisher Divergence と書かれているが縦軸は Theta Error。"
+    },
+    {
+      "title": "Conformal Prediction as Bayesian Quadrature",
+      "short": "Conformal as BQ (Snell & Griffiths 2025)",
+      "authors": "Jake C. Snell, Thomas L. Griffiths（Princeton University）｜ ICML 2025",
+      "year": 2025,
+      "venue": "ICML 2025",
+      "link": "https://arxiv.org/abs/2502.13228",
+      "lineage": "受賞",
+      "award": "ICML 2025 Outstanding Paper Award",
+      "s1": "分布を仮定せずに誤差を保証するコンフォーマル予測を、ベイズ求積（積分値をベイズ推論で推定する方法）として捉え直した。期待損失の上界を点ではなく分布として出し、手元の較正データに条件づいた保証を与える。",
+      "s2": "split conformal と conformal risk control（CRC）の保証は、観測していない多数のデータセットにわたる平均（周辺保証）で、手元のデータでの失敗確率は分からない。本手法は両者を特殊ケースとして復元しつつ、事前分布を指定せずに保証を強められる。",
+      "s3": "期待損失を損失の分位関数の積分とみなし、分位水準の間隔が Dirichlet(1,…,1) に従うことを使う（Lemma 4.2）。最悪の分位関数で上界 L+＝Σ U_i ℓ_(i) を作り（Thm 4.3）、その β 分位点で閾値を選ぶ。",
+      "s4": "目標リスクを超える試行の割合：合成二項損失で CRC 21.20% 対 提案 0.03%（Table 1）、不均一分散データで 46.19% 対 3.42%（区間長は RCPS 14.29、提案 9.50、Table 2）、MS-COCO で 45.05% 対 5.43%（Table 3）。",
+      "s5": "著者：較正データと運用時データが同分布であること、損失に上界があることが前提。どの事前分布にも成り立つ上界なので保守的になりうる。\n所感：頻度論の道具とされてきた分野にベイズの見方を持ち込み、保証の意味をはっきりさせた。",
+      "s6": "・Conformal Risk Control（Angelopoulos+ 2024）\n・RCPS（Bates+ 2021）\n・Probabilistic Numerics（Hennig+ 2022）",
+      "detail": "問題設定：中身の分からない予測モデルを高リスクな場面で使うには、運用時の損失の保証が要る。コンフォーマル予測は分布を仮定しない保証を与えるが、その保証は較正データの取り方について平均したものなので、手元のデータでたまたま失敗する確率は残る。\n手法：決定理論の枠組みで split conformal と CRC を「α 許容な決定規則」として書き直す。期待損失を分位関数の積分とみなし、事前分布の代わりにデータと矛盾しない最悪の分位関数を使い、分位水準の不確かさは Dirichlet 分布で扱う。こうして得た L+ は事後リスクを確率的に上から抑える。\n結果と限界：L+ の高確率点で閾値を選ぶと、失敗率を目標内に保ったまま、RCPS より小さい予測集合になった。分布シフトには対応せず、特定の事前分布を入れてより鋭くする方法は今後の課題。",
+      "points": "・既存の 2 手法を一つのベイズ的枠組みの特殊例として示した（調査者の見立て）\n・平均の保証と手元データでの保証の違いを明確にした（調査者の見立て）\n・事前分布を指定せずに済む単純な実装（調査者の見立て）\n・数ページで本質を示す簡潔な理論（調査者の見立て）",
+      "figure": {
+        "file": "figures/cpbq_fig1.png",
+        "caption": "出典：Conformal as BQ Fig. 1（左：通常のベイズ求積、中：分位間隔と右矩形則による上界、右：L+ の分布）"
+      },
+      "notes": "第2段階（2026-10-28）で追加。受賞は ICML 2025 公式 awards_detail で確認。"
+    },
+    {
+      "title": "Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution",
+      "short": "SEDD (Lou+ 2024)",
+      "authors": "Aaron Lou, Chenlin Meng, Stefano Ermon（Stanford University）｜ ICML 2024",
+      "year": 2024,
+      "venue": "ICML 2024",
+      "link": "https://arxiv.org/abs/2310.16834",
+      "lineage": "受賞",
+      "award": "ICML 2024 Best Paper Award",
+      "s1": "スコアマッチングを離散空間に拡張する score entropy 損失を提案し、データ分布の確率比（concrete score）を学ぶ離散拡散モデル SEDD を作った。同規模の GPT-2 に perplexity で並び、拡散言語モデルが自己回帰に迫れることを初めて示した。",
+      "s2": "D3PM などの離散拡散は逆過程の密度を予測するため学習が難しく、concrete score matching は比が負になって発散した。score entropy は対数の障壁で比を正に保つ凸な損失で、尤度の上界（ELBO）としても使える。",
+      "s3": "Bregman divergence に基づく score entropy（Def. 3.1）とその denoising 版（Thm 3.4）。トークンごとの遷移行列（一様／MASK 吸収）、比を使う Tweedie τ-leaping（Thm 4.2）、Bayes 則による穴埋め。",
+      "s4": "GPT-2 の zero-shot 5 課題の多数で SEDD Absorb が上回る（Table 1）。1BW で perplexity 32.79 対 AR 31.98（Table 3）。温度調整なしの生成で GPT-2 の 6〜8 倍良く、評価回数 1/32 で同等（Fig. 1）。",
+      "s5": "著者：大規模 LLM とはまだ差があり、KV キャッシュの有無で推論コストの比較は単純でない。\n所感：LLaDA などの拡散 LLM と、2025・2026 年の ICML 受賞（Train for the Worst、Flexibility Trap）へ続く流れの起点。",
+      "s6": "・D3PM（Austin+ 2021）\n・Concrete Score Matching（Meng+ 2022）\n・LLaDA（Nie+ 2025）\n・Train for the Worst（Kim+ ICML 2025）",
+      "detail": "問題設定：連続値の拡散モデルはスコアマッチングを土台に成功したが、言語のような離散データでは対応する理論がなく、拡散言語モデルは尤度でも生成品質でも自己回帰に大きく劣っていた。\n手法：スコアの代わりに確率比 p(y)/p(x) を学ぶ。score entropy は比が正であることを組み込んだ損失で、ノイズを加えた分布から計算できる denoising 版と、尤度の上界を与える重み付き版を持つ。系列ではハミング距離 1 の比だけを seq-to-seq のトランスフォーマーで出力し、学習の速さとメモリは自己回帰とほぼ同じになる。\n結果と限界：GPT-2 small・medium 規模で perplexity を自己回帰並みにし、温度調整なしでもより一貫した文を生成し、穴埋めなど任意順序の条件づけもできた。一方、比較は GPT-2 規模にとどまり、推論ステップを減らす工夫は今後の課題とした。",
+      "points": "・拡散言語モデルで初めて GPT-2 並みの perplexity（調査者の見立て）\n・スコアマッチングの離散版という原理的な定式化（調査者の見立て）\n・穴埋め・任意順序生成という自己回帰にない利点（調査者の見立て）\n・後の拡散 LLM（LLaDA など）の出発点になった（調査者の見立て）",
+      "figure": {
+        "file": "figures/sedd_fig1a.png",
+        "caption": "出典：SEDD Fig. 1a（温度調整なしの生成 perplexity とネットワーク評価回数。星は GPT-2）"
+      },
+      "notes": "第2段階（2026-10-28）で追加。受賞は ICML 2024 公式 awards_detail（Best Paper）で確認。"
     }
   ]
 }

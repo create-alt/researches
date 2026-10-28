@@ -1,8 +1,8 @@
 {
   "field": "学会調査",
   "theme": "ICLR：受賞・注目論文",
-  "date": "2026-10-27",
-  "summary": "ICLR は OpenReview で査読を公開する表現学習・深層学習の主要国際会議（CORE A*）。2025〜2026 年の受賞は LLM の挙動の分析（多ターン会話、安全性整列、微調整）と、Transformer・最適化の理論が中心。\nTest of Time は Adam、DCGAN、DDPG など深層学習の基盤技術に贈られている。",
+  "date": "2026-10-28",
+  "summary": "ICLR は OpenReview で査読を公開する表現学習・深層学習の主要国際会議（CORE A*）。2025〜2026 年の受賞は LLM の挙動の分析（多ターン会話、安全性整列、微調整、知識編集）と、Transformer・最適化の理論が中心。\nTest of Time は VAE、Adam、DCGAN、DDPG など深層学習の基盤技術に贈られている。",
   "papers": [
     {
       "title": "Transformers are Inherently Succinct",
@@ -97,7 +97,7 @@
       "notes": "ICLR 2016 論文から 2 本が共同受賞（DCGAN と DDPG）。受賞理由は ICLR blog（2026-04-22）による。"
     },
     {
-      "title": "The Polar Express: Optimal Matrix Sign Methods and Their Application to the Muon Algorithm",
+      "title": "The Polar Express: Optimal Matrix Sign Methods and their Application to the Muon Algorithm",
       "short": "Polar Express (Amsel+ 2026)",
       "authors": "Noah Amsel, David Persson, Christopher Musco, Robert M. Gower（New York University, Flatiron Institute）｜ ICLR 2026",
       "year": 2026,
@@ -112,15 +112,15 @@
       "s5": "著者：深層学習は精度より速度を求めるので、低精度域で速く収束する設計が要る。6反復超や SVD による厳密計算は損失を改善しない。\n所感：近似理論の古典を最新の最適化器に直結させた好例。NanoGPT speedrun に採用された。",
       "s6": "・Muon (Jordan+ 2024)（未調査）\n・Chen & Chow (2014) 適応的 Newton-Schulz（未調査）\n・Adam (Kingma & Ba 2015)（本資料）",
       "detail": "問題設定：Muon の更新方向 polar(M)=UV^T を GPU 上で速く近似したい。深層学習では 16 桁の精度は要らず、行列積だけで 5〜10 反復のうちに粗い近似に達することが重要になる。\n手法：反復を奇数多項式の合成とみなし、最悪ケースのスペクトルノルム誤差を最小にする合成を探す問題に帰着。各反復で区間 [ℓ_t,u_t] 上の minimax 近似を解けば全体最適になると示し、次数3は閉形式、次数5は Remez 相当の簡単な算法で求める。多項式は事前に計算し、bfloat16 で適用する。\n結果：初期は速く、後期は超指数的（次数5で3次）に収束。GPT-2 Small/Large の学習で、全学習率で既存の Muon 実装より低い検証損失を得た。\n限界：特異値の下限 ℓ は推測に頼る（外れても数反復の遅れで済む）。検証は GPT-2 規模まで。",
-      "points": "・最悪誤差で最適という強い保証と短い実装を両立（調査者の見立て）\n・経験則だった Muon の部品に理論的な答えを与えた（調査者の見立て）\n・NanoGPT speedrun に採用され、実用上の効果も確認（調査者の見立て）",
+      "points": "・改善幅は時に控えめでも、主要な最適化器を原理的に改善する方法論を評価（選考理由）\n・最悪誤差で最適という強い保証と短い実装を両立（調査者の見立て）\n・経験則だった Muon の部品に理論的な答えを与えた（調査者の見立て）\n・NanoGPT speedrun に採用され、実用上の効果も確認（調査者の見立て）",
       "figure": {
         "file": "figures/polar.png",
         "caption": "出典：Polar Express Fig. 1（GPT-2-Large の検証損失。黒＝Polar Express）"
       },
-      "notes": "arXiv: https://arxiv.org/abs/2505.16932 。委員会の個別コメントは未確認のため、評価ポイントは調査者の見立て。"
+      "notes": "arXiv: https://arxiv.org/abs/2505.16932 。選考理由は ICLR blog（2026-04-23）の検索スニペットによる（blog.iclr.cc は直接取得できず）。"
     },
     {
-      "title": "Safety Alignment Should Be Made More Than Just a Few Tokens Deep",
+      "title": "Safety Alignment Should be Made More Than Just a Few Tokens Deep",
       "short": "Shallow Safety Alignment (Qi+ 2025)",
       "authors": "Xiangyu Qi, Ashwinee Panda, Kaifeng Lyu ほか（Princeton University, Google DeepMind）｜ ICLR 2025",
       "year": 2025,
@@ -135,7 +135,7 @@
       "s5": "著者：現在の整列は拒否の定型句を先頭に出す近道に頼っている。今後の安全性整列は数トークンより深くすべき。\n所感：「なぜ脆いか」をトークン位置という単純な軸で可視化した点が強い。適応的攻撃への頑健性は今後の課題。",
       "s6": "・Qi+ (2024) 微調整で安全性が崩れる（未調査）\n・GCG (Zou+ 2023)（未調査）\n・LIMA / 表層的整列仮説 (Zhou+ 2023)（未調査）",
       "detail": "問題設定：安全性整列の脆さの共通原因を探る。仮説は、整列が「I cannot」などの拒否で始める確率だけを上げ、その先の生成分布はほぼ基盤モデルのまま、という近道を取っていること。\n手法：HEx-PHI の 330 の有害指示と有害回答を使い、整列モデルと基盤モデルの位置ごとの KL、prefill した有害トークン数と攻撃成功率、微調整時の位置ごとの損失と勾配を測った。対策として、有害な書き出しの後に拒否へ戻る例で学ぶデータ拡張と、先頭5トークンの逸脱を強く罰する制約付き微調整を設計した。\n結果：KL は先頭数トークンに集中し、有害な書き出しを数トークン与えるだけで成功率は 50% を超える。拡張後は推論時の攻撃3種すべてに頑健になり、AlpacaEval の勝率は 51.8→49.5% とほぼ維持。制約付き微調整は通常の微調整の有用性も保った。\n限界：既存の整列済みモデルへの追加学習での検証で、適応的攻撃は評価していない。",
-      "points": "・既知の多様な脱獄を「浅さ」という一つの原理で説明した（調査者の見立て）\n・現象の測定から対策の設計まで一貫している（調査者の見立て）\n・微調整 API の防御など実運用への示唆が明確（調査者の見立て）",
+      "points": "・既知の多様な脱獄を「浅さ」という一つの原理で説明した（調査者の見立て）\n・現象の測定から対策の設計まで一貫している（調査者の見立て）\n・微調整 API の防御など実運用への示唆が明確（調査者の見立て）\n・理論的洞察・実用インパクト・文章・実験の厳密さで選考（選考理由：2025 年の共通基準）",
       "figure": {
         "file": "figures/safety.png",
         "caption": "出典：Shallow Safety Alignment Fig. 1（位置ごとの KL）と Fig. 2（prefill 数と攻撃成功率）"
@@ -158,12 +158,35 @@
       "s5": "著者：低確率の応答に負の勾配をかけると、確率質量が最尤の応答へ絞り込まれる。SFT で y+ と y− の両方を学ばせると DPO 後の勝率が上がる（Table 1）。\n所感：on-policy DPO が有利な理由など、経験則を一つの式で説明できる道具として有用。",
       "s6": "・DPO (Rafailov+ 2023)（未調査）\n・Razin+ (2025) DPO の尤度低下（未調査）\n・Ren+ (2022) 学習ダイナミクスとジグザグ経路（未調査）",
       "detail": "問題設定：LLM の微調整中に、学習した応答以外の応答の確率がどう変わるかを追い、幻覚の増加や DPO の不可解な挙動を説明したい。\n手法：1ステップの対数確率の変化を、予測で決まる項 A、入力どうしの類似度を表す経験的 NTK の項 K、損失で決まる残差 G に分解する。SFT は正解を引き上げるだけだが、DPO は y+ の引き上げと y− の押し下げを持つ。softmax 出力に大きな負の勾配をかけると、確率質量が直前に最も確からしかったラベルへ集まる「squeezing effect」をロジスティック回帰で証明した。\n結果：言い換え、他の質問の回答、ランダムな文などの確率を追跡し、予測どおりの増減を確認。y− も SFT 段階で学ばせる extend 法で squeezing が和らぎ、ChatGPT 判定の勝率は 0.65〜0.69 に上がった。\n限界：eNTK の相対的な安定性を仮定し、検証は 3B 未満のモデルに限る。",
-      "points": "・SFT・DPO とその変種を一つの分解式で統一的に説明（調査者の見立て）\n・DPO で好ましい応答まで確率が下がる謎に明快な答え（調査者の見立て）\n・分析から簡単で有効な改善法を導いた（調査者の見立て）",
+      "points": "・SFT・DPO とその変種を一つの分解式で統一的に説明（調査者の見立て）\n・DPO で好ましい応答まで確率が下がる謎に明快な答え（調査者の見立て）\n・分析から簡単で有効な改善法を導いた（調査者の見立て）\n・理論的洞察・実用インパクト・文章・実験の厳密さで選考（選考理由：2025 年の共通基準）",
       "figure": {
         "file": "figures/learningdyn.png",
         "caption": "出典：Ren & Sutherland Fig. 2（各手法の残差 G による更新。中央が squeezing effect）"
       },
       "notes": "arXiv: https://arxiv.org/abs/2407.10490 。個別の選考コメントは未確認。"
+    },
+    {
+      "title": "AlphaEdit: Null-Space Constrained Knowledge Editing for Language Models",
+      "short": "AlphaEdit (Fang+ 2025)",
+      "authors": "Junfeng Fang, Houcheng Jiang, Kun Wang ほか（USTC, National University of Singapore）｜ ICLR 2025",
+      "year": 2025,
+      "venue": "ICLR 2025",
+      "link": "https://openreview.net/forum?id=HvSytvg3Jh",
+      "lineage": "受賞",
+      "award": "ICLR 2025 Outstanding Paper Award",
+      "s1": "LLM の知識編集で、パラメータの更新を「保存したい知識のキー行列の零空間」へ射影してから加える AlphaEdit を提案。保存知識への出力が理論上変わらず、既存法に射影の1行を足すだけで逐次編集の性能が大きく上がる。",
+      "s2": "ROME・MEMIT など locate-then-edit 型の編集は、更新誤差と保存誤差の重み付き和を最小化する。更新を優先すると保存知識が崩れ、編集を重ねる逐次編集では隠れ表現の分布がずれて忘却やモデル崩壊に至る。",
+      "s3": "FFN 出力層 W をキーと値の連想記憶とみなす。Wikipedia の 10 万三つ組から K0K0ᵀ を作り、SVD で固有値の小さい方向から射影 P を作る。ΔP·K0=0 なので保存知識は不変。目的関数から保存誤差の項を外して解く（式 14）。",
+      "s4": "2,000 件を逐次編集。LLaMA3 の Counterfact で Efficacy 98.90%、Generalization 94.22%（既存最良 68.25%、64.75%、Table 1）。3,000 件編集後も GLUE 系 6 課題の性能を維持（Fig. 4）。既存法に射影を足すと平均 28.24% 向上（Fig. 6）。",
+      "s5": "著者：マルチモーダル LLM や推論モデルへの適用は未検証。零空間射影は安全性など特定能力の強化にも使える可能性。\n所感：持続学習の Adam-NSCL の発想を知識編集へ移した簡潔さが光る。保存知識を 10 万三つ組で近似する前提に依存する。",
+      "s6": "・ROME (Meng+ 2022) 因果追跡による編集（未調査）\n・MEMIT (Meng+ 2023) 大量編集（未調査）\n・Adam-NSCL (Wang+ 2021) 零空間での持続学習（未調査）",
+      "detail": "問題設定：LLM の誤った・古い知識を、他の知識や汎用能力を壊さずに次々と書き換えたい。既存法は更新と保存のトレードオフを重みで調整するため、編集が重なると隠れ表現の分布がずれ（Fig. 1）、最後には文章が崩れる。\n手法：保存知識のキー行列 K0 に対し、摂動 Δ を零空間へ射影した ΔP なら (W+ΔP)K0=WK0 が成り立つ。計算は d0×d0 の K0K0ᵀ の SVD だけで、固有値 10⁻² 以下の方向を残す。P は編集内容に依らず一度計算すれば使い回せ、100 件の編集時間は MEMIT とほぼ同じ（Table 7）。\n結果：GPT2-XL・GPT-J・LLaMA3 のほぼ全指標で最良。t-SNE で見た隠れ表現の分布も編集前とほぼ一致した（Fig. 5）。\n限界：K0 は Wikipedia 三つ組による近似で、保存すべき知識全体ではない。評価は事実三つ組の編集が中心。",
+      "points": "・保存と更新のトレードオフを、重みではなく射影で解消した（調査者の見立て）\n・既存法に1行足すだけで効く汎用性と実装の容易さ（調査者の見立て）\n・逐次編集での崩壊という実務上の問題に理論保証つきで答えた（調査者の見立て）\n・理論的洞察・実用インパクト・文章・実験の厳密さで選考（選考理由：2025 年の共通基準）",
+      "figure": {
+        "file": "figures/alphaedit.png",
+        "caption": "出典：AlphaEdit Fig. 3（従来法と AlphaEdit の目的関数の比較。零空間への射影で保存知識の項を外す）"
+      },
+      "notes": "arXiv: https://arxiv.org/abs/2410.02355 （v4）。題名は ICLR 公式データ（iclr.cc/virtual/2025）でも Knowledge Editing。2026-10-28 追加。"
     },
     {
       "title": "Adam: A Method for Stochastic Optimization",
@@ -181,12 +204,12 @@
       "s5": "著者：ハイパーパラメータが直感的でほぼ調整不要。∞ノルム版の AdaMax も提案した。\n所感：収束証明には後に不備が指摘され（Reddi+ 2018）、AdamW などの改良も続いたが、10 年後も事実上の標準である。",
       "s6": "・AdamW (Loshchilov & Hutter 2019)（未調査）\n・AMSGrad (Reddi+ 2018)（未調査）\n・Polar Express (Amsel+ 2026)（本資料）",
       "detail": "問題設定：ミニバッチや dropout でノイズの乗った高次元の目的関数を、少ないメモリで効率よく最小化したい。疎な勾配に強い AdaGrad と非定常に強い RMSProp の長所を兼ねる方法を目指した。\n手法：勾配の平均（1次モーメント）と非中心分散（2次モーメント）を指数移動平均で推定し、初期値0によるバイアスを (1−β^t) で補正して、その比で更新する。比 m̂/√v̂ は信号雑音比とみなせ、最適解の近くで自動的に歩幅が小さくなる。AdaGrad は β1=0、β2→1 の極限として位置づけられる。\n結果：凸の設定で既知の最良と同等の regret 上界を示し、ロジスティック回帰、多層ネット、CNN、VAE で既存法と同等以上の速さで収束した。補正がないと β2 が1に近いとき学習初期が不安定になる。\n限界：理論は凸のオンライン設定に限り、のちに証明の不備も指摘された。CNN では2次モーメントが ε に埋もれる場面もあった。",
-      "points": "・10 年で深層学習の事実上の標準最適化器になった（調査者の見立て）\n・バイアス補正を含む簡潔で実装しやすい設計（調査者の見立て）\n・AdamW や Muon など後続の最適化研究の基準点（調査者の見立て）",
+      "points": "・深層学習で最も広く採用され、無数の最先端モデルの既定の最適化器になった（選考理由）\n・バイアス補正を含む簡潔で実装しやすい設計（調査者の見立て）\n・AdamW や Muon など後続の最適化研究の基準点（調査者の見立て）",
       "figure": {
         "file": "figures/adam.png",
         "caption": "出典：Adam Algorithm 1（更新則の擬似コード）"
       },
-      "notes": "2025 年の Test of Time の次点は Bahdanau, Cho, Bengio「Neural Machine Translation by Jointly Learning to Align and Translate」（スライド化せず）。"
+      "notes": "2025 年の Test of Time の次点は Bahdanau, Cho, Bengio「Neural Machine Translation by Jointly Learning to Align and Translate」（スライド化せず）。 選考理由は ICLR blog（2025-04-14, Announcing the Test of Time Award Winners from ICLR 2015）の検索スニペットによる。"
     },
     {
       "title": "Learning Interactive Real-World Simulators",
@@ -204,7 +227,7 @@
       "s5": "著者：あり得ない行動では幻覚が起き、記憶も短い。音や力など視覚以外は扱えない。\n所感：Genie など生成型世界モデルの流れを先取りし、「世界モデルを学習データの生成器として使う」方向を示した。",
       "s6": "・Genie (Bruce+ 2024)（既存：world-model/foundation-world-model）\n・UniPi (Du+ 2023) 動画生成を方策に（未調査）\n・GameNGen (Valevski+ 2024)（既存：world-model/foundation-world-model）",
       "detail": "問題設定：人やロボットの行動に応じて現実的な映像を返す汎用シミュレータを、大規模データから学べるか。用途は方策学習、まれな事象のデータ生成、映像制作など。\n手法：Habitat、Language Table、Bridge、RT-1、Ego4D、EPIC-KITCHENS、Matterport3D、LAION などを、行動（言語・カメラ移動・制御）と映像の組に変換して統合した。直近の観測フレームと行動から次の映像区間を拡散モデルで生成し、これを繰り返して長い対話を模擬する。データの少ない領域では行動にデータセット名を付けて品質を上げた。\n結果：8回連続の操作でも物体の位置を保ち（Fig. 4）、生成データで学んだ VLM 方策や RL 方策が実機の Language Table でゼロショットで動いた。生成動画だけで学んだキャプション器は、他データセットへの転移で実データ学習を上回った。\n限界：幻覚、短い文脈、未知のロボット形態への汎化、視覚のみという制約がある。学習は 512 TPU-v3 で 20 日。",
-      "points": "・多様なデータを行動と映像の共通形式に統合する発想（調査者の見立て）\n・シミュレータ内の学習から実機へのゼロショット転移を実証（調査者の見立て）\n・方策・RL・キャプション器と応用の幅を示した（調査者の見立て）",
+      "points": "・ロボットの基盤モデルへ向けた一歩（選考理由）\n・感覚運動系の異なるデータを視覚と制御の文章記述で統一した工学的偉業（選考理由）\n・シミュレータ内の学習から実機へのゼロショット転移を実証（調査者の見立て）\n・方策・RL・キャプション器と応用の幅を示した（調査者の見立て）",
       "figure": {
         "file": "figures/unisim.png",
         "caption": "出典：UniSim Fig. 4 の左半分（連続操作を自己回帰的に模擬。物体の位置が保たれる）"
@@ -227,12 +250,58 @@
       "s5": "著者：十分に大きく長く学習したモデルは冗長なパッチを大域計算に転用する。振る舞い自体ではなく、それがパッチ上で起きることが問題。\n所感：小さな改変で解釈性と密な予測の両方を改善した。LLM の attention sink とも通じる現象。",
       "s6": "・DINOv2 (Oquab+ 2023)（未調査）\n・Memory Transformer (Burtsev+ 2020)（未調査）\n・StreamingLLM / attention sink (Xiao+ 2024)（未調査）",
       "detail": "問題設定：DINOv2 など最新の ViT の注意マップに出るノイズ状の artifact の正体と、発生条件、除き方を明らかにしたい。\n手法：外れトークンの性質を調べた。隣のパッチと似た冗長な背景に現れ、位置や画素は線形に復元しにくい一方、画像分類の線形プローブ精度は通常のパッチより高い（Table 1）。そこで「モデルは情報の少ないパッチを大域情報の計算用に転用している」と仮説を立て、計算用の空きトークン（レジスタ）を明示的に与えた。\n結果：DeiT-III・OpenCLIP・DINOv2 のいずれでも外れトークンが消え、注意マップが滑らかになった。分類精度は落ちず、セグメンテーションや深度推定が改善し、物体発見法が大型モデルでも使えるようになった。レジスタは物体ごとに別の場所を見るよう自然に分化した。\n限界：どの学習条件が artifact を生むのかは特定しきれず、OpenCLIP の物体発見はわずかに悪化した。",
-      "points": "・身近な artifact を丁寧な分析で説明し、単純な解決策を示した（調査者の見立て）\n・教師の種類によらず効く汎用性がある（調査者の見立て）\n・Transformer 内部の計算の仕方についての洞察を与えた（調査者の見立て）",
+      "points": "・背景の高ノルムトークンという artifact を特定し、原因の仮説と解決策を示した（選考理由）\n・教師の種類によらず効く汎用性がある（調査者の見立て）\n・Transformer 内部の計算の仕方についての洞察を与えた（調査者の見立て）",
       "figure": {
         "file": "figures/registers.png",
         "caption": "出典：ViT Registers Fig. 1（レジスタなし／ありの注意マップ）"
       },
       "notes": "arXiv: https://arxiv.org/abs/2309.16588 。"
+    },
+    {
+      "title": "Generalization in diffusion models arises from geometry-adaptive harmonic representations",
+      "short": "拡散モデルの汎化と GAHB (Kadkhodaie+ 2024)",
+      "authors": "Zahra Kadkhodaie, Florentin Guth, Eero P. Simoncelli, Stéphane Mallat（NYU, Flatiron Institute, Collège de France）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "link": "https://openreview.net/forum?id=ANvmVS2Yr0",
+      "lineage": "受賞",
+      "award": "ICLR 2024 Outstanding Paper Award",
+      "s1": "重ならない訓練集合で学んだ2つの拡散モデルが、画像が 10⁵ 枚ほどあればほぼ同じスコア関数に収束し同じ画像を生成することを示し、その帰納バイアスを「幾何に適応した調和基底（GAHB）での縮小」として解析した。",
+      "s2": "拡散モデルは少ない訓練データから高次元の密度を学び、次元の呪いを逃れているように見える。一方で訓練画像の記憶・複製の報告もあり、本当に連続的な密度を学ぶのか、学ぶならどんな帰納バイアスによるのかが不明だった。",
+      "s3": "密度の誤差（KL）がデノイズ誤差の最適値からのずれの積分で抑えられることを示し、汎化を「モデル分散がほぼゼロ」と定義。UNet デノイザのヤコビアンを固有分解し、固有ベクトルを適応基底、固有値を縮小係数とみなして調べる。",
+      "s4": "CelebA で N=1〜10⁵。N=10⁵ で訓練とテストの PSNR が一致（Fig. 1）、2モデルの生成画像のコサイン類似度がほぼ 1（Fig. 2）。最適基底が既知の Cα 画像では PSNR の傾きが理論値に一致（α=3 で 0.75、Fig. 4）。円板の5次元多様体では最適値 1 を下回る（Fig. 5）。",
+      "s5": "著者：GAHB の数学的な定義はまだない。畳み込みが調和構造を、ReLU との相互作用が幾何適応性を生むと推測。\n所感：記憶か汎化かの議論に「別データで学んだ2モデルが一致するか」という明快な検査を持ち込み、調和解析と深層学習をつないだ。",
+      "s6": "・Carlini+ (2023) 拡散モデルからの訓練データ抽出（未調査）\n・Somepalli+ (2023) 拡散モデルによる複製（未調査）\n・Mohan+ (2020) バイアスなし CNN デノイザ（未調査）",
+      "detail": "問題設定：拡散モデルの生成は各ノイズレベルのデノイザに依存し、学習した密度の誤差はデノイズ誤差の最適値からのずれで抑えられる。そこで、デノイザが訓練集合によらず同じ関数に収束するか（汎化）と、その関数がどんな近似クラスに偏るか（帰納バイアス）を調べた。\n手法：重ならない訓練集合 S1・S2 で同じ UNet を学習し、同じ初期ノイズから生成した画像を比べる。ヤコビアンの固有分解で、デノイザを適応基底上の縮小（柔らかい射影）として解釈する。\n結果：N が小さいと各モデルは自分の訓練画像を再現するが、N=10⁵ では2モデルがほぼ同じ新しい顔を生成した。基底は輪郭に沿って振動し平坦部でも調和的で、bandlet が最適な Cα 画像ではほぼ最適な性能に達した。低次元多様体上の画像では接空間以外にも GAHB 成分が残り、準最適になった。\n限界：顔や寝室など比較的単純な画像での実験で、GAHB の形式的な定義はない。",
+      "points": "・記憶から汎化への移行を、2モデルの一致という直接的な証拠で示した（調査者の見立て）\n・拡散モデルの汎化を調和解析の言葉で説明する枠組みを与えた（調査者の見立て）\n・最適解が既知の合成データで仮説を検証する設計が堅実（調査者の見立て）",
+      "figure": {
+        "file": "figures/diffgen.png",
+        "caption": "出典：拡散モデルの汎化と GAHB Fig. 2 上段（重ならない訓練集合 S1・S2 で学んだ2モデルの生成画像と最も近い訓練画像）"
+      },
+      "notes": "arXiv: https://arxiv.org/abs/2310.02557 。受賞は iclr.cc/virtual/2024/awards_detail で確認。2026-10-28 追加。"
+    },
+    {
+      "title": "Never Train from Scratch: Fair Comparison of Long-Sequence Models Requires Data-Driven Priors",
+      "short": "Never Train from Scratch (Amos+ 2024)",
+      "authors": "Ido Amos, Jonathan Berant, Ankit Gupta（Tel Aviv University, IBM Research）｜ ICLR 2024",
+      "year": 2024,
+      "venue": "ICLR 2024",
+      "link": "https://openreview.net/forum?id=PdaPky8MUn",
+      "lineage": "受賞",
+      "award": "ICLR 2024 Outstanding Paper Award",
+      "s1": "長系列モデルの比較（Long Range Arena）は乱数初期化からの学習で行われてきたが、課題データだけでの自己事前学習（SPT）を入れると素の Transformer が S4 に並び、構造の差が大きく過大評価されていたことを示した。",
+      "s2": "S4 などの状態空間モデル（SSM）は LRA で Transformer を大きく上回るとされ、新しい構造の動機になってきた。一方で事前学習済みの Transformer は長文要約などで強い。この食い違いは評価手順に原因があるのではないか。",
+      "s3": "下流課題の訓練データだけで、マスク付き系列予測（画像系 50%、文章 15%、ListOps 10%）か自己回帰予測で事前学習し、その後に微調整する。追加データも構造変更もない。Transformer、S4、対角線形 RNN で比べた。",
+      "s4": "Tay+ の設定の Transformer は LRA 平均 53.66→81.34（Table 1）。回転位置埋め込み版は 74.28→86.21 で S4（86.09）を上回る（Table 2）。S4 は PathX-256 で 67.82→87.11。対角線形 RNN も SPT で 83.4（Fig. 2）。",
+      "s5": "著者：新しい構造の評価には、課題データでの事前学習を標準として組み込むべき。データが少ないほど効果が大きい。\n所感：SSM や SNN の長系列ベンチマーク比較を読む前提を変える論文。構造上の工夫の多くがデータから学べる事前知識で代替できる。",
+      "s6": "・S4 (Gu+ 2021)（既存：snn/parallel-training）\n・LRA (Tay+ 2020) 長系列ベンチマーク（未調査）\n・MEGA (Ma+ 2022) 注意と EMA の結合（未調査）",
+      "detail": "問題設定：長距離依存を捉える力は LRA（系列長 1K〜16K、PathX-256 は 65K）で測られ、各モデルを乱数初期化から教師ありで学習するのが慣行だった。この慣行が構造間の差を誇張していないかを検証した。\n手法：同じ課題データでノイズ除去型の自己事前学習（SPT）を行ってから微調整する。総エポック数を揃えた比較でも SPT は同等以上だった（Appendix D）。\n結果：SPT で Transformer の平均精度は約 30 ポイント上がり、S4 との差はほぼ消えた。S4 の構造化パラメータ化と HiPPO 初期化の利点も SPT 下ではほとんど残らない。学習されたカーネルは課題ごとに減衰の速さが異なり、PathX では画像の行幅に合わせた周期を持った（Fig. 4）。データを減らすほど SPT の相対利得は大きく、最大 30%（Fig. 3）。\n限界：評価は分類型の LRA と少数の追加データが中心で、大規模な言語モデルの事前学習とは規模が異なる。",
+      "points": "・ベンチマークの評価手順そのものの偏りを示し、分野の前提を見直させた（調査者の見立て）\n・追加データなしで公平に比べる手順として SPT を示した（調査者の見立て）\n・SSM の手作りの帰納バイアスの価値を定量的に問い直した（調査者の見立て）",
+      "figure": {
+        "file": "figures/nevertrain.png",
+        "caption": "出典：Never Train from Scratch Fig. 1（LRA 平均と PathX-256 の精度。斜線が乱数初期化、無地が自己事前学習）"
+      },
+      "notes": "arXiv: https://arxiv.org/abs/2310.02980 。本アーカイブの snn 分野（S4・S5 など SSM 系）に関係が深い。受賞は iclr.cc/virtual/2024/awards_detail で確認。2026-10-28 追加。"
     },
     {
       "title": "Rethinking the Expressive Power of GNNs via Graph Biconnectivity",
@@ -250,7 +319,7 @@
       "s5": "著者：二重連結性を三重連結性などへ広げれば、WL とは別の表現力の階層が作れる。o(n²) で解けるかは未解決。\n所感：「表現力を何で測るか」を問い直した論文で、本アーカイブの準同型表現力（Zhang+ 2024）へ続く。",
       "s6": "・準同型表現力 (Zhang+ 2024)（既存：gnn/message-passing）\n・ESAN (Bevilacqua+ 2022)（未調査）\n・Graphormer (Ying+ 2021)（未調査）",
       "detail": "問題設定：GNN の表現力を、WL テストで区別できないグラフの例ではなく、実用上意味のある構造的性質で測りたい。著者は関節点、橋、二重連結成分、ブロックカット木を選んだ。\n手法：代表的な GNN を理論解析し、1-WL、部分構造の数え上げ（GSN）、セル複体（CWN）などは関節点の有無すら判別できない反例を作った。ノードマーキング付きの ESAN は判別できると証明。そのうえで距離を色の更新に直接入れる GD-WL を提案し、最短路距離で辺の、抵抗距離で頂点の二重連結性を完全に判別できること、上限が 2-FWL であること、距離正則グラフでは RD-WL が 2-FWL と同等であることを示した。\n結果：合成課題で関節点・橋の検出 100% を達成し、抵抗距離を外すと関節点は 83.3% に落ちた。ZINC でも表現力の高い既存 GNN と同等以上だった。\n限界：時間計算量は Θ(n²) で、大規模グラフでは重い。",
-      "points": "・WL 階層に代わる新しい表現力の物差しを示した（調査者の見立て）\n・距離情報の重要性を理論で示し、Graph Transformer の設計を裏づけた（調査者の見立て）\n・明快さ・洞察・創造性・持続的影響を評価（選考理由：2023 年の共通基準）",
+      "points": "・革新的で興味深く、技術的に堅実（選考理由）\n・WL 階層に代わる新しい表現力の物差しを示した（調査者の見立て）\n・距離情報の重要性を理論で示し、Graph Transformer の設計を裏づけた（調査者の見立て）\n・明快さ・洞察・創造性・持続的影響を評価（選考理由：2023 年の共通基準）",
       "figure": {
         "file": "figures/biconn.png",
         "caption": "出典：二重連結性と GD-WL Fig. 1（元のグラフ、ブロックカット辺木、ブロックカット頂点木）"
@@ -279,6 +348,29 @@
         "caption": "出典：盲目エージェントの地図 Fig. 3A（元のエージェント（青）と記憶を移植したプローブ（紫）の経路）"
       },
       "notes": "ICLR 2023 の選考基準は明快さ・洞察・創造性・持続的影響（ICLR blog）。本アーカイブの world-model 分野に関係が深い。"
+    },
+    {
+      "title": "DreamFusion: Text-to-3D using 2D Diffusion",
+      "short": "DreamFusion (Poole+ 2023)",
+      "authors": "Ben Poole, Ajay Jain, Jonathan T. Barron, Ben Mildenhall（Google Research, UC Berkeley）｜ ICLR 2023",
+      "year": 2023,
+      "venue": "ICLR 2023",
+      "link": "https://openreview.net/forum?id=FjNys5c7VyY",
+      "lineage": "受賞",
+      "award": "ICLR 2023 Outstanding Paper Award",
+      "s1": "学習済みの 2D テキスト画像拡散モデル（Imagen）を「損失関数」として使う Score Distillation Sampling（SDS）を提案し、3D データを一切使わずに、テキストから NeRF の 3D モデルを生成した。",
+      "s2": "テキスト画像生成は大規模な画像とテキストの対で進んだが、3D に同じ方法を使うには大量の 3D データと 3D 用のデノイズ構造が要り、どちらも存在しない。CLIP を使う Dream Fields は 3D の写実性と正確さが不足していた。",
+      "s3": "NeRF を乱数初期化し、ランダムなカメラと光源で描画、ノイズを加えて凍結した Imagen（64×64）にノイズを予測させ、予測と加えたノイズの差を勾配として NeRF に逆伝播する。U-Net のヤコビアンを省くのが要点。",
+      "s4": "COCO 由来 153 文の CLIP R-Precision（L/14）で色 79.7%、テクスチャなしの形状 58.5%（Table 1。Dream Fields 再実装の形状は 1.4%）。視点依存の文・照明・テクスチャなし描画で多頭の犬などの破綻が消える（Fig. 6）。1 文あたり約 1.5 時間（TPUv4 4 チップ）。",
+      "s5": "著者：SDS は過飽和・過平滑になりやすく、シードを変えても多様性が乏しい（逆 KL のモード追従性）。64×64 のため細部が粗い。\n所感：「生成モデルを微分可能な批評家として使う」発想が、3D 生成から画像編集まで後続研究の土台になった。",
+      "s6": "・Dream Fields (Jain+ 2022) CLIP による 3D 生成（未調査）\n・Magic3D (Lin+ 2023) 高解像度化（未調査）\n・ProlificDreamer (Wang+ 2023) 多様性の改善（未調査）",
+      "detail": "問題設定：3D の学習データなしに、任意のテキストから全方向から見られる 3D 物体を作りたい。手掛かりは大規模な 2D 拡散モデルだけである。\n手法：画素ではなく微分可能な生成器 x=g(θ) のパラメータ空間でサンプルを得るため、拡散モデルの学習損失の勾配から U-Net のヤコビアン項を除いた SDS 勾配を使う。これは重み付きの確率密度蒸留（KL）損失の勾配に等しい（Appendix A.4）。3D 表現は mip-NeRF 360 を基に、密度とアルベドを出す MLP と法線による陰影で構成する。仰角に応じて「overhead view」などを文に付け、ガイダンス重み ω=100 という大きな値を使う。\n結果：CLIP を学習に使う手法より評価で上回り、正解画像の値に迫った。文を少しずつ変えて場面を作り込むこともできる（Fig. 4）。\n限界：過飽和・過平滑・低多様性、低解像度、平面に絵を描くような局所解。逆レンダリング固有の曖昧さが残る。",
+      "points": "・2D 拡散モデルを 3D 生成の事前分布に転用する新しい道を開いた（調査者の見立て）\n・SDS は画素以外の空間で拡散モデルを使う汎用の道具になった（調査者の見立て）\n・明快さ・洞察・創造性・持続的影響を評価（選考理由：2023 年の共通基準）",
+      "figure": {
+        "file": "figures/dreamfusion.png",
+        "caption": "出典：DreamFusion Fig. 3（NeRF の描画にノイズを加え、凍結した Imagen の予測ノイズとの差を NeRF に逆伝播する）"
+      },
+      "notes": "arXiv: https://arxiv.org/abs/2209.14988 （v1）。受賞は iclr.cc/virtual/2023/awards_detail と ICLR 2023 Press Release で確認。2026-10-28 追加。"
     }
   ]
 }

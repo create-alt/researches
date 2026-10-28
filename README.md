@@ -11,14 +11,14 @@
 | [GECCO](#gecco) | ACM SIGEVO（Special Interest Group on Genetic and Evolutionary Computation） / 進化計算全般（GA・GP・ES・QD・群知能・多目的最適化・神経進化・理論・応用） | GECCO 2027 | アブストラクト締切（フルペーパー） 2027-01-18 23:59 AoE（推定）<br>論文締切（フルペーパー・ポスターのみ論文） 2027-01-25 23:59 AoE（推定） | [pptx](gecco/gecco.pptx) / [pdf](gecco/gecco.pdf) | 11 本 | 31 件 |
 | [IEEE CEC](#cec) | IEEE CIS（Computational Intelligence Society） / 進化計算 | IEEE CEC 2027 | フルペーパー締切 2027-02-28 23:59 AoE（推定。2026 年は UTC-12）（公式）<br>ショートペーパー締切 2027-03-15（公式） | [pptx](cec/cec.pptx) / [pdf](cec/cec.pdf) | 10 本 | 13 件 |
 | [IJCNN](#ijcnn) | IEEE CIS（Computational Intelligence Society）と INNS（International Neural Network Society） / ニューラルネットワーク全般（理論・応用・脳型計算・SNN） | IJCNN 2027 | 特別セッション・ワークショップ提案締切 2026-11-15（公式）<br>論文締切（Regular / Special Session / Tutorial paper） 2027-01-31 23:59 AoE（公式は TZ 未記載。2024〜2026 は UTC-12）（公式） | [pptx](ijcnn/ijcnn.pptx) / [pdf](ijcnn/ijcnn.pdf) | 10 本 | 18 件 |
-| [ICML](#icml) | IMLS（International Machine Learning Society） / 機械学習基礎 | ICML 2027 | アブストラクト締切 2027-01-21 23:59 AoE（推定）<br>論文締切 2027-01-28 23:59 AoE（推定） | [pptx](icml/icml.pptx) / [pdf](icml/icml.pdf) | 12 本 | 40 件 |
+| [ICML](#icml) | IMLS（International Machine Learning Society） / 機械学習基礎 | ICML 2027 | アブストラクト締切 2027-01-21 23:59 AoE（推定）<br>論文締切 2027-01-28 23:59 AoE（推定） | [pptx](icml/icml.pptx) / [pdf](icml/icml.pdf) | 16 本 | 41 件 |
 | [ICONS](#icons) | Oak Ridge National Laboratory（ORNL）発祥のコミュニティが運営。論文集は ACM（2018〜2023、2026。2026 は SIGDA・SIGAI 協賛）と IEEE（2024・2025） / ニューロモルフィック計算・スパイキングニューラルネットワーク | ICONS 2027 | 論文締切 2027-04-01（推定）<br>査読締切（参考） 2027-05-中旬（推定） | [pptx](icons/icons.pptx) / [pdf](icons/icons.pdf) | 10 本 | 16 件 |
-| [NeurIPS](#neurips) | NeurIPS Foundation / 機械学習・計算論的神経科学・認知 | NeurIPS 2027 | アブストラクト締切 2027-05-06 23:59 AoE（推定）<br>論文締切 2027-05-12 23:59 AoE（推定） | [pptx](neurips/neurips.pptx) / [pdf](neurips/neurips.pdf) | 12 本 | 26 件 |
+| [NeurIPS](#neurips) | NeurIPS Foundation / 機械学習・計算論的神経科学・認知 | NeurIPS 2027 | アブストラクト締切 2027-05-06 23:59 AoE（推定）<br>論文締切 2027-05-12 23:59 AoE（推定） | [pptx](neurips/neurips.pptx) / [pdf](neurips/neurips.pdf) | 16 本 | 26 件 |
 | [AAAI](#aaai) | AAAI（Association for the Advancement of Artificial Intelligence） / AI 全般・探索 | AAAI-28 | アブストラクト締切 2027-07-20 23:59 UTC-12 (AoE)（推定）<br>論文締切 2027-07-27 23:59 UTC-12 (AoE)（推定）<br>補足資料・コード締切 2027-07-30 23:59 UTC-12 (AoE)（推定）<br>（参考）AAAI-27 Journal Track 投稿締切 2026-10-30（公式）<br>（参考）AAMAS 2027 AAAI Track 投稿締切 2026-12-11（公式） | [pptx](aaai/aaai.pptx) / [pdf](aaai/aaai.pdf) | 12 本 | 19 件 |
-| [ICLR](#iclr) | ICLR（査読は OpenReview で公開） / 表現学習・深層学習 | ICLR 2028（次の投稿機会） | ICLR 2028 アブストラクト締切（次の投稿機会） 2027-09-17 23:59 AoE（推定）<br>ICLR 2028 論文締切（次の投稿機会） 2027-09-24 23:59 AoE（推定） | [pptx](iclr/iclr.pptx) / [pdf](iclr/iclr.pdf) | 12 本 | 40 件 |
+| [ICLR](#iclr) | ICLR（査読は OpenReview で公開） / 表現学習・深層学習 | ICLR 2028（次の投稿機会） | ICLR 2028 アブストラクト締切（次の投稿機会） 2027-09-17 23:59 AoE（推定）<br>ICLR 2028 論文締切（次の投稿機会） 2027-09-24 23:59 AoE（推定） | [pptx](iclr/iclr.pptx) / [pdf](iclr/iclr.pdf) | 16 本 | 40 件 |
 | [AISTATS](#aistats) | AISTATS 組織委員会（各回の General Chairs・Program Chairs が運営） / 統計的機械学習・確率モデル・最適化 | AISTATS 2028 | アブストラクト締切 2027-09-28 23:59 AoE（推定）<br>論文締切（補足資料込み） 2027-10-05 23:59 AoE（推定） | [pptx](aistats/aistats.pptx) / [pdf](aistats/aistats.pdf) | 11 本 | 19 件 |
 
-合計：スライド化 100 本（9 学会）。
+合計：スライド化 112 本（9 学会）。
 
 ## 調査履歴
 
@@ -325,26 +325,27 @@ International Conference on Machine Learning（IMLS（International Machine Lear
 
 資料：[icml.pptx](icml/icml.pptx) ／ [icml.pdf](icml/icml.pdf) ／ 生成元 [spec.json](icml/spec.json)・[venue.json](icml/venue.json) ／ [学会 README](icml/README.md)
 
-IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月開催、論文は PMLR に掲載）。理論・最適化・強化学習・生成モデルから LLM の安全性まで扱い、2026 年（ソウル）は査読対象 23,918 本・採択 6,352 本（26.6%）と 2 年で約 2.5 倍に膨らんだ。2024 年からポジションペーパー・トラックを設けている。
+IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月開催、論文は PMLR に掲載）。理論・最適化・強化学習・生成モデルから LLM の安全性まで扱い、2026 年（ソウル）は投稿 24,661 本（本会議 23,918、ポジション 743）・採択 6,552 本（26.6%）と 2 年で約 2.5 倍に膨らんだ。2024 年からポジションペーパー・トラックを設けている。
 
 ### 次回：ICML 2027（推定）
 
 - 会期・開催地：2027-07 中旬（推定） ／ 南米（都市は未発表。ICML Future Meetings による地域のみ）
-- アブストラクト締切 2027-01-21 23:59 AoE（推定） — 根拠：2025・2026 は論文締切の 5〜7 日前（2025-01-23、2026-01-23）。論文締切の推定から 1 週間前とした。幅は 2027-01-15〜01-25。第三者トラッカー（OpenCurious）は 2027-01-16 と推定。
-- 論文締切 2027-01-28 23:59 AoE（推定） — 根拠：2023〜2026 は 2023-01-26（木）、2024-02-01（木）、2025-01-30（木）、2026-01-28（水）といずれも 1 月最終週〜2 月初め。曜日を合わせると 2027-01-28（木）前後、幅は 2027-01-21〜02-02。第三者トラッカーは 2027-01-22 と推定。
-- リバッタル（著者応答） 2027-03-下旬（推定） — 根拠：2026 は著者応答締切が 2026-03-30 AoE（公式 Dates ページ）。
-- 採否通知 2027-04-30（推定） — 根拠：2023-04-24、2024-05-01、2025-05-01、2026-04-30。4 月末〜5 月 1 日。
-- 会期 2027-07-中旬（推定） — 根拠：2023〜2026 はいずれも 7 月の第 2〜4 週（7/23-29、7/21-27、7/13-19、7/6-11）。
-- 補足：2026-10-27 時点で ICML 2027 の Call for Papers・会期・都市は未発表（検索で確認）。公式の Future Meetings は 2027 年を南米、2028 年を米国東部としている。ICML 2026 の CFP は 2025 年末に公開され、OpenReview の投稿受付は締切の約 3 週間前（2026-01-08）に始まった。
+- アブストラクト締切 2027-01-21 23:59 AoE（推定） — 根拠：2025・2026 は論文締切の 5〜7 日前（2025-01-23、2026-01-23、公式 Dates）。2023・2024 はアブストラクト締切なし（論文締切のみ）。論文締切の推定から 1 週間前とした。幅は 2027-01-15〜01-25。第三者トラッカー（OpenCurious）は 2027-01-16 と推定。
+- 論文締切 2027-01-28 23:59 AoE（推定） — 根拠：公式 Dates ページで 2023-01-26（木）、2024-02-01（木）、2025-01-30（木）、2026-01-28（水）と、いずれも 1 月最終週〜2 月初め。曜日を合わせると 2027-01-28（木）前後、幅は 2027-01-21〜02-02。第三者トラッカーは 2027-01-22 と推定。
+- リバッタル（著者応答） 2027-03-下旬（推定） — 根拠：著者応答の締切は 2024-03-28（rebuttal 終了）、2025-03-31、2026-03-30（いずれも公式 Dates）。
+- 採否通知 2027-04-30（推定） — 根拠：公式 Dates で 2023-04-24、2024-05-01、2025-05-01、2026-04-30（AoE）。4 月末〜5 月 1 日。
+- カメラレディ 2027-05-下旬〜06-上旬（推定） — 根拠：公式で 2023-05-31、2024-05-29、2025-06-09、2026-05-28（AoE、2026 は Author Instructions）。
+- 会期 2027-07-中旬（推定） — 根拠：公式 Dates で 2023-07-23〜29、2024-07-21〜27、2025-07-13〜19、2026-07-06〜11。いずれも 7 月で、近年は前倒し傾向。初日がチュートリアル・Expo、続く 3 日が本会議、最後の 2 日がワークショップ。
+- 補足：2026-10-28 に公式サイトで確認：https://icml.cc/Conferences/2027 、/Conferences/2027/CallForPapers 、/Conferences/2027/Dates はいずれも 404 で、ICML 2027 の CFP・会期・都市は未発表。Future Meetings ページは「2027 -- South America」「2028 -- Eastern United States」のみ。ICML 2026 の CFP は 2025 年末に公開され、OpenReview の投稿受付は締切の約 3 週間前（2026-01-08）に始まった。
 
 ### 形式
 
-- ダブルブラインド査読、OpenReview で運用。著者応答（リバッタル）あり。
-- 本文 8 ページ（参考文献・付録は無制限）、採択後は 1 ページ追加。Impact Statement の記載が必須。
-- 論文集は PMLR（Proceedings of Machine Learning Research、2026 年は Vol. 306）。
-- トラック：メイントラック（研究論文）と、2024 年新設のポジションペーパー・トラック（主張の重要性と論拠で評価）。
+- ダブルブラインド査読、OpenReview で運用（2022 年までは CMT）。著者応答（リバッタル）と著者・査読者の議論期間あり。
+- 本文 8 ページ（参考文献・付録は無制限）、採択後は 1 ページ追加。Impact Statement の記載が必須。2026 年からはカメラレディで利益相反の開示と一般向け要約（lay summary）も求める。
+- 論文集は PMLR（Proceedings of Machine Learning Research、2026 年は Vol. 306）。2026 年から採択論文の投稿時版と査読も公開。
+- トラック：メイントラック（研究論文）と、2024 年新設のポジションペーパー・トラック（2025 年から別の OpenReview 窓口、2026 年は本会議と別の査読者・AC プール。主張の重要性と論拠で評価）。TMLR・JMLR 等の論文を発表するジャーナル・トラックもある。
 - 相互査読（reciprocal reviewing）：投稿著者の一部に査読義務。2026 年は査読者が LLM 利用方針 A（禁止）/ B（理解補助と推敲のみ可）を選択。
-- 本会議の前後にチュートリアル・ワークショップ（約 2 日）を併催。採択論文から Oral（2026 年は約 0.7%）・Spotlight を選ぶ。
+- 会期は 6 日間（チュートリアル・Expo 1 日、本会議 3 日、ワークショップ 2 日）。採択論文から Oral（2026 年は 168 本、約 0.7%）・Spotlight を選ぶ。2026 年は採択論文の現地発表が任意になった。
 
 ### 特徴
 
@@ -356,11 +357,12 @@ IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月
 
 ### 傾向
 
-- 投稿数の急増：6,538（2023）→ 9,473（2024）→ 12,107（2025）→ 23,918（2026、desk reject・取下げ後の査読対象。総投稿は 24,661）。採択率は 27.9% → 27.5% → 26.9% → 26.6% とほぼ一定（各年 Fact Sheet、RIKEN AIP、arXiv 2609.19420）。
+- 投稿数の急増：6,538（2023）→ 9,473（2024）→ 12,107（2025）→ 24,661（2026、本会議 23,918・ポジション 743）。採択率は 27.9% → 27.5% → 26.9% → 26.6%（2026 は採択 6,552 本）とほぼ一定（2024・2025 は Fact Sheet、2023・2026 は ICML 2026 のプログラム委員長 4 名が共著の arXiv 2609.19420）。
 - LLM 利用ポリシーの厳格化：2026 年は査読者が方針 A（LLM 禁止）か B（限定的に可）を選び、投稿 PDF に埋め込んだ隠し指示で違反を検出。方針 A に違反した相互査読者の投稿 497 本（約 2%）を desk reject した（ICML ブログ 2026-03-18）。同年の無作為化実験では方針の違いは採否・スコアにほぼ影響せず、方針 A でも 22.5% が LLM 利用を自己申告（arXiv 2609.19420）。
-- ポジションペーパー・トラックの定着：2025 年は 73 本採択、2026 年は投稿 743 本。受賞は査読危機（2025）、AI 安全性と労働（2025）、アラインメントの検閲転用（2026）、ディープフェイク研究と AIG-NCII（2026）と、研究コミュニティへの批判的な主張が多い。
+- ポジションペーパー・トラックの定着：採択は 2025 年 73 本、2026 年 213 本（投稿 743 本、公式 virtual サイトの採択一覧で集計）。受賞は査読危機（2025）、AI 安全性と労働（2025）、アラインメントの検閲転用（2026）、ディープフェイク研究と AIG-NCII（2026）と、研究コミュニティへの批判的な主張が多い。
 - 主題の流れ：2024 年は生成モデル（SD3、VideoPoet、Genie、SEDD）と LLM の安全性、2025 年はマスク拡散・創造性・共同作業型 LLM、2026 年は拡散言語モデル（JustGRPO）と拡散の理論、RLVR の安全性へ。拡散と LLM の交差が 3 年連続で受賞の中心。
 - Test of Time は深層学習初期の基盤技術が続く：Learning Fair Representations（2023、2013 年論文）、DeCAF（2024）、Batch Normalization（2025）、A3C（2026）。
+- 運営の変化（2026）：採択論文の著者の現地参加を任意にし、投稿時版と査読を公開。公式の「サテライト会合」は置かないと明言。OpenReview への年間拠出を 10 万ドルから 20 万ドルに倍増（2025-12、公式ブログ）。
 
 ### よく当てはまる分野
 
@@ -379,11 +381,12 @@ IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月
 - 2026-10-27: WebSearch のスニペット（ICML 公式ブログ・virtual サイト・Fact Sheet・RIKEN AIP・大学ニュース等の URL を記録）と ccf-deadlines の icml.yml で、ICML 2023〜2026 の締切・会期・投稿数と ICML 2027 の見通しを確認。ICML 2026 の受賞（Outstanding Paper 2、同 Honorable Mention 5、Outstanding Position Paper 1、同 Honorable Mention 1、Test of Time 1）をすべて特定し、本文（arXiv）を全文読んで 10 本をスライド化。2025 年の Outstanding Paper から拡散言語モデルと創造性の 2 本を追加し計 12 本。
 - 2023〜2025 年の Outstanding/Best Paper と Test of Time は検索結果と受賞一覧リポジトリ（FeijiangHan/Top-Conference-Best-Papers）を照合して一覧化。
 - icml.cc、blog.icml.cc、aihub、36kr 等のニュースサイトには到達できず、受賞の選考理由（laudatio）の原文は読めていない（A3C と Censor's Toolkit のみ二次報道の引用あり）。
+- 2026-10-28: 公式サイト（icml.cc）に直接アクセスし、2023〜2026 年の Awards ページ・Test of Time ページ、2022〜2026 年の Dates ページ、2026 年の CFP・Author Instructions・Committees、Future Meetings、公式 virtual サイトの採択論文データで受賞・締切・採択数を照合・修正。2026 年受賞 10 本の題名・著者を公式表記に合わせ（RMT 論文の題名、AIG-NCII 論文の著者名）、2026 年の Test of Time に Honorable Mention がないことを確認。2023 年 Test of Time の 2 本目の Runner-up（Bergstra+）を追加。投稿・採択数は ICML 2026 のプログラム委員長が共著の arXiv 2609.19420 で 24,661 本・6,552 本に確定。2025 年 Outstanding Paper 3 本（CollabLLM、Score Matching with Missing Data、Conformal Prediction as BQ）と 2024 年 Best Paper の SEDD を全文読んでスライドに追加（計 16 本）。blog.icml.cc と media.icml.cc（Fact Sheet）は依然到達できず、論文ごとの選考理由は得られなかった。
 
 ### 締切の要点
-- ICML 2027 は 2026-10-27 時点で CFP 未発表（**推定**）。開催地は公式 Future Meetings で「南米」（都市未定）、会期は 2027 年 7 月中旬の見込み。
-- 論文締切は **2027-01-28（木）23:59 AoE 前後**（推定。2023〜2026 は 1/26、2/1、1/30、1/28 と 1 月最終週〜2 月初め、幅 1/21〜2/2）。アブストラクト締切はその約 1 週間前（2027-01-21 前後）。
-- 採否通知は 2027-04-30 前後（2024・2025 は 5/1、2026 は 4/30）。直近の ICML 2026 は 1/23 アブストラクト、1/28 論文（AoE）、著者応答 3/30、通知 4/30、会期 7/6〜11（ソウル）。
+- ICML 2027 は 2026-10-28 時点で CFP 未発表（**推定**）。公式サイトの 2027 年ページ（/Conferences/2027、CallForPapers、Dates）はいずれも 404。開催地は公式 Future Meetings で「South America」（都市未定）、会期は 2027 年 7 月の見込み。
+- 論文締切は **2027-01-28（木）23:59 AoE 前後**（推定。公式 Dates で 2023〜2026 は 1/26、2/1、1/30、1/28 と 1 月最終週〜2 月初め、幅 1/21〜2/2）。アブストラクト締切はその約 1 週間前（2027-01-21 前後。2025・2026 は論文締切の 5〜7 日前）。
+- 著者応答は 3 月下旬、採否通知は 2027-04-30 前後（2024・2025 は 5/1、2026 は 4/30）、カメラレディは 5 月下旬〜6 月上旬。直近の ICML 2026 は 1/23 アブストラクト、1/28 論文（AoE）、著者応答 3/30、通知 4/30、カメラレディ 5/28、会期 7/6〜11（ソウル COEX）。
 
 ### 受賞・話題の論文一覧
 | # | 年 | 賞 | 論文 | 概要 | スライド |
@@ -395,14 +398,14 @@ IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月
 | 5 | 2026 | Outstanding Paper Honorable Mention | [The Obfuscation Atlas: Mapping Where Honesty Emerges in RLVR with Deception Probes](https://arxiv.org/abs/2602.15515) | 嘘検出プローブを報酬に入れた RLVR の結果を正直・露骨な欺瞞・出力の難読化・活性の難読化の 4 類型に整理し、十分な KL と検出ペナルティで正直な方策が得られると示した。 | ✅ p.10 |
 | 6 | 2026 | Outstanding Paper Honorable Mention | [Motion Attribution for Video Generation](https://arxiv.org/abs/2601.08828) | 動画生成の動きを学習クリップへ帰属させる Motive。選んだ 10% のデータで全データ微調整を超える動きの質。 | ✅ p.12 |
 | 7 | 2026 | Outstanding Paper Honorable Mention | [How much can language models memorize?](https://arxiv.org/abs/2505.24832) | 意図しない記憶と汎化を圧縮で分離し、GPT 型モデルの記憶容量を約 3.6 bits/param と測定。容量超過で汎化と double descent が始まる。 | ✅ p.14 |
-| 8 | 2026 | Outstanding Paper Honorable Mention | [A Random Matrix Theory Perspective on the Consistency of Diffusion Models](https://arxiv.org/abs/2602.02908) | 別データで学習した拡散モデルの出力が一致する理由を線形デノイザのランダム行列理論で説明（ノイズの繰り込み、過収縮、異方性）。 | ✅ p.16 |
+| 8 | 2026 | Outstanding Paper Honorable Mention | [A Random Matrix Perspective on the Consistency of Diffusion Models](https://arxiv.org/abs/2602.02908) | 別データで学習した拡散モデルの出力が一致する理由を線形デノイザのランダム行列理論で説明（ノイズの繰り込み、過収縮、異方性）。 | ✅ p.16 |
 | 9 | 2026 | Outstanding Paper Honorable Mention | [To Grok Grokking: Provable Grokking in Ridge Regression](https://arxiv.org/abs/2601.19791) | リッジ回帰＋weight decay の勾配降下でグロッキングが起きることを end-to-end に証明し、遅れが 1/(ηλ) に比例することを示した。 | ✅ p.18 |
-| 10 | 2026 | Outstanding Position Paper Honorable Mention | [Position: AI/ML Deepfake Research is Misaligned with AI-Generated Non-Consensual Intimate Imagery (AIG-NCII)](https://arxiv.org/abs/2607.18263) | ディープフェイク研究は真正性の問題に偏り、同意のない性的画像という主要な悪用をほぼ扱っていないと文献分析で示し、9 項目の提言を行った。 | ✅ p.20 |
+| 10 | 2026 | Outstanding Position Paper Honorable Mention | [Position: AI/ML Deepfake Research is Misaligned with AI Generated Non-Consensual Intimate Imagery (AIG-NCII)](https://arxiv.org/abs/2607.18263) | ディープフェイク研究は真正性の問題に偏り、同意のない性的画像という主要な悪用をほぼ扱っていないと文献分析で示し、9 項目の提言を行った。 | ✅ p.20 |
 | 11 | 2025 | Outstanding Paper Award | [Train for the Worst, Plan for the Best: Understanding Token Ordering in Masked Diffusions](https://arxiv.org/abs/2502.06768) | マスク拡散モデルは学習で難しい穴埋め問題を抱えるが、推論時の順序選択で回避でき、数独の正解率を 7% 未満から約 90% に上げた。 | ✅ p.22 |
 | 12 | 2025 | Outstanding Paper Award | [Roll the dice & look before you leap: Going beyond the creative limits of next-token prediction](https://arxiv.org/abs/2504.15266) | 創造性を抽象化した最小課題で、次トークン学習と温度サンプリングの限界を示し、多トークン学習とシード条件づけを提案。 | ✅ p.24 |
-| 13 | 2025 | Outstanding Paper Award | [CollabLLM: From Passive Responders to Active Collaborators](https://arxiv.org/abs/2502.00640) | 多ターン先の対話への影響を見込んだ報酬で LLM を学習し、受け身の応答ではなく能動的に協働するアシスタントにする手法。 | — 参照のみ |
-| 14 | 2025 | Outstanding Paper Award | [Score Matching with Missing Data](https://arxiv.org/abs/2506.00557) | 欠損のあるデータからスコアマッチングでスコア関数を学ぶ方法の提案と理論。 | — 参照のみ |
-| 15 | 2025 | Outstanding Paper Award | [Conformal Prediction as Bayesian Quadrature](https://arxiv.org/abs/2502.13228) | コンフォーマル予測をベイズ求積の観点から捉え直し、保証の解釈と拡張を与えた。 | — 参照のみ |
+| 13 | 2025 | Outstanding Paper Award | [CollabLLM: From Passive Responders to Active Collaborators](https://arxiv.org/abs/2502.00640) | 応答の後の会話を擬似ユーザーと数ターン先まで試し打ちして評価する Multiturn-aware Reward で Llama-3.1-8B を学習。課題性能 +18.5%、対話性 +46.3%、201 人の実験で満足度 +17.6%。 | ✅ p.26 |
+| 14 | 2025 | Outstanding Paper Award | [Score Matching with Missing Data](https://arxiv.org/abs/2506.00557) | 座標の一部が欠けたデータからスコアを学ぶため、周辺スコアを重要度重み付け（Marg-IW）または変分近似（Marg-Var）で推定。切断版で有限標本の上界、グラフィカルモデル推定で Marg-Var が最良。 | ✅ p.28 |
+| 15 | 2025 | Outstanding Paper Award | [Conformal Prediction as Bayesian Quadrature](https://arxiv.org/abs/2502.13228) | split conformal と conformal risk control をベイズ求積の特殊例として復元し、分位間隔の Dirichlet 分布から期待損失の上界の分布 L+ を導出。目標リスク超過を 21.20% から 0.03% に抑えた。 | ✅ p.30 |
 | 16 | 2025 | Outstanding Paper Award | [The Value of Prediction in Identifying the Worst-Off](https://arxiv.org/abs/2501.19334) | 公共政策で最も困窮した人を特定するとき、予測精度の向上と支援対象の拡大のどちらが価値を持つかを比較分析した。 | — 参照のみ |
 | 17 | 2025 | Outstanding Position Paper Award | [Position: The AI Conference Peer Review Crisis Demands Author Feedback and Reviewer Rewards](https://arxiv.org/abs/2505.04966) | AI 会議の査読危機に対し、著者から査読への評価と査読者への報酬の仕組みを提案。 | — 参照のみ |
 | 18 | 2025 | Outstanding Position Paper Award | [Position: AI Safety should prioritize the Future of Work](https://arxiv.org/abs/2504.13959) | AI 安全性の議論は労働と雇用への影響を優先課題として扱うべきだと主張。 | — 参照のみ |
@@ -410,7 +413,7 @@ IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月
 | 20 | 2025 | Test of Time Honorable Mention | [Trust Region Policy Optimization](https://arxiv.org/abs/1502.05477) | 方策の更新幅を KL で制約し単調改善を目指す方策最適化 TRPO。 | — 参照のみ |
 | 21 | 2025 | Test of Time Honorable Mention | [Variational Inference with Normalizing Flows](https://arxiv.org/abs/1505.05770) | 可逆変換の連鎖で柔軟な近似事後分布を作る正規化フローを変分推論に導入。 | — 参照のみ |
 | 22 | 2024 | Best Paper Award | [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391) | ラベルなし動画から潜在行動を学び、操作可能な 2D 環境を生成する世界モデル。 | ↪ 既存：world-model/foundation-world-model |
-| 23 | 2024 | Best Paper Award | [Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution](https://arxiv.org/abs/2310.16834) | スコアエントロピー損失による離散拡散モデル SEDD。拡散言語モデルの流れの起点の一つ。 | — 参照のみ |
+| 23 | 2024 | Best Paper Award | [Discrete Diffusion Modeling by Estimating the Ratios of the Data Distribution](https://arxiv.org/abs/2310.16834) | score entropy 損失で確率比を学ぶ離散拡散 SEDD。GPT-2 の zero-shot perplexity の多数の課題で上回り、温度調整なしの生成で GPT-2 の 6〜8 倍良い。 | ✅ p.32 |
 | 24 | 2024 | Best Paper Award | [Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/abs/2403.03206) | Rectified Flow と MM-DiT による高解像度画像生成のスケーリング（Stable Diffusion 3）。 | — 参照のみ |
 | 25 | 2024 | Best Paper Award | [VideoPoet: A Large Language Model for Zero-Shot Video Generation](https://arxiv.org/abs/2312.14125) | 多様なモダリティをトークン化した LLM でゼロショット動画生成を行う VideoPoet。 | — 参照のみ |
 | 26 | 2024 | Best Paper Award | [Debating with More Persuasive LLMs Leads to More Truthful Answers](https://arxiv.org/abs/2402.06782) | より説得力のある LLM 同士の討論を判定することで、弱い判定者でも真実に近づけることを示したスケーラブル監督の研究。 | — 参照のみ |
@@ -426,16 +429,18 @@ IMLS が主催する機械学習の最高峰国際会議の一つ（毎年 7 月
 | 36 | 2023 | Outstanding Paper Award | [Adapting to game trees in zero-sum imperfect information games](https://openreview.net/forum?id=O1j4uFuSVW) | 不完全情報ゼロ和ゲームで木構造に適応して ε 最適戦略を学ぶアルゴリズムと下界。 | — 参照のみ |
 | 37 | 2023 | Outstanding Paper Award | [Self-Repellent Random Walks on General Graphs - Achieving Minimal Sampling Variance via Nonlinear Markov Chains](https://openreview.net/forum?id=450iImFM4U) | 訪問済みノードを避ける非線形マルコフ連鎖でグラフ上のサンプリング分散を下げる。 | — 参照のみ |
 | 38 | 2023 | Outstanding Paper Award | [Bayesian Design Principles for Frequentist Sequential Learning](https://openreview.net/forum?id=tRhQsHnoFw) | ベイズ的な設計原理から頻度論的な逐次意思決定（バンディット等）のアルゴリズムを導く一般枠組み。 | — 参照のみ |
-| 39 | 2023 | Test of Time Award | [Learning Fair Representations](https://proceedings.mlr.press/v28/zemel13.html) | 保護属性の情報を除きつつ有用性を保つ表現学習で、集団・個人の公平性を機械学習に導入した。 | — 参照のみ |
-| 40 | 2023 | Test of Time Runner-up | [Deep Canonical Correlation Analysis](https://proceedings.mlr.press/v28/andrew13.html) | 2 つのビューを深層ネットで非線形変換し、相関を最大化する深層 CCA。 | — 参照のみ |
+| 39 | 2023 | Test of Time Award | [Learning Fair Representations](https://proceedings.mlr.press/v28/zemel13.html) | 保護属性の情報を除きつつ有用性を保つ表現学習で、集団・個人の公平性を機械学習に導入し、ML と公平性という分野を形作った（公式の選考理由より）。 | — 参照のみ |
+| 40 | 2023 | Test of Time Runner-up | [Deep Canonical Correlation Analysis](https://proceedings.mlr.press/v28/andrew13.html) | 2 つのビューを深層ネットで非線形変換し相関を最大化する深層 CCA。深層マルチモーダル表現学習と、再構成を使わない自己教師あり学習（対照学習など）の先駆とされた（公式の選考理由より）。 | — 参照のみ |
+| 41 | 2023 | Test of Time Runner-up | [Making a Science of Model Search: Hyperparameter Optimization in Hundreds of Dimensions for Vision Architectures](https://proceedings.mlr.press/v28/bergstra13.html) | 数百次元のハイパーパラメータ探索をブラックボックス最適化で自動化し、調整を職人技から科学的な手続きへ変えた（公式の選考理由より）。 | — 参照のみ |
 
 ### 不明な点
-- ICML 2027 の公式締切・会期・開催都市（未発表）。
-- ICML 2026 受賞論文の選考理由の原文（公式ブログに到達できず）。評価ポイントの多くは「調査者の見立て」。
-- ICML 2026 の採択数（6,352 と 6,552 の食い違い。6,352・26.6% を採用）とポジション・トラックの採択数。
-- ICML 2023 Test of Time のもう 1 本の Runner-up、ICML 2024・2026 Test of Time の Honorable Mention の有無。
-- ICML 2024 のアブストラクト締切、ICML 2022 の投稿・採択数。
-- 本文を読んでいない過去の受賞論文（表の「参照のみ」）の概要は検索情報に基づく短い要約。
+- ICML 2027 の公式な締切・会期・開催都市（2026-10-28 に icml.cc で 2027 のページが 404 であることを確認。Future Meetings は「South America」のみ）。
+- ICML 2026 受賞論文ごとの選考理由（laudatio）。icml.cc の Awards ページ・各論文ページには賞名のみで理由の記載がなく、選考理由を載せたと思われる公式ブログ（blog.icml.cc）には到達できない。検索で得られたのは選考の流れ（候補 53 本→22 本に絞り込み）と基準（strong accept の品質、長く参照される可能性、ニッチを超える関心、トピックの多様性）だけ。A3C と Censor's Toolkit の選考理由は二次報道の引用のまま。他の論文の評価ポイントは調査者の見立て。
+- ICML 2026 の採択数：本調査はプログラム委員長 4 名（Dudík、Jaggi、Agarwal、Sharon Li）が共著の arXiv 2609.19420 にある「投稿 24,661 本・採択 6,552 本（26.6%）」を採用した。報道で多く見られた 6,352 本は出典の一次資料に届かず、誤記か本会議だけの数かは確定できない（公式 virtual サイトの採択一覧では本会議 6,341 本・ポジション 213 本で、合計 6,554 本は 6,552 本とほぼ一致）。同年の公式 Fact Sheet（media.icml.cc）には到達できなかった。
+- ICML 2022 の投稿数・採択率（公式 Dates には記載なし。採択 1,233 本は公式 virtual サイトの採択一覧で集計）。2024 年の採択数は Fact Sheet で 2,610、2023 年は 1,827（公式 virtual では 1,828）、2025 年は 3,260（公式 virtual では本会議 3,258・ポジション 73）と、出典ごとに数本の差がある。
+- ICML 2023 の Outstanding Paper のうち Self-Repellent Random Walks と Bayesian Design Principles の 2 本は、公式 virtual の Awards ページに載っていない（AIhub と大学ニュースでは受賞）。公式ブログの発表記事は未確認。
+- 2025 年の Outstanding Paper のうち The Value of Prediction in Identifying the Worst-Off、2025 年のポジション論文賞 2 本、2024 年の Best Paper（SEDD 以外）、2023 年の受賞論文の概要は、本文を読んでいない検索情報ベースの短い要約で、数値は記載していない。
+- 2024・2026 年の Test of Time に Honorable Mention はない（公式 Awards ページ・Test of Time ページに掲載なし）。2025 年は TRPO と正規化フローの 2 本が Honorable Mention（公式で確認）。
 
 ---
 
@@ -541,21 +546,21 @@ Conference on Neural Information Processing Systems（NeurIPS Foundation）
 
 ### 次回：NeurIPS 2027（推定）
 
-- 会期・開催地：2027-12 上旬〜中旬（推定） ／ 未発表（地域は欧州との二次情報あり）
-- アブストラクト締切 2027-05-06 23:59 AoE（推定） — 根拠：2023〜2026 のアブストラクト締切は 5/11, 5/15, 5/11, 5/4（いずれも AoE 相当）。年々早まる傾向で、2027 は 5 月第1〜2週（5/4〜5/14 の幅）と推定。
-- 論文締切 2027-05-12 23:59 AoE（推定） — 根拠：2023〜2026 の論文締切は 5/17, 5/22, 5/15, 5/6。アブストラクトの 2〜7 日後。2027 は 5/6〜5/21 の幅で、代表値 5 月中旬前半。
-- レビュー公開・リバッタル 2027-07-下旬（推定） — 根拠：2026 はレビュー公開 2026-07-22（公式 Dates）。リバッタル期間の公式日付は未確認。
-- 採否通知 2027-09-下旬（推定） — 根拠：2024: 9/25、2025: 9/18、2026: 9/24（いずれも公式）。
-- カメラレディ 2027-10-下旬（推定） — 根拠：2025 は 10/23（公式 CFP）。2026 は 10/24 との二次情報のみ。
-- 補足：NeurIPS の CFP は例年 3〜4 月に公開（2026 は 4 月中旬に投稿受付開始）。2026 は OpenReview で全著者のプロフィールが必須、相互査読（著者の査読参加）・LLM 利用方針も CFP で更新されるため、2027 の公式発表で確認が必要。
+- 会期・開催地：2027-12 上旬〜中旬（推定） ／ 欧州（都市・会場は未発表）
+- アブストラクト締切 2027-05-06 23:59 AoE（推定） — 根拠：公式 Dates ページで 2023〜2026 のアブストラクト締切は 5/11（20:00 UTC）, 5/15（20:00 UTC）, 5/11 AoE, 5/4 AoE。年々早まる傾向で、2027 は 5 月第1〜2週（5/4〜5/14 の幅）と推定。
+- 論文締切 2027-05-12 23:59 AoE（推定） — 根拠：公式 Dates ページで 2023〜2026 の論文締切は 5/17, 5/22, 5/15, 5/6。アブストラクトの 2〜7 日後。2027 は 5/6〜5/21 の幅で、代表値 5 月中旬前半。
+- レビュー公開・著者との議論（リバッタル） 2027-07-下旬〜08-上旬（推定） — 根拠：公式 Dates: 2026 はレビュー公開 7/22、著者・査読者・AC の議論 7/27〜8/3、査読者・AC の議論 8/3〜8/10。2025 はリバッタル 7/24〜7/30・議論 7/31〜8/6、2024 は 7/30〜8/6、2023 は 8/2〜8/10。2027 は 7 月下旬〜8 月上旬と推定。
+- 採否通知 2027-09-下旬（推定） — 根拠：公式 Dates: 2023 は 9/22 01:00 UTC、2024 は 9/26 01:00 UTC、2025 は 9/18 AoE、2026 は 9/24 AoE。
+- カメラレディ 2027-10-下旬（推定） — 根拠：公式 Dates: 2022 は 10/12、2023 は 10/27、2024 は 10/30、2025 は 10/23。2026 の公式 Dates ページにはカメラレディの記載がない（「Accepted papers must be imported」10/4 のみ）。
+- 補足：公式の Future Meetings ページは「2027 -- Europe」「2028 -- Western United States」とだけ記載（https://neurips.cc/Conferences/FutureMeetings, 2026-10-28 確認）。https://neurips.cc/Conferences/2027 は未公開（404）で、締切・会期は公式未発表。CFP は例年 3〜4 月に公開（2026 は 4 月中旬に投稿受付開始）。2026 は OpenReview で全著者のプロフィールが必須、相互査読（著者の査読参加）・LLM 利用方針も CFP で更新されるため、2027 の公式発表で確認が必要。
 
 ### 形式
 
-- OpenReview によるダブルブラインド査読（Datasets & Benchmarks は単一盲検も可）。著者リバッタルと討論期間あり。全著者に OpenReview プロフィールが必要。
+- OpenReview によるダブルブラインド査読（Datasets & Benchmarks は単一盲検も可）。著者リバッタルと討論期間あり（2026 はレビュー公開 7/22、著者・査読者・AC の議論 7/27〜8/3、査読者・AC の議論 8/3〜8/10。公式 Dates）。全著者に OpenReview プロフィールが必要。
 - 本文 9 ページ（図表込み）＋参考文献・チェックリスト・付録は別。採択後のカメラレディは 1 ページ追加可（2025 CFP）。論文チェックリストが必須。
 - 論文集は Advances in Neural Information Processing Systems（proceedings.neurips.cc でオープンアクセス）。
 - トラック：Main Track、Datasets & Benchmarks（2026 から Evaluations & Datasets Track に改称・拡張）、Position Paper Track（2025〜）、Journal Track（2026 は TMLR・JMLR・Annals of Statistics から 88 本）。
-- 採択論文は Poster・Spotlight・Oral に区分。Oral は投稿比 0.4% 前後（2026 の著者記載で 0.36%・上位 0.4%）。
+- 採択論文は Poster・Spotlight・Oral に区分。2026 の公式 Oral 一覧は 132 件（Sydney 92・Atlanta 24・Paris 16）で、本会議投稿 30,709 本の約 0.43%（著者記載では 0.36%・上位 0.4%）。
 - 併催：約 100 のワークショップ（2026 は 102 本を 3 都市に分配）、チュートリアル、コンペティション、Expo。
 
 ### 特徴
@@ -568,8 +573,8 @@ Conference on Neural Information Processing Systems（NeurIPS Foundation）
 
 ### 傾向
 
-- 投稿数の急増：本会議の有効投稿は 2023 年 12,345 → 2024 年 15,671 → 2025 年 21,575 → 2026 年 30,709（2 年でほぼ倍増）。採択率は 24.5〜26% で安定（Fact Sheet、RIKEN AIP 2026）。
-- 会場の分散：2025 は San Diego に加え Mexico City を公式第 2 会場とし、Copenhagen の EurIPS（ELLIS 主導、約 2,000〜2,200 人）を公認。2026 は Sydney を本会場に Atlanta・Paris を公式サテライトとする 3 都市開催。2027 は欧州との二次情報。
+- 投稿数の急増：本会議の有効投稿は 2023 年 12,343 → 2024 年 15,671 → 2025 年 21,575 → 2026 年 30,709（2 年でほぼ倍増）。採択率は 24.5〜26% で安定（Fact Sheet、RIKEN AIP 2026）。
+- 会場の分散：2025 は San Diego に加え Mexico City を公式第 2 会場とし、Copenhagen の EurIPS（ELLIS 主導、約 2,000〜2,200 人）を公認。2026 は Sydney を本会場に Atlanta・Paris を公式サテライトとする 3 都市開催。2027 は欧州、2028 は米国西部と公式に予告（Future Meetings）。
 - トラック再編：Position Paper Track 新設（2025）、Datasets & Benchmarks を Evaluations & Datasets に改称し「評価そのもの」を研究対象に拡張（2026）、Journal Track 開始（2026, 88 本）。
 - LLM と査読：2026 は Main Track で OpenReview 上の LLM による査読支援を試行（E&D は対象外）。Position Track では AI 生成疑いで 178 本（18.4%）を desk reject したとの二次情報、存在しない参考文献による desk reject の報道もある（いずれも公式未確認）。
 - トピック：2025 の受賞は LLM の注意機構（Gated Attention）、RLVR の限界、スケーリング則、拡散モデルの汎化、LLM 出力の均質化など「LLM 時代の基礎の理解」に集中。2026 の Oral でも視覚 CoT・言語条件付き世界モデル・具身ナビゲーションが目立つ。
@@ -592,49 +597,50 @@ Conference on Neural Information Processing Systems（NeurIPS Foundation）
 ### 調査履歴
 - 2026-10-27: WebSearch（公式 Dates・CFP・ブログ記事・Fact Sheet のスニペット）、ccf-deadlines の nips.yml、arXiv（本文と API の検索）、proceedings.neurips.cc を情報源に、NeurIPS 2022〜2026 の締切・開催地・投稿数、2023〜2025 の受賞、2026 の Oral 採択論文を調べた。neurips.cc・blog.neurips.cc・media.neurips.cc と OpenReview API には到達できず、公式ページの本文は検索スニペットでしか確認していない。
 - 2026 の受賞はまだ発表されていない。そのため、著者が arXiv コメントで NeurIPS 2026 Oral と明記している本会議論文から、本アーカイブの分野に近い 4 本を「話題」としてスライド化した。2025 の受賞 8 本（Best 4、Runner-up 3、Test of Time 1）は全文を読んでスライド化した。
+- 2026-10-28: 公式サイト（neurips.cc）に直接アクセスし、2023〜2025 の受賞一覧（awards_detail、2024 の Test of Time ページ）で題名・区分を照合して全件一致を確認した（2023 の DPO・Data-Constrained Scaling の Runner-up、word2vec の Test of Time、2024 の Autoguidance の Runner-up を含む）。2026 の受賞ページは空（未発表）。2026 の公式 Oral 一覧（Sydney・Atlanta・Paris の計 132 件）で、スライド化した 4 本がすべて Oral であることを確認した。2022〜2026 の Dates ページでリバッタル・通知・カメラレディを補い、Future Meetings で 2027 の開催地域（欧州）を確認した。2024 の受賞 4 本（VAR・STDE・Autoguidance・Rho-1）を arXiv で全文読んでスライドに追加した。blog.neurips.cc と media.neurips.cc（Fact Sheet）にはまだ届かず、選考委員会のコメントは取得できていない。
 
 ### 締切の要点
-- NeurIPS 2027 は未発表（推定）。2023〜2026 のアブストラクト締切は 5/11, 5/15, 5/11, 5/4、論文締切は 5/17, 5/22, 5/15, 5/6（AoE）で、年々早まっている。2027 はアブストラクト 5 月上旬（代表値 2027-05-06）、論文 5 月中旬前半（代表値 2027-05-12）と推定。採否通知は 9 月下旬（2024: 9/25、2025: 9/18、2026: 9/24）。
-- 開催地は未発表。地域は欧州という二次情報がある。CFP は例年 3〜4 月に公開される。
-- 直近の NeurIPS 2026 は Sydney が本会場で、Atlanta・Paris が公式サテライト（12/6〜13）。投稿 30,709 本、採択 7,900 本（25.7%）。
+- NeurIPS 2027 は公式に「欧州」で開くとだけ発表されている（Future Meetings。2028 は米国西部）。都市・会期・締切は未発表で、Conferences/2027 のページもまだない。
+- 締切は推定。公式 Dates で、2023〜2026 のアブストラクト締切は 5/11, 5/15, 5/11, 5/4、論文締切は 5/17, 5/22, 5/15, 5/6 で、年々早まっている。2027 はアブストラクト 5 月上旬（代表値 2027-05-06）、論文 5 月中旬前半（代表値 2027-05-12）と推定。リバッタル（著者との議論）は 7 月下旬〜8 月上旬（2026 は 7/27〜8/3）、採否通知は 9 月下旬（2026 は 9/24）、カメラレディは 10 月下旬（2023〜2025 は 10/27, 10/30, 10/23）。
+- 直近の NeurIPS 2026 は Sydney が本会場（12/6〜12）で、Atlanta・Paris が公式サテライト（いずれも 12/9〜13）。投稿 30,709 本、採択 7,900 本（25.7%、所属機関のニュースによる値）。
 
 ### 受賞・話題の論文一覧
 | # | 年 | 賞 | 論文 | 概要 | スライド |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 2026 | Oral（話題） | [Language-Conditioned World Modeling for Visual Navigation](https://arxiv.org/abs/2603.26741) | 言語指示と開始画像だけから全軌道を予測する課題とデータを作り、拡散世界モデル＋潜在 actor-critic と統一自己回帰モデルを比較した。 | ✅ p.2 |
-| 2 | 2026 | Oral（話題） | [Unifying Goal-Conditioned RL and Unsupervised Skill Learning via Control-Maximization](https://arxiv.org/abs/2605.06145) | GCRL の 3 定式化は最適方策が食い違うことを示し、それぞれに対応するスキル学習（MISL）の目的を上下界で特定した理論研究。 | ✅ p.4 |
-| 3 | 2026 | Oral（話題） | [ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries](https://arxiv.org/abs/2605.06223) | 曖昧な指示で個体を探すとき、候補を二分する Yes/No 質問で絞り込む。成功率が上がり、利用者の回答は約 1/26 になった。 | ✅ p.6 |
-| 4 | 2026 | Oral（話題） | [Thinking with Images as Continuous Actions: Numerical Visual Chain-of-Thought](https://arxiv.org/abs/2602.23959) | 視覚 CoT の領域座標を連続値の行動として出力し、GRPO に組み込む。7B モデルで 32B モデルを上回った。 | ✅ p.8 |
+| 1 | 2026 | Oral（話題、Atlanta） | [Language-Conditioned World Modeling for Visual Navigation](https://arxiv.org/abs/2603.26741) | 言語指示と開始画像だけから全軌道を予測する課題とデータを作り、拡散世界モデル＋潜在 actor-critic と統一自己回帰モデルを比較した。 | ✅ p.2 |
+| 2 | 2026 | Oral（話題、Paris） | [Unifying Goal-Conditioned RL and Unsupervised Skill Learning via Control-Maximization](https://arxiv.org/abs/2605.06145) | GCRL の 3 定式化は最適方策が食い違うことを示し、それぞれに対応するスキル学習（MISL）の目的を上下界で特定した理論研究。 | ✅ p.4 |
+| 3 | 2026 | Oral（話題、Sydney） | [ProCompNav: Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries](https://arxiv.org/abs/2605.06223) | 曖昧な指示で個体を探すとき、候補を二分する Yes/No 質問で絞り込む。成功率が上がり、利用者の回答は約 1/26 になった。 | ✅ p.6 |
+| 4 | 2026 | Oral（話題、Sydney） | [Thinking with Images as Continuous Actions: Numerical Visual Chain-of-Thought](https://arxiv.org/abs/2602.23959) | 視覚 CoT の領域座標を連続値の行動として出力し、GRPO に組み込む。7B モデルで 32B モデルを上回った（公式題名は "...as Continuous Policy: ..."）。 | ✅ p.8 |
 | 5 | 2025 | Best Paper | [Gated Attention for Large Language Models](https://arxiv.org/abs/2505.06708) | SDPA の出力にシグモイドゲートを掛けると、性能・安定性・長文外挿が向上し、attention sink が消える。 | ✅ p.10 |
 | 6 | 2025 | Best Paper | [1000 Layer Networks for Self-Supervised RL](https://arxiv.org/abs/2503.14858) | Contrastive RL を最大 1024 層まで深くすると性能が 2〜50 倍になり、新しい行動が創発した。 | ✅ p.12 |
 | 7 | 2025 | Best Paper | [Why Diffusion Models Don't Memorize](https://arxiv.org/abs/2505.17638) | 記憶が始まる時刻だけが訓練データ数に比例して遅れるため、早期終了で汎化できる窓が広がる。 | ✅ p.14 |
-| 8 | 2025 | Best Paper（D&B） | [Artificial Hivemind](https://arxiv.org/abs/2510.22954) | 2.6 万件の開かれた問いで、LLM のモデル内の反復とモデル間の均質化を定量化した。 | ✅ p.16 |
+| 8 | 2025 | Best Paper（DB track） | [Artificial Hivemind](https://arxiv.org/abs/2510.22954) | 2.6 万件の開かれた問いで、LLM のモデル内の反復とモデル間の均質化を定量化した。 | ✅ p.16 |
 | 9 | 2025 | Runner-up | [Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?](https://arxiv.org/abs/2504.13837) | pass@k を大きな k で比べると基盤モデルが上回る。RLVR は効率を上げるが、推論能力の境界は広げない。 | ✅ p.18 |
 | 10 | 2025 | Runner-up | [Optimal Mistake Bounds for Transductive Online Learning](https://arxiv.org/abs/2512.12567) | トランスダクティブ設定の最適誤り回数を Θ(√d) で決着させ、30 年来の未解決問題を解いた。 | ✅ p.20 |
 | 11 | 2025 | Runner-up | [Superposition Yields Robust Neural Scaling](https://arxiv.org/abs/2505.10465) | 表現の重ね合わせが強いと損失はモデル幅に反比例する。これが LLM のスケーリング則を説明する。 | ✅ p.22 |
 | 12 | 2025 | Test of Time | [Faster R-CNN](https://proceedings.neurips.cc/paper/2015/hash/14bfa6bb14875e45bba028a21ed38046-Abstract.html) | 特徴を共有する RPN とアンカーを導入した、二段式物体検出の標準形（NIPS 2015）。 | ✅ p.24 |
-| 13 | 2024 | Best Paper | [Visual Autoregressive Modeling (VAR)](https://arxiv.org/abs/2404.02905) | 画像を「次の解像度」の予測として自己回帰で生成する（検索情報に基づく）。 | ⚠️ 本文未確認 |
-| 14 | 2024 | Best Paper | [Stochastic Taylor Derivative Estimator](https://arxiv.org/abs/2412.00088) | 高階微分を含む損失を効率よく推定する（検索情報に基づく）。 | ⚠️ 本文未確認 |
-| 15 | 2024 | Runner-up | [Not All Tokens Are What You Need for Pretraining (Rho-1)](https://arxiv.org/abs/2404.07965) | 有用なトークンだけに損失をかける選択的な事前学習（検索情報に基づく）。 | ⚠️ 本文未確認 |
-| 16 | 2024 | Runner-up | [Guiding a Diffusion Model with a Bad Version of Itself](https://arxiv.org/abs/2406.02507) | 劣化版の自分自身で拡散モデルを誘導する autoguidance（題名の明示は未照合）。 | ⚠️ 本文未確認 |
-| 17 | 2024 | Best Paper（D&B） | [The PRISM Alignment Dataset](https://arxiv.org/abs/2404.16019) | 参加型・個人化された人間フィードバックによるアライメント用データセット。 | ⚠️ 本文未確認 |
+| 13 | 2024 | Best Paper | [Visual Autoregressive Modeling (VAR)](https://arxiv.org/abs/2404.02905) | 画像を粗→細の「次スケール予測」で自己回帰生成し、ImageNet 256 で FID 1.73。GPT 型 AR で初めて DiT を上回った。 | ✅ p.26 |
+| 14 | 2024 | Best Paper | [Stochastic Taylor Derivative Estimator](https://arxiv.org/abs/2412.00088) | Taylor モード AD にランダムなジェットを入れて任意の微分作用素を不偏推定。100 万次元の PDE を GPU 1 枚・8 分で解いた。 | ✅ p.28 |
+| 15 | 2024 | Runner-up | [Guiding a Diffusion Model with a Bad Version of Itself](https://arxiv.org/abs/2406.02507) | 小さく学習の浅い自分自身で誘導する autoguidance。多様性を保ったまま画質を上げ、ImageNet-512 で FID 1.25。 | ✅ p.30 |
+| 16 | 2024 | Runner-up | [Not All Tokens Are What You Need for Pretraining (Rho-1)](https://arxiv.org/abs/2404.07965) | 参照モデルとの超過損失が大きいトークンだけを学ぶ SLM。15B トークンで 500B 使う DeepSeekMath-7B に匹敵。 | ✅ p.32 |
+| 17 | 2024 | Best Paper（D&B） | [The PRISM Alignment Dataset](https://arxiv.org/abs/2404.16019) | 参加型・個人化された人間フィードバックによるアライメント用データセット（公式受賞一覧の要旨に基づく）。 | ⚠️ 本文未確認 |
 | 18 | 2024 | Test of Time | [Generative Adversarial Nets](https://arxiv.org/abs/1406.2661) | NIPS 2014 の GAN。 | — 参照のみ |
 | 19 | 2024 | Test of Time | [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215) | NIPS 2014 の Seq2Seq。 | — 参照のみ |
 | 20 | 2023 | Outstanding | [Privacy Auditing with One (1) Training Run](https://arxiv.org/abs/2305.08846) | 1 回の学習で差分プライバシーを監査する。 | ⚠️ 本文未確認 |
 | 21 | 2023 | Outstanding | [Are Emergent Abilities of Large Language Models a Mirage?](https://arxiv.org/abs/2304.15004) | LLM の「創発能力」は評価指標による見かけの現象だと論じた。 | ⚠️ 本文未確認 |
-| 22 | 2023 | Runner-up | [Scaling Data-Constrained Language Models](https://arxiv.org/abs/2305.16264) | データが限られるときのスケーリング則（区分は未照合）。 | ⚠️ 本文未確認 |
-| 23 | 2023 | Runner-up | [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) | 選好データから方策を直接最適化する DPO（区分は未照合）。 | ⚠️ 本文未確認 |
+| 22 | 2023 | Runner-up | [Scaling Data-Constrained Language Models](https://arxiv.org/abs/2305.16264) | データが限られるときの、反復学習を含むスケーリング則。 | ⚠️ 本文未確認 |
+| 23 | 2023 | Runner-up | [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) | 選好データから方策を直接最適化する DPO。 | ⚠️ 本文未確認 |
 | 24 | 2023 | Outstanding（D&B） | [ClimSim](https://arxiv.org/abs/2306.08754) | 物理と ML を組み合わせた気候エミュレーション用のデータセット。 | ⚠️ 本文未確認 |
 | 25 | 2023 | Outstanding（D&B） | [DecodingTrust](https://arxiv.org/abs/2306.11698) | GPT モデルの信頼性を総合的に評価する。 | ⚠️ 本文未確認 |
-| 26 | 2023 | Test of Time | [Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546) | NIPS 2013 の word2vec（未照合）。 | — 参照のみ |
+| 26 | 2023 | Test of Time | [Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546) | NIPS 2013 の word2vec。 | — 参照のみ |
+
+受賞の区分はすべて公式の受賞一覧（https://neurips.cc/virtual/2023〜2025/awards_detail、2024 の Test of Time は https://neurips.cc/virtual/2024/test-of-time/105032）で確認した。
 
 ### 不明な点
-- NeurIPS 2026 の Best Paper・Runner-up・Test of Time はまだ発表されていない（例年 11 月末〜12 月上旬）。発表されたら差し替えが必要。
-- NeurIPS 2026 の Oral 一覧は公式サイトと OpenReview API に到達できず、取得できなかった。Oral の判定は著者の arXiv コメントによる。
-- NeurIPS 2027 の開催地・会期・締切、2026 のリバッタル期間とカメラレディの公式日付。
-- 2025・2024 の選考委員会コメント（公式ブログの本文に到達できなかった）。評価ポイントは調査者の見立て。
-- 2023 の受賞区分の一部（DPO・Scaling Data-Constrained LMs の Runner-up、word2vec の Test of Time）は検索で照合できていない。2024 の autoguidance も題名の明示は未確認。
-- 2022〜2023 の採否通知日と 2022 の投稿数・採択数。2023 の投稿数（12,345）は Paper Copilot の値で、公式資料では確認していない。
+- NeurIPS 2026 の Best Paper・Runner-up・Test of Time はまだ発表されていない（公式の受賞ページは 2026-10-28 時点で空。例年 11 月末〜12 月上旬に発表）。発表されたら差し替えが必要。
+- NeurIPS 2027 の都市・会期・締切（「欧州」以外は未発表）。2026 のカメラレディ締切（公式 Dates に記載なし）。
+- 2023〜2025 の選考委員会コメント（受賞理由）。公式ブログと報道資料（media.neurips.cc）に届かず、評価ポイントは調査者の見立てのまま。
+- 2022 の採択数（Paper Copilot 2,671、Fact Sheet の検索抜粋 2,905 で基準が食い違う）。2023 の投稿数は Fact Sheet の検索抜粋で 12,343（Paper Copilot は 12,345）。2026 の投稿・採択数は公式統計が未公開で、所属機関のニュースによる値。
 
 ---
 
@@ -749,15 +755,16 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 
 ### 次回：ICLR 2028（次の投稿機会）（推定）
 
-- 会期・開催地：2028-04〜05 頃（推定） ／ 米国カリフォルニア州（公式は会場未発表。第三者情報では San Francisco, Moscone Center）
+- 会期・開催地：2028-04〜05 頃（推定） ／ 米国カリフォルニア州（ICLR 2027。公式は州名のみで会場は未発表。第三者情報では San Francisco, Moscone Center）。ICLR 2028 の開催地は未発表
 - ICLR 2027 査読公開（著者・査読者の議論開始） 2026-11-05（公式） — 根拠：ICLR 2027 Dates ページ。第三者サイトの 10/29 という記載は公式と食い違うため採らない
 - ICLR 2027 著者・査読者の議論期間の終了 2026-11-18 AoE（公式） — 根拠：ICLR 2027 Dates ページ（ccf-deadlines の rebuttal 欄も 11/18）
 - ICLR 2027 採否通知 2026-12-16（公式） — 根拠：ICLR 2027 Dates ページ・Call for Papers（第三者サイトの 12/9 は採らない）
-- ICLR 2027 会期 2027-04-26（推定） — 根拠：2027-04-26〜30。第三者情報（Beri, ccf-deadlines）。公式ページは開催地・会期を未確定と表記
+- ICLR 2027 カメラレディ（指示メールの送付） 2027-02-中旬（公式） — 根拠：Author Guide に「カメラレディのアップロード方法の案内メールは 2027 年 2 月中旬に送付」。締切日そのものは未掲載（参考：2025 年は 3/14、2024 年は 4/14 が締切）
+- ICLR 2027 会期 2027-04-26（公式） — 根拠：公式トップに「California, April 26-30, 2027」。Dates ページでは本会議 4/26〜28、ワークショップ 4/29〜30。会場は「Venue information will be posted here」で未発表（2026-10-28 確認）
 - ICLR 2028 アブストラクト締切（次の投稿機会） 2027-09-17 23:59 AoE（推定） — 根拠：過去5回のアブストラクト締切は 2022-09-21、2023-09-23、2024-09-27、2025-09-19、2026-09-18 で、直近2回は9月第3金曜。2027 年の同じ曜日は 9/17。幅は 9/17〜9/24
 - ICLR 2028 論文締切（次の投稿機会） 2027-09-24 23:59 AoE（推定） — 根拠：過去5回の論文締切は 2022-09-28、2023-09-28、2024-10-01、2025-09-24、2026-09-25 で、アブストラクトの約1週間後。2026 年と同じ曜日（金曜）なら 9/24。幅は 9/22〜10/1
 - ICLR 2028 採否通知 2028-01-下旬（推定） — 根拠：2023〜2026 は 1/21、（2024 は未確認）、1/22、1/25 と1月下旬。2027 は 12/16 と早まったため、12 月中旬〜1 月下旬の幅がある
-- 補足：ICLR 2027 は投稿締切済み（2026-09-25）で審査中。ICLR 2027 の残り日程（査読公開・議論期間・採否通知）は公式、会期 2027-04-26〜30（San Francisco）は第三者情報で公式ページは未確定表記。表の ICLR 2028 の日付は過去の回からの推定。 ICLR 2027 の投稿締切（アブストラクト 2026-09-18、論文 2026-09-25、いずれも AoE）は過ぎている。ICLR 2028 の公式日程は未発表。ICLR 2027 では 1 著者あたり投稿 20 本の上限、相互査読義務、AI 利用申告の必須化が導入された。
+- 補足：ICLR 2027 は投稿締切済み（アブストラクト 2026-09-18、論文 2026-09-25、AoE）で審査中。査読公開 11/5、議論期間 11/5〜11/18、採否通知 12/16、会期 2027-04-26〜30（本会議 4/26〜28、ワークショップ 4/29〜30、カリフォルニア州）はいずれも公式（iclr.cc、2026-10-28 確認）。会場名は公式未発表。表の ICLR 2028 の日付は過去の回からの推定で、iclr.cc に ICLR 2028 のページはまだない（Future Meetings ページも「ICLR 2027: West Coast North America」のみ）。ICLR 2027 では 1 著者あたり投稿 20 本の上限、相互査読義務、AI 利用申告の必須化が導入された。
 
 ### 形式
 
@@ -777,8 +784,8 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 
 ### 傾向
 
-- 投稿数の急増：2023 年 4,966 本 → 2024 年 7,304 本 → 2025 年 11,565 本 → 2026 年 19,525 本（有効投稿、ICLR blog）。2027 年はアブストラクト登録が 6 万件を超えたと報じられた（2026-09、公式の確定値は未確認）。
-- 採択率：31.8%（2023）、30.9%（2024）、約 32%（2025）、27.4%（2026、5,355 本採択）。規模拡大の中でやや低下。
+- 投稿数の急増：2023 年 4,938 本 → 2024 年 7,262 本 → 2025 年 11,603 本 → 2026 年 19,525 本（各年のプレスリリース・ファクトシート）。2027 年はアブストラクト登録が 6 万件を超えたと報じられた（2026-09、公式の確定値は未発表）。
+- 採択率：31.9%（2023、1,574 本）、31.1%（2024、2,260 本）、31.9%（2025、3,704 本）、27.4%（2026、5,355 本）。規模拡大の中で 2026 年に低下。
 - 相互査読義務と投稿制限（2027）：全投稿で著者の1人以上が査読者登録、3本以上投稿する著者は6本以上を査読し、不履行なら desk reject の可能性。1 著者 20 本の上限（超過分はランダムに desk reject）。査読資格者のいない論文は1著者1本まで（2026 年はそうした投稿が約 20% で採択率は約半分）。
 - LLM 生成査読への対応：2025 年は約 2 万件の査読に LLM のフィードバックを返す無作為化実験（27% の査読者が修正、arXiv 2504.09737）。2026 年は LLM 使用の開示を義務化し、2種の検出器で全査読を調べ完全生成と判定されたものを AC に通知、存在しない文献を引く投稿は desk reject。第三者（Pangram Labs）の推定では査読の約 21% が完全 AI 生成。2027 年は AI 利用申告を必須化。
 - 運営上の事件：2025 年 11 月、OpenReview API の不具合を突かれ ICLR 2026 の著者・査読者・AC の身元が大量に流出。スコアのリセット、議論の凍結、AC の再割当を行い、査読者への嫌がらせや買収の働きかけも報告された（ICLR blog 2026-03-31）。
@@ -801,10 +808,12 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 ### 調査履歴
 - 2026-10-27: WebSearch（iclr.cc・blog.iclr.cc の検索結果スニペット）、ccf-deadlines の iclr.yml、受賞一覧の集約（GitHub: Top-Conference-Best-Papers）で ICLR 2023〜2027 の締切・会期・投稿数と 2023〜2026 年の Outstanding Paper・Honorable Mention・Test of Time を調べた。iclr.cc・blog.iclr.cc・media.iclr.cc には直接到達できず、公式情報は検索スニペットで確認した。
 - 本文は arXiv から 12 本の PDF を取得し全文を読んでスライド化（2026 年の受賞 5 本はすべて含む）。ICLR 2026 の査読をめぐる問題（LLM 生成査読、OpenReview の身元流出）と ICLR 2027 の新ルール（投稿上限・相互査読・AI 利用申告）は ICLR blog と報道で確認した。
+- 2026-10-28: 公式サイト iclr.cc に直接届くようになり、2023・2024 年の受賞一覧を公式受賞ページ（virtual/2023・2024/awards_detail）で照合（題名・著者・賞の名前が一致、2023 年に Test of Time 賞がないことも確認）、2024 年 Test of Time（VAE、Szegedy ら）を公式イベントページで確認・修正した。ICLR 2027 の会期（2027-04-26〜30、カリフォルニア州）を公式トップで確認して「公式」に直し、カメラレディの案内時期（2027 年 2 月中旬）と ICLR 2024 の採否通知予定日（2024-01-15、CfP）を追加した。投稿数はプレスリリース・ファクトシートの値（2023 年 4,938、2024 年 7,262、2025 年 11,603）に修正した。
+- 2026-10-28: 選考理由として Polar Express（2026 HM）、Adam（2025 ToT）、UniSim・ViT Registers（2024）、GD-WL（2023）の委員会コメントを ICLR blog の検索スニペットから反映した。AlphaEdit（2025）、拡散モデルの汎化（2024）、Never Train from Scratch（2024）、DreamFusion（2023）の 4 本を arXiv で全文を読んで追加し、デッキは 16 本になった。blog.iclr.cc・media.iclr.cc・proceedings.iclr.cc・openreview.net（Turnstile／403）には届かず、2025・2026 年の公式受賞ページ（awards_detail）は中身が空だった。
 
 ### 締切の要点
-- ICLR 2027（2027-04-26〜30、米国カリフォルニア州・San Francisco と報道）の投稿締切は過ぎている（アブストラクト 2026-09-18、論文 2026-09-25、AoE、公式）。今後は査読公開 2026-11-05、著者・査読者の議論終了 2026-11-18、採否通知 2026-12-16（いずれも公式）。
-- 次の投稿機会は ICLR 2028（推定）：アブストラクト 2027-09-17 前後、論文 2027-09-24 前後（23:59 AoE）。根拠は過去 5 回の締切がいずれも 9 月下旬〜10 月初旬（論文 9/28、9/28、10/1、9/24、9/25）で、直近 2 回は 9 月第 3〜4 金曜であること。
+- ICLR 2027（2027-04-26〜30、米国カリフォルニア州。本会議 4/26〜28、ワークショップ 4/29〜30。公式。会場名は未発表で、第三者情報では San Francisco）の投稿締切は過ぎている（アブストラクト 2026-09-18、論文 2026-09-25、AoE、公式）。今後は査読公開 2026-11-05、著者・査読者の議論終了 2026-11-18、採否通知 2026-12-16（いずれも公式）。カメラレディの案内メールは 2027 年 2 月中旬（公式。締切日は未掲載）。
+- 次の投稿機会は ICLR 2028（推定）：アブストラクト 2027-09-17 前後、論文 2027-09-24 前後（23:59 AoE）。根拠は過去 5 回の締切がいずれも 9 月下旬〜10 月初旬（論文 9/28、9/28、10/1、9/24、9/25）で、直近 2 回は 9 月第 3〜4 金曜であること。iclr.cc に ICLR 2028 のページはなく、Future Meetings ページも「ICLR 2027: West Coast North America」のみ（2026-10-28 確認）。
 - ICLR 2027 から 1 著者 20 本の投稿上限、相互査読義務（3 本以上の著者は 6 本以上査読）、AI 利用申告の必須化が入った。
 
 ### 受賞・話題の論文一覧
@@ -814,20 +823,20 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 | 2 | 2026 | Outstanding Paper Award | [LLMs Get Lost In Multi-Turn Conversation](https://openreview.net/forum?id=VKGTGGcwl6) | 指示を小出しにする多ターン会話で 15 の LLM が平均 39% 性能を落とし、主因は信頼性の低下であることを 20 万会話超のシミュレーションで示した。 | ✅ p.4 |
 | 3 | 2026 | Test of Time Award（ICLR 2016 論文） | [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/abs/1511.06434) | DCGAN。畳み込み GAN の安定な設計指針と、潜在空間の演算による意味操作を示し、画像生成分野を始動させた。DDPG と共同受賞。 | ✅ p.6 |
 | 4 | 2026 | Test of Time Award（ICLR 2016 論文） | [Continuous control with deep reinforcement learning](https://arxiv.org/abs/1509.02971) | DDPG。DQN の経験再生と目標ネットワークを決定論的方策勾配に持ち込み、連続行動の物理制御を深層 RL で解いた。DCGAN と共同受賞。 | ✅ p.8 |
-| 5 | 2026 | Outstanding Paper Honorable Mention | [The Polar Express: Optimal Matrix Sign Methods and Their Application to the Muon Algorithm](https://openreview.net/forum?id=yRtgZ1K8hO) | Muon の極分解を、各反復で minimax 最適な奇数多項式を選ぶ行列積だけの反復法で計算し、GPT-2 学習の検証損失を改善した。 | ✅ p.10 |
-| 6 | 2025 | Outstanding Paper Award | [Safety Alignment Should Be Made More Than Just a Few Tokens Deep](https://openreview.net/forum?id=6Mxhg9PtDE) | 安全性整列が先頭数トークンにしか効いていない「浅さ」を示し、各種脱獄を統一的に説明。データ拡張と制約付き微調整で対策した。 | ✅ p.12 |
+| 5 | 2026 | Outstanding Paper Honorable Mention | [The Polar Express: Optimal Matrix Sign Methods and their Application to the Muon Algorithm](https://openreview.net/forum?id=yRtgZ1K8hO) | Muon の極分解を、各反復で minimax 最適な奇数多項式を選ぶ行列積だけの反復法で計算し、GPT-2 学習の検証損失を改善した。 | ✅ p.10 |
+| 6 | 2025 | Outstanding Paper Award | [Safety Alignment Should be Made More Than Just a Few Tokens Deep](https://openreview.net/forum?id=6Mxhg9PtDE) | 安全性整列が先頭数トークンにしか効いていない「浅さ」を示し、各種脱獄を統一的に説明。データ拡張と制約付き微調整で対策した。 | ✅ p.12 |
 | 7 | 2025 | Outstanding Paper Award | [Learning Dynamics of LLM Finetuning](https://openreview.net/forum?id=tPNHOoZFl9) | 微調整の1ステップの影響を分解する枠組みで、SFT 後の幻覚や DPO の squeezing effect を説明し、簡単な改善法を導いた。 | ✅ p.14 |
-| 8 | 2025 | Outstanding Paper Award | [AlphaEdit: Null-Space Constrained Model Editing for Language Models](https://openreview.net/forum?id=HvSytvg3Jh) | LLM の知識編集で、更新を保存したい知識の零空間に射影して既存知識を壊さないようにする手法。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 8 | 2025 | Outstanding Paper Award | [AlphaEdit: Null-Space Constrained Knowledge Editing for Language Models](https://openreview.net/forum?id=HvSytvg3Jh) | 知識編集の更新を保存知識のキー行列の零空間へ射影し、既存知識を壊さずに逐次編集する。LLaMA3 の Counterfact 逐次編集で成功率は MEMIT の 65.7% に対し 98.9%。 | ✅ p.16 |
 | 9 | 2025 | Outstanding Paper Honorable Mention | [Data Shapley in One Training Run](https://openreview.net/forum?id=HD6bWcj87Y) | 再学習なしに、1回の学習の中で各データの寄与（Data Shapley 値）を推定する手法。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 10 | 2025 | Outstanding Paper Honorable Mention | [SAM 2: Segment Anything in Images and Videos](https://openreview.net/forum?id=Ha6RTeWMd0) | 画像と動画の両方でプロンプトに応じて物体を切り出すセグメンテーション基盤モデル。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 11 | 2025 | Outstanding Paper Honorable Mention | [Faster Cascades via Speculative Decoding](https://openreview.net/forum?id=vo9t20wsmd) | 小モデルと大モデルのカスケードと投機的デコーディングを組み合わせ、推論を高速化する手法。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 12 | 2025 | Test of Time Award（ICLR 2015 論文） | [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980) | 勾配の1次・2次モーメントとバイアス補正による適応的最適化法。深層学習の事実上の標準になった。 | ✅ p.16 |
-| 13 | 2025 | Test of Time Runner-up（ICLR 2015 論文） | [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473) | 注意機構（attention）を初めて系列変換に導入したニューラル機械翻訳。Transformer の源流。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 14 | 2024 | Outstanding Paper Award | [Learning Interactive Real-World Simulators](https://openreview.net/forum?id=sFyTZEqmUY) | UniSim。多様なデータを統合した行動条件付き動画拡散モデルで実世界シミュレータを学び、その中で学んだ方策が実機に移った。 | ✅ p.18 |
-| 15 | 2024 | Outstanding Paper Award | [Vision Transformers Need Registers](https://openreview.net/forum?id=2dnO3LLiJ1) | 大型 ViT の高ノルム外れトークンを大域情報の置き場と解釈し、レジスタトークンの追加で解消した。 | ✅ p.20 |
-| 16 | 2024 | Outstanding Paper Award | [Generalization in diffusion models arises from geometry-adaptive harmonic representations](https://openreview.net/forum?id=ANvmVS2Yr0) | 拡散モデルが訓練データを記憶せず汎化する仕組みを、画像の幾何に適応した調和基底による表現として説明した。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 17 | 2024 | Outstanding Paper Award | [Never Train from Scratch: Fair Comparison of Long-Sequence Models Requires Data-Driven Priors](https://openreview.net/forum?id=PdaPky8MUn) | 長系列モデルの比較では自己事前学習を入れないと Transformer が不当に不利になることを示し、評価の前提を見直した。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 18 | 2024 | Outstanding Paper Award | [Protein Discovery with Discrete Walk-Jump Sampling](https://openreview.net/forum?id=zMPHKOmQNb) | 離散配列のタンパク質（抗体）設計に、スコアベースの walk-jump サンプリングを用いる生成手法。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 12 | 2025 | Test of Time Award（ICLR 2015 論文） | [Adam: A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980) | 勾配の1次・2次モーメントとバイアス補正による適応的最適化法。深層学習の事実上の標準になった。 | ✅ p.18 |
+| 13 | 2025 | Test of Time Runner-up（ICLR 2015 論文） | [Neural Machine Translation by Jointly Learning to Align and Translate](https://arxiv.org/abs/1409.0473) | 固定長ベクトルに圧縮せず、翻訳中に原文の異なる部分へ注目する注意機構を導入した。Transformer と LLM の基盤（選考委員会の説明の検索スニペットに基づく）。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 14 | 2024 | Outstanding Paper Award | [Learning Interactive Real-World Simulators](https://openreview.net/forum?id=sFyTZEqmUY) | UniSim。多様なデータを統合した行動条件付き動画拡散モデルで実世界シミュレータを学び、その中で学んだ方策が実機に移った。 | ✅ p.20 |
+| 15 | 2024 | Outstanding Paper Award | [Vision Transformers Need Registers](https://openreview.net/forum?id=2dnO3LLiJ1) | 大型 ViT の高ノルム外れトークンを大域情報の置き場と解釈し、レジスタトークンの追加で解消した。 | ✅ p.22 |
+| 16 | 2024 | Outstanding Paper Award | [Generalization in diffusion models arises from geometry-adaptive harmonic representations](https://openreview.net/forum?id=ANvmVS2Yr0) | 重ならない訓練集合で学んだ2つの拡散モデルが、10⁵ 枚程度でほぼ同じ密度に収束することを示し、その帰納バイアスを幾何適応的な調和基底（GAHB）での縮小として解析した。 | ✅ p.24 |
+| 17 | 2024 | Outstanding Paper Award | [Never Train from Scratch: Fair Comparison of Long-Sequence Models Requires Data-Driven Priors](https://openreview.net/forum?id=PdaPky8MUn) | 課題データだけでの自己事前学習を入れると素の Transformer が LRA で S4 に並び、長系列モデル間の差が乱数初期化の評価で大きく過大評価されていたことを示した。 | ✅ p.26 |
+| 18 | 2024 | Outstanding Paper Award | [Protein Discovery with Discrete Walk-Jump Sampling](https://openreview.net/forum?id=zMPHKOmQNb) | 平滑化したエネルギー関数を学び、Langevin MCMC で平滑化空間を歩いて1ステップのデノイズで真の離散配列へ跳ぶ生成法。抗体配列の設計に適用。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 19 | 2024 | Outstanding Paper Honorable Mention | [Amortizing intractable inference in large language models](https://openreview.net/forum?id=Ouj6p4ca60) | GFlowNet による微調整で、LLM の扱いにくい事後分布からのサンプリングを償却する。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 20 | 2024 | Outstanding Paper Honorable Mention | [Approximating Nash Equilibria in Normal-Form Games via Stochastic Optimization](https://openreview.net/forum?id=cc8h3I3V4E) | 標準形ゲームのナッシュ均衡近似を、確率的最適化で解ける損失関数として定式化した。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 21 | 2024 | Outstanding Paper Honorable Mention | [Beyond Weisfeiler-Lehman: A Quantitative Framework for GNN Expressiveness](https://openreview.net/forum?id=HSKaGOi7Ar) | 準同型の数え上げで GNN の表現力を定量化する枠組み。 | ↪ 既存：gnn/message-passing |
@@ -839,12 +848,12 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 | 27 | 2024 | Outstanding Paper Honorable Mention | [Robust agents learn causal world models](https://openreview.net/forum?id=pOoKI3ouv1) | 分布シフトに頑健なエージェントは必然的に因果世界モデルを学んでいることを理論的に示した。本アーカイブの world-model 分野に関係が深い。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 28 | 2024 | Outstanding Paper Honorable Mention | [The mechanistic basis of data dependence and abrupt learning in an in-context classification task](https://openreview.net/forum?id=aN4Jf6Cx69) | 文脈内学習が急に立ち上がる現象とデータ分布への依存を、誘導ヘッドの形成として機構的に説明した。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 29 | 2024 | Outstanding Paper Honorable Mention | [Towards a statistical theory of data selection under weak supervision](https://openreview.net/forum?id=HhfcNgQn6p) | 弱い教師の下でどのデータを選んで学習すべきかの統計理論。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 30 | 2024 | Test of Time Award（ICLR 2014 論文） | [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114) | VAE と再パラメータ化トリック。深層生成モデルと変分推論の基盤。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 31 | 2024 | Test of Time Runner-up（ICLR 2014 論文） | [Intriguing properties of neural networks](https://arxiv.org/abs/1312.6199) | 敵対的サンプルの発見。ニューラルネットの頑健性研究の起点。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 32 | 2023 | Outstanding Paper Award | [Rethinking the Expressive Power of GNNs via Graph Biconnectivity](https://openreview.net/forum?id=r9hNv76KoT3) | 二重連結性で GNN の表現力を測り、多くの GNN が関節点すら判別できないことを示し、距離付き WL（GD-WL）で解決した。 | ✅ p.22 |
-| 33 | 2023 | Outstanding Paper Award | [Emergence of Maps in the Memories of Blind Navigation Agents](https://openreview.net/forum?id=lTt4KjHSsyl) | 自己運動しか感じない盲目の航法エージェントの記憶に、地図状の表現が自然に生まれることを示した。 | ✅ p.24 |
+| 30 | 2024 | Test of Time Award（ICLR 2014 論文） | [Auto-Encoding Variational Bayes](https://arxiv.org/abs/1312.6114) | VAE と再パラメータ化トリック。深層学習と大規模な確率的推論の統合を先導した（公式の受賞説明：価値はその優雅さにあり、多くの確率モデルを生んだ）。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 31 | 2024 | Test of Time Runner-up（ICLR 2014 論文） | [Intriguing properties of neural networks](https://arxiv.org/abs/1312.6199) | 入力のごく小さな変化でニューラルネットが誤ることを示し、敵対的攻撃と防御の研究分野を生んだ（公式の受賞説明に基づく）。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 32 | 2023 | Outstanding Paper Award | [Rethinking the Expressive Power of GNNs via Graph Biconnectivity](https://openreview.net/forum?id=r9hNv76KoT3) | 二重連結性で GNN の表現力を測り、多くの GNN が関節点すら判別できないことを示し、距離付き WL（GD-WL）で解決した。 | ✅ p.28 |
+| 33 | 2023 | Outstanding Paper Award | [Emergence of Maps in the Memories of Blind Navigation Agents](https://openreview.net/forum?id=lTt4KjHSsyl) | 自己運動しか感じない盲目の航法エージェントの記憶に、地図状の表現が自然に生まれることを示した。 | ✅ p.30 |
 | 34 | 2023 | Outstanding Paper Award | [Universal Few-shot Learning of Dense Prediction Tasks with Visual Token Matching](https://openreview.net/forum?id=88nT0j5jAn) | 任意の密な予測タスクを少数例から学ぶ汎用手法（Visual Token Matching）。（概要は検索情報・題名に基づく） | — 参照のみ |
-| 35 | 2023 | Outstanding Paper Award | [DreamFusion: Text-to-3D using 2D Diffusion](https://openreview.net/forum?id=FjNys5c7VyY) | 2D の画像拡散モデルを事前分布に使い（Score Distillation Sampling）、テキストから 3D を生成する。（概要は検索情報・題名に基づく） | — 参照のみ |
+| 35 | 2023 | Outstanding Paper Award | [DreamFusion: Text-to-3D using 2D Diffusion](https://openreview.net/forum?id=FjNys5c7VyY) | 凍結した 2D 拡散モデル（Imagen）を損失として使う Score Distillation Sampling で、3D データなしにテキストから NeRF の 3D モデルを生成した。 | ✅ p.32 |
 | 36 | 2023 | Outstanding Paper Honorable Mention | [Towards Understanding Ensemble, Knowledge Distillation and Self-Distillation in Deep Learning](https://openreview.net/forum?id=Uuf2q9TfXGA) | アンサンブルと知識蒸留が効く理由を「多視点」データ構造で理論的に説明した。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 37 | 2023 | Outstanding Paper Honorable Mention | [Mastering the Game of No-Press Diplomacy via Human-Regularized Reinforcement Learning and Planning](https://openreview.net/forum?id=F61FwJTZhb) | 人間のプレイで正則化した RL と計画で、交渉なしの Diplomacy を攻略した。（概要は検索情報・題名に基づく） | — 参照のみ |
 | 38 | 2023 | Outstanding Paper Honorable Mention | [On the duality between contrastive and non-contrastive self-supervised learning](https://openreview.net/forum?id=kDEL91Dufpa) | 対照学習と非対照学習（VICReg など）の自己教師あり学習が理論的に近いことを示した。（概要は検索情報・題名に基づく） | — 参照のみ |
@@ -852,12 +861,14 @@ ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と
 | 40 | 2023 | Outstanding Paper Honorable Mention | [Disentanglement with Biological Constraints: A Theory of Functional Cell Types](https://openreview.net/forum?id=9Z_GfhZnGH) | 非負性とエネルギー制約が、神経細胞の機能的な細胞型（もつれの解けた表現）を生むことを理論的に示した。（概要は検索情報・題名に基づく） | — 参照のみ |
 
 ### 不明な点
-- ICLR 2027 の確定投稿数・採択数（アブストラクト登録 6 万超、フル投稿 4 万超との報道のみ）。開催地・会期の公式確定（公式ページは未確定表記）。カメラレディ締切。
-- ICLR 2028 の日程（未発表のため推定）と、例年の公式日程の公開時期。
-- ICLR 2024 の採否通知日（公式 Dates ページの該当行を確認できなかった）。
-- ICLR 2026 Outstanding Paper Honorable Mention（Polar Express）に対する選考委員会のコメント。2023〜2025 年の受賞論文ごとの選考コメント（選考基準のみ確認）。
-- ICLR 2025 の投稿数は資料により 11,565〜11,672 本と幅がある（採択 3,704 本）。
-- 2023 年の Test of Time 賞は確認できなかった（同賞は 2024 年に始まったとみられるが公式には未確認）。
+- ICLR 2027 の確定投稿数・採択数（アブストラクト登録 6 万超、フル投稿 4 万超との報道のみ）。会場名（公式は「California」のみ）とカメラレディの締切日（公式は「指示メールを 2027 年 2 月中旬に送付」のみ）。
+- ICLR 2028 の日程・開催地（iclr.cc に該当ページなし。過去の回からの推定のみ）。
+- ICLR 2024 の実際の採否通知日（CfP の予定日 2024-01-15 のみ確認。Dates ページには通知日の行がない）。
+- 2025 年 Outstanding Paper・Honorable Mention と 2024 年の多くの受賞論文について、論文ごとの選考コメント（2025 年は選考基準のみ確認。blog.iclr.cc に直接届かず、検索スニペットで拾えた範囲のみ反映）。
+- 2025・2026 年の受賞一覧は iclr.cc の awards_detail が空のため、公式ページでの照合ができていない（ICLR blog の検索スニペットと iclr.cc の採択論文データで題名・著者のみ照合）。
+- ICLR 2026 の採択数：blog の回顧記事は 5,355 本、ファクトシート（検索スニペット）は 5,357 本（採択率 27%）。どちらも投稿 19,525 本。
+- ICLR 2023 の投稿数：プレスリリース（直接取得）は 4,938 本、第1段階で使った資料は 4,966 本。本表はプレスリリースの値を採用。
+- ICLR 2025 の投稿数はファクトシート（検索スニペット）で 11,603 本と確定扱いにしたが、PDF 本体（media.iclr.cc）には届かず、第三者資料には 11,565・11,672 本もある。
 
 ---
 

@@ -9,10 +9,10 @@
   ],
   "website": "https://iclr.cc/",
   "summary": "ICLR は表現学習・深層学習の主要国際会議で、NeurIPS・ICML と並ぶ。査読と議論を OpenReview で公開し、著者と査読者が討論する期間がある。投稿数は 2023 年の約 5,000 本から 2026 年の 19,525 本へ急増し、2027 年はアブストラクト登録が 6 万件を超えたと報じられた。",
-  "date": "2026-10-27",
+  "date": "2026-10-28",
   "upcoming": {
     "edition": "ICLR 2028（次の投稿機会）",
-    "location": "米国カリフォルニア州（公式は会場未発表。第三者情報では San Francisco, Moscone Center）",
+    "location": "米国カリフォルニア州（ICLR 2027。公式は州名のみで会場は未発表。第三者情報では San Francisco, Moscone Center）。ICLR 2028 の開催地は未発表",
     "dates": "2028-04〜05 頃（推定）",
     "status": "推定",
     "deadlines": [
@@ -41,12 +41,20 @@
         "source": "https://iclr.cc/Conferences/2027/Dates"
       },
       {
+        "label": "ICLR 2027 カメラレディ（指示メールの送付）",
+        "date": "2027-02-中旬",
+        "time": null,
+        "status": "公式",
+        "basis": "Author Guide に「カメラレディのアップロード方法の案内メールは 2027 年 2 月中旬に送付」。締切日そのものは未掲載（参考：2025 年は 3/14、2024 年は 4/14 が締切）",
+        "source": "https://iclr.cc/Conferences/2027/AuthorGuidelines"
+      },
+      {
         "label": "ICLR 2027 会期",
         "date": "2027-04-26",
         "time": null,
-        "status": "推定",
-        "basis": "2027-04-26〜30。第三者情報（Beri, ccf-deadlines）。公式ページは開催地・会期を未確定と表記",
-        "source": "https://www.beri.net/events/iclr-2027"
+        "status": "公式",
+        "basis": "公式トップに「California, April 26-30, 2027」。Dates ページでは本会議 4/26〜28、ワークショップ 4/29〜30。会場は「Venue information will be posted here」で未発表（2026-10-28 確認）",
+        "source": "https://iclr.cc/Conferences/2027"
       },
       {
         "label": "ICLR 2028 アブストラクト締切（次の投稿機会）",
@@ -73,20 +81,20 @@
         "source": null
       }
     ],
-    "notes": "ICLR 2027 は投稿締切済み（2026-09-25）で審査中。ICLR 2027 の残り日程（査読公開・議論期間・採否通知）は公式、会期 2027-04-26〜30（San Francisco）は第三者情報で公式ページは未確定表記。表の ICLR 2028 の日付は過去の回からの推定。 ICLR 2027 の投稿締切（アブストラクト 2026-09-18、論文 2026-09-25、いずれも AoE）は過ぎている。ICLR 2028 の公式日程は未発表。ICLR 2027 では 1 著者あたり投稿 20 本の上限、相互査読義務、AI 利用申告の必須化が導入された。"
+    "notes": "ICLR 2027 は投稿締切済み（アブストラクト 2026-09-18、論文 2026-09-25、AoE）で審査中。査読公開 11/5、議論期間 11/5〜11/18、採否通知 12/16、会期 2027-04-26〜30（本会議 4/26〜28、ワークショップ 4/29〜30、カリフォルニア州）はいずれも公式（iclr.cc、2026-10-28 確認）。会場名は公式未発表。表の ICLR 2028 の日付は過去の回からの推定で、iclr.cc に ICLR 2028 のページはまだない（Future Meetings ページも「ICLR 2027: West Coast North America」のみ）。ICLR 2027 では 1 著者あたり投稿 20 本の上限、相互査読義務、AI 利用申告の必須化が導入された。"
   },
   "history": [
     {
       "edition": "ICLR 2027",
-      "location": "米国カリフォルニア州（San Francisco と報道、公式は会場未発表）",
-      "dates": "2027-04-26〜30（第三者情報）",
+      "location": "米国カリフォルニア州（公式は州名のみ。会場未発表）",
+      "dates": "2027-04-26〜30（公式。本会議 4/26〜28、ワークショップ 4/29〜30）",
       "abstract": "2026-09-18",
       "paper": "2026-09-25",
       "notification": "2026-12-16",
       "submissions": null,
       "accepted": null,
       "acceptanceRate": null,
-      "source": "https://iclr.cc/Conferences/2027/Dates"
+      "source": "https://iclr.cc/Conferences/2027"
     },
     {
       "edition": "ICLR 2026",
@@ -107,10 +115,10 @@
       "abstract": "2024-09-27",
       "paper": "2024-10-01",
       "notification": "2025-01-22",
-      "submissions": 11565,
+      "submissions": 11603,
       "accepted": 3704,
-      "acceptanceRate": "約32%",
-      "source": "https://www.iclr.cc/Conferences/2025/Dates"
+      "acceptanceRate": "31.9%（ファクトシート表記は 32%）",
+      "source": "https://media.iclr.cc/Conferences/ICLR2025/ICLR2025_Fact_Sheet.pdf"
     },
     {
       "edition": "ICLR 2024",
@@ -118,11 +126,11 @@
       "dates": "2024-05-07〜11",
       "abstract": "2023-09-23",
       "paper": "2023-09-28",
-      "notification": null,
-      "submissions": 7304,
+      "notification": "2024-01-15（CfP の予定日）",
+      "submissions": 7262,
       "accepted": 2260,
-      "acceptanceRate": "30.9%",
-      "source": "https://papercopilot.com/statistics/iclr-statistics/iclr-2024-statistics"
+      "acceptanceRate": "31.1%",
+      "source": "https://media.iclr.cc/Conferences/ICLR2024/ICLR2024-Fact_Sheet.pdf"
     },
     {
       "edition": "ICLR 2023",
@@ -131,10 +139,10 @@
       "abstract": "2022-09-21",
       "paper": "2022-09-28",
       "notification": "2023-01-21",
-      "submissions": 4966,
+      "submissions": 4938,
       "accepted": 1574,
-      "acceptanceRate": "31.8%",
-      "source": "https://ICLR.cc/media/Press/ICLR_2023_Press_Release.pdf"
+      "acceptanceRate": "31.9%",
+      "source": "https://iclr.cc/media/Press/ICLR_2023_Press_Release.pdf"
     }
   ],
   "format": [
@@ -152,8 +160,8 @@
     "LLM、生成モデル、強化学習、GNN、最適化、理論まで幅広く、本アーカイブの論文では世界モデル・GNN・SNN・ハイパーネットワークの採録が多い。"
   ],
   "trends": [
-    "投稿数の急増：2023 年 4,966 本 → 2024 年 7,304 本 → 2025 年 11,565 本 → 2026 年 19,525 本（有効投稿、ICLR blog）。2027 年はアブストラクト登録が 6 万件を超えたと報じられた（2026-09、公式の確定値は未確認）。",
-    "採択率：31.8%（2023）、30.9%（2024）、約 32%（2025）、27.4%（2026、5,355 本採択）。規模拡大の中でやや低下。",
+    "投稿数の急増：2023 年 4,938 本 → 2024 年 7,262 本 → 2025 年 11,603 本 → 2026 年 19,525 本（各年のプレスリリース・ファクトシート）。2027 年はアブストラクト登録が 6 万件を超えたと報じられた（2026-09、公式の確定値は未発表）。",
+    "採択率：31.9%（2023、1,574 本）、31.1%（2024、2,260 本）、31.9%（2025、3,704 本）、27.4%（2026、5,355 本）。規模拡大の中で 2026 年に低下。",
     "相互査読義務と投稿制限（2027）：全投稿で著者の1人以上が査読者登録、3本以上投稿する著者は6本以上を査読し、不履行なら desk reject の可能性。1 著者 20 本の上限（超過分はランダムに desk reject）。査読資格者のいない論文は1著者1本まで（2026 年はそうした投稿が約 20% で採択率は約半分）。",
     "LLM 生成査読への対応：2025 年は約 2 万件の査読に LLM のフィードバックを返す無作為化実験（27% の査読者が修正、arXiv 2504.09737）。2026 年は LLM 使用の開示を義務化し、2種の検出器で全査読を調べ完全生成と判定されたものを AC に通知、存在しない文献を引く投稿は desk reject。第三者（Pangram Labs）の推定では査読の約 21% が完全 AI 生成。2027 年は AI 利用申告を必須化。",
     "運営上の事件：2025 年 11 月、OpenReview API の不具合を突かれ ICLR 2026 の著者・査読者・AC の身元が大量に流出。スコアのリセット、議論の凍結、AC の再割当を行い、査読者への嫌がらせや買収の働きかけも報告された（ICLR blog 2026-03-31）。",
@@ -268,7 +276,7 @@
       "year": 2026,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
-      "title": "The Polar Express: Optimal Matrix Sign Methods and Their Application to the Muon Algorithm",
+      "title": "The Polar Express: Optimal Matrix Sign Methods and their Application to the Muon Algorithm",
       "authors": "Noah Amsel, David Persson, Christopher Musco, Robert M. Gower",
       "link": "https://openreview.net/forum?id=yRtgZ1K8hO",
       "slide": 5,
@@ -281,8 +289,8 @@
       "year": 2025,
       "kind": "award",
       "award": "Outstanding Paper Award",
-      "title": "Safety Alignment Should Be Made More Than Just a Few Tokens Deep",
-      "authors": "Xiangyu Qi ほか",
+      "title": "Safety Alignment Should be Made More Than Just a Few Tokens Deep",
+      "authors": "Xiangyu Qi, Ashwinee Panda, Kaifeng Lyu ほか（Princeton, Google DeepMind）",
       "link": "https://openreview.net/forum?id=6Mxhg9PtDE",
       "slide": 6,
       "status": "スライド化",
@@ -307,13 +315,13 @@
       "year": 2025,
       "kind": "award",
       "award": "Outstanding Paper Award",
-      "title": "AlphaEdit: Null-Space Constrained Model Editing for Language Models",
-      "authors": "Junfeng Fang ほか（Tat-Seng Chua ら）",
+      "title": "AlphaEdit: Null-Space Constrained Knowledge Editing for Language Models",
+      "authors": "Junfeng Fang, Houcheng Jiang, Kun Wang ほか（USTC, NUS。Xiangnan He, Tat-Seng Chua ら）",
       "link": "https://openreview.net/forum?id=HvSytvg3Jh",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "LLM の知識編集で、更新を保存したい知識の零空間に射影して既存知識を壊さないようにする手法。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
+      "slide": 8,
+      "status": "スライド化",
+      "summary": "知識編集の更新を保存知識のキー行列の零空間へ射影し、既存知識を壊さずに逐次編集する。LLaMA3 の Counterfact 逐次編集で成功率は MEMIT の 65.7% に対し 98.9%。",
+      "basis": null,
       "source": "https://blog.iclr.cc/2025/04/22/announcing-the-outstanding-paper-awards-at-iclr-2025/"
     },
     {
@@ -326,7 +334,7 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "再学習なしに、1回の学習の中で各データの寄与（Data Shapley 値）を推定する手法。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
+      "basis": "概要は題名・ICLR 公式データ（iclr.cc/virtual/2025）の題名・著者と検索情報に基づく（本文は読んでいない）",
       "source": "https://blog.iclr.cc/2025/04/22/announcing-the-outstanding-paper-awards-at-iclr-2025/"
     },
     {
@@ -339,7 +347,7 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "画像と動画の両方でプロンプトに応じて物体を切り出すセグメンテーション基盤モデル。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
+      "basis": "概要は題名・ICLR 公式データ（iclr.cc/virtual/2025）の題名・著者と検索情報に基づく（本文は読んでいない）",
       "source": "https://blog.iclr.cc/2025/04/22/announcing-the-outstanding-paper-awards-at-iclr-2025/"
     },
     {
@@ -352,7 +360,7 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "小モデルと大モデルのカスケードと投機的デコーディングを組み合わせ、推論を高速化する手法。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
+      "basis": "概要は題名・ICLR 公式データ（iclr.cc/virtual/2025）の題名・著者と検索情報に基づく（本文は読んでいない）",
       "source": "https://blog.iclr.cc/2025/04/22/announcing-the-outstanding-paper-awards-at-iclr-2025/"
     },
     {
@@ -362,11 +370,11 @@
       "title": "Adam: A Method for Stochastic Optimization",
       "authors": "Diederik P. Kingma, Jimmy Ba",
       "link": "https://arxiv.org/abs/1412.6980",
-      "slide": 8,
+      "slide": 9,
       "status": "スライド化",
       "summary": "勾配の1次・2次モーメントとバイアス補正による適応的最適化法。深層学習の事実上の標準になった。",
       "basis": null,
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://blog.iclr.cc/2025/04/14/announcing-the-test-of-time-award-winners-from-iclr-2015/"
     },
     {
       "year": 2025,
@@ -377,9 +385,9 @@
       "link": "https://arxiv.org/abs/1409.0473",
       "slide": null,
       "status": "参照のみ",
-      "summary": "注意機構（attention）を初めて系列変換に導入したニューラル機械翻訳。Transformer の源流。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "summary": "固定長ベクトルに圧縮せず、翻訳中に原文の異なる部分へ注目する注意機構を導入した。Transformer と LLM の基盤（選考委員会の説明の検索スニペットに基づく）。",
+      "basis": "概要は ICLR blog（2025-04-14）の検索スニペットに基づく（本文は読んでいない）",
+      "source": "https://blog.iclr.cc/2025/04/14/announcing-the-test-of-time-award-winners-from-iclr-2015/"
     },
     {
       "year": 2024,
@@ -388,11 +396,11 @@
       "title": "Learning Interactive Real-World Simulators",
       "authors": "Sherry Yang ほか",
       "link": "https://openreview.net/forum?id=sFyTZEqmUY",
-      "slide": 9,
+      "slide": 10,
       "status": "スライド化",
       "summary": "UniSim。多様なデータを統合した行動条件付き動画拡散モデルで実世界シミュレータを学び、その中で学んだ方策が実機に移った。",
       "basis": null,
-      "source": "https://blog.iclr.cc/?p=740"
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -401,11 +409,11 @@
       "title": "Vision Transformers Need Registers",
       "authors": "Timothée Darcet, Maxime Oquab, Julien Mairal, Piotr Bojanowski",
       "link": "https://openreview.net/forum?id=2dnO3LLiJ1",
-      "slide": 10,
+      "slide": 11,
       "status": "スライド化",
       "summary": "大型 ViT の高ノルム外れトークンを大域情報の置き場と解釈し、レジスタトークンの追加で解消した。",
       "basis": null,
-      "source": "https://blog.iclr.cc/?p=740"
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -414,11 +422,11 @@
       "title": "Generalization in diffusion models arises from geometry-adaptive harmonic representations",
       "authors": "Zahra Kadkhodaie, Florentin Guth, Eero P. Simoncelli, Stéphane Mallat",
       "link": "https://openreview.net/forum?id=ANvmVS2Yr0",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "拡散モデルが訓練データを記憶せず汎化する仕組みを、画像の幾何に適応した調和基底による表現として説明した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "slide": 12,
+      "status": "スライド化",
+      "summary": "重ならない訓練集合で学んだ2つの拡散モデルが、10⁵ 枚程度でほぼ同じ密度に収束することを示し、その帰納バイアスを幾何適応的な調和基底（GAHB）での縮小として解析した。",
+      "basis": null,
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -427,11 +435,11 @@
       "title": "Never Train from Scratch: Fair Comparison of Long-Sequence Models Requires Data-Driven Priors",
       "authors": "Ido Amos, Jonathan Berant, Ankit Gupta",
       "link": "https://openreview.net/forum?id=PdaPky8MUn",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "長系列モデルの比較では自己事前学習を入れないと Transformer が不当に不利になることを示し、評価の前提を見直した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "slide": 13,
+      "status": "スライド化",
+      "summary": "課題データだけでの自己事前学習を入れると素の Transformer が LRA で S4 に並び、長系列モデル間の差が乱数初期化の評価で大きく過大評価されていたことを示した。",
+      "basis": null,
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -442,9 +450,9 @@
       "link": "https://openreview.net/forum?id=zMPHKOmQNb",
       "slide": null,
       "status": "参照のみ",
-      "summary": "離散配列のタンパク質（抗体）設計に、スコアベースの walk-jump サンプリングを用いる生成手法。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "summary": "平滑化したエネルギー関数を学び、Langevin MCMC で平滑化空間を歩いて1ステップのデノイズで真の離散配列へ跳ぶ生成法。抗体配列の設計に適用。",
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -456,8 +464,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "GFlowNet による微調整で、LLM の扱いにくい事後分布からのサンプリングを償却する。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -469,21 +477,21 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "標準形ゲームのナッシュ均衡近似を、確率的最適化で解ける損失関数として定式化した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
       "title": "Beyond Weisfeiler-Lehman: A Quantitative Framework for GNN Expressiveness",
-      "authors": "Bohang Zhang ほか",
+      "authors": "Bohang Zhang, Jingchu Gai, Yiheng Du, Qiwei Ye, Di He, Liwei Wang",
       "link": "https://openreview.net/forum?id=HSKaGOi7Ar",
       "slide": null,
       "status": "既存：gnn/message-passing",
       "summary": "準同型の数え上げで GNN の表現力を定量化する枠組み。",
       "basis": null,
-      "source": "https://blog.iclr.cc/?p=740"
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -495,21 +503,21 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "フローマッチングを一般の多様体上に拡張した生成モデル（Riemannian Flow Matching）。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
       "title": "Is ImageNet worth 1 video? Learning strong image encoders from 1 long unlabelled video",
-      "authors": "Shashanka Venkataramanan ほか",
+      "authors": "Shashank Venkataramanan, Mamshad Nayeem Rizve, João Carreira, Yuki M. Asano, Yannis Avrithis",
       "link": "https://openreview.net/forum?id=Yen1lGns2o",
       "slide": null,
       "status": "参照のみ",
       "summary": "1本の長い一人称動画からの自己教師あり学習で強い画像エンコーダを得る。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -521,8 +529,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "メタ継続学習をヘッセ近似の観点から再解釈し、分散低減で改善した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -534,8 +542,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "注意ヘッドごとの特性に応じて KV キャッシュを適応的に圧縮する（FastGen）。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -547,8 +555,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "ベンチマークの並び順への感度から、ブラックボックス LLM のテストセット汚染を統計的に証明する。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -560,21 +568,21 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "分布シフトに頑健なエージェントは必然的に因果世界モデルを学んでいることを理論的に示した。本アーカイブの world-model 分野に関係が深い。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
       "kind": "award",
       "award": "Outstanding Paper Honorable Mention",
       "title": "The mechanistic basis of data dependence and abrupt learning in an in-context classification task",
-      "authors": "Gautam Reddy",
+      "authors": "Gautam Reddy Nallamala",
       "link": "https://openreview.net/forum?id=aN4Jf6Cx69",
       "slide": null,
       "status": "参照のみ",
       "summary": "文脈内学習が急に立ち上がる現象とデータ分布への依存を、誘導ヘッドの形成として機構的に説明した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -586,8 +594,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "弱い教師の下でどのデータを選んで学習すべきかの統計理論。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=740"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2024/awards_detail"
     },
     {
       "year": 2024,
@@ -598,9 +606,9 @@
       "link": "https://arxiv.org/abs/1312.6114",
       "slide": null,
       "status": "参照のみ",
-      "summary": "VAE と再パラメータ化トリック。深層生成モデルと変分推論の基盤。",
+      "summary": "VAE と再パラメータ化トリック。深層学習と大規模な確率的推論の統合を先導した（公式の受賞説明：価値はその優雅さにあり、多くの確率モデルを生んだ）。",
       "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://iclr.cc/virtual/2024/test-of-time/21444"
     },
     {
       "year": 2024,
@@ -611,9 +619,9 @@
       "link": "https://arxiv.org/abs/1312.6199",
       "slide": null,
       "status": "参照のみ",
-      "summary": "敵対的サンプルの発見。ニューラルネットの頑健性研究の起点。",
+      "summary": "入力のごく小さな変化でニューラルネットが誤ることを示し、敵対的攻撃と防御の研究分野を生んだ（公式の受賞説明に基づく）。",
       "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://github.com/FeijiangHan/Top-Conference-Best-Papers"
+      "source": "https://iclr.cc/virtual/2024/test-of-time/23478"
     },
     {
       "year": 2023,
@@ -622,11 +630,11 @@
       "title": "Rethinking the Expressive Power of GNNs via Graph Biconnectivity",
       "authors": "Bohang Zhang, Shengjie Luo, Liwei Wang, Di He",
       "link": "https://openreview.net/forum?id=r9hNv76KoT3",
-      "slide": 11,
+      "slide": 14,
       "status": "スライド化",
       "summary": "二重連結性で GNN の表現力を測り、多くの GNN が関節点すら判別できないことを示し、距離付き WL（GD-WL）で解決した。",
       "basis": null,
-      "source": "https://blog.iclr.cc/?p=476"
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -635,11 +643,11 @@
       "title": "Emergence of Maps in the Memories of Blind Navigation Agents",
       "authors": "Erik Wijmans ほか",
       "link": "https://openreview.net/forum?id=lTt4KjHSsyl",
-      "slide": 12,
+      "slide": 15,
       "status": "スライド化",
       "summary": "自己運動しか感じない盲目の航法エージェントの記憶に、地図状の表現が自然に生まれることを示した。",
       "basis": null,
-      "source": "https://blog.iclr.cc/?p=476"
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -651,8 +659,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "任意の密な予測タスクを少数例から学ぶ汎用手法（Visual Token Matching）。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -661,11 +669,11 @@
       "title": "DreamFusion: Text-to-3D using 2D Diffusion",
       "authors": "Ben Poole, Ajay Jain, Jonathan T. Barron, Ben Mildenhall",
       "link": "https://openreview.net/forum?id=FjNys5c7VyY",
-      "slide": null,
-      "status": "参照のみ",
-      "summary": "2D の画像拡散モデルを事前分布に使い（Score Distillation Sampling）、テキストから 3D を生成する。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "slide": 16,
+      "status": "スライド化",
+      "summary": "凍結した 2D 拡散モデル（Imagen）を損失として使う Score Distillation Sampling で、3D データなしにテキストから NeRF の 3D モデルを生成した。",
+      "basis": null,
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -677,8 +685,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "アンサンブルと知識蒸留が効く理由を「多視点」データ構造で理論的に説明した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -690,8 +698,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "人間のプレイで正則化した RL と計画で、交渉なしの Diplomacy を攻略した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -703,8 +711,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "対照学習と非対照学習（VICReg など）の自己教師あり学習が理論的に近いことを示した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -716,8 +724,8 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "抗体の配列と立体構造を等変 GNN で同時に生成する（MEAN）。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     },
     {
       "year": 2023,
@@ -729,17 +737,19 @@
       "slide": null,
       "status": "参照のみ",
       "summary": "非負性とエネルギー制約が、神経細胞の機能的な細胞型（もつれの解けた表現）を生むことを理論的に示した。",
-      "basis": "概要は題名・検索情報に基づく（本文は読んでいない）",
-      "source": "https://blog.iclr.cc/?p=476"
+      "basis": "概要は公式受賞ページのアブストラクトと検索情報に基づく（本文は読んでいない）",
+      "source": "https://iclr.cc/virtual/2023/awards_detail"
     }
   ],
   "unknowns": [
-    "ICLR 2027 の確定投稿数・採択数（アブストラクト登録 6 万超、フル投稿 4 万超との報道のみ）。開催地・会期の公式確定（公式ページは未確定表記）。カメラレディ締切。",
-    "ICLR 2028 の日程（未発表のため推定）と、例年の公式日程の公開時期。",
-    "ICLR 2024 の採否通知日（公式 Dates ページの該当行を確認できなかった）。",
-    "ICLR 2026 Outstanding Paper Honorable Mention（Polar Express）に対する選考委員会のコメント。2023〜2025 年の受賞論文ごとの選考コメント（選考基準のみ確認）。",
-    "ICLR 2025 の投稿数は資料により 11,565〜11,672 本と幅がある（採択 3,704 本）。",
-    "2023 年の Test of Time 賞は確認できなかった（同賞は 2024 年に始まったとみられるが公式には未確認）。"
+    "ICLR 2027 の確定投稿数・採択数（アブストラクト登録 6 万超、フル投稿 4 万超との報道のみ）。会場名（公式は「California」のみ）とカメラレディの締切日（公式は「指示メールを 2027 年 2 月中旬に送付」のみ）。",
+    "ICLR 2028 の日程・開催地（iclr.cc に該当ページなし。過去の回からの推定のみ）。",
+    "ICLR 2024 の実際の採否通知日（CfP の予定日 2024-01-15 のみ確認。Dates ページには通知日の行がない）。",
+    "2025 年 Outstanding Paper・Honorable Mention と 2024 年の多くの受賞論文について、論文ごとの選考コメント（2025 年は選考基準のみ確認。blog.iclr.cc に直接届かず、検索スニペットで拾えた範囲のみ反映）。",
+    "2025・2026 年の受賞一覧は iclr.cc の awards_detail が空のため、公式ページでの照合ができていない（ICLR blog の検索スニペットと iclr.cc の採択論文データで題名・著者のみ照合）。",
+    "ICLR 2026 の採択数：blog の回顧記事は 5,355 本、ファクトシート（検索スニペット）は 5,357 本（採択率 27%）。どちらも投稿 19,525 本。",
+    "ICLR 2023 の投稿数：プレスリリース（直接取得）は 4,938 本、第1段階で使った資料は 4,966 本。本表はプレスリリースの値を採用。",
+    "ICLR 2025 の投稿数はファクトシート（検索スニペット）で 11,603 本と確定扱いにしたが、PDF 本体（media.iclr.cc）には届かず、第三者資料には 11,565・11,672 本もある。"
   ],
   "sources": [
     {
@@ -776,7 +786,7 @@
     },
     {
       "label": "ICLR 2024 Outstanding Paper Awards（ICLR blog）",
-      "url": "https://blog.iclr.cc/?p=740"
+      "url": "https://blog.iclr.cc/2024/05/06/iclr-2024-outstanding-paper-awards/"
     },
     {
       "label": "Announcing the ICLR 2023 Outstanding Paper Award Recipients（ICLR blog）",
@@ -829,6 +839,62 @@
     {
       "label": "ccf-deadlines iclr.yml",
       "url": "https://raw.githubusercontent.com/ccfddl/ccf-deadlines/main/conference/AI/iclr.yml"
+    },
+    {
+      "label": "ICLR 2027 トップページ（会期・開催州）",
+      "url": "https://iclr.cc/Conferences/2027"
+    },
+    {
+      "label": "ICLR 2027 Author Guide（カメラレディの案内時期）",
+      "url": "https://iclr.cc/Conferences/2027/AuthorGuidelines"
+    },
+    {
+      "label": "ICLR 2024 Call for Papers（Final decisions: Jan 15 2024）",
+      "url": "https://iclr.cc/Conferences/2024/CallForPapers"
+    },
+    {
+      "label": "ICLR 2024 Dates（カメラレディ 2024-04-14）",
+      "url": "https://iclr.cc/Conferences/2024/Dates"
+    },
+    {
+      "label": "ICLR 2023 Awards（公式受賞ページ）",
+      "url": "https://iclr.cc/virtual/2023/awards_detail"
+    },
+    {
+      "label": "ICLR 2024 Awards（公式受賞ページ）",
+      "url": "https://iclr.cc/virtual/2024/awards_detail"
+    },
+    {
+      "label": "ICLR 2024 Test of Time（VAE）",
+      "url": "https://iclr.cc/virtual/2024/test-of-time/21444"
+    },
+    {
+      "label": "ICLR 2024 Test of Time Runner Up（Intriguing properties）",
+      "url": "https://iclr.cc/virtual/2024/test-of-time/23478"
+    },
+    {
+      "label": "ICLR 2024 Outstanding Paper Awards（ICLR blog、検索スニペット）",
+      "url": "https://blog.iclr.cc/2024/05/06/iclr-2024-outstanding-paper-awards/"
+    },
+    {
+      "label": "Announcing the Test of Time Award Winners from ICLR 2015（ICLR blog、検索スニペット）",
+      "url": "https://blog.iclr.cc/2025/04/14/announcing-the-test-of-time-award-winners-from-iclr-2015/"
+    },
+    {
+      "label": "ICLR 2025 Fact Sheet（検索スニペット）",
+      "url": "https://media.iclr.cc/Conferences/ICLR2025/ICLR2025_Fact_Sheet.pdf"
+    },
+    {
+      "label": "ICLR 2024 Fact Sheet（検索スニペット）",
+      "url": "https://media.iclr.cc/Conferences/ICLR2024/ICLR2024-Fact_Sheet.pdf"
+    },
+    {
+      "label": "ICLR 2026 Fact Sheet（検索スニペット）",
+      "url": "https://media.iclr.cc/Conferences/ICLR2026/ICLR2026_Fact_Sheet.pdf"
+    },
+    {
+      "label": "ICLR 2025/2026 accepted papers data（iclr.cc/static/virtual/data）",
+      "url": "https://iclr.cc/static/virtual/data/iclr-2026-orals-posters.json"
     }
   ]
 }

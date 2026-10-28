@@ -1,8 +1,8 @@
 {
   "field": "学会調査",
   "theme": "NeurIPS：受賞・注目論文",
-  "date": "2026-10-27",
-  "summary": "NeurIPS は NeurIPS Foundation が主催する機械学習最大級の学会。投稿は 2024 の 15,671 本から 2026 の 30,709 本へ倍増し、採択率は約25%。2025 の受賞は LLM の注意機構・RL の限界・スケーリング則・拡散モデルの汎化など「なぜ効くか」を問う研究と、学習理論の難問の解決が並んだ。2026 の受賞は 12 月の会期直前に発表予定のため、本資料では Oral 採択論文を「話題」として載せる。",
+  "date": "2026-10-28",
+  "summary": "NeurIPS は NeurIPS Foundation が主催する機械学習最大級の学会。投稿は 2024 の 15,671 本から 2026 の 30,709 本へ倍増し、採択率は約25%。2024〜2025 の受賞は画像生成・LLM の学習法・RL の限界・スケーリング則など「なぜ効くか」を問う研究と、学習理論の難問の解決が並んだ。2026 の受賞は会期直前に発表予定のため、公式 Oral 一覧で確認した論文を「話題」として載せる。",
   "papers": [
     {
       "title": "Language-Conditioned World Modeling for Visual Navigation",
@@ -20,12 +20,12 @@
       "s5": "著者：言語理解そのものより、言語の意図を連続制御へ接地する部分がボトルネック。指示の詳しさより航行に効く情報の密度が重要。\n所感：オフライン軌道予測のみで閉ループ評価はなく、SR も 0.4 台。世界モデルを比べる評価場としての価値が中心。",
       "s6": "・NWM (Bar+ 2025)（未調査）\n・UniWM (Dong+ 2025)（未調査）\n・PLDM (Sobal+ 2025)（既存：world-model/jepa）\n・UniPi (Du+ 2023)（既存：language-action/foundation-policies）",
       "detail": "問題設定：ゴール画像の代わりに自然言語の指示と開始時の一人称画像1枚だけを与え、途中の観測なしに終点までの連続行動列（平面変位と yaw）を予測する。5種のロボット走行データに簡潔・詳細・ランドマーク型の3様式の指示を付け、人手評価で 5.2/6 の品質を確認した。\n手法：系統1は言語条件付き DiT が未来の潜在観測を想像し、actor-critic がその中だけで学ぶ。系統2は単一のマルチモーダル自己回帰モデルが行動と観測を同時に出す。\n結果：既知環境では世界モデル＋AC が時間的に一貫したロールアウト（PSNR 20.3）で最良、未見の TartanDrive では事前学習済みの Uni が強い。\n限界：記録軌道との比較のみで、閉ループの実機評価はない。",
-      "points": "・言語条件・想像・方策学習を同じ課題で比べられる評価場を提示\n・実ロボット由来の3.9万軌道・3様式の指示データを公開\n・「接地がボトルネック」という切り分けを ablation で示した\n・著者記載では Oral 採択率 0.36%\n（調査者の見立て）",
+      "points": "・言語条件・想像・方策学習を同じ課題で比べられる評価場を提示\n・実ロボット由来の3.9万軌道・3様式の指示データを公開\n・「接地がボトルネック」という切り分けを ablation で示した\n・公式 Oral 一覧（Atlanta 会場）に掲載。著者記載の採択率は 0.36%\n（調査者の見立て）",
       "figure": {
         "file": "figures/lcvn.png",
         "caption": "出典：LCVN Fig. 1（指示と開始画像からの観測・軌道予測。上：LCVN-Uni、下：LCVN-WM＋AC）"
       },
-      "notes": "arXiv v2（2026-09-30）を本文と付録 A まで読了。Oral 区分は著者の arXiv コメント（NeurIPS 2026 Oral, 0.36% acceptance）による。"
+      "notes": "arXiv v2（2026-09-30）を本文と付録 A まで読了。Oral 区分は NeurIPS 公式の Oral 一覧（Atlanta 会場, https://neurips.cc/virtual/2026/oral/154465）で確認（2026-10-28）。"
     },
     {
       "title": "Unifying Goal-Conditioned RL and Unsupervised Skill Learning via Control-Maximization",
@@ -43,12 +43,12 @@
       "s5": "著者：万能な MISL 目的はなく、下流の到達基準に合わせて事前学習の目的を選ぶべき。スキル分布の一様性 δ が診断量になる。\n所感：仮定は強いが、エンパワーメントとスキル学習を GCRL に結ぶ整理として有用。",
       "s6": "・DIAYN (Eysenbach+ 2019)（未調査）\n・METRA (Park+ 2024)（未調査）\n・1000 Layer CRL (Wang+ 2025)（本資料）",
       "detail": "問題設定：教師なし事前学習で得たスキルが、なぜ下流の目標到達に効くのかを理論的に問う。鍵は GCRL が一枚岩でない点にある。ゴールに居続けるほど報われる Pe、K 歩ちょうどで報われる ET、K 歩以内の初到達で報われる OW は、成功率の低い近道と遅い迂回のどちらを選ぶかで最適方策が食い違う。\n手法：命令したゴールに従うときと別のゴールに従うときの性能差の平均を「ゴール感度」と呼び、エンパワーメント型の制御可能性と結びつける。Pe・ET では GCRL 性能と同値、OW では下界になる。さらにゴールと行動結果の相互情報量がゴール感度で上下から抑えられ、スキル版の MISL 目的との差はスキル分布の一様性で決まることを示した。\n限界：有限の状態・行動、ゴール＝状態、決定的なゴール→スキル写像を仮定し、OW の対応は片側の界のみ。",
-      "points": "・GCRL の定式化の違いが最適方策を変えることを厳密に示した\n・MISL と GCRL の対応を与え、事前学習目的の選び方を示唆\n・エンパワーメント・スキル発見・目標到達を一つの理論で接続\n（調査者の見立て）",
+      "points": "・GCRL の定式化の違いが最適方策を変えることを厳密に示した\n・MISL と GCRL の対応を与え、事前学習目的の選び方を示唆\n・エンパワーメント・スキル発見・目標到達を一つの理論で接続\n・公式 Oral 一覧（Paris 会場）に掲載\n（調査者の見立て）",
       "figure": {
         "file": "figures/ctrlmax.png",
         "caption": "出典：Control-Maximization Fig. 1（GCRL の3定式化と MISL 目的を制御最大化で対応づける）"
       },
-      "notes": "arXiv v2（2026-10-22）を本文（Sec. 1–7）まで読了。証明（付録）は未精読。Oral 区分は著者の arXiv コメントによる。",
+      "notes": "arXiv v2（2026-10-22）を本文（Sec. 1–7）まで読了。証明（付録）は未精読。Oral 区分は NeurIPS 公式の Oral 一覧（Paris 会場, https://neurips.cc/virtual/2026/oral/153301）で確認（2026-10-28）。",
       "scope": "本文 Sec. 1–7（付録の証明は未精読）"
     },
     {
@@ -67,12 +67,12 @@
       "s5": "著者：失敗の多くは目標が候補に入らない探索・検出側にあり、誤った回答で剪定した目標は回復できない。\n所感：情報利得的な質問設計を LLM と NLI で素直に実装。シミュレーションのみで、利用者役も MLLM である点は割り引いて読む必要がある。",
       "s6": "・CoIN / AIUTA (Taioli+ 2025)（未調査）\n・VLFM (Yokoyama+ 2024)（未調査）\n・LCVN (Dong+ 2026)（本資料）",
       "detail": "問題設定：未知の3D環境で、カテゴリ名だけの曖昧な要求から利用者の意図した個体に到達する。視野30度の RGB-D で前進・旋回・停止を選び、自然言語で質問できる。\n手法：まず候補を最低5個集め、多視点の画像と記述で表す。次に最も似た2候補を中核、残りを剰余とし、中核に共通で剰余にない属性（例：近くに赤い箱）を NLI の含意スコア差で選ぶ。剰余でその属性を持つ候補は中核へ移す。利用者の Yes/No で片方を残し、1個になるまで繰り返す。目標に固有の属性を見つけなくてよい点が要。\n結果：SR は AIUTA* 比で相対 +126%、質問は平均 2.2 回。回答の反転を20%混ぜても SR 17〜21% を保つ（Table 4）。\n限界：失敗 634 件中 436 件は目標が候補にない（Fig. 4）。実機評価は今後。",
-      "points": "・「独立照合」から「候補間の比較」へ、曖昧指示下の探索を転換\n・回答長や中断など利用者負担を評価に含め、人手実験で裏付け\n・言語による対話と身体的な探索を結ぶ実用的な設計\n（調査者の見立て）",
+      "points": "・「独立照合」から「候補間の比較」へ、曖昧指示下の探索を転換\n・回答長や中断など利用者負担を評価に含め、人手実験で裏付け\n・言語による対話と身体的な探索を結ぶ実用的な設計\n・公式 Oral 一覧（Sydney 会場）に掲載\n（調査者の見立て）",
       "figure": {
         "file": "figures/procomp.png",
         "caption": "出典：ProCompNav Fig. 1（(a) 独立照合、(b) プール型独立照合、(c) 比較判断）"
       },
-      "notes": "arXiv v4（2026-09-29）を本文まで読了。Oral 区分は著者の arXiv コメントによる。"
+      "notes": "arXiv v4（2026-09-29）を本文まで読了。Oral 区分は NeurIPS 公式の Oral 一覧（Sydney 会場, https://neurips.cc/virtual/2026/oral/153424）で確認（2026-10-28）。公式の題名は「ProCompNav:」を付けない「Proactive Instance Navigation with Comparative Judgment for Ambiguous User Queries」。"
     },
     {
       "title": "Thinking with Images as Continuous Actions: Numerical Visual Chain-of-Thought",
@@ -90,12 +90,12 @@
       "s5": "著者：画像や課題そのものを誤解している場合は救えず、改善は位置特定の精度に限られる。\n所感：言語モデルの行動空間に連続値を混ぜる一般的な発想で、ロボットの行動を出す VLA にもそのまま通じる。",
       "s6": "・DeepEyes (Zheng+ 2026)（未調査）\n・Visual CoT (Shao+ 2024)（未調査）\n・Latent Visual Reasoning (Li+ 2026)（未調査）",
       "detail": "問題設定：思考の途中で画像の一部を切り出して見直す視覚 CoT では、切り出す座標の質が答えの正否を左右する。既存手法は座標を「4」「8」のような文字トークンで生成して交差エントロピーで学ぶため、幾何的な近さが反映されない。\n手法：通常の語彙ヘッドに加え、座標の平均4値と分散1値を出す連続行動ヘッドを付ける。SFT では回帰損失、RL では N(μ,σ²) から座標をサンプルして切り出し、尤度比と KL を閉形式で求めて GRPO に組み込む。推論時は平均を使う。L1 に当たるラプラス方策が一貫して良い（Table 5）。\n結果：SFT・RL どちらの基盤モデルでも、座標の出し方を差し替えるだけで V*・HR-Bench が向上し、収束も速い。成功した軌跡ほど尺度 α が小さく、不確実性が成否と対応した（Fig. 3）。\n限界：7B 規模の検証が中心。",
-      "points": "・離散トークンと連続行動を一つの方策で扱い、GRPO と両立させた\n・ヘッドを足すだけの最小改変で SFT と RL の双方に効く\n・7B で 32B を上回る実利と、学習の速い収束\n・著者記載では Oral（上位 0.4%）\n（調査者の見立て）",
+      "points": "・離散トークンと連続行動を一つの方策で扱い、GRPO と両立させた\n・ヘッドを足すだけの最小改変で SFT と RL の双方に効く\n・7B で 32B を上回る実利と、学習の速い収束\n・公式 Oral 一覧（Sydney 会場）に掲載。著者記載は上位 0.4%\n（調査者の見立て）",
       "figure": {
         "file": "figures/nvcot.png",
         "caption": "出典：NV-CoT Fig. 1（テキスト座標・パッチ・連続座標による視覚 CoT の比較）"
       },
-      "notes": "arXiv v2（2026-10-15）を本文まで読了。Oral 区分は著者の arXiv コメント（Oral, Top 0.4%）による。"
+      "notes": "arXiv v2（2026-10-15）を本文まで読了。Oral 区分は NeurIPS 公式の Oral 一覧（Sydney 会場, https://neurips.cc/virtual/2026/oral/150086）で確認（2026-10-28）。公式の題名は「Thinking with Images as Continuous Policy: Numerical Visual Chain-of-Thought」（arXiv 版は Continuous Actions）。"
     },
     {
       "title": "Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free",
@@ -117,7 +117,7 @@
         "file": "figures/gated.png",
         "caption": "出典：Gated Attention Fig. 2（層ごとの先頭トークンへの注意。上：基準、下：SDPA 出力ゲート）"
       },
-      "notes": "arXiv v1（2025-05-10）を本文と Limitations まで読了。受賞は NeurIPS 公式ブログ（2025-11-26）と Fact Sheet の検索結果で確認。",
+      "notes": "arXiv v1（2025-05-10）を本文と Limitations まで読了。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
     },
     {
@@ -140,7 +140,7 @@
         "file": "figures/deep1000.png",
         "caption": "出典：1000 Layer CRL Fig. 3（深さ 4/16/64/256 で現れる Humanoid の行動）"
       },
-      "notes": "arXiv v5（2026-10-05）を本文 Sec. 1–4 まで読了。受賞は公式ブログの検索結果と arXiv コメント（Best Paper Award）で確認。",
+      "notes": "arXiv v5（2026-10-05）を本文 Sec. 1–4 まで読了。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
     },
     {
@@ -163,7 +163,7 @@
         "file": "figures/diffmem.png",
         "caption": "出典：Diffusion Memorization Fig. 1（学習時間の2つの尺度と (n, p) 相図）"
       },
-      "notes": "arXiv v2（2025-10-28）を本文 Sec. 1–4 まで読了。付録の証明は未精読。",
+      "notes": "arXiv v2（2025-10-28）を本文 Sec. 1–4 まで読了。付録の証明は未精読。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞",
       "scope": "本文 Sec. 1–4（付録の証明は未精読）"
     },
@@ -187,7 +187,7 @@
         "file": "figures/hivemind.png",
         "caption": "出典：Artificial Hivemind Fig. 1（25モデルの「時間の比喩」応答の埋め込み PCA）"
       },
-      "notes": "arXiv v2（2026-10-06, camera-ready）を本文まで読了。D&B トラックからの Best Paper（4本中1本）。",
+      "notes": "arXiv v2（2026-10-06, camera-ready）を本文まで読了。D&B トラックからの Best Paper（4本中1本）。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
     },
     {
@@ -210,7 +210,7 @@
         "file": "figures/rlvr.png",
         "caption": "出典：Limit of RLVR Fig. 1（基盤と RLVR の探索木、学習段階ごとの pass@k）"
       },
-      "notes": "arXiv v5（2025-11-24）を本文 Sec. 1–4 まで読了。",
+      "notes": "arXiv v5（2025-11-24）を本文 Sec. 1–4 まで読了。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
     },
     {
@@ -233,7 +233,7 @@
         "file": "figures/omb.png",
         "caption": "出典：Transductive Mistake Bounds Fig. 1(c)(d)（関数が定める木の経路とビット列による節点の命名）"
       },
-      "notes": "arXiv v1（2025-12-14）を Sec. 1–2（主結果と証明の概要）まで読了。Sec. 6–8 の厳密な証明は未精読。",
+      "notes": "arXiv v1（2025-12-14）を Sec. 1–2（主結果と証明の概要）まで読了。Sec. 6–8 の厳密な証明は未精読。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞",
       "scope": "本文 Sec. 1–2（主結果・証明の概要。厳密な証明は未精読）"
     },
@@ -257,7 +257,7 @@
         "file": "figures/superpos.png",
         "caption": "出典：Superposition Scaling Fig. 1（重ね合わせの有無と、損失のモデル次元依存）"
       },
-      "notes": "arXiv v4（2025-11-29）を本文と Discussion まで読了。arXiv コメントに Best Paper Runner-up の記載あり。",
+      "notes": "arXiv v4（2025-11-29）を本文と Discussion まで読了。arXiv コメントに Best Paper Runner-up の記載あり。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
     },
     {
@@ -280,8 +280,100 @@
         "file": "figures/frcnn.png",
         "caption": "出典：Faster R-CNN Fig. 1（RPN の構造と VOC 2007 での検出例）"
       },
-      "notes": "NIPS 2015 論文集版（proceedings.neurips.cc, 9ページ）を全文読了。arXiv 1506.01497 は TPAMI 拡張版。受賞は NeurIPS 公式ブログ（2025-11-26）の検索結果で確認。",
+      "notes": "NIPS 2015 論文集版（proceedings.neurips.cc, 9ページ）を全文読了。arXiv 1506.01497 は TPAMI 拡張版。受賞区分は NeurIPS 公式の受賞一覧（https://neurips.cc/virtual/2025/awards_detail）で確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。",
       "lineage": "受賞"
+    },
+    {
+      "title": "Visual Autoregressive Modeling: Scalable Image Generation via Next-Scale Prediction",
+      "short": "VAR (Tian+ 2024)",
+      "authors": "Keyu Tian, Yi Jiang, Zehuan Yuan, Bingyue Peng, Liwei Wang（北京大学・ByteDance）｜ NeurIPS 2024",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2404.02905",
+      "award": "NeurIPS 2024 Best Paper Award",
+      "lineage": "受賞",
+      "s1": "画像の自己回帰生成を、ラスター順の「次トークン予測」から粗→細の「次スケール（解像度）予測」に置き換えた VAR を提案。GPT 型の AR モデルとして初めて拡散トランスフォーマ（DiT）を FID で上回り、推論も約20倍速い。",
+      "s2": "VQGAN 等の AR 画像生成は 2D トークンを1列に並べるため、双方向の依存を一方向で扱う矛盾、空間局所性の破壊、O(n^6) の計算量という問題を抱え、拡散モデルに大きく劣っていた。スケーリング則も未確認だった。",
+      "s3": "多尺度 VQVAE で画像を 1×1 から h×w までの K 枚のトークンマップに残差的に量子化（共有コードブック V=4096）。GPT-2 型トランスフォーマがブロック単位の因果マスクで、前の全スケールを条件に次スケールの全トークンを並列に予測する。",
+      "s4": "ImageNet 256 で FID 1.73・IS 350.2（2.0B）、DiT-XL/2 は 2.27、L-DiT-7B は 2.28（Table 1）。10 ステップで DiT の約1/45 の時間。AR を VAR に替えるだけで FID 18.65→5.22（Table 3）。18M〜2B の12モデルで損失がべき則（相関 −0.998, Fig. 5）。",
+      "s5": "著者：トークナイザは VQGAN のままで、その改良は直交する課題。テキスト条件生成と動画（3D の次スケール予測）が今後。\n所感：「画像の順序をどう定義するか」の発想転換で AR と拡散の優劣を逆転させ、LLM 型の統一モデルへの道を開いた。",
+      "s6": "・VQGAN (Esser+ 2021)（未調査）\n・DiT (Peebles & Xie 2023)（未調査）\n・MAR (Li+ 2024)（未調査）",
+      "detail": "問題設定：LLM の成功を支える自己回帰（AR）とスケーリング則を画像生成に持ち込みたいが、ラスター順の AR は拡散モデルに劣り、遅かった。\n手法：画像の「順序」を人の知覚に合わせて粗→細と定義し直す。多尺度 VQVAE が特徴マップを各解像度で量子化し、上のスケールでは下までの再構成との残差を符号化する。トランスフォーマは r1…r(k−1) を入力に rk を一度に予測するので、反復は O(log n) 回、計算量は O(n^4) に下がる。\n結果：ImageNet 256/512 で当時最良の FID（1.73/2.63）。データ効率（350 エポック対 DiT の 1400）、速度、規模拡大のいずれでも DiT を上回り、モデル規模と計算量に対するべき則を確認した。追加学習なしでインペインティングや編集もできる。\n限界：評価はクラス条件の ImageNet に限られ、テキスト条件や動画は今後の課題。",
+      "points": "・「次スケール予測」という単純な再定義で、AR が拡散を初めて逆転\n・LLM と同様のべき則スケーリングを画像の AR で実証\n・コードとモデルを公開し、後続の画像 AR 研究の基盤になった\n（調査者の見立て）",
+      "figure": {
+        "file": "figures/var.png",
+        "caption": "出典：VAR (Tian+ 2024) Fig. 2（(a)(b) 従来の次トークン予測と (c) VAR の次スケール予測）"
+      },
+      "notes": "arXiv v2（2024-06-10）を本文（Sec. 1–9）まで読了。https://neurips.cc/virtual/2024/awards_detail で受賞区分を確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。"
+    },
+    {
+      "title": "Stochastic Taylor Derivative Estimator: Efficient amortization for arbitrary differential operators",
+      "short": "STDE (Shi+ 2024)",
+      "authors": "Zekun Shi, Zheyuan Hu, Min Lin, Kenji Kawaguchi（シンガポール国立大学・Sea AI Lab）｜ NeurIPS 2024",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2412.00088",
+      "award": "NeurIPS 2024 Best Paper Award",
+      "lineage": "受賞",
+      "s1": "高次・高次元の微分作用素を含む損失を、一変数の Taylor モード自動微分に適切な「ランダムなジェット」を入力して確率的に推定する STDE を提案。PINN で 100 万次元の PDE を A100 1枚・8分で解いた。",
+      "s2": "PINN 等の損失に含まれる k 階・d 次元の微分は、逆伝播を重ねると O(d^k) のテンソルと O(2^(k−1)L) の計算グラフを要する。SDGD や Hutchinson 推定は d を償却したが k の指数爆発は残り、Taylor モードは一変数関数にしか使えなかった。",
+      "s3": "k 階 Taylor モードの押し出しが多変数微分テンソルの任意の縮約を含むことを示し、作用素の係数テンソルに期待値が一致するジェット分布（標準基底からなる疎なジェット等）を設計。押し出しの標本平均で作用素を不偏推定する。",
+      "s4": "2体 Allen-Cahn 方程式で、最良の基準（並列化 SDGD）比で最大約10倍速く、メモリは4倍以上少ない（Table 1, 2）。10万次元で 156.9 対 29.2 it/s、100万次元は基準が OOM の中 13.6 it/s・6.2GB。高階の 2D KdV 等でも逆伝播の約2倍速い（Table 11）。",
+      "s5": "著者：特定の作用素向けの最適化は捨てた一般法で、分散低減や乱択バッチの大きさとの兼ね合いは未検討。パラメータの高階微分には向かない。\n所感：自動微分と乱択数値線形代数をつなぐ、見通しのよい一般化。",
+      "s6": "・SDGD (Hu+ 2024)（未調査）\n・Taylor-mode AD in JAX (Bettencourt+ 2019)（未調査）\n・Forward Laplacian (Li+ 2023)（未調査）",
+      "detail": "問題設定：物理情報 NN（PINN）など、損失に入力についての高階・高次元の微分作用素を含む最適化は、逆伝播を重ねると次元 d に多項式、階数 k に指数的にコストが増える。\n手法：k-ジェット（曲線の k 階までの接ベクトルの組）を Taylor モード AD で押し出すと、Faa di Bruno の公式により多変数微分テンソルの縮約が得られる。混合偏微分も、より高い階のジェットの一部の接ベクトルを零にすれば取り出せる。係数テンソルに期待値が一致するようジェットを乱択すれば不偏推定になり、1回の計算は O(k^2 dL)、メモリは O(kd)。HTE は等方的な密ジェットの特別な場合で、4階以上には一般化できないことも示した。\n結果：Allen-Cahn・Poisson・Sine-Gordon・放物型・KdV 等で SDGD より大幅に速く省メモリで、誤差は同程度。重み共有で 500 万次元も約30分。\n限界：分散低減は未検討。",
+      "points": "・高次元と高階という二つの「次元の呪い」を同時に扱う一般的な枠組み\n・Taylor モード AD と乱択推定を結ぶ、理論的に明快な洞察\n・100 万次元の PDE を GPU 1枚で解くという分かりやすい実証\n（調査者の見立て）",
+      "figure": {
+        "file": "figures/stde.png",
+        "caption": "出典：STDE (Shi+ 2024) Fig. 2（4 つの基本演算からなる F の 2-ジェットの押し出し d²F の計算グラフ）"
+      },
+      "notes": "arXiv v2（2025-01-13）を本文（Sec. 1–6）と付録 I の主要な表まで読了。https://neurips.cc/virtual/2024/awards_detail で受賞区分を確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。"
+    },
+    {
+      "title": "Guiding a Diffusion Model with a Bad Version of Itself",
+      "short": "Autoguidance (Karras+ 2024)",
+      "authors": "Tero Karras, Miika Aittala, Tuomas Kynkäänniemi, Jaakko Lehtinen, Timo Aila, Samuli Laine（NVIDIA・Aalto 大学）｜ NeurIPS 2024",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2406.02507",
+      "award": "NeurIPS 2024 Best Paper Runner-up",
+      "lineage": "受賞",
+      "s1": "拡散モデルの誘導に、無条件モデルではなく「小さく学習の浅い自分自身」を使う autoguidance を提案。多様性を損なわずに画質だけを高め、ImageNet-512 で FID 1.25、ImageNet-64 で 1.01 の記録を出した。",
+      "s2": "標準の classifier-free guidance（CFG）は、条件への整合・画質の向上・多様性の低下が絡み合い、別々に制御できない。条件付き生成にしか使えず、軌道が行き過ぎて構図が単純化する問題もあった。",
+      "s3": "2次元のフラクタル状の玩具分布で、CFG の画質向上は「弱い無条件モデルとの密度比の勾配が多様体の内側を指す」ことによると分析。そこで同じ条件・同じ課題で、容量を減らし学習を短くした劣化版 D0 で主モデル D1 を外挿誘導する。",
+      "s4": "EDM2-S（ImageNet-512）で FID 2.56→1.34（CFG 2.23、Guidance Interval 1.68）、EDM2-XXL で 1.25（Table 1）。無条件生成でも 11.67→3.86。学習短縮のみなら 1.51、容量削減のみなら 2.13。追加の学習コストは S/XS の組で +3.6%。",
+      "s5": "著者：誘導モデルが有効になる条件の理論や選び方は未解明。大規模生成器では早期のスナップショットが手に入りにくい。\n所感：CFG が「なぜ効くか」を解きほぐし、画質と多様性を分離した。単純で応用範囲が広い。",
+      "s6": "・Classifier-Free Guidance (Ho & Salimans 2022)（未調査）\n・EDM2 (Karras+ 2024)（未調査）\n・Guidance Interval (Kynkäänniemi+ 2024)（未調査）",
+      "detail": "問題設定：CFG は画像拡散の標準的な「温度を下げる」手法だが、なぜ画質が上がるのかは曖昧で、多様性の低下と切り離せなかった。\n分析：有限容量のモデルはスコアマッチングにより、学習の不十分な低確率領域まで分布を広げて外れ値を生む。無条件モデルは課題が難しく、さらに広がった密度を学ぶ。このため両者の密度比の勾配はデータ多様体の内側を指し、外れ値を引き戻す。これが CFG の画質向上の正体で、条件の強調とは別の効果だと示した。\n手法：同じ種類の誤差をより強く持つ劣化版（小容量・学習 1/16）で自分を誘導する。人工的な劣化（dropout と入力ノイズ）では、主モデルと誘導モデルの劣化の種類が一致するときだけ効くことを確かめた。\n結果：ImageNet の FID・FD_DINOv2 で記録を更新し、DeepFloyd IF でも画風や複雑さを保ったまま画質が上がった。\n限界：別モデルの学習が必要。",
+      "points": "・CFG の画質向上の機構を、密度比という明快な描像で説明\n・画質と多様性を切り分け、無条件生成にも誘導を可能にした\n・わずかな追加学習で ImageNet の FID の記録を更新\n（調査者の見立て）",
+      "figure": {
+        "file": "figures/autoguide.png",
+        "caption": "出典：Autoguidance (Karras+ 2024) Fig. 1（2次元玩具分布。左から 正解・誘導なし・CFG・単純な切り詰め・autoguidance）"
+      },
+      "notes": "arXiv v3（2024-12-19）を本文（Sec. 1–6）まで読了。https://neurips.cc/virtual/2024/awards_detail で受賞区分を確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。"
+    },
+    {
+      "title": "Not All Tokens Are What You Need for Pretraining",
+      "short": "Rho-1 (Lin+ 2024)",
+      "authors": "Zhenghao Lin, Zhibin Gou, Yeyun Gong, Xiao Liu ほか（厦門大学・清華大学・Microsoft）｜ NeurIPS 2024",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "link": "https://arxiv.org/abs/2404.07965",
+      "award": "NeurIPS 2024 Best Paper Runner-up",
+      "lineage": "受賞",
+      "s1": "事前学習で全トークンに一律の次トークン損失をかける慣行を見直し、参照モデルとの「超過損失」が大きいトークンだけを学ぶ Selective Language Modeling（SLM）を提案。数学の継続事前学習で few-shot 精度を最大30%改善した。",
+      "s2": "文書単位でフィルタしたコーパスにも、トークン単位の雑音（日時・ID 等）が残る。学習中のトークン損失を追うと、大きく下がるのは 26% だけで、51% は学習済み、11% は下がらない難トークンで、多くの勾配更新が無駄になっていた。",
+      "s3": "①高品質データ（数学 0.5B、一般 1.9B トークン）で参照モデルを学習 ②コーパスの各トークンの参照損失を計算 ③学習中モデルの損失との差（超過損失）が上位 k%（1B で 60%、7B で 70%）のトークンにだけ損失をかける。",
+      "s4": "OpenWebMath 15B トークンの継続学習で、平均 few-shot が 1B で +16.5%、7B で +10.4%（Table 1）。Rho-1-7B は 15B トークンで、500B を使う DeepSeekMath-7B に匹敵。微調整後の MATH は 40.6%（1B）・51.8%（7B）（Table 2）。一般 80B でも 15 課題平均 +6.8%（Fig. 5）。",
+      "s5": "著者：検証は 7B 以下・100B トークン未満に限られ、超大規模で効くかは未確認。選ばなかったトークンの損失は上がる。\n所感：データ選択を文書からトークンへと細かくした発想が明快で、実装も軽い。",
+      "s6": "・RHO-LOSS (Mindermann+ 2022)（未調査）\n・DeepSeekMath (Shao+ 2024)（未調査）\n・DoReMi (Xie+ 2023)（未調査）",
+      "detail": "問題設定：LLM の事前学習は全トークンに等しく損失をかけるが、トークンごとに学習の進み方は大きく異なり、雑音や学習済みのトークンに計算が費やされている。\n手法：望ましい分布を表す少量の高品質データで参照モデルを作り、学習中モデルの損失から参照損失を引いた超過損失でトークンを順位付けする。バッチ内の上位 k% だけに交差エントロピーをかけるので、追加コストはほぼない。参照データがない場合も、同じコーパスで学んだ参照モデルの損失とエントロピーで雑音を除く「自己参照」で平均 +3.3%（Table 3）。\n分析：選んだトークンの損失は下流性能とべき則で相関し、選ばなかったトークンの損失は相関しない（Fig. 7）。選択比は約60%がよい（Fig. 9）。\n限界：7B・100B トークン以下での検証のみ。参照モデルの分布に急速に寄るため、一般の損失との併用が望ましい。",
+      "points": "・「全トークンを学ぶ」という前提を覆す、単純で効く目的関数\n・トークン損失の動態の分析から手法を導いた筋のよさ\n・3% のトークン量で最先端の数学モデルに並ぶデータ効率\n（調査者の見立て）",
+      "figure": {
+        "file": "figures/rho1.png",
+        "caption": "出典：Rho-1 (Lin+ 2024) Fig. 2（雑音を含むコーパスで、通常の CLM と、望ましいトークンにだけ損失をかける SLM の比較）"
+      },
+      "notes": "arXiv v4（2025-01-08）を本文（Sec. 1–4）と付録 C（Limitations）まで読了。公式の題名は「Not All Tokens Are What You Need for Pretraining」（arXiv 版は「Rho-1: Not All Tokens Are What You Need」）。https://neurips.cc/virtual/2024/awards_detail で受賞区分を確認（2026-10-28）。選考委員会のコメント（公式ブログ）は到達できず未確認。"
     }
   ]
 }
